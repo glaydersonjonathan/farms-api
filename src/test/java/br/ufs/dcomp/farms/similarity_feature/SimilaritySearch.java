@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 import java.util.TreeMap;
 
 import org.jbibtex.ParseException;
@@ -36,9 +37,16 @@ public class SimilaritySearch {
 			fileReferences[i] = file;
 			
 			PrintWriter fileWriter = new PrintWriter(file);
-			fileWriter.printf("@article{article," + "author  = {Peter Adams}," + "title   = {The title of the work},"
-					+ "journal = {The name of the journal}," + "year    = 1993," + "number  = 2," + "pages   = {201-213},"
-					+ "month   = 7," + "note    = {An optional note}," + "volume  = 4}");
+			fileWriter.printf("@article{article," 
+					+ "author  = {Peter Adams}," 
+					+ "title   = {The title of the work},"
+					+ "journal = {The name of the journal}," 
+					+ "year    = 1993," 
+					+ "number  = 2," 
+					+ "pages   = {201-213},"
+					+ "month   = 7," 
+					+ "note    = {An optional note}," 
+					+ "volume  = 4}");
 			
 			file.close();
 		}
@@ -76,9 +84,16 @@ public class SimilaritySearch {
 		while(iterator.hasNext()){
 			Bibtex_String article = iterator.next();
 			
-			System.out.println(article.getAuthor() + i++);
+			System.out.println("Author: "+article.getAuthor() + i++);
+			System.out.println("Author: "+article.getJournal() + i++);
 		}
 		assertNotNull(Entries);
+	}
+	
+	private Integer pickNumber() {
+		Random r = new Random();
+		
+		return r.nextInt(5);
 	}
 
 }
