@@ -23,12 +23,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.ufs.dcomp.farms.common.message.ErrorMessage;
+import br.ufs.dcomp.farms.common.message.SuccessMessage;
+import br.ufs.dcomp.farms.core.FarmsException;
+import br.ufs.dcomp.farms.core.FarmsMail;
 import br.ufs.dcomp.farms.core.FarmsResponse;
 import br.ufs.dcomp.farms.model.dto.InstitutionCreatedDto;
 import br.ufs.dcomp.farms.model.dto.MainQuestionCreatedDto;
 import br.ufs.dcomp.farms.model.dto.ObjectiveCreatedDto;
+import br.ufs.dcomp.farms.model.dto.ProjectCreateDto;
 import br.ufs.dcomp.farms.model.dto.ProjectCreatedDto;
 import br.ufs.dcomp.farms.model.dto.ProjectMemberDto;
+import br.ufs.dcomp.farms.model.dto.ResearcherRegisterDto;
+import br.ufs.dcomp.farms.model.dto.ResearcherRegisteredDto;
 import br.ufs.dcomp.farms.model.dto.SearchKeywordCreatedDto;
 import br.ufs.dcomp.farms.model.dto.SecondaryQuestionCreatedDto;
 import br.ufs.dcomp.farms.model.dto.SelectionCriteriaCreatedDto;
@@ -76,6 +82,24 @@ public class ProjectResource {
 	private StandardQueryService standardQueryService;
 	@Autowired
 	private SelectionCriteriaService selectionCriteriaService;
+	
+	//andre
+	@POST
+	@Path("/projects")
+	public Response createProject(@PathParam("project") ProjectCreateDto project) {
+		try {
+			logger.info("Starting save.");
+			ProjectCreatedDto projectCreatedDto = projectService.save(project);
+			logger.info(SuccessMessage.PROJECT_REGISTERED);
+			return FarmsResponse.ok(SuccessMessage.PROJECT_REGISTERED, projectCreatedDto);
+		} catch (FarmsException fe) {
+			return FarmsResponse.error(fe.getErrorMessage());
+		} catch (Exception ex) {
+			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+		    return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+	
 	
 	// projects/{dsKey}
 	@GET
