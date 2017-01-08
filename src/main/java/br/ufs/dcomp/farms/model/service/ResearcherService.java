@@ -52,10 +52,12 @@ public class ResearcherService {
 	//ok? falta senha
 	@Transactional(rollbackFor = Exception.class)
 	public boolean update(ResearcherRegisterDto researcherRegisterDto) {
+			
 		Researcher researcher = new Researcher();
 		researcher.setNmResearcher(researcherRegisterDto.getNmResearcher());
 		researcher.setDsSSO(researcherRegisterDto.getDsSSO());
 		researcher.setDsEmail(researcherRegisterDto.getDsEmail());
+		
 		researcher.setDsPassword(researcherRegisterDto.getDsPassword());
 		
 		researcher.setCdUuid(researcherRegisterDto.getCdUuid());
@@ -65,6 +67,17 @@ public class ResearcherService {
 		researcherDAO.update(researcher);
 		return true;
 	}
+	
+	
+	
+	
+	public boolean delete(Long idResearcher) {
+		return researcherDAO.delete(idResearcher);
+		
+	}
+	
+	
+	
 	
 	@Transactional(rollbackFor = Exception.class)
 	public boolean confirmAccount(Researcher researcher) {
@@ -83,13 +96,14 @@ public class ResearcherService {
 		return researcherDAO.getByNmResearcher(nmResearcher);
 	}
 	
+	//ok, usado na hora de buscar perfil
 	public ResearcherRegisterDto getBySSO(String dsSSO) {
 		Researcher researcher = researcherDAO.getByDsSSO(dsSSO);
 		ResearcherRegisterDto researcherCreatedDto = new ResearcherRegisterDto(researcher);
 		return researcherCreatedDto;
 	}
 	
-	
+	//ok, usado na hora de registrar
 	public Researcher getBySSOtoRegister(String dsSSO) {
 		Researcher researcher = researcherDAO.getByDsSSO(dsSSO);
 		return researcher;
@@ -107,4 +121,6 @@ public class ResearcherService {
 		}
 		return researcher;
 	}
+
+
 }

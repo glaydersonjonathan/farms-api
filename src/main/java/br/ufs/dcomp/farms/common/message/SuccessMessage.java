@@ -41,4 +41,8 @@ public final class SuccessMessage extends Message {
 	private static final Integer PROJECT_REGISTERED_CODE = 1006;
 	private static final String PROJECT_REGISTERED_DESCRIPTION = "Project saved successfully.";
 	public static final SuccessMessage PROJECT_REGISTERED = new SuccessMessage(PROJECT_REGISTERED_CODE, PROJECT_REGISTERED_DESCRIPTION);
+	
+
+	
+	
 }

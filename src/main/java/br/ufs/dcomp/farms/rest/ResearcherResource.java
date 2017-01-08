@@ -3,6 +3,7 @@ package br.ufs.dcomp.farms.rest;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -17,6 +18,8 @@ import org.springframework.stereotype.Component;
 
 import br.ufs.dcomp.farms.common.message.ErrorMessage;
 import br.ufs.dcomp.farms.common.message.SuccessMessage;
+import br.ufs.dcomp.farms.core.FarmsCrypt;
+import br.ufs.dcomp.farms.core.FarmsException;
 import br.ufs.dcomp.farms.core.FarmsResponse;
 import br.ufs.dcomp.farms.model.dto.ProjectCreateDto;
 import br.ufs.dcomp.farms.model.dto.ProjectCreatedDto;
@@ -35,10 +38,9 @@ public class ResearcherResource {
 
 	@Autowired
 	private ResearcherService researcherService;
-	
+
 	@Autowired
 	private ProjectService projectService;
-
 
 	@GET
 	@Path("/?dsEmail={dsEmail}")
@@ -52,7 +54,7 @@ public class ResearcherResource {
 		}
 	}
 
-	//OK!
+	// OK!
 	@GET
 	@Path("/{dsSSO}")
 	public Response getBydsSSO(@PathParam("dsSSO") String dsSSO) {
@@ -64,24 +66,43 @@ public class ResearcherResource {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-	
-	//ok? falta senha
+
+	// ok? falta verificar se email já existe
 	@PUT
-	public Response updateResearcher(ResearcherRegisterDto researcherRegisterDto){
-		try{
+	public Response updateResearcher(ResearcherRegisterDto researcherRegisterDto) {
+		try {
 			Boolean researcherRegisteredDto = researcherService.update(researcherRegisterDto);
 			return FarmsResponse.ok(SuccessMessage.RESEARCHER_UPDATED, researcherRegisteredDto);
 		} catch (Exception ex) {
-			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-	
-	
-	
-	
-	
-	
+
+	//mudança de senha necessito criptografar, por isso outro metodo
+	@PUT
+	@Path("/pass")
+	public Response updatePassword(ResearcherRegisterDto researcherRegisterDto) {
+		researcherRegisterDto.setDsPassword(FarmsCrypt.hashPassword(researcherRegisterDto.getDsPassword()));
+		try {
+			Boolean researcherRegisteredDto = researcherService.update(researcherRegisterDto);
+			return FarmsResponse.ok(SuccessMessage.PASSWORD_CHANGED, researcherRegisteredDto);
+		} catch (Exception ex) {
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+
+	// testando
+	@DELETE
+	@Path("/{idResearcher}")
+	public Response deleteResearcher(@PathParam("idResearcher") Long idResearcher) {
+		try {
+			Boolean researcherExcludedDto = researcherService.delete(idResearcher);
+			return FarmsResponse.ok(SuccessMessage.RESEARCHER_EXCLUDED, researcherExcludedDto);
+		} catch (Exception ex) {
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+
 	@GET
 	@Path("/{dsSSO}/projects")
 	public Response GetByDsSsoResearcher(@PathParam("dsSSO") String dsSSO) {
