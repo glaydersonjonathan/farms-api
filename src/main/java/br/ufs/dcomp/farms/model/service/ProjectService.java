@@ -40,10 +40,13 @@ public class ProjectService {
 	@Transactional(rollbackFor = FarmsException.class)
 	public ProjectCreatedDto save(ProjectCreateDto projectCreateDto) throws FarmsException {
 		
-		ProjectCreatedDto projectFoundByDsKey = this.getByDsKey(projectCreateDto.getDsKey());
-		if (projectFoundByDsKey != null) {
-			throw new FarmsException(ErrorMessage.SLUG_ALREADY_IN_USE);
-		}
+		
+		//ProjectCreatedDto projectFoundByDsKey = this.getByDsKey(projectCreateDto.getDsKey());
+		System.out.println("oi");
+		
+		//if (projectFoundByDsKey != null) {
+		//	throw new FarmsException(ErrorMessage.SLUG_ALREADY_IN_USE);
+		//}
 		
 		Researcher researcher = researcherDao.getByDsSSO(projectCreateDto.getDsSsoResearcher());
 		if (researcher == null) {

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -15,8 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.ufs.dcomp.farms.common.message.ErrorMessage;
+import br.ufs.dcomp.farms.common.message.SuccessMessage;
 import br.ufs.dcomp.farms.core.FarmsResponse;
+import br.ufs.dcomp.farms.model.dto.ProjectCreateDto;
 import br.ufs.dcomp.farms.model.dto.ProjectCreatedDto;
+import br.ufs.dcomp.farms.model.dto.ResearcherRegisterDto;
 import br.ufs.dcomp.farms.model.entity.Researcher;
 import br.ufs.dcomp.farms.model.service.ProjectService;
 import br.ufs.dcomp.farms.model.service.ResearcherService;
@@ -35,17 +39,6 @@ public class ResearcherResource {
 	@Autowired
 	private ProjectService projectService;
 
-	@GET
-	@Path("/?dsSSO={dsSSO}")
-	public Response getByDsSsoResearcher(@PathParam("dsSSO") String dsSSO) {
-		try {
-			Researcher researcher = researcherService.getBySSO(dsSSO);
-			return FarmsResponse.ok(researcher);
-		} catch (Exception ex) {
-			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
-			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
-		}
-	}
 
 	@GET
 	@Path("/?dsEmail={dsEmail}")
@@ -59,17 +52,35 @@ public class ResearcherResource {
 		}
 	}
 
+	//OK!
 	@GET
-	@Path("/?nmResearcher={nmResearcher}")
-	public Response getByNmResearcher(@PathParam("nmResearcher") String nmResearcher) {
+	@Path("/{dsSSO}")
+	public Response getBydsSSO(@PathParam("dsSSO") String dsSSO) {
 		try {
-			List<Researcher> researchers = researcherService.getByName(nmResearcher);
-			return FarmsResponse.ok(researchers);
+			ResearcherRegisterDto researcherCreatedDto = researcherService.getBySSO(dsSSO);
+			return FarmsResponse.ok(researcherCreatedDto);
 		} catch (Exception ex) {
 			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
+	
+	//ok? falta senha
+	@PUT
+	public Response updateResearcher(ResearcherRegisterDto researcherRegisterDto){
+		try{
+			Boolean researcherRegisteredDto = researcherService.update(researcherRegisterDto);
+			return FarmsResponse.ok(SuccessMessage.RESEARCHER_UPDATED, researcherRegisteredDto);
+		} catch (Exception ex) {
+			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+	
+	
+	
+	
+	
 	
 	@GET
 	@Path("/{dsSSO}/projects")

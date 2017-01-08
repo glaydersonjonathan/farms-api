@@ -11,6 +11,7 @@ import br.ufs.dcomp.farms.common.message.ErrorMessage;
 import br.ufs.dcomp.farms.core.FarmsCrypt;
 import br.ufs.dcomp.farms.core.FarmsException;
 import br.ufs.dcomp.farms.model.dao.ResearcherDao;
+import br.ufs.dcomp.farms.model.dto.ProjectCreatedDto;
 import br.ufs.dcomp.farms.model.dto.ResearcherRegisterDto;
 import br.ufs.dcomp.farms.model.entity.Researcher;
 import br.ufs.dcomp.farms.model.enums.StateEnum;
@@ -25,7 +26,7 @@ public class ResearcherService {
 	@Transactional(rollbackFor = FarmsException.class)
 	public boolean save(ResearcherRegisterDto researcherRegisterDto) throws FarmsException {
 		
-		Researcher researcherFoundByDsSSO = this.getBySSO(researcherRegisterDto.getDsSSO());
+		Researcher researcherFoundByDsSSO = this.getBySSOtoRegister(researcherRegisterDto.getDsSSO());
 		if (researcherFoundByDsSSO != null) {
 			throw new FarmsException(ErrorMessage.USERNAME_ALREADY_IN_USE);
 		}
@@ -46,8 +47,9 @@ public class ResearcherService {
 		researcher.setTpConfirmed(YesNoEnum.N);
 		researcherDAO.save(researcher);
 		return true;
-	}
+}
 	
+	//ok? falta senha
 	@Transactional(rollbackFor = Exception.class)
 	public boolean update(ResearcherRegisterDto researcherRegisterDto) {
 		Researcher researcher = new Researcher();
@@ -55,6 +57,11 @@ public class ResearcherService {
 		researcher.setDsSSO(researcherRegisterDto.getDsSSO());
 		researcher.setDsEmail(researcherRegisterDto.getDsEmail());
 		researcher.setDsPassword(researcherRegisterDto.getDsPassword());
+		
+		researcher.setCdUuid(researcherRegisterDto.getCdUuid());
+		researcher.setIdResearcher(researcherRegisterDto.getIdResearcher());
+	    researcher.setTpConfirmed(researcherRegisterDto.getTpConfirmed());
+		researcher.setTpState(researcherRegisterDto.getTpState());
 		researcherDAO.update(researcher);
 		return true;
 	}
@@ -76,10 +83,17 @@ public class ResearcherService {
 		return researcherDAO.getByNmResearcher(nmResearcher);
 	}
 	
-	public Researcher getBySSO(String dsSSO) {
+	public ResearcherRegisterDto getBySSO(String dsSSO) {
+		Researcher researcher = researcherDAO.getByDsSSO(dsSSO);
+		ResearcherRegisterDto researcherCreatedDto = new ResearcherRegisterDto(researcher);
+		return researcherCreatedDto;
+	}
+	
+	
+	public Researcher getBySSOtoRegister(String dsSSO) {
 		Researcher researcher = researcherDAO.getByDsSSO(dsSSO);
 		return researcher;
-	}
+}
 	
 	public Researcher getByEmail(String dsEmail) {
 		Researcher researcher = researcherDAO.getByDsEmail(dsEmail);

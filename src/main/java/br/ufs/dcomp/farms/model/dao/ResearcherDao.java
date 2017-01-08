@@ -22,6 +22,18 @@ public class ResearcherDao extends HibernateDao<Researcher> {
 	public void save(Researcher researcher) {
 		super.save(researcher);
 	}
+	
+	
+	//OK!
+	/**
+	 * Update a researcher.
+	 * @param researcher
+	 */
+	public void update(Researcher researcher) {
+		super.update(researcher);
+	}
+	
+	
 
 	/**
 	 * Deletes a researcher at id.

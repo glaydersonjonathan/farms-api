@@ -1,6 +1,8 @@
 package br.ufs.dcomp.farms.model.dto;
 
+import br.ufs.dcomp.farms.model.entity.Researcher;
 import br.ufs.dcomp.farms.model.enums.StateEnum;
+import br.ufs.dcomp.farms.model.enums.YesNoEnum;
 
 public class ResearcherRegisterDto {
 
@@ -10,6 +12,10 @@ public class ResearcherRegisterDto {
 	private String dsPassword;
 	private String dsConfirmPassword;
 	private StateEnum tpState;
+	
+	private Long idResearcher;
+	private String cdUuid;
+	private YesNoEnum tpConfirmed;
 	
 	public ResearcherRegisterDto() {
 		super();
@@ -25,6 +31,42 @@ public class ResearcherRegisterDto {
 		this.setTpState(tpState);
 	}
 	
+	public ResearcherRegisterDto(Researcher researcher) {
+		this.nmResearcher = researcher.getNmResearcher();
+		this.dsSSO = researcher.getDsSSO();
+		this.dsEmail = researcher.getDsEmail();
+		this.dsPassword = researcher.getDsPassword();
+		this.tpState = researcher.getTpState();
+		this.cdUuid = researcher.getCdUuid();
+		this.idResearcher = researcher.getIdResearcher();
+		this.tpConfirmed = researcher.getTpConfirmed();
+			}
+	
+	
+	public Long getIdResearcher() {
+		return idResearcher;
+	}
+
+	public void setIdResearcher(Long idResearcher) {
+		this.idResearcher = idResearcher;
+	}
+
+	public String getCdUuid() {
+		return cdUuid;
+	}
+
+	public void setCdUuid(String cdUuid) {
+		this.cdUuid = cdUuid;
+	}
+
+	public YesNoEnum getTpConfirmed() {
+		return tpConfirmed;
+	}
+
+	public void setTpConfirmed(YesNoEnum tpConfirmed) {
+		this.tpConfirmed = tpConfirmed;
+	}
+
 	public String getNmResearcher() {
 		return nmResearcher;
 	}

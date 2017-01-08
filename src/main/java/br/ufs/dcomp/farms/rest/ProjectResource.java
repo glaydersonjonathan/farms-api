@@ -83,23 +83,18 @@ public class ProjectResource {
 	@Autowired
 	private SelectionCriteriaService selectionCriteriaService;
 	
-	//andre
+
+	//ok??
 	@POST
-	@Path("/projects")
-	public Response createProject(@PathParam("project") ProjectCreateDto project) {
-		try {
-			logger.info("Starting save.");
-			ProjectCreatedDto projectCreatedDto = projectService.save(project);
-			logger.info(SuccessMessage.PROJECT_REGISTERED);
+	public Response postProject(ProjectCreateDto projectCreateDto){
+		try{
+			ProjectCreatedDto projectCreatedDto = projectService.save(projectCreateDto);
 			return FarmsResponse.ok(SuccessMessage.PROJECT_REGISTERED, projectCreatedDto);
-		} catch (FarmsException fe) {
-			return FarmsResponse.error(fe.getErrorMessage());
 		} catch (Exception ex) {
 			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
-		    return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-	
 	
 	// projects/{dsKey}
 	@GET
