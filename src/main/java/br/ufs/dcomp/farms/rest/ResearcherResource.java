@@ -67,14 +67,14 @@ public class ResearcherResource {
 		}
 	}
 
-	// ok? falta verificar se email já existe
+	// ok? falta verificar corretamente se email já existe
 	@PUT
 	public Response updateResearcher(ResearcherRegisterDto researcherRegisterDto) {
 		try {
 			Boolean researcherRegisteredDto = researcherService.update(researcherRegisterDto);
 			return FarmsResponse.ok(SuccessMessage.RESEARCHER_UPDATED, researcherRegisteredDto);
-		} catch (Exception ex) {
-			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		} catch (Exception fe) {
+			return FarmsResponse.error(ErrorMessage.EMAIL_ALREADY_IN_USE);
 		}
 	}
 
@@ -103,15 +103,5 @@ public class ResearcherResource {
 		}
 	}
 
-	@GET
-	@Path("/{dsSSO}/projects")
-	public Response GetByDsSsoResearcher(@PathParam("dsSSO") String dsSSO) {
-		try {
-			List<ProjectCreatedDto> projectCreatedDtos = projectService.GetByDsSsoResearcher(dsSSO);
-			return FarmsResponse.ok(projectCreatedDtos);
-		} catch (Exception ex) {
-			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
-			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
-		}
-	}
+
 }

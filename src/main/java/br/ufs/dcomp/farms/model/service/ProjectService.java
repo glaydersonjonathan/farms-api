@@ -42,7 +42,7 @@ public class ProjectService {
 		
 		
 		//ProjectCreatedDto projectFoundByDsKey = this.getByDsKey(projectCreateDto.getDsKey());
-		System.out.println("oi");
+		//System.out.println("oi");
 		
 		//if (projectFoundByDsKey != null) {
 		//	throw new FarmsException(ErrorMessage.SLUG_ALREADY_IN_USE);

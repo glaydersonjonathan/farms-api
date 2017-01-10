@@ -49,14 +49,22 @@ public class ResearcherService {
 		return true;
 }
 	
-	//ok? falta senha
+	//ok?
 	@Transactional(rollbackFor = Exception.class)
-	public boolean update(ResearcherRegisterDto researcherRegisterDto) {
+	public boolean update(ResearcherRegisterDto researcherRegisterDto) throws FarmsException {
+		//Researcher researcherFoundByEmail = this.getByEmail(researcherRegisterDto.getDsEmail());
+		//if (researcherFoundByEmail != null && (!researcherFoundByEmail.getDsEmail().equals(researcherRegisterDto.getDsEmail()))) {
+			//System.out.println(researcherFoundByEmail.getDsEmail() +" "+researcherRegisterDto.getDsEmail());
+			//throw new FarmsException(ErrorMessage.EMAIL_ALREADY_IN_USE);
+		//}
+		
+		//System.out.println(researcherFoundByEmail.getDsEmail() +" "+researcherRegisterDto.getDsEmail());
 			
 		Researcher researcher = new Researcher();
 		researcher.setNmResearcher(researcherRegisterDto.getNmResearcher());
 		researcher.setDsSSO(researcherRegisterDto.getDsSSO());
 		researcher.setDsEmail(researcherRegisterDto.getDsEmail());
+		
 		
 		researcher.setDsPassword(researcherRegisterDto.getDsPassword());
 		

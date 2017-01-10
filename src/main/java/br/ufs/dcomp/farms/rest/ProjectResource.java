@@ -82,21 +82,21 @@ public class ProjectResource {
 	private StandardQueryService standardQueryService;
 	@Autowired
 	private SelectionCriteriaService selectionCriteriaService;
-	
 
-	//ok??
+	// ok??
 	@POST
-	public Response postProject(ProjectCreateDto projectCreateDto){
-		try{
+	public Response postProject(ProjectCreateDto projectCreateDto) {
+		// corrigir para número em vez de string tp_review
+		projectCreateDto.setTpReview((Integer) projectCreateDto.getTpReview());
+		try {
 			ProjectCreatedDto projectCreatedDto = projectService.save(projectCreateDto);
 			return FarmsResponse.ok(SuccessMessage.PROJECT_REGISTERED, projectCreatedDto);
 		} catch (Exception ex) {
-			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-	
-	// projects/{dsKey}
+
+	// usando
 	@GET
 	@Path("/{dsKey}")
 	public Response getProjectByDsKey(@PathParam("dsKey") String dsKey) {
@@ -108,7 +108,23 @@ public class ProjectResource {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
+	
+	//usando
+	@GET
+	@Path("/{dsSSO}/projects")
+	public Response GetByDsSsoResearcher(@PathParam("dsSSO") String dsSSO) {
+		try {
+			List<ProjectCreatedDto> projectCreatedDtos = projectService.GetByDsSsoResearcher(dsSSO);
+			return FarmsResponse.ok(projectCreatedDtos);
+		} catch (Exception ex) {
+			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
 
+	
+//*****  DAQUI PRA BAIXO NECESSITA VERIFICAR     *****
+	
 	// projects/{dsKey}/institutions
 	@GET
 	@Path("/{dsKey}/institutions")
@@ -121,7 +137,7 @@ public class ProjectResource {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-	
+
 	// projects/{dsKey}/members
 	@GET
 	@Path("/{dsKey}/members")
@@ -147,7 +163,7 @@ public class ProjectResource {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-	
+
 	// projects/{dsKey}/objectives
 	@GET
 	@Path("/{dsKey}/objectives")
@@ -160,7 +176,7 @@ public class ProjectResource {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-	
+
 	// projects/{dsKey}/main-question
 	@GET
 	@Path("/{dsKey}/main-question")
@@ -173,20 +189,21 @@ public class ProjectResource {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-	
+
 	// projects/{dsKey}/secondary-question
 	@GET
 	@Path("/{dsKey}/secondary-question")
 	public Response getSecondaryQuestionByDsKeyProject(@PathParam("dsKey") String dsKey) {
 		try {
-			List<SecondaryQuestionCreatedDto> secondaryQuestionCreatedDtos = secondaryQuestionService.getByDsKeyProject(dsKey);
+			List<SecondaryQuestionCreatedDto> secondaryQuestionCreatedDtos = secondaryQuestionService
+					.getByDsKeyProject(dsKey);
 			return FarmsResponse.ok(secondaryQuestionCreatedDtos);
 		} catch (Exception ex) {
 			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-	
+
 	// projects/{dsKey}/search-keywords
 	@GET
 	@Path("/{dsKey}/search-keywords")
@@ -200,19 +217,21 @@ public class ProjectResource {
 		}
 	}
 
-//	// projects/{dsKey}/languages
-//	@GET
-//	@Path("/{dsKey}/languages")
-//	public Response getLanguagesByDsKeyProject(@PathParam("dsKey") String dsKey) {
-//		try {
-//			List<LanguageCreatedDto> languageCreatedDtos = languageService.getByDsKeyProject(dsKey);
-//			return FarmsResponse.ok(languageCreatedDtos);
-//		} catch (Exception ex) {
-//			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
-//			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
-//		}
-//	}
-	
+	// // projects/{dsKey}/languages
+	// @GET
+	// @Path("/{dsKey}/languages")
+	// public Response getLanguagesByDsKeyProject(@PathParam("dsKey") String
+	// dsKey) {
+	// try {
+	// List<LanguageCreatedDto> languageCreatedDtos =
+	// languageService.getByDsKeyProject(dsKey);
+	// return FarmsResponse.ok(languageCreatedDtos);
+	// } catch (Exception ex) {
+	// logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+	// return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+	// }
+	// }
+
 	// projects/{dsKey}/standard-query
 	@GET
 	@Path("/{dsKey}/standard-query")
@@ -225,56 +244,58 @@ public class ProjectResource {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-	
-//	// projects/{dsKey}/search-engine
-//	@GET
-//	@Path("/{dsKey}/search-engine")
-//	public Response getKeywordsByDsKeyProject(@PathParam("dsKey") String dsKey) {
-//		try {
-//			List<StudyCreatedDto> studyCreatedDtos = studyService.getByDsKeyProject(dsKey);
-//			return FarmsResponse.ok(studyCreatedDtos);
-//		} catch (Exception ex) {
-//			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
-//			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
-//		}
-//	}
-	
+
+	// // projects/{dsKey}/search-engine
+	// @GET
+	// @Path("/{dsKey}/search-engine")
+	// public Response getKeywordsByDsKeyProject(@PathParam("dsKey") String
+	// dsKey) {
+	// try {
+	// List<StudyCreatedDto> studyCreatedDtos =
+	// studyService.getByDsKeyProject(dsKey);
+	// return FarmsResponse.ok(studyCreatedDtos);
+	// } catch (Exception ex) {
+	// logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+	// return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+	// }
+	// }
+
 	// projects/{dsKey}/selection-criterias
 	@GET
 	@Path("/{dsKey}/selection-criterias")
 	public Response getSelectionCriteriasByDsKeyProject(@PathParam("dsKey") String dsKey) {
 		try {
-			List<SelectionCriteriaCreatedDto> selectionCriteriaCreatedDtos = selectionCriteriaService.getByDsKeyProject(dsKey);
+			List<SelectionCriteriaCreatedDto> selectionCriteriaCreatedDtos = selectionCriteriaService
+					.getByDsKeyProject(dsKey);
 			return FarmsResponse.ok(selectionCriteriaCreatedDtos);
 		} catch (Exception ex) {
 			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-	
+
 	@POST
 	@Path("/{dsKey}/upload-study")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	public Response uploadFile( 
-				@FormDataParam("file") InputStream file,
-				@FormDataParam("file") FormDataContentDisposition fileDisposition) {
+	public Response uploadFile(@FormDataParam("file") InputStream file,
+			@FormDataParam("file") FormDataContentDisposition fileDisposition) {
 
 		String fileName = fileDisposition.getFileName();
-		
+
 		saveFile(file, fileName);
-		
+
 		String fileDetails = "File saved at /Volumes/Drive2/temp/file/" + fileName;
 
 		System.out.println(fileDetails);
 
 		return Response.ok(fileDetails).build();
 	}
-	
+
 	private void saveFile(InputStream file, String name) {
 		try {
-			/* Change directory path */
-			java.nio.file.Path path = FileSystems.getDefault().getPath("/Volumes/Drive2/temp/file/" + name); 
-			/* Save InputStream as file */
+			//Change directory path 
+			java.nio.file.Path path = FileSystems.getDefault().getPath("/Volumes/Drive2/temp/file/" + name);
+			// Save InputStream as file 
 			Files.copy(file, path);
 		} catch (IOException ie) {
 			ie.printStackTrace();

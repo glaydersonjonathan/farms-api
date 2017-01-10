@@ -26,9 +26,9 @@ public class Institution {
 	private String dsAbbreviation;
 	private String nmInstitution;
 	private Country country;
-	private Project project;
+	//private Project project;
 	
-	private Set<ProjectMember> projectMembers = new HashSet<ProjectMember>(0);
+	//private Set<ProjectMember> projectMembers = new HashSet<ProjectMember>(0);
 
 	public Institution() {}
 	
@@ -76,22 +76,22 @@ public class Institution {
 		this.country = country;
 	}
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_project", nullable = false)
-	public Project getProject() {
-		return project;
-	}
+	//@ManyToOne(fetch = FetchType.LAZY)
+	//@JoinColumn(name = "id_project", nullable = false)
+	///public Project getProject() {
+	//	return project;
+	//}
 
-	public void setProject(Project project) {
-		this.project = project;
-	}
+	//public void setProject(Project project) {
+	//	this.project = project;
+	//}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
-	public Set<ProjectMember> getProjectMembers() {
-		return projectMembers;
-	}
+	//@OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
+	//public Set<ProjectMember> getProjectMembers() {
+	//	return projectMembers;
+//	}
 
-	public void setProjectMembers(Set<ProjectMember> projectMembers) {
-		this.projectMembers = projectMembers;
-	}
+	//public void setProjectMembers(Set<ProjectMember> projectMembers) {
+	//	this.projectMembers = projectMembers;
+	//}
 }
