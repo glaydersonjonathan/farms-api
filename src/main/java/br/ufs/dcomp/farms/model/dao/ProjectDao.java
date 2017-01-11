@@ -6,6 +6,7 @@ import org.hibernate.Query;
 import org.springframework.stereotype.Component;
 
 import br.ufs.dcomp.farms.model.entity.Project;
+import br.ufs.dcomp.farms.model.entity.Researcher;
 
 @Component
 @SuppressWarnings("unchecked")
@@ -17,6 +18,17 @@ public class ProjectDao extends HibernateDao<Project> {
 	public ProjectDao() {
 		super(Project.class);
 	}
+	
+	
+	/**
+	 * Update a project.
+	 * @param project
+	 */
+	public void update(Project project) {
+		super.update(project);
+	}
+	
+	
 
 	/**
 	 * Returns all projects from the specified researcher.

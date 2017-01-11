@@ -39,8 +39,7 @@ public class ProjectService {
 
 	@Transactional(rollbackFor = FarmsException.class)
 	public ProjectCreatedDto save(ProjectCreateDto projectCreateDto) throws FarmsException {
-		
-		
+	
 		//ProjectCreatedDto projectFoundByDsKey = this.getByDsKey(projectCreateDto.getDsKey());
 		//System.out.println("oi");
 		
@@ -76,6 +75,39 @@ public class ProjectService {
 		
 		return projectCreatedDto;
 	}
+	
+	@Transactional(rollbackFor = FarmsException.class)
+	public boolean update(ProjectCreatedDto projectCreatedDto) throws FarmsException {
+	
+		//ProjectCreatedDto projectFoundByDsKey = this.getByDsKey(projectCreateDto.getDsKey());
+		//System.out.println("oi");
+		
+		//if (projectFoundByDsKey != null) {
+		//	throw new FarmsException(ErrorMessage.SLUG_ALREADY_IN_USE);
+		//}
+		
+		//Researcher researcher = researcherDao.getByDsSSO(projectCreateDto.getDsSsoResearcher());
+		//if (researcher == null) {
+		//	throw new FarmsException(ErrorMessage.RESEARCHER_NOT_FOUND);
+		//}
+		
+		//Institution institution = institutionDao.getById(projectCreateDto.getIdInstitution());
+		//if (institution == null) {
+		//	throw new FarmsException(ErrorMessage.INSTITUTION_NOT_FOUND);
+		//}
+		Project project = new Project();
+		project.setDsKey(projectCreatedDto.getDsKey());
+		project.setDsTitle(projectCreatedDto.getDsTitle());
+		project.setDsProject(projectCreatedDto.getDsProject());
+		project.setIdProject(projectCreatedDto.getIdProject());
+		project.setTpReview(ReviewEnum.fromCode(projectCreatedDto.getTpReview()));
+		projectDao.update(project);
+		return true;
+	}
+	
+	
+	
+	
 
 	public ProjectCreatedDto getByDsKey(String dsKey) {
 		Project project = projectDao.getByDsKey(dsKey);

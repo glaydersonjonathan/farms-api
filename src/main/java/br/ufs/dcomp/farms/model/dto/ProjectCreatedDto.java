@@ -9,7 +9,8 @@ public class ProjectCreatedDto {
 	private String dsTitle;
 	private String dsProject;
 	private Integer tpReview;
-	private ProjectMember projectMember;
+	private ProjectMember projectMember; //se der bronca, eu mexi pra editar projeto
+	private Long idProject;
 	
 	public ProjectCreatedDto() {
 		super();
@@ -21,6 +22,7 @@ public class ProjectCreatedDto {
 		this.dsTitle = project.getDsTitle();
 		this.dsProject = project.getDsProject();
 		this.tpReview = project.getTpReview().getCode();
+		this.idProject = project.getIdProject();
 	}
 	
 	public ProjectCreatedDto(Project project, ProjectMember projectMember) {
@@ -30,6 +32,16 @@ public class ProjectCreatedDto {
 		this.dsProject = project.getDsProject();
 		this.tpReview = project.getTpReview().getCode();
 		this.projectMember = projectMember;
+	}
+
+	
+	
+	public Long getIdProject() {
+		return idProject;
+	}
+
+	public void setIdProject(Long idProject) {
+		this.idProject = idProject;
 	}
 
 	public String getDsKey() {

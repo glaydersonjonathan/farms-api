@@ -44,8 +44,6 @@ public class ResearcherDao extends HibernateDao<Researcher> {
 		Researcher researcher = get(idResearcher);
 		super.delete(researcher);
 		return true;
-		//Query query = getSession().createQuery("delete from researcher where id_researcher = "+idResearcher);	 
-		//return query.executeUpdate();
 	}
 	
 	/**

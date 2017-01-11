@@ -10,6 +10,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -83,14 +84,25 @@ public class ProjectResource {
 	@Autowired
 	private SelectionCriteriaService selectionCriteriaService;
 
-	// ok??
+	// ok? falta institution
 	@POST
-	public Response postProject(ProjectCreateDto projectCreateDto) {
+	public Response createProject(ProjectCreateDto projectCreateDto) {
 		// corrigir para número em vez de string tp_review
 		projectCreateDto.setTpReview((Integer) projectCreateDto.getTpReview());
 		try {
 			ProjectCreatedDto projectCreatedDto = projectService.save(projectCreateDto);
 			return FarmsResponse.ok(SuccessMessage.PROJECT_REGISTERED, projectCreatedDto);
+		} catch (Exception ex) {
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+
+	//ok?
+	@PUT
+	public Response updateProject(ProjectCreatedDto projectCreatedDto) {
+		try {
+			Boolean bool = projectService.update(projectCreatedDto);
+			return FarmsResponse.ok(SuccessMessage.PROJECT_UPDATED, bool);
 		} catch (Exception ex) {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
@@ -108,8 +120,8 @@ public class ProjectResource {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-	
-	//usando
+
+	// usando
 	@GET
 	@Path("/{dsSSO}/projects")
 	public Response GetByDsSsoResearcher(@PathParam("dsSSO") String dsSSO) {
@@ -122,9 +134,8 @@ public class ProjectResource {
 		}
 	}
 
-	
-//*****  DAQUI PRA BAIXO NECESSITA VERIFICAR     *****
-	
+	// ***** DAQUI PRA BAIXO NECESSITA VERIFICAR *****
+
 	// projects/{dsKey}/institutions
 	@GET
 	@Path("/{dsKey}/institutions")
@@ -293,9 +304,9 @@ public class ProjectResource {
 
 	private void saveFile(InputStream file, String name) {
 		try {
-			//Change directory path 
+			// Change directory path
 			java.nio.file.Path path = FileSystems.getDefault().getPath("/Volumes/Drive2/temp/file/" + name);
-			// Save InputStream as file 
+			// Save InputStream as file
 			Files.copy(file, path);
 		} catch (IOException ie) {
 			ie.printStackTrace();
