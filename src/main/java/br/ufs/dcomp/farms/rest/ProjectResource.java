@@ -84,9 +84,10 @@ public class ProjectResource {
 	@Autowired
 	private SelectionCriteriaService selectionCriteriaService;
 
-	// ok? falta institution
+	// ok?
 	@POST
 	public Response createProject(ProjectCreateDto projectCreateDto) {
+		System.out.println("hello");
 		// corrigir para número em vez de string tp_review
 		projectCreateDto.setTpReview((Integer) projectCreateDto.getTpReview());
 		try {
@@ -97,7 +98,7 @@ public class ProjectResource {
 		}
 	}
 
-	//ok?
+	// ok?
 	@PUT
 	public Response updateProject(ProjectCreatedDto projectCreatedDto) {
 		try {
@@ -134,20 +135,35 @@ public class ProjectResource {
 		}
 	}
 
-	// ***** DAQUI PRA BAIXO NECESSITA VERIFICAR *****
-
-	// projects/{dsKey}/institutions
+	// ok?
 	@GET
 	@Path("/{dsKey}/institutions")
 	public Response getInstitutionsByDsKeyProject(@PathParam("dsKey") String dsKey) {
+		if (dsKey.equals("null")) {
+			return FarmsResponse.error(ErrorMessage.NO_PROJECT_OPEN);
+		}
 		try {
 			List<InstitutionCreatedDto> institutionCreatedDtos = institutuionService.getByDsKeyProject(dsKey);
 			return FarmsResponse.ok(institutionCreatedDtos);
 		} catch (Exception ex) {
-			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
+
+	// ok
+	// pego todas no formulário de criação do projeto
+	@GET
+	@Path("/institutions")
+	public Response getAllInstitutions() {
+		try {
+			List<InstitutionCreatedDto> institutionCreatedDtos = institutuionService.getAll();
+			return FarmsResponse.ok(institutionCreatedDtos);
+		} catch (Exception ex) {
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+
+	// ***** DAQUI PRA BAIXO NECESSITA VERIFICAR *****
 
 	// projects/{dsKey}/members
 	@GET

@@ -21,6 +21,16 @@ public class ProjectDao extends HibernateDao<Project> {
 	
 	
 	/**
+	 * Inserts a project.
+	 * @param project
+	 */
+	public void save(Project project) {
+		super.save(project);
+	}
+	
+	
+	
+	/**
 	 * Update a project.
 	 * @param project
 	 */

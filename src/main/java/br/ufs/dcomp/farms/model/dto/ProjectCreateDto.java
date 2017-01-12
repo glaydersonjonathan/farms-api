@@ -23,6 +23,8 @@ public class ProjectCreateDto {
 		this.dsSsoResearcher = dsSsoResearcher;
 		this.idInstitution = idInstitution;
 	}
+	
+
 
 	public String getDsKey() {
 		return dsKey;

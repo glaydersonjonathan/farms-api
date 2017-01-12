@@ -7,6 +7,7 @@ public class InstitutionCreatedDto {
 	private String dsAbbreviation;
 	private String nmInstitution;
 	private String nmCountry;
+	private Long idInstitution;
 		
 	public InstitutionCreatedDto() {}
 	
@@ -15,6 +16,17 @@ public class InstitutionCreatedDto {
 		this.dsAbbreviation = institution.getDsAbbreviation();
 		this.nmInstitution = institution.getNmInstitution();
 		this.nmCountry = institution.getCountry().getNmCountry();
+		this.idInstitution = institution.getIdInstitution();
+	}
+
+	
+	
+	public Long getIdInstitution() {
+		return idInstitution;
+	}
+
+	public void setIdInstitution(Long idInstitution) {
+		this.idInstitution = idInstitution;
 	}
 
 	public String getDsAbbreviation() {

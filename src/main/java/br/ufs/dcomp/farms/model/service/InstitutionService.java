@@ -26,4 +26,18 @@ public class InstitutionService {
 		}
 		return institutionCreatedDto;
 	}
+	
+	
+	public List<InstitutionCreatedDto> getAll() {
+		List<InstitutionCreatedDto> institutionCreatedDto = new ArrayList<InstitutionCreatedDto>();
+		List<Institution> institutions = institutionDao.getAllInstitutions();
+		if (institutions != null) {
+			for(Institution institution : institutions) {
+				institutionCreatedDto.add(new InstitutionCreatedDto(institution));
+			}
+		}
+		return institutionCreatedDto;
+	}
+	
+	
 }
