@@ -7,7 +7,6 @@ import java.nio.file.Files;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -25,8 +24,6 @@ import org.springframework.stereotype.Component;
 
 import br.ufs.dcomp.farms.common.message.ErrorMessage;
 import br.ufs.dcomp.farms.common.message.SuccessMessage;
-import br.ufs.dcomp.farms.core.FarmsException;
-import br.ufs.dcomp.farms.core.FarmsMail;
 import br.ufs.dcomp.farms.core.FarmsResponse;
 import br.ufs.dcomp.farms.model.dto.InstitutionCreatedDto;
 import br.ufs.dcomp.farms.model.dto.MainQuestionCreatedDto;
@@ -34,15 +31,13 @@ import br.ufs.dcomp.farms.model.dto.ObjectiveCreatedDto;
 import br.ufs.dcomp.farms.model.dto.ProjectCreateDto;
 import br.ufs.dcomp.farms.model.dto.ProjectCreatedDto;
 import br.ufs.dcomp.farms.model.dto.ProjectMemberDto;
-import br.ufs.dcomp.farms.model.dto.ResearcherRegisterDto;
-import br.ufs.dcomp.farms.model.dto.ResearcherRegisteredDto;
 import br.ufs.dcomp.farms.model.dto.SearchKeywordCreatedDto;
 import br.ufs.dcomp.farms.model.dto.SecondaryQuestionCreatedDto;
 import br.ufs.dcomp.farms.model.dto.SelectionCriteriaCreatedDto;
 import br.ufs.dcomp.farms.model.dto.StandardQueryCreatedDto;
 import br.ufs.dcomp.farms.model.dto.StudyCreatedDto;
 import br.ufs.dcomp.farms.model.service.InstitutionService;
-import br.ufs.dcomp.farms.model.service.LanguageService;
+//import br.ufs.dcomp.farms.model.service.LanguageService;
 import br.ufs.dcomp.farms.model.service.MainQuestionService;
 import br.ufs.dcomp.farms.model.service.ObjectiveService;
 import br.ufs.dcomp.farms.model.service.ProjectMemberService;
@@ -77,8 +72,8 @@ public class ProjectResource {
 	private SecondaryQuestionService secondaryQuestionService;
 	@Autowired
 	private SearchKeywordService searchKeywordService;
-	@Autowired
-	private LanguageService languageService;
+	//@Autowired
+	//private LanguageService languageService;
 	@Autowired
 	private StandardQueryService standardQueryService;
 	@Autowired
@@ -87,7 +82,6 @@ public class ProjectResource {
 	// ok?
 	@POST
 	public Response createProject(ProjectCreateDto projectCreateDto) {
-		System.out.println("hello");
 		// corrigir para número em vez de string tp_review
 		projectCreateDto.setTpReview((Integer) projectCreateDto.getTpReview());
 		try {

@@ -6,7 +6,6 @@ import org.hibernate.Query;
 import org.springframework.stereotype.Component;
 
 import br.ufs.dcomp.farms.model.entity.Project;
-import br.ufs.dcomp.farms.model.entity.Researcher;
 
 @Component
 @SuppressWarnings("unchecked")

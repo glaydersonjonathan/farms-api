@@ -32,13 +32,16 @@ public class Institution {
 
 	public Institution() {}
 	
-	public Institution(String nmInstitution, Country country) {
+	public Institution(String nmInstitution, String dsAbbreviation, Country country) {
+		super();
 		this.nmInstitution = nmInstitution;
+		this.dsAbbreviation = dsAbbreviation;
 		this.country = country;
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "InstitutionSequenceGenerator")
+	//@GeneratedValue(strategy = GenerationType.AUTO, generator = "InstitutionSequenceGenerator")
+	@GeneratedValue(strategy = GenerationType.IDENTITY,  generator = "InstitutionSequenceGenerator")
 	@Column(name = "id_institution", nullable = false, unique = true)
 	public Long getIdInstitution() {
 		return idInstitution;

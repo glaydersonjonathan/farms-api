@@ -46,6 +46,10 @@ public final class SuccessMessage extends Message {
 	private static final String PROJECT_UPDATED_DESCRIPTION = "Project updated successfully.";
 	public static final SuccessMessage PROJECT_UPDATED = new SuccessMessage(PROJECT_UPDATED_CODE, PROJECT_UPDATED_DESCRIPTION);
 	
+	private static final Integer INSTITUTION_REGISTERED_CODE = 1008;
+	private static final String INSTITUTION_REGISTERED_DESCRIPTION = "Institution saved successfully.";
+	public static final SuccessMessage INSTITUTION_REGISTERED = new SuccessMessage(INSTITUTION_REGISTERED_CODE, INSTITUTION_REGISTERED_DESCRIPTION);
+	
 
 	
 	
