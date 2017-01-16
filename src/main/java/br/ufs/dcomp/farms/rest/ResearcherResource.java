@@ -1,6 +1,5 @@
 package br.ufs.dcomp.farms.rest;
 
-import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -19,13 +18,9 @@ import org.springframework.stereotype.Component;
 import br.ufs.dcomp.farms.common.message.ErrorMessage;
 import br.ufs.dcomp.farms.common.message.SuccessMessage;
 import br.ufs.dcomp.farms.core.FarmsCrypt;
-import br.ufs.dcomp.farms.core.FarmsException;
 import br.ufs.dcomp.farms.core.FarmsResponse;
-import br.ufs.dcomp.farms.model.dto.ProjectCreateDto;
-import br.ufs.dcomp.farms.model.dto.ProjectCreatedDto;
 import br.ufs.dcomp.farms.model.dto.ResearcherRegisterDto;
 import br.ufs.dcomp.farms.model.entity.Researcher;
-import br.ufs.dcomp.farms.model.service.ProjectService;
 import br.ufs.dcomp.farms.model.service.ResearcherService;
 
 @Path("/researchers")
@@ -39,8 +34,6 @@ public class ResearcherResource {
 	@Autowired
 	private ResearcherService researcherService;
 
-	@Autowired
-	private ProjectService projectService;
 
 	@GET
 	@Path("/?dsEmail={dsEmail}")

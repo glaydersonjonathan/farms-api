@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import br.ufs.dcomp.farms.model.entity.Country;
 import br.ufs.dcomp.farms.model.entity.Institution;
-import br.ufs.dcomp.farms.model.entity.Project;
 import br.ufs.dcomp.farms.model.entity.ProjectMember;
 
 @Component

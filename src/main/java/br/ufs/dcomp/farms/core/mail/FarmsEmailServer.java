@@ -86,7 +86,7 @@ public class FarmsEmailServer {
 	
 	public void sendRegistrationConfirmationEmail() {
 		// SMTP server information
-        String host = "smtp.gmail.com";
+        /*String host = "smtp.gmail.com";
         String port = "587";
         String mailFrom = "your-email-address";
         String password = "your-email-password";
@@ -98,7 +98,7 @@ public class FarmsEmailServer {
         // message contains HTML markups
         String message = "<i>Greetings!</i><br>";
         message += "<b>Wish you a nice day!</b><br>";
-        message += "<font color=red>Duke</font>";
+        message += "<font color=red>Duke</font>";*/
 	}
 	
 	public void sendHtmlEmail(String host, String port,

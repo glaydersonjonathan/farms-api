@@ -38,10 +38,10 @@ public class FarmsMail {
 	 */
 	public static void sendMailText(String dsMailTo, String dsSubject, String dsBodyMessage) {
 		
-		String farmsMailSmtpHost = FarmsProperties.load().getProperty("farms.mail.smtp.host");
-		String farmsMailFromName = FarmsProperties.load().getProperty("farms.mail.contact.name");
+		//String farmsMailSmtpHost = FarmsProperties.load().getProperty("farms.mail.smtp.host");
+		//String farmsMailFromName = FarmsProperties.load().getProperty("farms.mail.contact.name");
 		String farmsMailFrom = FarmsProperties.load().getProperty("farms.mail.contact");
-		String farmsMailPassword = FarmsProperties.load().getProperty("farms.mail.password");
+		//String farmsMailPassword = FarmsProperties.load().getProperty("farms.mail.password");
 		
 		// Set mail properties.
 		Properties props = System.getProperties();

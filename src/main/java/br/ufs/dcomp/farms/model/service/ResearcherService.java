@@ -11,7 +11,6 @@ import br.ufs.dcomp.farms.common.message.ErrorMessage;
 import br.ufs.dcomp.farms.core.FarmsCrypt;
 import br.ufs.dcomp.farms.core.FarmsException;
 import br.ufs.dcomp.farms.model.dao.ResearcherDao;
-import br.ufs.dcomp.farms.model.dto.ProjectCreatedDto;
 import br.ufs.dcomp.farms.model.dto.ResearcherRegisterDto;
 import br.ufs.dcomp.farms.model.entity.Researcher;
 import br.ufs.dcomp.farms.model.enums.StateEnum;

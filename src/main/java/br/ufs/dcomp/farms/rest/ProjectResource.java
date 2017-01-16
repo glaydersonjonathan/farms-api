@@ -30,6 +30,7 @@ import br.ufs.dcomp.farms.model.dto.MainQuestionCreatedDto;
 import br.ufs.dcomp.farms.model.dto.ObjectiveCreatedDto;
 import br.ufs.dcomp.farms.model.dto.ProjectCreateDto;
 import br.ufs.dcomp.farms.model.dto.ProjectCreatedDto;
+import br.ufs.dcomp.farms.model.dto.ProjectMemberCreateDto;
 import br.ufs.dcomp.farms.model.dto.ProjectMemberDto;
 import br.ufs.dcomp.farms.model.dto.SearchKeywordCreatedDto;
 import br.ufs.dcomp.farms.model.dto.SecondaryQuestionCreatedDto;
@@ -47,6 +48,7 @@ import br.ufs.dcomp.farms.model.service.SecondaryQuestionService;
 import br.ufs.dcomp.farms.model.service.SelectionCriteriaService;
 import br.ufs.dcomp.farms.model.service.StandardQueryService;
 import br.ufs.dcomp.farms.model.service.StudyService;
+
 
 @Path("/projects")
 @Produces(MediaType.APPLICATION_JSON)
@@ -72,8 +74,8 @@ public class ProjectResource {
 	private SecondaryQuestionService secondaryQuestionService;
 	@Autowired
 	private SearchKeywordService searchKeywordService;
-	//@Autowired
-	//private LanguageService languageService;
+	// @Autowired
+	// private LanguageService languageService;
 	@Autowired
 	private StandardQueryService standardQueryService;
 	@Autowired
@@ -152,6 +154,24 @@ public class ProjectResource {
 		try {
 			List<InstitutionCreatedDto> institutionCreatedDtos = institutuionService.getAll();
 			return FarmsResponse.ok(institutionCreatedDtos);
+		} catch (Exception ex) {
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+
+	// testando
+	/**
+	 * Receive request from client to Add institution a project.
+	 *
+	 * @param ProjectMemberCreateDto.
+	 * @return Response.
+	 */
+	@POST
+	@Path("/addInstitution")
+	public Response addInstitutionProject(ProjectMemberCreateDto pm) {
+		try {
+			Boolean bool = projectMemberService.addInstitutionProject(pm);
+			return FarmsResponse.ok(SuccessMessage.INSTITUTION_ADDED, bool);
 		} catch (Exception ex) {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}

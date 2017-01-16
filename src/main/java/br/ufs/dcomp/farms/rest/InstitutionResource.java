@@ -19,9 +19,6 @@ import br.ufs.dcomp.farms.common.message.SuccessMessage;
 import br.ufs.dcomp.farms.core.FarmsResponse;
 import br.ufs.dcomp.farms.model.dto.CountryCreatedDto;
 import br.ufs.dcomp.farms.model.dto.InstitutionCreateDto;
-import br.ufs.dcomp.farms.model.dto.InstitutionCreatedDto;
-import br.ufs.dcomp.farms.model.dto.ProjectCreateDto;
-import br.ufs.dcomp.farms.model.dto.ProjectCreatedDto;
 import br.ufs.dcomp.farms.model.service.InstitutionService;
 
 @Path("/institutions")

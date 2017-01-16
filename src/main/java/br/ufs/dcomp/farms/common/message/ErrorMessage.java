@@ -55,6 +55,6 @@ public class ErrorMessage extends Message {
 	public static final ErrorMessage ACCOUNT_ALREADY_CONFIRMED = new ErrorMessage(ACCOUNT_ALREADY_CONFIRMED_CODE, ACCOUNT_ALREADY_CONFIRMED_DESCRIPTION);
 	
 	private static final Integer NO_PROJECT_OPEN_CODE = 2008;
-	private static final String NO_PROJECT_OPEN_DESCRIPTION = "Open a project first";
+	private static final String NO_PROJECT_OPEN_DESCRIPTION = "Open a project before view and add institution a project";
 	public static final ErrorMessage NO_PROJECT_OPEN = new ErrorMessage(NO_PROJECT_OPEN_CODE, NO_PROJECT_OPEN_DESCRIPTION);
 }

@@ -42,7 +42,7 @@ public class ProjectMember implements Serializable {
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "ProjectMemberSequenceGenerator")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "ProjectMemberSequenceGenerator")
 	@Column(name = "id_project_member", nullable = false, unique = true)
 	public Long getIdProjectMember() {
 		return idProjectMember;

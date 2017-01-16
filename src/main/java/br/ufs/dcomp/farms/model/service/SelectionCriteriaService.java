@@ -7,11 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.ufs.dcomp.farms.model.dao.SelectionCriteriaDao;
-import br.ufs.dcomp.farms.model.dao.StudyDao;
 import br.ufs.dcomp.farms.model.dto.SelectionCriteriaCreatedDto;
-import br.ufs.dcomp.farms.model.dto.StudyCreatedDto;
 import br.ufs.dcomp.farms.model.entity.SelectionCriteria;
-import br.ufs.dcomp.farms.model.entity.Study;
 
 @Component
 public class SelectionCriteriaService {
