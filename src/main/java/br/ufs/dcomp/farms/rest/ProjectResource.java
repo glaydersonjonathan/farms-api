@@ -24,14 +24,16 @@ import org.springframework.stereotype.Component;
 
 import br.ufs.dcomp.farms.common.message.ErrorMessage;
 import br.ufs.dcomp.farms.common.message.SuccessMessage;
+import br.ufs.dcomp.farms.core.FarmsException;
 import br.ufs.dcomp.farms.core.FarmsResponse;
 import br.ufs.dcomp.farms.model.dto.InstitutionCreatedDto;
 import br.ufs.dcomp.farms.model.dto.MainQuestionCreatedDto;
 import br.ufs.dcomp.farms.model.dto.ObjectiveCreatedDto;
 import br.ufs.dcomp.farms.model.dto.ProjectCreateDto;
 import br.ufs.dcomp.farms.model.dto.ProjectCreatedDto;
-import br.ufs.dcomp.farms.model.dto.ProjectMemberCreateDto;
+import br.ufs.dcomp.farms.model.dto.ProjectMemberAddInstitutionDto;
 import br.ufs.dcomp.farms.model.dto.ProjectMemberDto;
+import br.ufs.dcomp.farms.model.dto.ProjectMemberInviteDto;
 import br.ufs.dcomp.farms.model.dto.SearchKeywordCreatedDto;
 import br.ufs.dcomp.farms.model.dto.SecondaryQuestionCreatedDto;
 import br.ufs.dcomp.farms.model.dto.SelectionCriteriaCreatedDto;
@@ -48,7 +50,6 @@ import br.ufs.dcomp.farms.model.service.SecondaryQuestionService;
 import br.ufs.dcomp.farms.model.service.SelectionCriteriaService;
 import br.ufs.dcomp.farms.model.service.StandardQueryService;
 import br.ufs.dcomp.farms.model.service.StudyService;
-
 
 @Path("/projects")
 @Produces(MediaType.APPLICATION_JSON)
@@ -138,6 +139,7 @@ public class ProjectResource {
 		if (dsKey.equals("null")) {
 			return FarmsResponse.error(ErrorMessage.NO_PROJECT_OPEN);
 		}
+
 		try {
 			List<InstitutionCreatedDto> institutionCreatedDtos = institutuionService.getByDsKeyProject(dsKey);
 			return FarmsResponse.ok(institutionCreatedDtos);
@@ -168,7 +170,7 @@ public class ProjectResource {
 	 */
 	@POST
 	@Path("/addInstitution")
-	public Response addInstitutionProject(ProjectMemberCreateDto pm) {
+	public Response addInstitutionProject(ProjectMemberAddInstitutionDto pm) {
 		try {
 			Boolean bool = projectMemberService.addInstitutionProject(pm);
 			return FarmsResponse.ok(SuccessMessage.INSTITUTION_ADDED, bool);
@@ -177,12 +179,14 @@ public class ProjectResource {
 		}
 	}
 
-	// ***** DAQUI PRA BAIXO NECESSITA VERIFICAR *****
-
-	// projects/{dsKey}/members
+	// projects/{dsKey}/members, usando para listar membros
 	@GET
 	@Path("/{dsKey}/members")
 	public Response getMembersByDsKeyProject(@PathParam("dsKey") String dsKey) {
+		if (dsKey.equals("null")) {
+			return FarmsResponse.error(ErrorMessage.NO_PROJECT_OPEN);
+		}
+
 		try {
 			List<ProjectMemberDto> projectMemberDtos = projectMemberService.getByDsKeyProject(dsKey);
 			return FarmsResponse.ok(projectMemberDtos);
@@ -191,6 +195,23 @@ public class ProjectResource {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
+
+	// testando
+	@POST
+	@Path("/members/invite")
+	public Response createProject(ProjectMemberInviteDto pm) {
+		try {
+			Boolean bool = projectMemberService.invite(pm);
+			return FarmsResponse.ok(SuccessMessage.MEMBER_ADDED, bool);
+		} catch (FarmsException fe){
+			return FarmsResponse.error(ErrorMessage.MEMBER_NOT_FOUND);
+		}	
+		catch (Exception ex) {
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+
+	// ***** DAQUI PRA BAIXO NECESSITA VERIFICAR *****
 
 	// projects/{dsKey}/studies
 	@GET

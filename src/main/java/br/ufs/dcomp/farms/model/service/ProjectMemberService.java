@@ -6,13 +6,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import br.ufs.dcomp.farms.common.message.ErrorMessage;
+import br.ufs.dcomp.farms.core.FarmsException;
+import br.ufs.dcomp.farms.core.FarmsMail;
 import br.ufs.dcomp.farms.model.dao.InstitutionDao;
 import br.ufs.dcomp.farms.model.dao.ProjectDao;
 import br.ufs.dcomp.farms.model.dao.ProjectMemberDao;
 import br.ufs.dcomp.farms.model.dao.ResearcherDao;
 import br.ufs.dcomp.farms.model.dto.ProjectCreatedDto;
-import br.ufs.dcomp.farms.model.dto.ProjectMemberCreateDto;
+import br.ufs.dcomp.farms.model.dto.ProjectMemberAddInstitutionDto;
 import br.ufs.dcomp.farms.model.dto.ProjectMemberDto;
+import br.ufs.dcomp.farms.model.dto.ProjectMemberInviteDto;
 import br.ufs.dcomp.farms.model.entity.Institution;
 import br.ufs.dcomp.farms.model.entity.Project;
 import br.ufs.dcomp.farms.model.entity.ProjectMember;
@@ -43,17 +47,39 @@ public class ProjectMemberService {
 		return projectMemberDto;
 	}
 
-	public Boolean addInstitutionProject(ProjectMemberCreateDto pm) {
+	public Boolean addInstitutionProject(ProjectMemberAddInstitutionDto pm) {
 
 		Researcher researcher = researcherDao.getByDsSSO(pm.getDsUserName());
 		Project project = projectDao.getByDsKey(pm.getDsKey());
 		Institution institution = institutionDao.getById(pm.getIdInstitution());
-		
+
 		ProjectMember projectMember = new ProjectMember();
 		projectMember.setResearcher(researcher);
 		projectMember.setProject(project);
 		projectMember.setInstitution(institution);
-		projectMember.setTpRole(RoleEnum.COORDINATOR);
+		projectMember.setTpRole(RoleEnum.COORDINATOR);// verificar
+		projectMemberDao.save(projectMember);
+
+		return true;
+	}
+
+	public Boolean invite(ProjectMemberInviteDto pm) throws FarmsException {
+
+		Researcher researcher = researcherDao.getByDsEmail(pm.getDsEmail());
+		if (researcher == null) {
+			FarmsMail.sendInviteEmail(pm.getDsEmail());
+
+			throw new FarmsException(ErrorMessage.MEMBER_NOT_FOUND);
+		}
+
+		Project project = projectDao.getByDsKey(pm.getDsKey());
+		Institution institution = institutionDao.getById(pm.getIdInstitution());
+
+		ProjectMember projectMember = new ProjectMember();
+		projectMember.setResearcher(researcher);
+		projectMember.setProject(project);
+		projectMember.setInstitution(institution);
+		projectMember.setTpRole(RoleEnum.MEMBER);
 		projectMemberDao.save(projectMember);
 
 		return true;

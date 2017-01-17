@@ -50,9 +50,12 @@ public final class SuccessMessage extends Message {
 	private static final String INSTITUTION_REGISTERED_DESCRIPTION = "Institution saved successfully.";
 	public static final SuccessMessage INSTITUTION_REGISTERED = new SuccessMessage(INSTITUTION_REGISTERED_CODE, INSTITUTION_REGISTERED_DESCRIPTION);
 	
-
 	private static final Integer INSTITUTION_ADDED_CODE = 1009;
 	private static final String INSTITUTION_ADDED_DESCRIPTION = "Institution added successfully.";
 	public static final SuccessMessage INSTITUTION_ADDED = new SuccessMessage(INSTITUTION_ADDED_CODE, INSTITUTION_ADDED_DESCRIPTION);
+	
+	private static final Integer MEMBER_ADDED_CODE = 1010;
+	private static final String MEMBER_ADDED_DESCRIPTION = "Member added successfully.";
+	public static final SuccessMessage MEMBER_ADDED = new SuccessMessage(MEMBER_ADDED_CODE, MEMBER_ADDED_DESCRIPTION);
 	
 }

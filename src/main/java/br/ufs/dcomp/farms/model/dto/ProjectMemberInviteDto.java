@@ -1,22 +1,21 @@
 package br.ufs.dcomp.farms.model.dto;
 
-
-public class ProjectMemberAddInstitutionDto {
-
-	private String dsUserName;
+public class ProjectMemberInviteDto {
+	private String dsEmail;
 	private Long idInstitution;
 	private String dsKey;
-
-	public ProjectMemberAddInstitutionDto() {
+	
+	public ProjectMemberInviteDto() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 
-	public String getDsUserName() {
-		return dsUserName;
+	public String getDsEmail() {
+		return dsEmail;
 	}
 
-	public void setDsUserName(String dsUserName) {
-		this.dsUserName = dsUserName;
+	public void setDsEmail(String dsEmail) {
+		this.dsEmail = dsEmail;
 	}
 
 	public Long getIdInstitution() {
@@ -34,7 +33,7 @@ public class ProjectMemberAddInstitutionDto {
 	public void setDsKey(String dsKey) {
 		this.dsKey = dsKey;
 	}
-
-
-
+	
+	
+	
 }

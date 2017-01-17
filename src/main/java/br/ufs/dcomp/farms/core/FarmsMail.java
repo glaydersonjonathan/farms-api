@@ -38,10 +38,10 @@ public class FarmsMail {
 	 */
 	public static void sendMailText(String dsMailTo, String dsSubject, String dsBodyMessage) {
 		
-		//String farmsMailSmtpHost = FarmsProperties.load().getProperty("farms.mail.smtp.host");
-		//String farmsMailFromName = FarmsProperties.load().getProperty("farms.mail.contact.name");
+		String farmsMailSmtpHost = FarmsProperties.load().getProperty("farms.mail.smtp.host");
+		String farmsMailFromName = FarmsProperties.load().getProperty("farms.mail.contact.name");
 		String farmsMailFrom = FarmsProperties.load().getProperty("farms.mail.contact");
-		//String farmsMailPassword = FarmsProperties.load().getProperty("farms.mail.password");
+		String farmsMailPassword = FarmsProperties.load().getProperty("farms.mail.password");
 		
 		// Set mail properties.
 		Properties props = System.getProperties();
@@ -98,6 +98,28 @@ public class FarmsMail {
 		bodyKeyValueMap.put("{{url-email-confirmation}}", urlEmailConfirmation);
 		new FarmsMail().sendMail(dsMailTo, dsSubject, bodyKeyValueMap);
 	}
+	
+	
+	
+	
+	/**
+	 * Send invite email.
+	 * 
+	 * @param dsMailTo
+	 */
+	public static void sendInviteEmail(String dsMailTo) {
+		String farmsSiteUrl = FarmsProperties.load().getProperty("farms.site.url");
+		String dsSubject = "Invite email";
+		// Set key values.
+		Map<String, String> bodyKeyValueMap = new HashMap<String, String>();
+		bodyKeyValueMap.put("{{url-site}}", farmsSiteUrl);
+		new FarmsMail().sendMail(dsMailTo, dsSubject, bodyKeyValueMap);
+	}
+	
+	
+	
+	
+	
 
 	/**
 	 * Method to send an Email.

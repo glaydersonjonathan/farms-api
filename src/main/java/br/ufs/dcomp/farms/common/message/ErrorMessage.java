@@ -55,6 +55,11 @@ public class ErrorMessage extends Message {
 	public static final ErrorMessage ACCOUNT_ALREADY_CONFIRMED = new ErrorMessage(ACCOUNT_ALREADY_CONFIRMED_CODE, ACCOUNT_ALREADY_CONFIRMED_DESCRIPTION);
 	
 	private static final Integer NO_PROJECT_OPEN_CODE = 2008;
-	private static final String NO_PROJECT_OPEN_DESCRIPTION = "Open a project before view and add institution a project";
+	private static final String NO_PROJECT_OPEN_DESCRIPTION = "Open a project before view, add institution, or invite member to a project";
 	public static final ErrorMessage NO_PROJECT_OPEN = new ErrorMessage(NO_PROJECT_OPEN_CODE, NO_PROJECT_OPEN_DESCRIPTION);
+	
+	
+	private static final Integer MEMBER_NOT_FOUND_CODE = 2009;
+	private static final String MEMBER_NOT_FOUND_DESCRIPTION = "Researcher not found, a email has been sent.";
+	public static final ErrorMessage MEMBER_NOT_FOUND = new ErrorMessage(MEMBER_NOT_FOUND_CODE, MEMBER_NOT_FOUND_DESCRIPTION);
 }
