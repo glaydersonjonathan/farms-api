@@ -34,8 +34,15 @@ public class SelectionCriteria {
 		this.tpCriteria = tpCriteria;
 	}
 
+	public SelectionCriteria(String dsSelectionCriteria, CriteriaEnum tpCriteria, Project project) {
+		super();
+		this.dsSelectionCriteria = dsSelectionCriteria;
+		this.tpCriteria = tpCriteria;
+		this.project = project;
+	}
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "SelectionCriteriaSequenceGenerator")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SelectionCriteriaSequenceGenerator")
 	@Column(name = "id_selection_criteria", nullable = false, unique = true)
 	public Long getIdSelectionCriteria() {
 		return idSelectionCriteria;

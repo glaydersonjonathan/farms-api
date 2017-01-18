@@ -8,6 +8,13 @@ public class SelectionCriteriaCreatedDto {
 	private Integer tpCriteria;
 	private String dsProjectKey;
 	
+	
+	
+	public SelectionCriteriaCreatedDto() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public SelectionCriteriaCreatedDto(SelectionCriteria selectionCriteria) {
 		this.dsSelectionCriteria = selectionCriteria.getDsSelectionCriteria();
 		this.tpCriteria = selectionCriteria.getTpCriteria().getCode();

@@ -17,6 +17,13 @@ public class StudyLanguage {
 	private Long idProject;
 	private Language language;
 	
+	
+	public StudyLanguage(Long idProject, Language language) {
+		super();
+		this.idProject = idProject;
+		this.language = language;
+	}
+
 	@Id
 	@Column(name = "id_project", nullable = false, unique = true)
 	public Long getIdProject() {

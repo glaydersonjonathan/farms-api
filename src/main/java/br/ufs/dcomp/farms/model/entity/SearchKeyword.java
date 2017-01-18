@@ -27,9 +27,17 @@ public class SearchKeyword {
 	public SearchKeyword(String dsSearchKeyword) {
 		this.dsSearchKeyword = dsSearchKeyword;
 	}
+	
+	
+
+	public SearchKeyword(String dsSearchKeyword, Project project) {
+		super();
+		this.dsSearchKeyword = dsSearchKeyword;
+		this.project = project;
+	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "SearchKeywordSequenceGenerator")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SearchKeywordSequenceGenerator")
 	@Column(name = "id_search_keyword", nullable = false, unique = true)
 	public Long getIdSearchKeyword() {
 		return idSearchKeyword;

@@ -19,17 +19,20 @@ import org.springframework.stereotype.Component;
 import br.ufs.dcomp.farms.common.message.ErrorMessage;
 import br.ufs.dcomp.farms.common.message.SuccessMessage;
 import br.ufs.dcomp.farms.core.FarmsResponse;
+import br.ufs.dcomp.farms.model.dto.LanguageCreatedDto;
 import br.ufs.dcomp.farms.model.dto.MainQuestionCreatedDto;
 import br.ufs.dcomp.farms.model.dto.ObjectiveCreateDto;
 import br.ufs.dcomp.farms.model.dto.ObjectiveCreatedDto;
+import br.ufs.dcomp.farms.model.dto.SearchEngineCreatedDto;
 import br.ufs.dcomp.farms.model.dto.SearchKeywordCreatedDto;
 import br.ufs.dcomp.farms.model.dto.SecondaryQuestionCreatedDto;
 import br.ufs.dcomp.farms.model.dto.SelectionCriteriaCreatedDto;
 import br.ufs.dcomp.farms.model.dto.StandardQueryCreatedDto;
+import br.ufs.dcomp.farms.model.service.LanguageService;
 //import br.ufs.dcomp.farms.model.service.LanguageService;
 import br.ufs.dcomp.farms.model.service.MainQuestionService;
 import br.ufs.dcomp.farms.model.service.ObjectiveService;
-import br.ufs.dcomp.farms.model.service.ProjectService;
+import br.ufs.dcomp.farms.model.service.SearchEngineService;
 import br.ufs.dcomp.farms.model.service.SearchKeywordService;
 import br.ufs.dcomp.farms.model.service.SecondaryQuestionService;
 import br.ufs.dcomp.farms.model.service.SelectionCriteriaService;
@@ -43,9 +46,6 @@ public class ProtocolResource {
 
 	final static Logger logger = Logger.getLogger(ProtocolResource.class);
 
-	
-	@Autowired
-	private ProjectService projectService;
 	@Autowired
 	private ObjectiveService objectiveService;
 	@Autowired
@@ -54,12 +54,14 @@ public class ProtocolResource {
 	private SecondaryQuestionService secondaryQuestionService;
 	@Autowired
 	private SearchKeywordService searchKeywordService;
-	// @Autowired
-	// private LanguageService languageService;
+	@Autowired
+	private LanguageService languageService;
 	@Autowired
 	private StandardQueryService standardQueryService;
 	@Autowired
 	private SelectionCriteriaService selectionCriteriaService;
+	@Autowired
+	private SearchEngineService searchEngineService;
 
 	// projects/{dsKey}/objectives
 	@GET
@@ -114,21 +116,6 @@ public class ProtocolResource {
 		}
 	}
 
-	// // projects/{dsKey}/languages
-	// @GET
-	// @Path("/{dsKey}/languages")
-	// public Response getLanguagesByDsKeyProject(@PathParam("dsKey") String
-	// dsKey) {
-	// try {
-	// List<LanguageCreatedDto> languageCreatedDtos =
-	// languageService.getByDsKeyProject(dsKey);
-	// return FarmsResponse.ok(languageCreatedDtos);
-	// } catch (Exception ex) {
-	// logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
-	// return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
-	// }
-	// }
-
 	// projects/{dsKey}/standard-query
 	@GET
 	@Path("/{dsKey}/standard-query")
@@ -141,21 +128,6 @@ public class ProtocolResource {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-
-	// // projects/{dsKey}/search-engine
-	// @GET
-	// @Path("/{dsKey}/search-engine")
-	// public Response getKeywordsByDsKeyProject(@PathParam("dsKey") String
-	// dsKey) {
-	// try {
-	// List<StudyCreatedDto> studyCreatedDtos =
-	// studyService.getByDsKeyProject(dsKey);
-	// return FarmsResponse.ok(studyCreatedDtos);
-	// } catch (Exception ex) {
-	// logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
-	// return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
-	// }
-	// }
 
 	// projects/{dsKey}/selection-criterias
 	@GET
@@ -171,49 +143,100 @@ public class ProtocolResource {
 		}
 	}
 
-	@POST
-	@Path("/objectives")
-	public Response saveObjective(ObjectiveCreateDto obcd) {
-		try{
-			Boolean bool = objectiveService.saveObjective(obcd);
-			return FarmsResponse.ok(SuccessMessage.OBJECTIVE_SAVED, bool);
-		}catch (Exception ex) {
+	// erroooooooo
+	// projects/{dsKey}/languages
+	@GET
+	@Path("/{dsKey}/languages")
+	public Response getLanguagesByDsKeyProject(@PathParam("dsKey") String dsKey) {
+		try {
+			List<LanguageCreatedDto> languageCreatedDtos = languageService.getByDsKeyProject(dsKey);
+			return FarmsResponse.ok(languageCreatedDtos);
+		} catch (Exception ex) {
+			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
 	
-	@POST
-	@Path("/mainQuestion")
-	public Response saveMainQuestion(MainQuestionCreatedDto mqcd) {
-		try{
-			Boolean bool = mainQuestionService.saveMainQuestion(mqcd);
-			return FarmsResponse.ok(SuccessMessage.MAIN_QUESTION_SAVED, bool);
-		}catch (Exception ex) {
+	// erroooooooo
+	// /{dsKey}/search-engine
+	@GET
+	@Path("/{dsKey}/search-engine")
+	public Response getEnginesByDsKeyProject(@PathParam("dsKey") String dsKey) {
+		try {
+			List<SearchEngineCreatedDto> searchEngineCreatedDtos = searchEngineService.getByDsKeyProject(dsKey);
+			return FarmsResponse.ok(searchEngineCreatedDtos);
+		} catch (Exception ex) {
+			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
 
-	
+	// **********************************POST's*****************//
+
+	@POST
+	@Path("/objectives")
+	public Response saveObjective(ObjectiveCreateDto obcd) {
+		try {
+			Boolean bool = objectiveService.saveObjective(obcd);
+			return FarmsResponse.ok(SuccessMessage.OBJECTIVE_SAVED, bool);
+		} catch (Exception ex) {
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+
+	@POST
+	@Path("/mainQuestion")
+	public Response saveMainQuestion(MainQuestionCreatedDto mqcd) {
+		try {
+			Boolean bool = mainQuestionService.saveMainQuestion(mqcd);
+			return FarmsResponse.ok(SuccessMessage.MAIN_QUESTION_SAVED, bool);
+		} catch (Exception ex) {
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+
 	@POST
 	@Path("/secondaryQuestion")
 	public Response saveSecondaryQuestion(SecondaryQuestionCreatedDto sqcd) {
-		try{
+		try {
 			Boolean bool = secondaryQuestionService.saveSecondaryQuestion(sqcd);
 			return FarmsResponse.ok(SuccessMessage.SECONDARY_QUESTION_SAVED, bool);
-		}catch (Exception ex) {
+		} catch (Exception ex) {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-	
-	
+
 	@POST
 	@Path("/standardQuery")
 	public Response saveStandardQuery(StandardQueryCreatedDto stqcd) {
-		try{
+		try {
 			Boolean bool = standardQueryService.saveStandardQuery(stqcd);
 			return FarmsResponse.ok(SuccessMessage.STANDARD_QUERY_SAVED, bool);
-		}catch (Exception ex) {
+		} catch (Exception ex) {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
+
+	@POST
+	@Path("/searchKeywords")
+	public Response saveKeyword(SearchKeywordCreatedDto searchKeywords) {
+		try {
+			Boolean bool = searchKeywordService.saveKeyword(searchKeywords);
+			return FarmsResponse.ok(SuccessMessage.KEYWORD_SAVED, bool);
+		} catch (Exception ex) {
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+
+	@POST
+	@Path("/selectionCriterias")
+	public Response saveCriteria(SelectionCriteriaCreatedDto selectionCriterias) {
+		try {
+			Boolean bool = selectionCriteriaService.saveCriteria(selectionCriterias);
+			return FarmsResponse.ok(SuccessMessage.CRITERIA_SAVED, bool);
+		} catch (Exception ex) {
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+
 }

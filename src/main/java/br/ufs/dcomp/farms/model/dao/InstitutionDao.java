@@ -28,11 +28,6 @@ public class InstitutionDao extends HibernateDao<Institution> {
 	 * @param institution
 	 */
 	public void save(Institution institution) {
-		System.out.println("abbr " + institution.getDsAbbreviation());
-		System.out.println("nome " + institution.getNmInstitution());
-		System.out.println("id_country " + institution.getCountry().getIdCountry());
-		System.out.println("nome countrhy" + institution.getCountry().getNmCountry());
-
 		super.save(institution);
 			}
 

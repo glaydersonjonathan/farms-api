@@ -2,9 +2,13 @@ package br.ufs.dcomp.farms.model.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -18,6 +22,8 @@ public class Language {
 	private Long idLanguage;
 	private String nmLanguage;
 	
+	private StudyLanguage studyLanguage;
+	
 	public Language() {}
 	
 	public Language(String nmLanguage) {
@@ -25,7 +31,7 @@ public class Language {
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "LanguageSequenceGenerator")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "LanguageSequenceGenerator")
 	@Column(name = "id_language", nullable = false, unique = true)
 	public Long getIdLanguage() {
 		return idLanguage;
@@ -43,4 +49,17 @@ public class Language {
 	public void setNmLanguage(String nmLanguage) {
 		this.nmLanguage = nmLanguage;
 	}
+
+
+	/*public StudyLanguage getStudyLanguage() {
+		return studyLanguage;
+	}
+
+	public void setStudyLanguage(StudyLanguage studyLanguage) {
+		this.studyLanguage = studyLanguage;
+	}*/
+	
+	
+	
+	
 }

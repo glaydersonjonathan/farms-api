@@ -74,4 +74,12 @@ public final class SuccessMessage extends Message {
 	private static final Integer STANDARD_QUERY_SAVED_CODE = 1014;
 	private static final String STANDARD_QUERY_SAVED_DESCRIPTION = "Standard Query saved successfully.";
 	public static final SuccessMessage STANDARD_QUERY_SAVED = new SuccessMessage(STANDARD_QUERY_SAVED_CODE, STANDARD_QUERY_SAVED_DESCRIPTION);
+	
+	private static final Integer KEYWORD_SAVED_CODE = 1015;
+	private static final String KEYWORD_SAVED_DESCRIPTION = "Keyword saved successfully.";
+	public static final SuccessMessage KEYWORD_SAVED = new SuccessMessage(KEYWORD_SAVED_CODE, KEYWORD_SAVED_DESCRIPTION);
+	
+	private static final Integer CRITERIA_SAVED_CODE = 1016;
+	private static final String CRITERIA_SAVED_DESCRIPTION = "Criteria saved successfully.";
+	public static final SuccessMessage CRITERIA_SAVED = new SuccessMessage(CRITERIA_SAVED_CODE, CRITERIA_SAVED_DESCRIPTION);
 }

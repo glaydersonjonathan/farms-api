@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import br.ufs.dcomp.farms.model.dao.LanguageDao;
 import br.ufs.dcomp.farms.model.dto.LanguageCreatedDto;
 import br.ufs.dcomp.farms.model.entity.Language;
+import br.ufs.dcomp.farms.model.entity.StudyLanguage;
 
 @Component
 public class LanguageService {
@@ -20,7 +21,7 @@ public class LanguageService {
 		List<LanguageCreatedDto> languageCreatedDtos = new ArrayList<LanguageCreatedDto>();
 		List<Language> languages = languageDao.getByDsKeyProject(dsKey);
 		if (languages != null) {
-			for(Language language : languages) {
+			for (Language language : languages) {
 				languageCreatedDtos.add(new LanguageCreatedDto(language));
 			}
 		}
