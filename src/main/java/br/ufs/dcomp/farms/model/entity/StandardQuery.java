@@ -33,9 +33,17 @@ public class StandardQuery {
 	public StandardQuery(String dsStandardQuery) {
 		this.dsStandardQuery = dsStandardQuery;
 	}
+	
+	
+
+	public StandardQuery(String dsStandardQuery, Project project) {
+		super();
+		this.dsStandardQuery = dsStandardQuery;
+		this.project = project;
+	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "StandardQuerySequenceGenerator")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "StandardQuerySequenceGenerator")
 	@Column(name = "id_standard_query", nullable = false, unique = true)
 	public Long getIdStandardQuery() {
 		return idStandardQuery;

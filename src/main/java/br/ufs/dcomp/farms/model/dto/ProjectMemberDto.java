@@ -9,7 +9,7 @@ public class ProjectMemberDto {
 	private String dsSSO;
 	private String dsEmail;
 	private Integer tpConfirmed;
-	private Integer tpRole;
+	private String tpRole;
 	private String nmInstitution;
 	
 	public ProjectMemberDto() {}
@@ -21,7 +21,7 @@ public class ProjectMemberDto {
 		this.dsSSO = projectMember.getResearcher().getDsSSO();
 		this.dsEmail = projectMember.getResearcher().getDsEmail();
 		this.tpConfirmed = projectMember.getResearcher().getTpConfirmed().getCode();
-		this.tpRole = projectMember.getTpRole().getCode();
+		this.tpRole = projectMember.getTpRole().getDescription();
 		this.nmInstitution = projectMember.getInstitution().getNmInstitution();
 	}
 
@@ -65,11 +65,11 @@ public class ProjectMemberDto {
 		this.tpConfirmed = tpConfirmed;
 	}
 
-	public Integer getTpRole() {
+	public String getTpRole() {
 		return tpRole;
 	}
 
-	public void setTpRole(Integer tpRole) {
+	public void setTpRole(String tpRole) {
 		this.tpRole = tpRole;
 	}
 

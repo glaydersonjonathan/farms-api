@@ -27,9 +27,17 @@ public class Objective {
 	public Objective(String dsObjective) {
 		this.dsObjective = dsObjective;
 	}
+	
+	
+
+	public Objective(String dsObjective, Project project) {
+		super();
+		this.dsObjective = dsObjective;
+		this.project = project;
+	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "ObjectiveSequenceGenerator")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "ObjectiveSequenceGenerator")
 	@Column(name = "id_objective", nullable = false, unique = true)
 	public Long getIdObjective() {
 		return idObjective;

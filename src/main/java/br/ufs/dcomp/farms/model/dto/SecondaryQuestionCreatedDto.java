@@ -12,6 +12,23 @@ public class SecondaryQuestionCreatedDto {
 		this.dsProjectKey = secondaryQuestion.getProject().getDsKey();
 	}
 	
+	
+	
+	public SecondaryQuestionCreatedDto() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
+
+	public SecondaryQuestionCreatedDto(String dsSecondaryQuestion, String dsProjectKey) {
+		super();
+		this.dsSecondaryQuestion = dsSecondaryQuestion;
+		this.dsProjectKey = dsProjectKey;
+	}
+
+
+
 	public String getDsSecondaryQuestion() {
 		return dsSecondaryQuestion;
 	}

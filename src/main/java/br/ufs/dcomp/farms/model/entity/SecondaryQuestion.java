@@ -28,8 +28,16 @@ public class SecondaryQuestion {
 		this.dsSecondaryQuestion = dsSecondaryQuestion;
 	}
 
+
+
+	public SecondaryQuestion(String dsSecondaryQuestion, Project project) {
+		super();
+		this.dsSecondaryQuestion = dsSecondaryQuestion;
+		this.project = project;
+	}
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "SecondaryQuestionSequenceGenerator")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SecondaryQuestionSequenceGenerator")
 	@Column(name = "id_secondary_question", nullable = false, unique = true)
 	public Long getIdSecondaryQuestion() {
 		return idSecondaryQuestion;

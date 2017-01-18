@@ -58,4 +58,20 @@ public final class SuccessMessage extends Message {
 	private static final String MEMBER_ADDED_DESCRIPTION = "Member added successfully.";
 	public static final SuccessMessage MEMBER_ADDED = new SuccessMessage(MEMBER_ADDED_CODE, MEMBER_ADDED_DESCRIPTION);
 	
+	
+	private static final Integer OBJECTIVE_SAVED_CODE = 1011;
+	private static final String OBJECTIVE_SAVED_DESCRIPTION = "Objective saved successfully.";
+	public static final SuccessMessage OBJECTIVE_SAVED = new SuccessMessage(OBJECTIVE_SAVED_CODE, OBJECTIVE_SAVED_DESCRIPTION);
+	
+	private static final Integer MAIN_QUESTION_SAVED_CODE = 1012;
+	private static final String MAIN_QUESTION_DESCRIPTION = "Main Question saved successfully.";
+	public static final SuccessMessage MAIN_QUESTION_SAVED = new SuccessMessage(MAIN_QUESTION_SAVED_CODE, MAIN_QUESTION_DESCRIPTION);
+	
+	private static final Integer SECONDARY_QUESTION_SAVED_CODE = 1013;
+	private static final String SECONDARY_QUESTION_DESCRIPTION = "Secondary Question saved successfully.";
+	public static final SuccessMessage SECONDARY_QUESTION_SAVED = new SuccessMessage(SECONDARY_QUESTION_SAVED_CODE, SECONDARY_QUESTION_DESCRIPTION);
+	
+	private static final Integer STANDARD_QUERY_SAVED_CODE = 1014;
+	private static final String STANDARD_QUERY_SAVED_DESCRIPTION = "Standard Query saved successfully.";
+	public static final SuccessMessage STANDARD_QUERY_SAVED = new SuccessMessage(STANDARD_QUERY_SAVED_CODE, STANDARD_QUERY_SAVED_DESCRIPTION);
 }

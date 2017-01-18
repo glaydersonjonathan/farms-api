@@ -1,0 +1,219 @@
+package br.ufs.dcomp.farms.rest;
+
+import java.util.List;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import org.apache.log4j.Logger;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import br.ufs.dcomp.farms.common.message.ErrorMessage;
+import br.ufs.dcomp.farms.common.message.SuccessMessage;
+import br.ufs.dcomp.farms.core.FarmsResponse;
+import br.ufs.dcomp.farms.model.dto.MainQuestionCreatedDto;
+import br.ufs.dcomp.farms.model.dto.ObjectiveCreateDto;
+import br.ufs.dcomp.farms.model.dto.ObjectiveCreatedDto;
+import br.ufs.dcomp.farms.model.dto.SearchKeywordCreatedDto;
+import br.ufs.dcomp.farms.model.dto.SecondaryQuestionCreatedDto;
+import br.ufs.dcomp.farms.model.dto.SelectionCriteriaCreatedDto;
+import br.ufs.dcomp.farms.model.dto.StandardQueryCreatedDto;
+//import br.ufs.dcomp.farms.model.service.LanguageService;
+import br.ufs.dcomp.farms.model.service.MainQuestionService;
+import br.ufs.dcomp.farms.model.service.ObjectiveService;
+import br.ufs.dcomp.farms.model.service.ProjectService;
+import br.ufs.dcomp.farms.model.service.SearchKeywordService;
+import br.ufs.dcomp.farms.model.service.SecondaryQuestionService;
+import br.ufs.dcomp.farms.model.service.SelectionCriteriaService;
+import br.ufs.dcomp.farms.model.service.StandardQueryService;
+
+@Path("/protocol")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
+@Component
+public class ProtocolResource {
+
+	final static Logger logger = Logger.getLogger(ProtocolResource.class);
+
+	
+	@Autowired
+	private ProjectService projectService;
+	@Autowired
+	private ObjectiveService objectiveService;
+	@Autowired
+	private MainQuestionService mainQuestionService;
+	@Autowired
+	private SecondaryQuestionService secondaryQuestionService;
+	@Autowired
+	private SearchKeywordService searchKeywordService;
+	// @Autowired
+	// private LanguageService languageService;
+	@Autowired
+	private StandardQueryService standardQueryService;
+	@Autowired
+	private SelectionCriteriaService selectionCriteriaService;
+
+	// projects/{dsKey}/objectives
+	@GET
+	@Path("/{dsKey}/objectives")
+	public Response getObjectivesByDsKeyProject(@PathParam("dsKey") String dsKey) {
+		try {
+			List<ObjectiveCreatedDto> objectiveCreatedDtos = objectiveService.getByDsKeyProject(dsKey);
+			return FarmsResponse.ok(objectiveCreatedDtos);
+		} catch (Exception ex) {
+			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+
+	// projects/{dsKey}/main-question
+	@GET
+	@Path("/{dsKey}/main-question")
+	public Response getMainQuestionByDsKeyProject(@PathParam("dsKey") String dsKey) {
+		try {
+			List<MainQuestionCreatedDto> mainQuestionCreatedDtos = mainQuestionService.getByDsKeyProject(dsKey);
+			return FarmsResponse.ok(mainQuestionCreatedDtos);
+		} catch (Exception ex) {
+			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+
+	// projects/{dsKey}/secondary-question
+	@GET
+	@Path("/{dsKey}/secondary-question")
+	public Response getSecondaryQuestionByDsKeyProject(@PathParam("dsKey") String dsKey) {
+		try {
+			List<SecondaryQuestionCreatedDto> secondaryQuestionCreatedDtos = secondaryQuestionService
+					.getByDsKeyProject(dsKey);
+			return FarmsResponse.ok(secondaryQuestionCreatedDtos);
+		} catch (Exception ex) {
+			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+
+	// projects/{dsKey}/search-keywords
+	@GET
+	@Path("/{dsKey}/search-keywords")
+	public Response getSearchKeywordsByDsKeyProject(@PathParam("dsKey") String dsKey) {
+		try {
+			List<SearchKeywordCreatedDto> searchKeywordCreatedDtos = searchKeywordService.getByDsKeyProject(dsKey);
+			return FarmsResponse.ok(searchKeywordCreatedDtos);
+		} catch (Exception ex) {
+			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+
+	// // projects/{dsKey}/languages
+	// @GET
+	// @Path("/{dsKey}/languages")
+	// public Response getLanguagesByDsKeyProject(@PathParam("dsKey") String
+	// dsKey) {
+	// try {
+	// List<LanguageCreatedDto> languageCreatedDtos =
+	// languageService.getByDsKeyProject(dsKey);
+	// return FarmsResponse.ok(languageCreatedDtos);
+	// } catch (Exception ex) {
+	// logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+	// return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+	// }
+	// }
+
+	// projects/{dsKey}/standard-query
+	@GET
+	@Path("/{dsKey}/standard-query")
+	public Response getStandardQueryByDsKeyProject(@PathParam("dsKey") String dsKey) {
+		try {
+			List<StandardQueryCreatedDto> standardQueryCreatedDtos = standardQueryService.getByDsKeyProject(dsKey);
+			return FarmsResponse.ok(standardQueryCreatedDtos);
+		} catch (Exception ex) {
+			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+
+	// // projects/{dsKey}/search-engine
+	// @GET
+	// @Path("/{dsKey}/search-engine")
+	// public Response getKeywordsByDsKeyProject(@PathParam("dsKey") String
+	// dsKey) {
+	// try {
+	// List<StudyCreatedDto> studyCreatedDtos =
+	// studyService.getByDsKeyProject(dsKey);
+	// return FarmsResponse.ok(studyCreatedDtos);
+	// } catch (Exception ex) {
+	// logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+	// return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+	// }
+	// }
+
+	// projects/{dsKey}/selection-criterias
+	@GET
+	@Path("/{dsKey}/selection-criterias")
+	public Response getSelectionCriteriasByDsKeyProject(@PathParam("dsKey") String dsKey) {
+		try {
+			List<SelectionCriteriaCreatedDto> selectionCriteriaCreatedDtos = selectionCriteriaService
+					.getByDsKeyProject(dsKey);
+			return FarmsResponse.ok(selectionCriteriaCreatedDtos);
+		} catch (Exception ex) {
+			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+
+	@POST
+	@Path("/objectives")
+	public Response saveObjective(ObjectiveCreateDto obcd) {
+		try{
+			Boolean bool = objectiveService.saveObjective(obcd);
+			return FarmsResponse.ok(SuccessMessage.OBJECTIVE_SAVED, bool);
+		}catch (Exception ex) {
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+	
+	@POST
+	@Path("/mainQuestion")
+	public Response saveMainQuestion(MainQuestionCreatedDto mqcd) {
+		try{
+			Boolean bool = mainQuestionService.saveMainQuestion(mqcd);
+			return FarmsResponse.ok(SuccessMessage.MAIN_QUESTION_SAVED, bool);
+		}catch (Exception ex) {
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+
+	
+	@POST
+	@Path("/secondaryQuestion")
+	public Response saveSecondaryQuestion(SecondaryQuestionCreatedDto sqcd) {
+		try{
+			Boolean bool = secondaryQuestionService.saveSecondaryQuestion(sqcd);
+			return FarmsResponse.ok(SuccessMessage.SECONDARY_QUESTION_SAVED, bool);
+		}catch (Exception ex) {
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+	
+	
+	@POST
+	@Path("/standardQuery")
+	public Response saveStandardQuery(StandardQueryCreatedDto stqcd) {
+		try{
+			Boolean bool = standardQueryService.saveStandardQuery(stqcd);
+			return FarmsResponse.ok(SuccessMessage.STANDARD_QUERY_SAVED, bool);
+		}catch (Exception ex) {
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+}

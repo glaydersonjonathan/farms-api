@@ -3,6 +3,7 @@ package br.ufs.dcomp.farms.model.dao;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.hibernate.Transaction;
 import org.springframework.stereotype.Component;
 
 import br.ufs.dcomp.farms.model.entity.StandardQuery;
@@ -31,5 +32,22 @@ public class StandardQueryDao extends HibernateDao<StandardQuery> {
 		query.setParameter("dsKey", dsKey);
 		List<StandardQuery> standardQueries = query.list();
 		return standardQueries;
+	}
+
+	public void delete(Long idProject) {
+		Transaction transaction = getSession().beginTransaction();
+		try {
+			// your code
+			String hql = "delete from StandardQuery where project.idProject= :idProject";
+			Query query = getSession().createQuery(hql);
+			query.setLong("idProject", idProject);
+			System.out.println(query.executeUpdate());
+			// your code end
+
+			transaction.commit();
+		} catch (Throwable t) {
+			transaction.rollback();
+			throw t;
+		}				
 	}
 }

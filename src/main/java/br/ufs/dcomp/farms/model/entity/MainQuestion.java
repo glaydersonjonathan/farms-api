@@ -33,9 +33,25 @@ public class MainQuestion {
 	public MainQuestion(String dsMainQuestion) {
 		this.dsMainQuestion = dsMainQuestion;
 	}
+	
+	
+	
+
+	public MainQuestion(String dsMainQuestion, String dsPopulation, String dsIntervation, String dsControl,
+			String dsResult, String dsApplicationContext, String dsExperimentalDesign, Project project) {
+		super();
+		this.dsMainQuestion = dsMainQuestion;
+		this.dsPopulation = dsPopulation;
+		this.dsIntervation = dsIntervation;
+		this.dsControl = dsControl;
+		this.dsResult = dsResult;
+		this.dsApplicationContext = dsApplicationContext;
+		this.dsExperimentalDesign = dsExperimentalDesign;
+		this.project = project;
+	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "MainQuestionSequenceGenerator")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "MainQuestionSequenceGenerator")
 	@Column(name = "id_main_question", nullable = false, unique = true)
 	public Long getIdMainQuestion() {
 		return idMainQuestion;
