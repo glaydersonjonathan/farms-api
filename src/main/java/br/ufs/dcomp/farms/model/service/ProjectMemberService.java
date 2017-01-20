@@ -51,13 +51,11 @@ public class ProjectMemberService {
 
 		Researcher researcher = researcherDao.getByDsSSO(pm.getDsUserName());
 		Project project = projectDao.getByDsKey(pm.getDsKey());
-		Institution institution = institutionDao.getById(pm.getIdInstitution());
-
 		ProjectMember projectMember = new ProjectMember();
 		projectMember.setResearcher(researcher);
 		projectMember.setProject(project);
-		projectMember.setInstitution(institution);
-		projectMember.setTpRole(RoleEnum.COORDINATOR);// verificar
+		//projectMember.setInstitution(institution);
+		projectMember.setTpRole(RoleEnum.COORDINATOR);// VERIFICAR !!!!!!!!!!!!!!!!!
 		projectMemberDao.save(projectMember);
 
 		return true;
@@ -73,12 +71,12 @@ public class ProjectMemberService {
 		}
 
 		Project project = projectDao.getByDsKey(pm.getDsKey());
-		Institution institution = institutionDao.getById(pm.getIdInstitution());
+		
 
 		ProjectMember projectMember = new ProjectMember();
 		projectMember.setResearcher(researcher);
 		projectMember.setProject(project);
-		projectMember.setInstitution(institution);
+		//projectMember.setInstitution(institution);
 		projectMember.setTpRole(RoleEnum.MEMBER);
 		projectMemberDao.save(projectMember);
 

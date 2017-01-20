@@ -1,5 +1,7 @@
 package br.ufs.dcomp.farms.model.dto;
 
+import br.ufs.dcomp.farms.model.entity.Country;
+
 public class ProjectCreateDto {
 
 	private String dsKey;
@@ -7,23 +9,34 @@ public class ProjectCreateDto {
 	private String dsProject;
 	private Integer tpReview;
 	private String dsSsoResearcher;
-	private Long idInstitution;
+	
+	
+	//part create Institution
+	private Country country;
+	private String nmInstitution;
+	private String dsAbbreviation;
 	
 	public ProjectCreateDto() {
 		super();
 	}
 
-	public ProjectCreateDto(String dsKey, String dsTitle, String dsProject, Integer tpReview,
-			String dsSsoResearcher, Long idInstitution) {
+
+
+
+	public ProjectCreateDto(String dsKey, String dsTitle, String dsProject, Integer tpReview, String dsSsoResearcher,
+			Country country, String nmInstitution, String dsAbbreviation) {
 		super();
 		this.dsKey = dsKey;
 		this.dsTitle = dsTitle;
 		this.dsProject = dsProject;
 		this.tpReview = tpReview;
 		this.dsSsoResearcher = dsSsoResearcher;
-		this.idInstitution = idInstitution;
+		this.country = country;
+		this.nmInstitution = nmInstitution;
+		this.dsAbbreviation = dsAbbreviation;
 	}
-	
+
+
 
 
 	public String getDsKey() {
@@ -66,11 +79,33 @@ public class ProjectCreateDto {
 		this.dsSsoResearcher = dsSsoResearcher;
 	}
 
-	public Long getIdInstitution() {
-		return idInstitution;
+
+	public Country getCountry() {
+		return country;
 	}
 
-	public void setIdInstitution(Long idInstitution) {
-		this.idInstitution = idInstitution;
+	public void setCountry(Country country) {
+		this.country = country;
 	}
+
+
+
+
+	public String getNmInstitution() {
+		return nmInstitution;
+	}
+
+	public void setNmInstitution(String nmInstitution) {
+		this.nmInstitution = nmInstitution;
+	}
+
+	public String getDsAbbreviation() {
+		return dsAbbreviation;
+	}
+
+	public void setDsAbbreviation(String dsAbbreviation) {
+		this.dsAbbreviation = dsAbbreviation;
+	}
+
+
 }

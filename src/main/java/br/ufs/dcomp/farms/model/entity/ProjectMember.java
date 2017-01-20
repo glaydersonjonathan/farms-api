@@ -28,16 +28,14 @@ public class ProjectMember implements Serializable {
 	private Long idProjectMember;
 	private Researcher researcher;
 	private Project project;
-	private Institution institution;
+	//private Institution institution; após reunião, deu se outro entendimento regra de negocio
 	private RoleEnum tpRole;
 	
 	public ProjectMember() {}
 
-	public ProjectMember(Researcher researcher, Project project, Institution institution,
-			RoleEnum tpRole) {
+	public ProjectMember(Researcher researcher, Project project,RoleEnum tpRole) {
 		this.researcher = researcher;
 		this.project = project;
-		this.institution = institution;
 		this.tpRole = tpRole;
 	}
 
@@ -72,7 +70,7 @@ public class ProjectMember implements Serializable {
 		this.project = project;
 	}
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+/*	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_institution", nullable = false)
 	public Institution getInstitution() {
 		return institution;
@@ -80,7 +78,7 @@ public class ProjectMember implements Serializable {
 	
 	public void setInstitution(Institution institution) {
 		this.institution = institution;
-	}
+	}*/
 	
 	@Column(name = "tp_role", nullable = false)
 	@Enumerated(EnumType.ORDINAL)

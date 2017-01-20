@@ -1,6 +1,5 @@
 package br.ufs.dcomp.farms.model.entity;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -23,12 +22,14 @@ public class Institution {
 	private String dsAbbreviation;
 	private String nmInstitution;
 	private Country country;
-	//private Project project;
-	
-	//private Set<ProjectMember> projectMembers = new HashSet<ProjectMember>(0);
+	private Project project;
 
-	public Institution() {}
-	
+	// private Set<ProjectMember> projectMembers = new
+	// HashSet<ProjectMember>(0);
+
+	public Institution() {
+	}
+
 	public Institution(String nmInstitution, String dsAbbreviation, Country country) {
 		super();
 		this.nmInstitution = nmInstitution;
@@ -37,8 +38,7 @@ public class Institution {
 	}
 
 	@Id
-	//@GeneratedValue(strategy = GenerationType.AUTO, generator = "InstitutionSequenceGenerator")
-	@GeneratedValue(strategy = GenerationType.IDENTITY,  generator = "InstitutionSequenceGenerator")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "InstitutionSequenceGenerator")
 	@Column(name = "id_institution", nullable = false, unique = true)
 	public Long getIdInstitution() {
 		return idInstitution;
@@ -75,23 +75,23 @@ public class Institution {
 	public void setCountry(Country country) {
 		this.country = country;
 	}
-	
-	//@ManyToOne(fetch = FetchType.LAZY)
-	//@JoinColumn(name = "id_project", nullable = false)
-	///public Project getProject() {
-	//	return project;
-	//}
 
-	//public void setProject(Project project) {
-	//	this.project = project;
-	//}
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_project", nullable = false)
+	public Project getProject() {
+		return project;
+	}
 
-	//@OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
-	//public Set<ProjectMember> getProjectMembers() {
-	//	return projectMembers;
-//	}
+	public void setProject(Project project) {
+		this.project = project;
+	}
 
-	//public void setProjectMembers(Set<ProjectMember> projectMembers) {
-	//	this.projectMembers = projectMembers;
-	//}
+	// @OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
+	// public Set<ProjectMember> getProjectMembers() {
+	// return projectMembers;
+	// }
+
+	// public void setProjectMembers(Set<ProjectMember> projectMembers) {
+	// this.projectMembers = projectMembers;
+	// }
 }

@@ -19,6 +19,7 @@ import br.ufs.dcomp.farms.common.message.SuccessMessage;
 import br.ufs.dcomp.farms.core.FarmsResponse;
 import br.ufs.dcomp.farms.model.dto.CountryCreatedDto;
 import br.ufs.dcomp.farms.model.dto.InstitutionCreateDto;
+import br.ufs.dcomp.farms.model.dto.ProjectMemberAddInstitutionDto;
 import br.ufs.dcomp.farms.model.service.InstitutionService;
 
 @Path("/institutions")
@@ -44,7 +45,7 @@ public class InstitutionResource {
 		}
 	}
 
-	// ok?
+/*	// verificar, creio que não terá mais uso
 	@POST
 	public Response createInstitution(InstitutionCreateDto institutionCreateDto) {
 		try {
@@ -53,6 +54,26 @@ public class InstitutionResource {
 		} catch (Exception ex) {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
-	}
+	}*/
+	
+	// testando
+		/**
+		 * Receive request from client to Add institution a project.
+		 *
+		 * @param InstitutionCreateDto.
+		 * @return Response.
+		 */
+		@POST
+		@Path("/addInstitution")
+		public Response addInstitutionProject(InstitutionCreateDto institutionCreateDto) {
+			try {
+				Boolean bool = institutionService.save(institutionCreateDto);
+				return FarmsResponse.ok(SuccessMessage.INSTITUTION_ADDED, bool);
+			} catch (Exception ex) {
+				return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+			}
+		}
+	
+	
 
 }

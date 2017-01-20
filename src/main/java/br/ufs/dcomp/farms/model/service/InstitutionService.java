@@ -7,17 +7,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.ufs.dcomp.farms.model.dao.InstitutionDao;
+import br.ufs.dcomp.farms.model.dao.ProjectDao;
 import br.ufs.dcomp.farms.model.dto.CountryCreatedDto;
 import br.ufs.dcomp.farms.model.dto.InstitutionCreateDto;
 import br.ufs.dcomp.farms.model.dto.InstitutionCreatedDto;
 import br.ufs.dcomp.farms.model.entity.Country;
 import br.ufs.dcomp.farms.model.entity.Institution;
+import br.ufs.dcomp.farms.model.entity.Project;
 
 @Component
 public class InstitutionService {
 
 	@Autowired
 	private InstitutionDao institutionDao;
+	@Autowired
+	private ProjectDao projectDao;
 	
 
 	public List<InstitutionCreatedDto> getByDsKeyProject(String dsKey) {
@@ -61,6 +65,10 @@ public class InstitutionService {
 		institution.setDsAbbreviation(institutionCreateDto.getDsAbbreviation());
 		institution.setNmInstitution(institutionCreateDto.getNmInstitution());
 		institution.setCountry(institutionCreateDto.getCountry());
+		
+		Project project = projectDao.getByDsKey(institutionCreateDto.getDsKey());
+		
+		institution.setProject(project);
 		
 		institutionDao.save(institution);
 		

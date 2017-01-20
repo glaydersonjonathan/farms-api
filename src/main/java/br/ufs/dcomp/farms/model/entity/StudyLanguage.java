@@ -16,8 +16,8 @@ public class StudyLanguage {
 
 	private Long idProject;
 	private Language language;
-	
-	
+
+
 	public StudyLanguage(Long idProject, Language language) {
 		super();
 		this.idProject = idProject;

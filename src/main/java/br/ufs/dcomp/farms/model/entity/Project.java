@@ -50,7 +50,7 @@ public class Project {
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "ProjectSequenceGenerator")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "ProjectSequenceGenerator")
 	@Column(name = "id_project", nullable = false, unique = true)
 	public Long getIdProject() {
 		return idProject;

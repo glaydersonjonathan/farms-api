@@ -52,10 +52,6 @@ public class ProjectService {
 			throw new FarmsException(ErrorMessage.RESEARCHER_NOT_FOUND);
 		}
 		
-		Institution institution = institutionDao.getById(projectCreateDto.getIdInstitution());
-		if (institution == null) {
-			throw new FarmsException(ErrorMessage.INSTITUTION_NOT_FOUND);
-		}
 		
 		Project project = new Project();
 		project.setDsKey(projectCreateDto.getDsKey());
@@ -64,10 +60,19 @@ public class ProjectService {
 		project.setTpReview(ReviewEnum.fromCode(projectCreateDto.getTpReview()));
 		projectDao.save(project);
 		
+		
+		System.out.println("sout "+project.getIdProject());
+		Institution institution = new Institution();
+		institution.setProject(project);
+		institution.setCountry(projectCreateDto.getCountry());
+		institution.setDsAbbreviation(projectCreateDto.getDsAbbreviation());
+		institution.setNmInstitution(projectCreateDto.getNmInstitution());
+		institutionDao.save(institution);
+		
 		ProjectMember projectMember = new ProjectMember();
 		projectMember.setResearcher(researcher);
 		projectMember.setProject(project);
-		projectMember.setInstitution(institution);
+		//projectMember.setInstitution(institution);
 		projectMember.setTpRole(RoleEnum.COORDINATOR);
 		projectMemberDao.save(projectMember);
 		
@@ -75,6 +80,11 @@ public class ProjectService {
 		
 		return projectCreatedDto;
 	}
+	
+	
+	
+	
+	
 	
 	@Transactional(rollbackFor = FarmsException.class)
 	public boolean update(ProjectCreatedDto projectCreatedDto) throws FarmsException {

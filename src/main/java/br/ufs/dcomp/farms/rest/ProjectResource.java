@@ -123,36 +123,8 @@ public class ProjectResource {
 		}
 	}
 
-	// ok
-	// pego todas no formulário de criação do projeto
-	@GET
-	@Path("/institutions")
-	public Response getAllInstitutions() {
-		try {
-			List<InstitutionCreatedDto> institutionCreatedDtos = institutuionService.getAll();
-			return FarmsResponse.ok(institutionCreatedDtos);
-		} catch (Exception ex) {
-			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
-		}
-	}
 
-	// testando
-	/**
-	 * Receive request from client to Add institution a project.
-	 *
-	 * @param ProjectMemberCreateDto.
-	 * @return Response.
-	 */
-	@POST
-	@Path("/addInstitution")
-	public Response addInstitutionProject(ProjectMemberAddInstitutionDto pm) {
-		try {
-			Boolean bool = projectMemberService.addInstitutionProject(pm);
-			return FarmsResponse.ok(SuccessMessage.INSTITUTION_ADDED, bool);
-		} catch (Exception ex) {
-			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
-		}
-	}
+	
 
 	// projects/{dsKey}/members, usando para listar membros
 	@GET

@@ -1,6 +1,6 @@
 package br.ufs.dcomp.farms.model.dao;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import org.hibernate.Query;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import br.ufs.dcomp.farms.model.entity.Country;
 import br.ufs.dcomp.farms.model.entity.Institution;
-import br.ufs.dcomp.farms.model.entity.ProjectMember;
+
 
 @Component
 @SuppressWarnings("unchecked")
@@ -40,20 +40,17 @@ public class InstitutionDao extends HibernateDao<Institution> {
 	 */
 	public List<Institution> getByDsKeyProject(String dsKey) {
 		StringBuilder sbHql = new StringBuilder();
-		sbHql.append("from ProjectMember pm");
-		sbHql.append(" join fetch pm.institution i");
-		sbHql.append(" where pm.project.dsKey like :dsKey");
+		sbHql.append("from Institution i");
+		sbHql.append(" join fetch i.project p");
+		sbHql.append(" where p.dsKey like :dsKey");
 
 		Query q = getSession().createQuery(sbHql.toString());
 		q.setParameter("dsKey", dsKey);
 
-		List<ProjectMember> projects_member = q.list();
+		//List<ProjectMember> projects_member = q.list();
 
-		ArrayList<Institution> institutions = new ArrayList<Institution>();
+		List<Institution> institutions = q.list();
 
-		for (ProjectMember pm : projects_member) {
-			institutions.add(pm.getInstitution());
-		}
 		return institutions;
 	}
 

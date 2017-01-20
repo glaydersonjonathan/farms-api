@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 import br.ufs.dcomp.farms.model.dao.LanguageDao;
 import br.ufs.dcomp.farms.model.dto.LanguageCreatedDto;
 import br.ufs.dcomp.farms.model.entity.Language;
-import br.ufs.dcomp.farms.model.entity.StudyLanguage;
 
 @Component
 public class LanguageService {
