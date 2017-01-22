@@ -1,5 +1,7 @@
 package br.ufs.dcomp.farms.model.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,19 +14,36 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "study_language")
 @XmlRootElement
-public class StudyLanguage {
+public class StudyLanguage implements Serializable {
 
-	private Long idProject;
+	//private Long idProject;
 	private Language language;
+	private Project project;
 
+	@Id
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_project", nullable = false)
+	public Project getProject() {
+		return project;
+	}
 
-	public StudyLanguage(Long idProject, Language language) {
+	public void setProject(Project project) {
+		this.project = project;
+	}
+	
+	
+
+	public StudyLanguage() {
 		super();
-		this.idProject = idProject;
+	}
+
+	public StudyLanguage(Project project, Language language) {
+		super();
+	    this.project = project;
 		this.language = language;
 	}
 
-	@Id
+/*	@Id
 	@Column(name = "id_project", nullable = false, unique = true)
 	public Long getIdProject() {
 		return idProject;
@@ -32,8 +51,8 @@ public class StudyLanguage {
 
 	public void setIdProject(Long idProject) {
 		this.idProject = idProject;
-	}
-
+	}*/
+	@Id
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_language", nullable = false)
 	public Language getLanguage() {

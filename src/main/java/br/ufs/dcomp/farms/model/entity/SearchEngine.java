@@ -34,8 +34,21 @@ public class SearchEngine implements Serializable {
 		this.nmSearchEngine = nmSearchEngine;
 	}
 
+
+
+	public SearchEngine(Long idSearchEngine, String nmSearchEngine) {
+		super();
+		this.idSearchEngine = idSearchEngine;
+		this.nmSearchEngine = nmSearchEngine;
+	}
+
+	public SearchEngine(SearchEngine engine) {
+		this.idSearchEngine = engine.getIdSearchEngine();
+		this.nmSearchEngine = engine.getNmSearchEngine();
+	}
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "SearchEngineSequenceGenerator")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SearchEngineSequenceGenerator")
 	@Column(name = "id_search_engine", nullable = false, unique = true)
 	public Long getIdSearchEngine() {
 		return idSearchEngine;

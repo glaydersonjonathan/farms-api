@@ -82,4 +82,12 @@ public final class SuccessMessage extends Message {
 	private static final Integer CRITERIA_SAVED_CODE = 1016;
 	private static final String CRITERIA_SAVED_DESCRIPTION = "Criteria saved successfully.";
 	public static final SuccessMessage CRITERIA_SAVED = new SuccessMessage(CRITERIA_SAVED_CODE, CRITERIA_SAVED_DESCRIPTION);
+	
+	private static final Integer LANGUAGE_ADDED_CODE = 1017;
+	private static final String LANGUAGE_ADDED_DESCRIPTION = "Language added successfully.";
+	public static final SuccessMessage LANGUAGE_ADDED = new SuccessMessage(LANGUAGE_ADDED_CODE, LANGUAGE_ADDED_DESCRIPTION);
+	
+	private static final Integer ENGINE_ADDED_CODE = 1018;
+	private static final String ENGINE_ADDED_DESCRIPTION = "Engine added successfully.";
+	public static final SuccessMessage ENGINE_ADDED = new SuccessMessage(ENGINE_ADDED_CODE, ENGINE_ADDED_DESCRIPTION);
 }

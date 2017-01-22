@@ -1,6 +1,7 @@
 package br.ufs.dcomp.farms.model.dto;
 
-import br.ufs.dcomp.farms.model.entity.Language;
+
+import br.ufs.dcomp.farms.model.entity.StudyLanguage;
 
 public class LanguageCreatedDto {
 
@@ -8,9 +9,10 @@ public class LanguageCreatedDto {
 	private String nmLanguage;
 	private String dsProjectKey;
 
-	public LanguageCreatedDto(Language language) {
-		this.idLanguage = language.getIdLanguage();
-		this.nmLanguage = language.getNmLanguage();
+	public LanguageCreatedDto(StudyLanguage language) {
+		this.idLanguage = language.getLanguage().getIdLanguage();
+		this.nmLanguage = language.getLanguage().getNmLanguage();
+		this.dsProjectKey = language.getProject().getDsKey();
 	}
 
 	public LanguageCreatedDto() {

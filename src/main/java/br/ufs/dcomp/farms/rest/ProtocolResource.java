@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component;
 import br.ufs.dcomp.farms.common.message.ErrorMessage;
 import br.ufs.dcomp.farms.common.message.SuccessMessage;
 import br.ufs.dcomp.farms.core.FarmsResponse;
+import br.ufs.dcomp.farms.model.dto.BaseUseCriteriaCreatedDto;
 import br.ufs.dcomp.farms.model.dto.LanguageCreatedDto;
 import br.ufs.dcomp.farms.model.dto.MainQuestionCreatedDto;
 import br.ufs.dcomp.farms.model.dto.ObjectiveCreateDto;
@@ -28,8 +29,10 @@ import br.ufs.dcomp.farms.model.dto.SearchKeywordCreatedDto;
 import br.ufs.dcomp.farms.model.dto.SecondaryQuestionCreatedDto;
 import br.ufs.dcomp.farms.model.dto.SelectionCriteriaCreatedDto;
 import br.ufs.dcomp.farms.model.dto.StandardQueryCreatedDto;
+import br.ufs.dcomp.farms.model.dto.StudyLanguageCreatedDto;
+import br.ufs.dcomp.farms.model.entity.Language;
+import br.ufs.dcomp.farms.model.entity.SearchEngine;
 import br.ufs.dcomp.farms.model.service.LanguageService;
-//import br.ufs.dcomp.farms.model.service.LanguageService;
 import br.ufs.dcomp.farms.model.service.MainQuestionService;
 import br.ufs.dcomp.farms.model.service.ObjectiveService;
 import br.ufs.dcomp.farms.model.service.SearchEngineService;
@@ -129,7 +132,7 @@ public class ProtocolResource {
 		}
 	}
 
-	// projects/{dsKey}/selection-criterias
+	
 	@GET
 	@Path("/{dsKey}/selection-criterias")
 	public Response getSelectionCriteriasByDsKeyProject(@PathParam("dsKey") String dsKey) {
@@ -143,8 +146,8 @@ public class ProtocolResource {
 		}
 	}
 
-	// erroooooooo
-	// projects/{dsKey}/languages
+	
+	
 	@GET
 	@Path("/{dsKey}/languages")
 	public Response getLanguagesByDsKeyProject(@PathParam("dsKey") String dsKey) {
@@ -157,8 +160,8 @@ public class ProtocolResource {
 		}
 	}
 	
-	// erroooooooo
-	// /{dsKey}/search-engine
+	
+	
 	@GET
 	@Path("/{dsKey}/search-engine")
 	public Response getEnginesByDsKeyProject(@PathParam("dsKey") String dsKey) {
@@ -170,6 +173,37 @@ public class ProtocolResource {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
+	
+	
+	
+	@GET
+	@Path("/allLanguages")
+	public Response getAllLanguages() {
+		try {
+			List<Language> languageCreatedDtos = languageService.getAllLanguages();
+			return FarmsResponse.ok(languageCreatedDtos);
+		} catch (Exception ex) {
+			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+	
+	@GET
+	@Path("/allEngines")
+	public Response getAllEngines() {
+		try {
+			List<SearchEngine> engineCreatedDtos = searchEngineService.getAllEngines();
+			return FarmsResponse.ok(engineCreatedDtos);
+		} catch (Exception ex) {
+			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+	
+	
+	
+	
+	
 
 	// **********************************POST's*****************//
 
@@ -234,6 +268,29 @@ public class ProtocolResource {
 		try {
 			Boolean bool = selectionCriteriaService.saveCriteria(selectionCriterias);
 			return FarmsResponse.ok(SuccessMessage.CRITERIA_SAVED, bool);
+		} catch (Exception ex) {
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+	
+	
+	@POST
+	@Path("/languages")
+	public Response saveLanguage(StudyLanguageCreatedDto languages) {
+		try {
+			Boolean bool = languageService.saveLanguage(languages);
+			return FarmsResponse.ok(SuccessMessage.LANGUAGE_ADDED, bool);
+		} catch (Exception ex) {
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+	
+	@POST
+	@Path("/engines")
+	public Response saveEngine(BaseUseCriteriaCreatedDto bc) {
+		try {
+			Boolean bool = searchEngineService.saveEngine(bc);
+			return FarmsResponse.ok(SuccessMessage.ENGINE_ADDED, bool);
 		} catch (Exception ex) {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
