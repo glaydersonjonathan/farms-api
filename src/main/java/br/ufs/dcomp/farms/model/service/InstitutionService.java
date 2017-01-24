@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import br.ufs.dcomp.farms.core.FarmsException;
 import br.ufs.dcomp.farms.model.dao.InstitutionDao;
 import br.ufs.dcomp.farms.model.dao.ProjectDao;
 import br.ufs.dcomp.farms.model.dto.CountryCreatedDto;
@@ -14,6 +15,7 @@ import br.ufs.dcomp.farms.model.dto.InstitutionCreatedDto;
 import br.ufs.dcomp.farms.model.entity.Country;
 import br.ufs.dcomp.farms.model.entity.Institution;
 import br.ufs.dcomp.farms.model.entity.Project;
+
 
 /**
  * @author farms
@@ -80,6 +82,39 @@ public class InstitutionService {
 		institutionDao.save(institution);
 		
 		return true;
+	}
+
+
+
+	/**
+	 * Update a institution
+	 * @param institutionCreatedDto
+	 * @return boolean
+	 * @throws FarmsException
+	 */
+	public Boolean update(InstitutionCreatedDto institutionCreatedDto) throws FarmsException {
+		Institution institution = new Institution();
+		institution.setIdInstitution(institutionCreatedDto.getIdInstitution());
+		institution.setCountry(institutionCreatedDto.getCountry());
+		institution.setDsAbbreviation(institutionCreatedDto.getDsAbbreviation());
+		institution.setNmInstitution(institutionCreatedDto.getNmInstitution());
+		institution.setProject(projectDao.getByDsKey(institutionCreatedDto.getDsKey()));
+		institutionDao.update(institution);
+		return true;
+	}
+
+
+
+	/**
+	 * Get a institution by name x project
+	 * @param nmInstitution
+	 * @param dsKey
+	 * @return
+	 */
+	public InstitutionCreatedDto getInstitutionByName(String nmInstitution, String dsKey) {
+		Institution institution = institutionDao.getByName(nmInstitution, projectDao.getByDsKey(dsKey).getIdProject());
+		InstitutionCreatedDto institutionCreatedDto = new InstitutionCreatedDto(institution);
+		return institutionCreatedDto;
 	}
 	
 	

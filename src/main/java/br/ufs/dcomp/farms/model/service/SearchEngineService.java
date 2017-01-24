@@ -15,6 +15,10 @@ import br.ufs.dcomp.farms.model.entity.Project;
 import br.ufs.dcomp.farms.model.entity.SearchEngine;
 
 
+/**
+ * @author farms
+ *
+ */
 @Component
 public class SearchEngineService {
 
@@ -23,6 +27,11 @@ public class SearchEngineService {
 	@Autowired
 	private ProjectDao projectDao;
 
+	/**
+	 * Get search engines of protocol project
+	 * @param dsKey
+	 * @return List<SearchEngineCreatedDto>
+	 */
 	public List<SearchEngineCreatedDto> getByDsKeyProject(String dsKey) {
 		List<SearchEngineCreatedDto> searchEngineCreatedDto = new ArrayList<SearchEngineCreatedDto>();
 		List<BaseUseCriteria> baseUseCriterias = searchEngineDao.getByDsKeyProject(dsKey);
@@ -34,6 +43,10 @@ public class SearchEngineService {
 		return searchEngineCreatedDto;
 	}
 
+	/**
+	 * Get all registered engines
+	 * @return List<SearchEngine>
+	 */
 	public List<SearchEngine> getAllEngines() {
 		return searchEngineDao.getAllEngines();
 	}
@@ -52,9 +65,14 @@ public class SearchEngineService {
 		return true;
 	}
 
+	/**
+	 * Create a new engine
+	 * @param engine
+	 * @return boolean
+	 */
 	public Boolean createEngine(String engine) {
 		SearchEngine searchEngine = new SearchEngine(engine);
-		searchEngineDao.save(searchEngine);
+		searchEngineDao.saveSearchEngine(searchEngine);
 		return true;
 	}
 }

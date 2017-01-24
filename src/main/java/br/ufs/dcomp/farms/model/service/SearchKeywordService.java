@@ -42,7 +42,7 @@ public class SearchKeywordService {
 	}
 
 	/**
-	 * Save Keyword
+	 * Save Keyword project
 	 * 
 	 * @param searchKeywordCreatedDto
 	 * @return boolean

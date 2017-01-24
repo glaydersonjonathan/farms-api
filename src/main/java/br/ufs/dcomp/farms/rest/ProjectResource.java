@@ -200,7 +200,7 @@ public class ProjectResource {
 	//verificar
 	@GET
 	@Path("/{dsKey}/role/{dsUserName}")
-	public Response getRoleResearcher(@PathParam("idProject") String dsKey, @PathParam ("dsUserName") String dsUserName) {
+	public Response getRoleResearcher(@PathParam("dsKey") String dsKey, @PathParam ("dsUserName") String dsUserName) {
 		try {
 			int roleCode = projectMemberService.getRole(dsKey, dsUserName);
 			return FarmsResponse.ok(roleCode);
@@ -209,6 +209,8 @@ public class ProjectResource {
 		}
 	}
 
+	
+	
 	// ***** DAQUI PRA BAIXO NECESSITA VERIFICAR *****
 	// verificar
 	// projects/{dsKey}/studies

@@ -9,7 +9,7 @@ public class ProjectCreatedDto {
 	private String dsTitle;
 	private String dsProject;
 	private Integer tpReview;
-	private ProjectMember projectMember; //se der bronca, eu mexi pra editar projeto
+	private ProjectMember projectMember; 
 	private Long idProject;
 	
 	public ProjectCreatedDto() {

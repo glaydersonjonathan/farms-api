@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 import br.ufs.dcomp.farms.model.entity.BaseUseCriteria;
 import br.ufs.dcomp.farms.model.entity.SearchEngine;
 
-
 /**
  * @author farms
  *
@@ -17,7 +16,6 @@ import br.ufs.dcomp.farms.model.entity.SearchEngine;
 @SuppressWarnings("unchecked")
 public class SearchEngineDao extends HibernateDao<SearchEngine> {
 
-	
 	/**
 	 * Constructor from superclass, indicate to Hibernate.
 	 *
@@ -27,9 +25,21 @@ public class SearchEngineDao extends HibernateDao<SearchEngine> {
 	}
 
 	/**
+	 * Create a engine
+	 * @param engine
+	 */
+	public void saveSearchEngine(SearchEngine engine) {
+		Query query = getSession()
+				.createSQLQuery("INSERT INTO search_engine (nm_search_engine) VALUES (:valor1)");
+		query.setParameter("valor1", engine.getNmSearchEngine());
+		query.executeUpdate();
+	}
+
+	/**
 	 * Returns all search engines from the specified project.
 	 *
-	 * @param dsKey the identifier of the project.
+	 * @param dsKey
+	 *            the identifier of the project.
 	 * @return a list of all the search engines of the specified project.
 	 */
 	public List<BaseUseCriteria> getByDsKeyProject(String dsKey) {
@@ -38,14 +48,13 @@ public class SearchEngineDao extends HibernateDao<SearchEngine> {
 		sbHql.append(" join fetch bc.searchEngine se");
 		sbHql.append(" join fetch bc.project p");
 		sbHql.append(" where p.dsKey = :dsKey");
-		
+
 		Query query = getSession().createQuery(sbHql.toString());
 		query.setParameter("dsKey", dsKey);
 		List<BaseUseCriteria> searchEngines = query.list();
 		return searchEngines;
 	}
 
-	
 	/**
 	 * Returns all search engines registered.
 	 * 
@@ -61,21 +70,23 @@ public class SearchEngineDao extends HibernateDao<SearchEngine> {
 		List<SearchEngine> engines = query.list();
 
 		return engines;
-		
+
 	}
-	
+
 	/**
 	 * Inserts a Base Use Criteria to a project.
 	 * 
-	 * @param BaseUseCriteria object.
+	 * @param BaseUseCriteria
+	 *            object.
 	 */
-	
+
 	public void saveBaseUseCriteria(BaseUseCriteria bc) {
-		Query query = getSession().createSQLQuery("INSERT INTO base_use_criteria (id_project, id_search_engine, ds_base_use_criteria) VALUES (:valor1, :valor2, :valor3)");
+		Query query = getSession().createSQLQuery(
+				"INSERT INTO base_use_criteria (id_project, id_search_engine, ds_base_use_criteria) VALUES (:valor1, :valor2, :valor3)");
 		query.setParameter("valor1", bc.getProject().getIdProject());
 		query.setParameter("valor2", bc.getSearchEngine().getIdSearchEngine());
 		query.setParameter("valor3", bc.getDsBaseUseCriteria());
-		query.executeUpdate();	
+		query.executeUpdate();
 	}
-	
+
 }

@@ -24,6 +24,22 @@ public class InstitutionDao extends HibernateDao<Institution> {
 	}
 
 	/**
+	 * Update a institution.
+	 * 
+	 * @param institution
+	 */
+	public void update(Institution institution) {
+		Query query = getSession().createQuery("update Institution set nmInstitution = :nmInstitution" + " "
+				+ ", dsAbbreviation = :dsAbbreviation, country.idCountry = :idCountry"
+				+ " where idInstitution = :idInstitution");
+		query.setParameter("nmInstitution", institution.getNmInstitution());
+		query.setParameter("dsAbbreviation", institution.getDsAbbreviation());
+		query.setParameter("idCountry", institution.getCountry().getIdCountry());
+		query.setParameter("idInstitution", institution.getIdInstitution());
+		query.executeUpdate();
+	}
+
+	/**
 	 * Get a institution by id.
 	 * 
 	 * @param idInstitution
@@ -58,8 +74,6 @@ public class InstitutionDao extends HibernateDao<Institution> {
 		Query q = getSession().createQuery(sbHql.toString());
 		q.setParameter("dsKey", dsKey);
 
-		// List<ProjectMember> projects_member = q.list();
-
 		List<Institution> institutions = q.list();
 
 		return institutions;
@@ -93,5 +107,14 @@ public class InstitutionDao extends HibernateDao<Institution> {
 
 		List<Country> countries = q.list();
 		return countries;
+	}
+
+	public Institution getByName(String nmInstitution, Long idProject) {
+		Query query = getSession().createQuery(
+				"from Institution i where i.project.idProject = (?) and lower(i.nmInstitution) = lower(?)");
+		query.setLong(0, idProject);
+		query.setString(1, nmInstitution);
+		List<Institution> results = query.list();
+		return (results != null && !results.isEmpty()) ? (Institution) results.get(0) : null;
 	}
 }

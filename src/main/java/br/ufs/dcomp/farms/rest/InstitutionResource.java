@@ -5,7 +5,9 @@ import java.util.List;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -16,9 +18,11 @@ import org.springframework.stereotype.Component;
 
 import br.ufs.dcomp.farms.common.message.ErrorMessage;
 import br.ufs.dcomp.farms.common.message.SuccessMessage;
+import br.ufs.dcomp.farms.core.FarmsException;
 import br.ufs.dcomp.farms.core.FarmsResponse;
 import br.ufs.dcomp.farms.model.dto.CountryCreatedDto;
 import br.ufs.dcomp.farms.model.dto.InstitutionCreateDto;
+import br.ufs.dcomp.farms.model.dto.InstitutionCreatedDto;
 import br.ufs.dcomp.farms.model.service.InstitutionService;
 
 /**
@@ -70,4 +74,44 @@ public class InstitutionResource {
 		}
 	}
 
+	
+	/**
+	 * Receive a request from client to update a institution.
+	 * 
+	 * @param projectCreatedDto
+	 * @return Response
+	 */
+	@PUT
+	public Response updateProject(InstitutionCreatedDto institutionCreatedDto) {
+		try {
+			Boolean bool = institutionService.update(institutionCreatedDto);
+			return FarmsResponse.ok(SuccessMessage.INSTITUTION_UPDATED, bool);
+		}catch (FarmsException fe){
+			return FarmsResponse.error(fe.getErrorMessage());
+		}
+		
+		catch (Exception ex) {
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+	
+	/**
+	 * Receive a request from client to get a institution.
+	 * 
+	 * @param dsKey
+	 * @param nmInstitution
+	 * @return Response
+	 */
+	@GET
+	@Path("/{nmInstitution}/{dsKey}")
+	public Response getInstitutionByName(@PathParam("nmInstitution") String nmInstitution, @PathParam("dsKey") String dsKey) {
+		try {
+			InstitutionCreatedDto institutionCreatedDto = institutionService.getInstitutionByName(nmInstitution, dsKey);
+			return FarmsResponse.ok(institutionCreatedDto);
+		} catch (Exception ex) {
+			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+	
 }
