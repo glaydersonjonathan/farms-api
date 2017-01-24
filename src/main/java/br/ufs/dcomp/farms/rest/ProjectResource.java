@@ -29,16 +29,18 @@ import br.ufs.dcomp.farms.core.FarmsResponse;
 import br.ufs.dcomp.farms.model.dto.InstitutionCreatedDto;
 import br.ufs.dcomp.farms.model.dto.ProjectCreateDto;
 import br.ufs.dcomp.farms.model.dto.ProjectCreatedDto;
-import br.ufs.dcomp.farms.model.dto.ProjectMemberAddInstitutionDto;
 import br.ufs.dcomp.farms.model.dto.ProjectMemberDto;
 import br.ufs.dcomp.farms.model.dto.ProjectMemberInviteDto;
 import br.ufs.dcomp.farms.model.dto.StudyCreatedDto;
 import br.ufs.dcomp.farms.model.service.InstitutionService;
-//import br.ufs.dcomp.farms.model.service.LanguageService;
 import br.ufs.dcomp.farms.model.service.ProjectMemberService;
 import br.ufs.dcomp.farms.model.service.ProjectService;
 import br.ufs.dcomp.farms.model.service.StudyService;
 
+/**
+ * @author farms
+ *
+ */
 @Path("/projects")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -55,33 +57,54 @@ public class ProjectResource {
 	private ProjectMemberService projectMemberService;
 	@Autowired
 	private InstitutionService institutuionService;
-	
 
-	// ok?
+	/**
+	 * Receive a request from client to create a project.
+	 * 
+	 * @param projectCreateDto
+	 * @return Response
+	 */
 	@POST
 	public Response createProject(ProjectCreateDto projectCreateDto) {
-		// corrigir para número em vez de string tp_review
 		projectCreateDto.setTpReview((Integer) projectCreateDto.getTpReview());
 		try {
 			ProjectCreatedDto projectCreatedDto = projectService.save(projectCreateDto);
 			return FarmsResponse.ok(SuccessMessage.PROJECT_REGISTERED, projectCreatedDto);
-		} catch (Exception ex) {
+		} catch (FarmsException fe){
+			return FarmsResponse.error(fe.getErrorMessage());
+		}
+		catch (Exception ex) {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
 
-	// ok?
+	/**
+	 * Receive a request from client to update a project.
+	 * 
+	 * @param projectCreatedDto
+	 * @return Response
+	 */
 	@PUT
 	public Response updateProject(ProjectCreatedDto projectCreatedDto) {
 		try {
 			Boolean bool = projectService.update(projectCreatedDto);
 			return FarmsResponse.ok(SuccessMessage.PROJECT_UPDATED, bool);
-		} catch (Exception ex) {
+		}catch (FarmsException fe){
+			return FarmsResponse.error(fe.getErrorMessage());
+		}
+		
+		catch (Exception ex) {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
 
-	// usando
+	/**
+	 * Receive a request from client to get a project.
+	 * 
+	 * @param String
+	 *            dsKey
+	 * @return Response
+	 */
 	@GET
 	@Path("/{dsKey}")
 	public Response getProjectByDsKey(@PathParam("dsKey") String dsKey) {
@@ -94,7 +117,12 @@ public class ProjectResource {
 		}
 	}
 
-	// usando
+	/**
+	 * Get all projects of researcher.
+	 * 
+	 * @param dsSSO
+	 * @return Response
+	 */
 	@GET
 	@Path("/{dsSSO}/projects")
 	public Response GetByDsSsoResearcher(@PathParam("dsSSO") String dsSSO) {
@@ -107,7 +135,12 @@ public class ProjectResource {
 		}
 	}
 
-	// ok?
+	/**
+	 * Get all institutions of a project.
+	 * 
+	 * @param dsKey
+	 * @return Response
+	 */
 	@GET
 	@Path("/{dsKey}/institutions")
 	public Response getInstitutionsByDsKeyProject(@PathParam("dsKey") String dsKey) {
@@ -123,10 +156,12 @@ public class ProjectResource {
 		}
 	}
 
-
-	
-
-	// projects/{dsKey}/members, usando para listar membros
+	/**
+	 * Get all members of project.
+	 * 
+	 * @param dsKey
+	 * @return Response
+	 */
 	@GET
 	@Path("/{dsKey}/members")
 	public Response getMembersByDsKeyProject(@PathParam("dsKey") String dsKey) {
@@ -143,23 +178,39 @@ public class ProjectResource {
 		}
 	}
 
-	// testando
+	/**
+	 * Invite a member to a project.
+	 * 
+	 * @param ProjectMemberInviteDto
+	 * @return Response
+	 */
 	@POST
 	@Path("/members/invite")
 	public Response createProject(ProjectMemberInviteDto pm) {
 		try {
 			Boolean bool = projectMemberService.invite(pm);
 			return FarmsResponse.ok(SuccessMessage.MEMBER_ADDED, bool);
-		} catch (FarmsException fe){
+		} catch (FarmsException fe) {
 			return FarmsResponse.error(ErrorMessage.MEMBER_NOT_FOUND);
-		}	
-		catch (Exception ex) {
+		} catch (Exception ex) {
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+
+	//verificar
+	@GET
+	@Path("/{dsKey}/role/{dsUserName}")
+	public Response getRoleResearcher(@PathParam("idProject") String dsKey, @PathParam ("dsUserName") String dsUserName) {
+		try {
+			int roleCode = projectMemberService.getRole(dsKey, dsUserName);
+			return FarmsResponse.ok(roleCode);
+		} catch (Exception ex) {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
 
 	// ***** DAQUI PRA BAIXO NECESSITA VERIFICAR *****
-
+	// verificar
 	// projects/{dsKey}/studies
 	@GET
 	@Path("/{dsKey}/studies")
@@ -172,8 +223,6 @@ public class ProjectResource {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-
-
 
 	@POST
 	@Path("/{dsKey}/upload-study")

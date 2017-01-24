@@ -7,36 +7,43 @@ import org.springframework.stereotype.Component;
 
 import br.ufs.dcomp.farms.model.entity.Researcher;
 
+/**
+ * @author farms
+ *
+ */
 @SuppressWarnings("unchecked")
 @Component
 public class ResearcherDao extends HibernateDao<Researcher> {
 
+	/**
+	 * Constructor from superclass.
+	 *
+	 */
 	public ResearcherDao() {
 		super(Researcher.class);
 	}
 
 	/**
 	 * Inserts a researcher.
+	 * 
 	 * @param researcher
 	 */
 	public void save(Researcher researcher) {
 		super.save(researcher);
 	}
-	
-	
-	//OK!
+
 	/**
 	 * Update a researcher.
+	 * 
 	 * @param researcher
 	 */
 	public void update(Researcher researcher) {
 		super.update(researcher);
 	}
-	
-	
 
 	/**
 	 * Deletes a researcher at id.
+	 * 
 	 * @param id
 	 * @return
 	 */
@@ -45,9 +52,10 @@ public class ResearcherDao extends HibernateDao<Researcher> {
 		super.delete(researcher);
 		return true;
 	}
-	
+
 	/**
 	 * Gets a researcher at id.
+	 * 
 	 * @param id
 	 * @return
 	 */
@@ -64,9 +72,10 @@ public class ResearcherDao extends HibernateDao<Researcher> {
 		Query query = getSession().createQuery("from Researcher");
 		return query.list();
 	}
-	
+
 	/**
 	 * Search a researcher by the name.
+	 * 
 	 * @param nmResearcher
 	 * @return
 	 */
@@ -75,9 +84,10 @@ public class ResearcherDao extends HibernateDao<Researcher> {
 		query.setString(0, "%" + nmResearcher + "%");
 		return query.list();
 	}
-	
+
 	/**
 	 * Search a researcher by sso (username).
+	 * 
 	 * @param dsSSO
 	 * @return
 	 */
@@ -87,11 +97,12 @@ public class ResearcherDao extends HibernateDao<Researcher> {
 		List<Researcher> results = query.list();
 		return (results != null && !results.isEmpty()) ? (Researcher) results.get(0) : null;
 	}
-	
+
 	/**
 	 * Search a researcher by e-mail.
+	 * 
 	 * @param dsEmail
-	 * @return
+	 * @return Researcher object.
 	 */
 	public Researcher getByDsEmail(String dsEmail) {
 		Query query = getSession().createQuery("from Researcher r where lower(r.dsEmail) = lower(?)");
@@ -99,11 +110,12 @@ public class ResearcherDao extends HibernateDao<Researcher> {
 		List<Researcher> results = query.list();
 		return (results != null && !results.isEmpty()) ? (Researcher) results.get(0) : null;
 	}
-	
+
 	/**
 	 * Returns all researchers from the specified project.
 	 *
-	 * @param dsKey the identifier of the project.
+	 * @param dsKey
+	 *            the identifier of the project.
 	 * @return a list of all the researchers of the specified project.
 	 */
 	public List<Researcher> getByDsKeyProject(String dsKey) {
@@ -111,13 +123,19 @@ public class ResearcherDao extends HibernateDao<Researcher> {
 		sbHql.append("from Researcher r");
 		sbHql.append(" join fetch r.projectMember pm");
 		sbHql.append(" where pm.project.dsKey = :dsKey");
-		
+
 		Query query = getSession().createQuery(sbHql.toString());
 		query.setParameter("dsKey", dsKey);
 		List<Researcher> researchers = query.list();
 		return researchers;
 	}
 
+	/**
+	 * Search a researcher by cdUuid.
+	 * 
+	 * @param cdUuid
+	 * @return Researcher object.
+	 */
 	public Researcher getByUuid(String cdUuid) {
 		Query query = getSession().createQuery("from Researcher r where lower(r.cdUuid) = lower(?)");
 		query.setString(0, cdUuid);

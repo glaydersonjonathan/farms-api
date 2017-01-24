@@ -90,4 +90,8 @@ public final class SuccessMessage extends Message {
 	private static final Integer ENGINE_ADDED_CODE = 1018;
 	private static final String ENGINE_ADDED_DESCRIPTION = "Engine added successfully.";
 	public static final SuccessMessage ENGINE_ADDED = new SuccessMessage(ENGINE_ADDED_CODE, ENGINE_ADDED_DESCRIPTION);
+	
+	private static final Integer ENGINE_CREATED_CODE = 1019;
+	private static final String ENGINE_CREATED_DESCRIPTION = "Engine created successfully.";
+	public static final SuccessMessage ENGINE_CREATED= new SuccessMessage(ENGINE_CREATED_CODE, ENGINE_CREATED_DESCRIPTION);
 }

@@ -10,7 +10,6 @@ import br.ufs.dcomp.farms.model.dao.ProjectDao;
 import br.ufs.dcomp.farms.model.dao.StandardQueryDao;
 import br.ufs.dcomp.farms.model.dto.StandardQueryCreatedDto;
 import br.ufs.dcomp.farms.model.entity.Project;
-import br.ufs.dcomp.farms.model.entity.SecondaryQuestion;
 import br.ufs.dcomp.farms.model.entity.StandardQuery;
 
 @Component

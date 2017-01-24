@@ -19,7 +19,7 @@ public class TablesDao  extends HibernateDao<TableDba> {
 	/**
 	 * Search tables by schema name.
 	 * @param nmSchema
-	 * @return List<Tables>
+	 * @return List<TablesDba>
 	 */
 	public List<TableDba> getByNmSchema(String nmSchema) {
 		Query query = getSession().createQuery("from TableDba where lower(table_schema) = lower(?)");

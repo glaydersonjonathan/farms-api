@@ -42,9 +42,9 @@ public class ErrorMessage extends Message {
 	private static final String USERNAME_ALREADY_IN_USE_DESCRIPTION = "Username already in use.";
 	public static final ErrorMessage USERNAME_ALREADY_IN_USE = new ErrorMessage(USERNAME_ALREADY_IN_USE_CODE, USERNAME_ALREADY_IN_USE_DESCRIPTION);
 	
-	private static final Integer SLUG_ALREADY_IN_USE_CODE = 2005;
-	private static final String SLUG_ALREADY_IN_USE_DESCRIPTION = "Slug already in use.";
-	public static final ErrorMessage SLUG_ALREADY_IN_USE = new ErrorMessage(SLUG_ALREADY_IN_USE_CODE, SLUG_ALREADY_IN_USE_DESCRIPTION);
+	private static final Integer KEY_ALREADY_IN_USE_CODE = 2005;
+	private static final String KEY_ALREADY_IN_USE_DESCRIPTION = "Project Key already in use.";
+	public static final ErrorMessage KEY_ALREADY_IN_USE = new ErrorMessage(KEY_ALREADY_IN_USE_CODE, KEY_ALREADY_IN_USE_DESCRIPTION);
 	
 	private static final Integer INSTITUTION_NOT_FOUND_CODE = 2006;
 	private static final String INSTITUTION_NOT_FOUND_DESCRIPTION = "Institution not found.";

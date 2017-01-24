@@ -16,25 +16,36 @@ import br.ufs.dcomp.farms.model.entity.Researcher;
 import br.ufs.dcomp.farms.model.enums.StateEnum;
 import br.ufs.dcomp.farms.model.enums.YesNoEnum;
 
+/**
+ * @author farms
+ *
+ */
 @Component
 public class ResearcherService {
 
 	@Autowired
 	private ResearcherDao researcherDAO;
 
+	/**
+	 * Register a researcher
+	 * 
+	 * @param researcherRegisterDto
+	 * @return boolean
+	 * @throws FarmsException
+	 */
 	@Transactional(rollbackFor = FarmsException.class)
 	public boolean save(ResearcherRegisterDto researcherRegisterDto) throws FarmsException {
-		
+
 		Researcher researcherFoundByDsSSO = this.getBySSOtoRegister(researcherRegisterDto.getDsSSO());
 		if (researcherFoundByDsSSO != null) {
 			throw new FarmsException(ErrorMessage.USERNAME_ALREADY_IN_USE);
 		}
-		
+
 		Researcher researcherFoundByEmail = this.getByEmail(researcherRegisterDto.getDsEmail());
 		if (researcherFoundByEmail != null) {
 			throw new FarmsException(ErrorMessage.EMAIL_ALREADY_IN_USE);
 		}
-		
+
 		Researcher researcher = new Researcher();
 		UUID uuid = UUID.randomUUID();
 		researcher.setCdUuid(uuid.toString());
@@ -46,81 +57,127 @@ public class ResearcherService {
 		researcher.setTpConfirmed(YesNoEnum.N);
 		researcherDAO.save(researcher);
 		return true;
-}
-	
-	//ok?
+	}
+
+	/**
+	 * Update a researcher
+	 * 
+	 * @param researcherRegisterDto
+	 * @return boolean
+	 * @throws FarmsException
+	 */
 	@Transactional(rollbackFor = Exception.class)
 	public boolean update(ResearcherRegisterDto researcherRegisterDto) throws FarmsException {
-		//Researcher researcherFoundByEmail = this.getByEmail(researcherRegisterDto.getDsEmail());
-		//if (researcherFoundByEmail != null && (!researcherFoundByEmail.getDsEmail().equals(researcherRegisterDto.getDsEmail()))) {
-			//System.out.println(researcherFoundByEmail.getDsEmail() +" "+researcherRegisterDto.getDsEmail());
-			//throw new FarmsException(ErrorMessage.EMAIL_ALREADY_IN_USE);
-		//}
-		
-		//System.out.println(researcherFoundByEmail.getDsEmail() +" "+researcherRegisterDto.getDsEmail());
-			
+
+		/*
+		 * Researcher researcher_verify =
+		 * researcherDAO.getByDsEmail(researcherRegisterDto.getDsEmail());
+		 * 
+		 * if (researcher_verify != null &&
+		 * researcherRegisterDto.getIdResearcher() !=
+		 * researcher_verify.getIdResearcher()) { throw new
+		 * FarmsException(ErrorMessage.EMAIL_ALREADY_IN_USE); }
+		 */
+
 		Researcher researcher = new Researcher();
+
+		researcher.setIdResearcher(researcherRegisterDto.getIdResearcher());
 		researcher.setNmResearcher(researcherRegisterDto.getNmResearcher());
 		researcher.setDsSSO(researcherRegisterDto.getDsSSO());
 		researcher.setDsEmail(researcherRegisterDto.getDsEmail());
-		
-		
 		researcher.setDsPassword(researcherRegisterDto.getDsPassword());
-		
 		researcher.setCdUuid(researcherRegisterDto.getCdUuid());
-		researcher.setIdResearcher(researcherRegisterDto.getIdResearcher());
-	    researcher.setTpConfirmed(researcherRegisterDto.getTpConfirmed());
+		researcher.setTpConfirmed(researcherRegisterDto.getTpConfirmed());
 		researcher.setTpState(researcherRegisterDto.getTpState());
+
 		researcherDAO.update(researcher);
 		return true;
 	}
-	
-	
-	
-	
+
+	/**
+	 * Delete a researcher
+	 * 
+	 * @param researcherRegisterDto
+	 * @return boolean
+	 */
 	public boolean delete(Long idResearcher) {
 		return researcherDAO.delete(idResearcher);
-		
+
 	}
-	
-	
-	
-	
+
+	/**
+	 * Confirm register of researcher
+	 * 
+	 * @param researcher
+	 * @return boolean
+	 */
 	@Transactional(rollbackFor = Exception.class)
 	public boolean confirmAccount(Researcher researcher) {
 		researcher.setTpConfirmed(YesNoEnum.Y);
 		researcherDAO.update(researcher);
 		return true;
 	}
-	
-	// TODO Obter todos por projeto. Mover para ProjectService.
+
+	/**
+	 * Returns all researchers.
+	 *
+	 * @return a list of all the researchers.
+	 */
 	public List<Researcher> getAll() {
 		List<Researcher> researchers = researcherDAO.getAll();
 		return researchers;
 	}
 
-	public List<Researcher> getByName(String nmResearcher) {
-		return researcherDAO.getByNmResearcher(nmResearcher);
-	}
-	
-	//ok, usado na hora de buscar perfil
+	/*	*//**
+			 * Search a researcher by name.
+			 * 
+			 * @param nmResearcher
+			 * @return researcher
+			 *//*
+			 * //public List<Researcher> getByName(String nmResearcher) { //
+			 * return researcherDAO.getByNmResearcher(nmResearcher); //}
+			 */
+
+	/**
+	 * Search a researcher by username.
+	 * 
+	 * @param dsSSO
+	 * @return researcherCreatedDto
+	 */
 	public ResearcherRegisterDto getBySSO(String dsSSO) {
 		Researcher researcher = researcherDAO.getByDsSSO(dsSSO);
 		ResearcherRegisterDto researcherCreatedDto = new ResearcherRegisterDto(researcher);
 		return researcherCreatedDto;
 	}
-	
-	//ok, usado na hora de registrar
+
+	/**
+	 * Search a researcher by username.
+	 * 
+	 * @param dsSSO
+	 * @return researcher
+	 */
 	public Researcher getBySSOtoRegister(String dsSSO) {
 		Researcher researcher = researcherDAO.getByDsSSO(dsSSO);
 		return researcher;
-}
-	
+	}
+
+	/**
+	 * Search a researcher by email.
+	 * 
+	 * @param dsEmail
+	 * @return researcher
+	 */
 	public Researcher getByEmail(String dsEmail) {
 		Researcher researcher = researcherDAO.getByDsEmail(dsEmail);
 		return researcher;
 	}
 
+	/**
+	 * Search a researcher by cdUuid
+	 * 
+	 * @param cdUuid
+	 * @return researcher
+	 */
 	public Researcher getByUuid(String cdUuid) {
 		Researcher researcher = null;
 		if (cdUuid != null) {
@@ -128,6 +185,5 @@ public class ResearcherService {
 		}
 		return researcher;
 	}
-
 
 }

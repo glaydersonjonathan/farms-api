@@ -1,6 +1,5 @@
 package br.ufs.dcomp.farms.rest;
 
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -18,11 +17,16 @@ import org.springframework.stereotype.Component;
 import br.ufs.dcomp.farms.common.message.ErrorMessage;
 import br.ufs.dcomp.farms.common.message.SuccessMessage;
 import br.ufs.dcomp.farms.core.FarmsCrypt;
+import br.ufs.dcomp.farms.core.FarmsException;
 import br.ufs.dcomp.farms.core.FarmsResponse;
 import br.ufs.dcomp.farms.model.dto.ResearcherRegisterDto;
 import br.ufs.dcomp.farms.model.entity.Researcher;
 import br.ufs.dcomp.farms.model.service.ResearcherService;
 
+/**
+ * @author farms
+ *
+ */
 @Path("/researchers")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -34,7 +38,12 @@ public class ResearcherResource {
 	@Autowired
 	private ResearcherService researcherService;
 
-
+	/**
+	 * Get a researcher by email.
+	 * 
+	 * @param dsEmail
+	 * @return Response
+	 */
 	@GET
 	@Path("/?dsEmail={dsEmail}")
 	public Response getByDsEmail(@PathParam("dsEmail") String dsEmail) {
@@ -47,7 +56,12 @@ public class ResearcherResource {
 		}
 	}
 
-	// OK!
+	/**
+	 * Get a researcher by username.
+	 * 
+	 * @param dsSSO
+	 * @return Response
+	 */
 	@GET
 	@Path("/{dsSSO}")
 	public Response getBydsSSO(@PathParam("dsSSO") String dsSSO) {
@@ -60,18 +74,31 @@ public class ResearcherResource {
 		}
 	}
 
-	// ok? falta verificar corretamente se email já existe
+	// verificar exisência de email
+	/**
+	 * Update a researcher.
+	 * 
+	 * @param ResearcherRegisterDto
+	 * @return Response
+	 */
 	@PUT
 	public Response updateResearcher(ResearcherRegisterDto researcherRegisterDto) {
 		try {
 			Boolean researcherRegisteredDto = researcherService.update(researcherRegisterDto);
 			return FarmsResponse.ok(SuccessMessage.RESEARCHER_UPDATED, researcherRegisteredDto);
-		} catch (Exception fe) {
+		} catch (FarmsException fe) {
 			return FarmsResponse.error(ErrorMessage.EMAIL_ALREADY_IN_USE);
+		} catch (Exception ex) {
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
 
-	//mudança de senha necessito criptografar, por isso outro metodo
+	/**
+	 * Update a password of researcher.
+	 * 
+	 * @param ResearcherRegisterDto
+	 * @return Response
+	 */
 	@PUT
 	@Path("/pass")
 	public Response updatePassword(ResearcherRegisterDto researcherRegisterDto) {
@@ -84,7 +111,13 @@ public class ResearcherResource {
 		}
 	}
 
-	// testando
+	// verificar
+	/**
+	 * Delete a researcher.
+	 * 
+	 * @param idResearcher
+	 * @return Response
+	 */
 	@DELETE
 	@Path("/{idResearcher}")
 	public Response deleteResearcher(@PathParam("idResearcher") Long idResearcher) {
@@ -95,6 +128,5 @@ public class ResearcherResource {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-
 
 }

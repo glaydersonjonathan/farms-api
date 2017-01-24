@@ -15,6 +15,10 @@ import br.ufs.dcomp.farms.model.entity.Country;
 import br.ufs.dcomp.farms.model.entity.Institution;
 import br.ufs.dcomp.farms.model.entity.Project;
 
+/**
+ * @author farms
+ *
+ */
 @Component
 public class InstitutionService {
 
@@ -24,6 +28,11 @@ public class InstitutionService {
 	private ProjectDao projectDao;
 	
 
+	/**
+	 * Get all institutions by dskey project
+	 * @param dsKey
+	 * @return List<InstitutionCreatedDto>
+	 */
 	public List<InstitutionCreatedDto> getByDsKeyProject(String dsKey) {
 		List<InstitutionCreatedDto> institutionCreatedDto = new ArrayList<InstitutionCreatedDto>();
 		List<Institution> institutions = institutionDao.getByDsKeyProject(dsKey);
@@ -36,18 +45,11 @@ public class InstitutionService {
 	}
 	
 	
-	public List<InstitutionCreatedDto> getAll() {
-		List<InstitutionCreatedDto> institutionCreatedDto = new ArrayList<InstitutionCreatedDto>();
-		List<Institution> institutions = institutionDao.getAllInstitutions();
-		if (institutions != null) {
-			for(Institution institution : institutions) {
-				institutionCreatedDto.add(new InstitutionCreatedDto(institution));
-			}
-		}
-		return institutionCreatedDto;
-	}
 
-
+	/**
+	 * Get all countries registered
+	 * @return List<CountryCreatedDto>
+	 */
 	public List<CountryCreatedDto> getAllCountries() {
 		List<CountryCreatedDto> countryCreatedDto = new ArrayList<CountryCreatedDto>();
 		List<Country> countries = institutionDao.getAllCountries();
@@ -60,6 +62,11 @@ public class InstitutionService {
 	}
 
 
+	/**
+	 * Save institution
+	 * @param institutionCreateDto
+	 * @return boolean
+	 */
 	public boolean save(InstitutionCreateDto institutionCreateDto) {
 		Institution institution = new Institution();
 		institution.setDsAbbreviation(institutionCreateDto.getDsAbbreviation());

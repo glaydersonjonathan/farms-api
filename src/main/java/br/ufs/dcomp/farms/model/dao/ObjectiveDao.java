@@ -8,10 +8,17 @@ import org.springframework.stereotype.Component;
 
 import br.ufs.dcomp.farms.model.entity.Objective;
 
+/**
+ * @author farms
+ */
 @Component
 @SuppressWarnings("unchecked")
 public class ObjectiveDao extends HibernateDao<Objective> {
 
+	/**
+	 * Constructor from superclass, indicate to Hibernate.
+	 *
+	 */
 	public ObjectiveDao() {
 		super(Objective.class);
 	}
@@ -35,6 +42,11 @@ public class ObjectiveDao extends HibernateDao<Objective> {
 		return objectives;
 	}
 
+	//verificar
+	/**
+	 * Delete a project.
+	 * @param idProject
+	 */
 	public void delete(Long idProject) {
 		Transaction transaction = getSession().beginTransaction();
 		try {

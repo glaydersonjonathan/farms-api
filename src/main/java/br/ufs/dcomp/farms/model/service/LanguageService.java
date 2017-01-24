@@ -14,6 +14,10 @@ import br.ufs.dcomp.farms.model.entity.Language;
 import br.ufs.dcomp.farms.model.entity.Project;
 import br.ufs.dcomp.farms.model.entity.StudyLanguage;
 
+/**
+ * @author farms
+ *
+ */
 @Component
 public class LanguageService {
 
@@ -22,6 +26,12 @@ public class LanguageService {
 	@Autowired
 	private ProjectDao projectDao;
 
+	/**
+	 * Get all languages of protocol project
+	 * 
+	 * @param dsKey
+	 * @return List<LanguageCreatedDto>
+	 */
 	public List<LanguageCreatedDto> getByDsKeyProject(String dsKey) {
 		List<LanguageCreatedDto> languageCreatedDtos = new ArrayList<LanguageCreatedDto>();
 		List<StudyLanguage> studylanguages = languageDao.getByDsKeyProject(dsKey);
@@ -33,31 +43,29 @@ public class LanguageService {
 		return languageCreatedDtos;
 	}
 
-	
-	
-	
-	
-	
+	/**
+	 * Get all languages registered
+	 * 
+	 * @return
+	 */
 	public List<Language> getAllLanguages() {
 		return languageDao.getAllLanguages();
 	}
-	
-	
-	
-	
-	
-	
 
-	public Boolean saveLanguage(StudyLanguageCreatedDto languages) {
+	/**
+	 * Add language a project
+	 * @param languages
+	 * @return boolean
+	 */
+	public Boolean saveLanguage(StudyLanguageCreatedDto studyLanguageCreatedDto) {
 		StudyLanguage studyLanguage = new StudyLanguage();
-		
-		Language language  = new Language(languages.getLanguage());
-		Project project =  projectDao.getByDsKey(languages.getDsProjectKey());
-		
-		
+
+		Language language = new Language(studyLanguageCreatedDto.getLanguage());
+		Project project = projectDao.getByDsKey(studyLanguageCreatedDto.getDsProjectKey());
+
 		studyLanguage.setLanguage(language);
-		studyLanguage.setProject(project);		
-		
+		studyLanguage.setProject(project);
+
 		languageDao.saveStudyLanguage(studyLanguage);
 		return true;
 	}

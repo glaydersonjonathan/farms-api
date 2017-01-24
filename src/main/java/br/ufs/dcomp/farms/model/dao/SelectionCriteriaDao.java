@@ -7,10 +7,18 @@ import org.springframework.stereotype.Component;
 
 import br.ufs.dcomp.farms.model.entity.SelectionCriteria;
 
+/**
+ * @author farms
+ *
+ */
 @Component
 @SuppressWarnings("unchecked")
 public class SelectionCriteriaDao extends HibernateDao<SelectionCriteria> {
 
+	/**
+	 * Constructor from superclass, indicate to Hibernate.
+	 *
+	 */
 	public SelectionCriteriaDao() {
 		super(SelectionCriteria.class);
 	}

@@ -1,6 +1,5 @@
 package br.ufs.dcomp.farms.model.dao;
 
-
 import java.util.List;
 
 import org.hibernate.Query;
@@ -9,15 +8,27 @@ import org.springframework.stereotype.Component;
 import br.ufs.dcomp.farms.model.entity.Country;
 import br.ufs.dcomp.farms.model.entity.Institution;
 
-
+/**
+ * @author farms
+ *
+ */
 @Component
 @SuppressWarnings("unchecked")
 public class InstitutionDao extends HibernateDao<Institution> {
-
+	/**
+	 * Constructor from superclass.
+	 *
+	 */
 	public InstitutionDao() {
 		super(Institution.class);
 	}
 
+	/**
+	 * Get a institution by id.
+	 * 
+	 * @param idInstitution
+	 * @return Institution object.
+	 */
 	public Institution getById(Long idInstitution) {
 		return super.get(idInstitution);
 	}
@@ -29,7 +40,7 @@ public class InstitutionDao extends HibernateDao<Institution> {
 	 */
 	public void save(Institution institution) {
 		super.save(institution);
-			}
+	}
 
 	/**
 	 * Returns all institutions from the specified project.
@@ -47,7 +58,7 @@ public class InstitutionDao extends HibernateDao<Institution> {
 		Query q = getSession().createQuery(sbHql.toString());
 		q.setParameter("dsKey", dsKey);
 
-		//List<ProjectMember> projects_member = q.list();
+		// List<ProjectMember> projects_member = q.list();
 
 		List<Institution> institutions = q.list();
 
@@ -69,6 +80,11 @@ public class InstitutionDao extends HibernateDao<Institution> {
 		return institutions;
 	}
 
+	/**
+	 * Get all registered countries.
+	 * 
+	 * @return List of all countries registered.
+	 */
 	public List<Country> getAllCountries() {
 		StringBuilder sbHql = new StringBuilder();
 		sbHql.append("from Country c");

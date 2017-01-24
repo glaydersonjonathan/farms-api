@@ -7,6 +7,10 @@ import org.springframework.stereotype.Component;
 
 import br.ufs.dcomp.farms.model.entity.Project;
 
+/**
+ * @author farms
+ *
+ */
 @Component
 @SuppressWarnings("unchecked")
 public class ProjectDao extends HibernateDao<Project> {

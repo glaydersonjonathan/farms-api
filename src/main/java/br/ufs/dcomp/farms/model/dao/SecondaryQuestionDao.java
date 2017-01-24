@@ -8,10 +8,18 @@ import org.springframework.stereotype.Component;
 
 import br.ufs.dcomp.farms.model.entity.SecondaryQuestion;
 
+/**
+ * @author farms
+ *
+ */
 @Component
 @SuppressWarnings("unchecked")
 public class SecondaryQuestionDao extends HibernateDao<SecondaryQuestion> {
 
+	/**
+	 * Constructor from superclass, indicate to Hibernate.
+	 *
+	 */
 	public SecondaryQuestionDao() {
 		super(SecondaryQuestion.class);
 	}
@@ -34,15 +42,17 @@ public class SecondaryQuestionDao extends HibernateDao<SecondaryQuestion> {
 		return secondaryQuestions;
 	}
 
+	/**
+	 * Delete a secondary question
+	 * @param idProject
+	 */
 	public void delete(Long idProject) {
 		Transaction transaction = getSession().beginTransaction();
 		try {
-			// your code
 			String hql = "delete from SecondaryQuestion where project.idProject= :idProject";
 			Query query = getSession().createQuery(hql);
 			query.setLong("idProject", idProject);
 			System.out.println(query.executeUpdate());
-			// your code end
 
 			transaction.commit();
 		} catch (Throwable t) {

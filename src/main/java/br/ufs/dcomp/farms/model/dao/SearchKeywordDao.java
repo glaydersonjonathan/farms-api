@@ -7,10 +7,17 @@ import org.springframework.stereotype.Component;
 
 import br.ufs.dcomp.farms.model.entity.SearchKeyword;
 
+/**
+ * @author farms
+ *
+ */
 @Component
 @SuppressWarnings("unchecked")
 public class SearchKeywordDao extends HibernateDao<SearchKeyword> {
-
+	/**
+	 * Constructor from superclass, indicate to Hibernate.
+	 *
+	 */
 	public SearchKeywordDao() {
 		super(SearchKeyword.class);
 	}
@@ -18,7 +25,8 @@ public class SearchKeywordDao extends HibernateDao<SearchKeyword> {
 	/**
 	 * Returns all search keywords from the specified project.
 	 *
-	 * @param dsKey the identifier of the project.
+	 * @param dsKey
+	 *            the identifier of the project.
 	 * @return a list of all the search keywords of the specified project.
 	 */
 	public List<SearchKeyword> getByDsKeyProject(String dsKey) {
@@ -26,7 +34,7 @@ public class SearchKeywordDao extends HibernateDao<SearchKeyword> {
 		sbHql.append("from SearchKeyword sk");
 		sbHql.append(" join fetch sk.project p");
 		sbHql.append(" where p.dsKey = :dsKey");
-		
+
 		Query query = getSession().createQuery(sbHql.toString());
 		query.setParameter("dsKey", dsKey);
 		List<SearchKeyword> searchKeyword = query.list();

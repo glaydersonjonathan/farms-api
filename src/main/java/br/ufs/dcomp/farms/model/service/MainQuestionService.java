@@ -12,6 +12,10 @@ import br.ufs.dcomp.farms.model.dto.MainQuestionCreatedDto;
 import br.ufs.dcomp.farms.model.entity.MainQuestion;
 import br.ufs.dcomp.farms.model.entity.Project;
 
+/**
+ * @author farms
+ *
+ */
 @Component
 public class MainQuestionService {
 
@@ -20,6 +24,11 @@ public class MainQuestionService {
 	@Autowired
 	private ProjectDao projectDao;
 
+	/**
+	 * Get main question of protocol project
+	 * @param dsKey
+	 * @return List<MainQuestionCreatedDto>
+	 */
 	public List<MainQuestionCreatedDto> getByDsKeyProject(String dsKey) {
 		List<MainQuestionCreatedDto> mainQuestionCreatedDto = new ArrayList<MainQuestionCreatedDto>();
 		List<MainQuestion> mainQuestions = mainQuestionDao.getByDsKeyProject(dsKey);
@@ -31,16 +40,20 @@ public class MainQuestionService {
 		return mainQuestionCreatedDto;
 	}
 
-	public Boolean saveMainQuestion(MainQuestionCreatedDto mqcd) {
-		Project project = projectDao.getByDsKey(mqcd.getDsProjectKey());
+	/**
+	 * Register main question of a project
+	 * @param mainQuestionCreatedDto
+	 * @return boolean
+	 */
+	public Boolean saveMainQuestion(MainQuestionCreatedDto mainQuestionCreatedDto) {
+		Project project = projectDao.getByDsKey(mainQuestionCreatedDto.getDsProjectKey());
 
-		MainQuestion mainQuestion = new MainQuestion(mqcd.getDsMainQuestion(), mqcd.getDsPopulation(),mqcd.getDsIntervation(),
-				mqcd.getDsControl(), mqcd.getDsResult(), mqcd.getDsApplicationContext(), mqcd.getDsExperimentalDesign(),
+		MainQuestion mainQuestion = new MainQuestion(mainQuestionCreatedDto.getDsMainQuestion(), mainQuestionCreatedDto.getDsPopulation(),
+				mainQuestionCreatedDto.getDsIntervation(),mainQuestionCreatedDto.getDsControl(), mainQuestionCreatedDto.getDsResult(),
+				mainQuestionCreatedDto.getDsApplicationContext(),mainQuestionCreatedDto.getDsExperimentalDesign(),
 				project);
 
-		mainQuestionDao.delete(project.getIdProject()); // apagar main question
-														// anterior
-														// para gravar novo
+		mainQuestionDao.delete(project.getIdProject()); // delete main question registered to save new
 
 		mainQuestionDao.save(mainQuestion);
 		return true;

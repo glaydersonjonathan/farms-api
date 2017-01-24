@@ -11,10 +11,9 @@ import br.ufs.dcomp.farms.model.dao.SearchEngineDao;
 import br.ufs.dcomp.farms.model.dto.BaseUseCriteriaCreatedDto;
 import br.ufs.dcomp.farms.model.dto.SearchEngineCreatedDto;
 import br.ufs.dcomp.farms.model.entity.BaseUseCriteria;
-import br.ufs.dcomp.farms.model.entity.Language;
 import br.ufs.dcomp.farms.model.entity.Project;
 import br.ufs.dcomp.farms.model.entity.SearchEngine;
-import br.ufs.dcomp.farms.model.entity.StudyLanguage;
+
 
 @Component
 public class SearchEngineService {
@@ -50,6 +49,12 @@ public class SearchEngineService {
 		bc.setDsBaseUseCriteria(bcd.getDsBaseUseCriteria());
 
 		searchEngineDao.saveBaseUseCriteria(bc);
+		return true;
+	}
+
+	public Boolean createEngine(String engine) {
+		SearchEngine searchEngine = new SearchEngine(engine);
+		searchEngineDao.save(searchEngine);
 		return true;
 	}
 }

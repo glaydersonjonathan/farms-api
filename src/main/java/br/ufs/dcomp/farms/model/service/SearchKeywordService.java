@@ -12,6 +12,10 @@ import br.ufs.dcomp.farms.model.dto.SearchKeywordCreatedDto;
 import br.ufs.dcomp.farms.model.entity.Project;
 import br.ufs.dcomp.farms.model.entity.SearchKeyword;
 
+/**
+ * @author farms
+ *
+ */
 @Component
 public class SearchKeywordService {
 
@@ -20,21 +24,33 @@ public class SearchKeywordService {
 	@Autowired
 	private ProjectDao projectDao;
 
+	/**
+	 * Get keywords of protocol project
+	 * 
+	 * @param dsKey
+	 * @return List<SearchKeywordCreatedDto>
+	 */
 	public List<SearchKeywordCreatedDto> getByDsKeyProject(String dsKey) {
 		List<SearchKeywordCreatedDto> searchKeywordCreatedDto = new ArrayList<SearchKeywordCreatedDto>();
 		List<SearchKeyword> searchKeywords = searchKeywordDao.getByDsKeyProject(dsKey);
 		if (searchKeywords != null) {
-			for(SearchKeyword searchKeyword : searchKeywords) {
+			for (SearchKeyword searchKeyword : searchKeywords) {
 				searchKeywordCreatedDto.add(new SearchKeywordCreatedDto(searchKeyword));
 			}
 		}
 		return searchKeywordCreatedDto;
 	}
 
-	public Boolean saveKeyword(SearchKeywordCreatedDto key) {
-		Project project = projectDao.getByDsKey(key.getDsProjectKey());
+	/**
+	 * Save Keyword
+	 * 
+	 * @param searchKeywordCreatedDto
+	 * @return boolean
+	 */
+	public Boolean saveKeyword(SearchKeywordCreatedDto searchKeywordCreatedDto) {
+		Project project = projectDao.getByDsKey(searchKeywordCreatedDto.getDsProjectKey());
 
-		SearchKeyword keyword = new SearchKeyword(key.getDsSearchKeyword(), project);
+		SearchKeyword keyword = new SearchKeyword(searchKeywordCreatedDto.getDsSearchKeyword(), project);
 
 		searchKeywordDao.save(keyword);
 		return true;

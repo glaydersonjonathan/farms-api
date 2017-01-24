@@ -24,17 +24,27 @@ import br.ufs.dcomp.farms.model.dto.ResearcherRegisterDto;
 import br.ufs.dcomp.farms.model.dto.ResearcherRegisteredDto;
 import br.ufs.dcomp.farms.model.service.AccountService;
 
+/**
+ * @author farms
+ *
+ */
 @Path("/account")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Component
 public class AccountResource {
-	
+
 	final static Logger logger = Logger.getLogger(AccountResource.class);
-	
+
 	@Autowired
 	private AccountService accountService;
-	
+
+	/**
+	 * Receive request from client to login.
+	 *
+	 * @param ResearcherLoginDto.
+	 * @return Response.
+	 */
 	@POST
 	@Path("/login")
 	public Response login(ResearcherLoginDto researcherLoginDto) {
@@ -51,13 +61,21 @@ public class AccountResource {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-	
+
+	/**
+	 * Receive request from client to register researcher.
+	 *
+	 * @param ResearcherRegisterDto
+	 *            .
+	 * @return Response.
+	 */
 	@POST
 	@Path("/register")
 	public Response register(ResearcherRegisterDto researcherRegisterDto) {
 		try {
 			logger.info("Starting register.");
-			ResearcherRegisteredDto researcherRegisteredDto = accountService.registerAndSendAccountConfirmationEmail(researcherRegisterDto);
+			ResearcherRegisteredDto researcherRegisteredDto = accountService
+					.registerAndSendAccountConfirmationEmail(researcherRegisterDto);
 			logger.info(SuccessMessage.RESEARCHER_REGISTERED);
 			return FarmsResponse.ok(SuccessMessage.RESEARCHER_REGISTERED, researcherRegisteredDto);
 		} catch (FarmsException fe) {
@@ -68,7 +86,14 @@ public class AccountResource {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-	
+
+	// verificar
+	/**
+	 * Verify account registration
+	 * 
+	 * @param cdUuid
+	 * @return Response
+	 */
 	@GET
 	@Path("/confirmation")
 	public Response verifyAccount(@QueryParam("u") String cdUuid) {

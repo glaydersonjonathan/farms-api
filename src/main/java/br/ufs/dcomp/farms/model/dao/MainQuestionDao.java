@@ -8,6 +8,10 @@ import org.springframework.stereotype.Component;
 
 import br.ufs.dcomp.farms.model.entity.MainQuestion;
 
+/**
+ * @author farms
+ *
+ */
 @Component
 @SuppressWarnings("unchecked")
 public class MainQuestionDao extends HibernateDao<MainQuestion> {
@@ -34,15 +38,19 @@ public class MainQuestionDao extends HibernateDao<MainQuestion> {
 		return mainQuestions;
 	}
 
+	
+	/**
+	 * Delete a mainQuestion
+	 * @param idProject
+	 */
 	public void delete(Long idProject) {
 		Transaction transaction = getSession().beginTransaction();
 		try {
-			// your code
+			
 			String hql = "delete from MainQuestion where project.idProject= :idProject";
 			Query query = getSession().createQuery(hql);
 			query.setLong("idProject", idProject);
 			System.out.println(query.executeUpdate());
-			// your code end
 
 			transaction.commit();
 		} catch (Throwable t) {

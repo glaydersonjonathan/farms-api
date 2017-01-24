@@ -8,10 +8,17 @@ import org.springframework.stereotype.Component;
 import br.ufs.dcomp.farms.model.entity.Language;
 import br.ufs.dcomp.farms.model.entity.StudyLanguage;
 
+/**
+ * @author farms
+ *
+ */
 @Component
 @SuppressWarnings("unchecked")
 public class LanguageDao extends HibernateDao<Language> {
-
+	/**
+	 * Constructor from superclass, indicate to Hibernate.
+	 *
+	 */
 	public LanguageDao() {
 		super(Language.class);
 	}
@@ -39,6 +46,11 @@ public class LanguageDao extends HibernateDao<Language> {
 		return languages;
 	}
 
+	/**
+	 * Get all languages registered
+	 * 
+	 * @return list of all languages registered.
+	 */
 	public List<Language> getAllLanguages() {
 
 		StringBuilder sbHql = new StringBuilder();
@@ -51,13 +63,18 @@ public class LanguageDao extends HibernateDao<Language> {
 		return languages;
 	}
 
+	/**
+	 * Inserts language a project.
+	 * 
+	 * @param studyLanguage
+	 */
 	public void saveStudyLanguage(StudyLanguage studyLanguage) {
-		Query query = getSession().createSQLQuery("INSERT INTO study_language (id_project, id_language) VALUES (:valor1, :valor2)");
+		Query query = getSession()
+				.createSQLQuery("INSERT INTO study_language (id_project, id_language) VALUES (:valor1, :valor2)");
 		query.setParameter("valor1", studyLanguage.getProject().getIdProject());
 		query.setParameter("valor2", studyLanguage.getLanguage().getIdLanguage());
 		query.executeUpdate();
-		
-	}
 
+	}
 
 }

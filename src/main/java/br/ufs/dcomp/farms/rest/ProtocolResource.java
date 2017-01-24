@@ -41,6 +41,10 @@ import br.ufs.dcomp.farms.model.service.SecondaryQuestionService;
 import br.ufs.dcomp.farms.model.service.SelectionCriteriaService;
 import br.ufs.dcomp.farms.model.service.StandardQueryService;
 
+/**
+ * @author farms
+ *
+ */
 @Path("/protocol")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -66,7 +70,12 @@ public class ProtocolResource {
 	@Autowired
 	private SearchEngineService searchEngineService;
 
-	// projects/{dsKey}/objectives
+	/**
+	 * Get objectives, part of protocol of a project.
+	 * 
+	 * @param dsKey
+	 * @return Response
+	 */
 	@GET
 	@Path("/{dsKey}/objectives")
 	public Response getObjectivesByDsKeyProject(@PathParam("dsKey") String dsKey) {
@@ -79,7 +88,12 @@ public class ProtocolResource {
 		}
 	}
 
-	// projects/{dsKey}/main-question
+	/**
+	 * Get main question, part of protocol of a project.
+	 * 
+	 * @param dsKey
+	 * @return Response
+	 */
 	@GET
 	@Path("/{dsKey}/main-question")
 	public Response getMainQuestionByDsKeyProject(@PathParam("dsKey") String dsKey) {
@@ -92,7 +106,12 @@ public class ProtocolResource {
 		}
 	}
 
-	// projects/{dsKey}/secondary-question
+	/**
+	 * Get secondary question, part of protocol of a project.
+	 * 
+	 * @param dsKey
+	 * @return Response
+	 */
 	@GET
 	@Path("/{dsKey}/secondary-question")
 	public Response getSecondaryQuestionByDsKeyProject(@PathParam("dsKey") String dsKey) {
@@ -106,7 +125,12 @@ public class ProtocolResource {
 		}
 	}
 
-	// projects/{dsKey}/search-keywords
+	/**
+	 * Get keywords, part of protocol of a project.
+	 * 
+	 * @param dsKey
+	 * @return Response
+	 */
 	@GET
 	@Path("/{dsKey}/search-keywords")
 	public Response getSearchKeywordsByDsKeyProject(@PathParam("dsKey") String dsKey) {
@@ -119,7 +143,12 @@ public class ProtocolResource {
 		}
 	}
 
-	// projects/{dsKey}/standard-query
+	/**
+	 * Get standard query, part of protocol of a project.
+	 * 
+	 * @param dsKey
+	 * @return Response
+	 */
 	@GET
 	@Path("/{dsKey}/standard-query")
 	public Response getStandardQueryByDsKeyProject(@PathParam("dsKey") String dsKey) {
@@ -132,7 +161,12 @@ public class ProtocolResource {
 		}
 	}
 
-	
+	/**
+	 * Get selection studies criterias, part of protocol of a project.
+	 * 
+	 * @param dsKey
+	 * @return Response
+	 */
 	@GET
 	@Path("/{dsKey}/selection-criterias")
 	public Response getSelectionCriteriasByDsKeyProject(@PathParam("dsKey") String dsKey) {
@@ -146,8 +180,12 @@ public class ProtocolResource {
 		}
 	}
 
-	
-	
+	/**
+	 * Get languages of selection studies, part of protocol of a project.
+	 * 
+	 * @param dsKey
+	 * @return Response
+	 */
 	@GET
 	@Path("/{dsKey}/languages")
 	public Response getLanguagesByDsKeyProject(@PathParam("dsKey") String dsKey) {
@@ -159,9 +197,13 @@ public class ProtocolResource {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-	
-	
-	
+
+	/**
+	 * Get search engines selection, part of protocol of a project.
+	 * 
+	 * @param dsKey
+	 * @return Response
+	 */
 	@GET
 	@Path("/{dsKey}/search-engine")
 	public Response getEnginesByDsKeyProject(@PathParam("dsKey") String dsKey) {
@@ -173,9 +215,12 @@ public class ProtocolResource {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-	
-	
-	
+
+	/**
+	 * Get all languages registered.
+	 * 
+	 * @return Response
+	 */
 	@GET
 	@Path("/allLanguages")
 	public Response getAllLanguages() {
@@ -187,7 +232,12 @@ public class ProtocolResource {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-	
+
+	/**
+	 * Get all search engines registered.
+	 * 
+	 * @return Response
+	 */
 	@GET
 	@Path("/allEngines")
 	public Response getAllEngines() {
@@ -199,14 +249,15 @@ public class ProtocolResource {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-	
-	
-	
-	
-	
 
 	// **********************************POST's*****************//
 
+	/**
+	 * Save a objective of protocol project.
+	 * 
+	 * @param ObjectiveCreateDto
+	 * @return Response
+	 */
 	@POST
 	@Path("/objectives")
 	public Response saveObjective(ObjectiveCreateDto obcd) {
@@ -218,6 +269,12 @@ public class ProtocolResource {
 		}
 	}
 
+	/**
+	 * Save a main question of protocol project.
+	 * 
+	 * @param MainQuestionCreatedDto
+	 * @return Response
+	 */
 	@POST
 	@Path("/mainQuestion")
 	public Response saveMainQuestion(MainQuestionCreatedDto mqcd) {
@@ -229,6 +286,12 @@ public class ProtocolResource {
 		}
 	}
 
+	/**
+	 * Save a secondary question of protocol project.
+	 * 
+	 * @param SecondaryQuestionCreatedDto
+	 * @return Response
+	 */
 	@POST
 	@Path("/secondaryQuestion")
 	public Response saveSecondaryQuestion(SecondaryQuestionCreatedDto sqcd) {
@@ -240,6 +303,12 @@ public class ProtocolResource {
 		}
 	}
 
+	/**
+	 * Save standard query of protocol project.
+	 * 
+	 * @param ObjectiveCreateDto
+	 * @return Response
+	 */
 	@POST
 	@Path("/standardQuery")
 	public Response saveStandardQuery(StandardQueryCreatedDto stqcd) {
@@ -251,6 +320,12 @@ public class ProtocolResource {
 		}
 	}
 
+	/**
+	 * Save keyword of protocol project.
+	 * 
+	 * @param SearchKeywordCreatedDto
+	 * @return Response
+	 */
 	@POST
 	@Path("/searchKeywords")
 	public Response saveKeyword(SearchKeywordCreatedDto searchKeywords) {
@@ -262,6 +337,12 @@ public class ProtocolResource {
 		}
 	}
 
+	/**
+	 * Save selections criterias of protocol project.
+	 * 
+	 * @param SelectionCriteriaCreatedDto
+	 * @return Response
+	 */
 	@POST
 	@Path("/selectionCriterias")
 	public Response saveCriteria(SelectionCriteriaCreatedDto selectionCriterias) {
@@ -272,8 +353,13 @@ public class ProtocolResource {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-	
-	
+
+	/**
+	 * Save languages of protocol project.
+	 * 
+	 * @param StudyLanguageCreatedDto
+	 * @return Response
+	 */
 	@POST
 	@Path("/languages")
 	public Response saveLanguage(StudyLanguageCreatedDto languages) {
@@ -284,13 +370,37 @@ public class ProtocolResource {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-	
+
+	/**
+	 * Save engines of protocol project.
+	 * 
+	 * @param BaseUseCriteriaCreatedDto
+	 * @return Response
+	 */
 	@POST
 	@Path("/engines")
 	public Response saveEngine(BaseUseCriteriaCreatedDto bc) {
 		try {
 			Boolean bool = searchEngineService.saveEngine(bc);
 			return FarmsResponse.ok(SuccessMessage.ENGINE_ADDED, bool);
+		} catch (Exception ex) {
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+	
+	//verificar erro
+	/**
+	 * Create engines
+	 * 
+	 * @param engine name
+	 * @return Response
+	 */
+	@POST
+	@Path("/createEngine/{engine}")
+	public Response createEngine(@PathParam("engine") String engine) {
+		try {
+			Boolean bool = searchEngineService.createEngine(engine);
+			return FarmsResponse.ok(SuccessMessage.ENGINE_CREATED, bool);
 		} catch (Exception ex) {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}

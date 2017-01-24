@@ -19,7 +19,7 @@ public class SequencesDao  extends HibernateDao<SequencesDao> {
 	/**
 	 * Search sequences by schema name.
 	 * @param nmSchema
-	 * @return List<Sequences>
+	 * @return List<SequencesDba>
 	 */
 	public List<SequenceDba> getByNmSchema(String nmSchema) {
 		Query query = getSession().createQuery("from SequenceDba where lower(sequence_schema) = lower(?)");
@@ -29,7 +29,7 @@ public class SequencesDao  extends HibernateDao<SequencesDao> {
 	
 	/**
 	 * Search sequence by name.
-	 * @param nmTable
+	 * @param nmSequence
 	 * @return Sequence sequence
 	 */
 	public SequenceDba getByNmSequence(String nmSequence) {

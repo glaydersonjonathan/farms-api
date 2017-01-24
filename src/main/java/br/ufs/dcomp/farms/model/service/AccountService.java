@@ -15,12 +15,22 @@ import br.ufs.dcomp.farms.model.dto.ResearcherRegisteredDto;
 import br.ufs.dcomp.farms.model.entity.Researcher;
 import br.ufs.dcomp.farms.model.enums.YesNoEnum;
 
+/**
+ * @author farms
+ *
+ */
 @Component
 public class AccountService {
 
 	@Autowired
 	private ResearcherService researcherService;
 
+	/**
+	 * Register a researcher
+	 * @param researcherRegisterDto
+	 * @return researcher
+	 * @throws FarmsException
+	 */
 	@Transactional(rollbackFor = FarmsException.class)
 	public Researcher register(ResearcherRegisterDto researcherRegisterDto) throws FarmsException {
 		Researcher researcher = null;
@@ -30,6 +40,12 @@ public class AccountService {
 		return researcher;
 	}
 
+	/**
+	 * Register a researcher and send email confirmation
+	 * @param researcherRegisterDto
+	 * @return researcher
+	 * @throws FarmsException
+	 */
 	public ResearcherRegisteredDto registerAndSendAccountConfirmationEmail(ResearcherRegisterDto researcherRegisterDto) throws FarmsException {
 		ResearcherRegisteredDto researcherRegisteredDto = null;
 		Researcher researcher = register(researcherRegisterDto);
@@ -43,6 +59,12 @@ public class AccountService {
 		return researcherRegisteredDto;
 	}
 	
+	/**
+	 * Do login
+	 * @param researcherLoginDto
+	 * @return ResearcherLoggedDto
+	 * @throws FarmsException
+	 */
 	public ResearcherLoggedDto login(ResearcherLoginDto researcherLoginDto) throws FarmsException {
 		ResearcherLoggedDto researcherLoggedDto = null;
 		Researcher researcherLogged = researcherService.getByEmail(researcherLoginDto.getDsEmail());
@@ -70,6 +92,12 @@ public class AccountService {
 //		}
 	}
 	
+	/**
+	 * Confirm account
+	 * @param cdUuid
+	 * @return ResearcherRegisteredDto
+	 * @throws FarmsException
+	 */
 	public ResearcherRegisteredDto confirmAccount(String cdUuid) throws FarmsException {
 		ResearcherRegisteredDto researcherRegisteredDto = null;
 		Researcher researcherFound = researcherService.getByUuid(cdUuid);

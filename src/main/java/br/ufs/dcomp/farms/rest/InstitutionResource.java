@@ -19,9 +19,12 @@ import br.ufs.dcomp.farms.common.message.SuccessMessage;
 import br.ufs.dcomp.farms.core.FarmsResponse;
 import br.ufs.dcomp.farms.model.dto.CountryCreatedDto;
 import br.ufs.dcomp.farms.model.dto.InstitutionCreateDto;
-import br.ufs.dcomp.farms.model.dto.ProjectMemberAddInstitutionDto;
 import br.ufs.dcomp.farms.model.service.InstitutionService;
 
+/**
+ * @author farms
+ *
+ */
 @Path("/institutions")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -33,6 +36,11 @@ public class InstitutionResource {
 	@Autowired
 	private InstitutionService institutionService;
 
+	/**
+	 * Receive a request from client to get all countries registered.
+	 *
+	 * @return Response.
+	 */
 	@GET
 	@Path("/countries")
 	public Response getAllCountries() {
@@ -45,35 +53,21 @@ public class InstitutionResource {
 		}
 	}
 
-/*	// verificar, creio que não terá mais uso
+	/**
+	 * Receive request from client to Add institution a project.
+	 *
+	 * @param InstitutionCreateDto.
+	 * @return Response.
+	 */
 	@POST
-	public Response createInstitution(InstitutionCreateDto institutionCreateDto) {
+	@Path("/addInstitution")
+	public Response addInstitutionProject(InstitutionCreateDto institutionCreateDto) {
 		try {
 			Boolean bool = institutionService.save(institutionCreateDto);
-			return FarmsResponse.ok(SuccessMessage.INSTITUTION_REGISTERED, bool);
+			return FarmsResponse.ok(SuccessMessage.INSTITUTION_ADDED, bool);
 		} catch (Exception ex) {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
-	}*/
-	
-	// testando
-		/**
-		 * Receive request from client to Add institution a project.
-		 *
-		 * @param InstitutionCreateDto.
-		 * @return Response.
-		 */
-		@POST
-		@Path("/addInstitution")
-		public Response addInstitutionProject(InstitutionCreateDto institutionCreateDto) {
-			try {
-				Boolean bool = institutionService.save(institutionCreateDto);
-				return FarmsResponse.ok(SuccessMessage.INSTITUTION_ADDED, bool);
-			} catch (Exception ex) {
-				return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
-			}
-		}
-	
-	
+	}
 
 }

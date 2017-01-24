@@ -7,10 +7,17 @@ import org.springframework.stereotype.Component;
 
 import br.ufs.dcomp.farms.model.entity.Study;
 
+/**
+ * @author farms
+ *
+ */
 @Component
 @SuppressWarnings("unchecked")
 public class StudyDao extends HibernateDao<Study> {
-
+	/**
+	 * Constructor from superclass, indicate to Hibernate.
+	 *
+	 */
 	public StudyDao() {
 		super(Study.class);
 	}

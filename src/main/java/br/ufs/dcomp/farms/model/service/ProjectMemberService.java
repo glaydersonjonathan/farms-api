@@ -9,21 +9,20 @@ import org.springframework.stereotype.Component;
 import br.ufs.dcomp.farms.common.message.ErrorMessage;
 import br.ufs.dcomp.farms.core.FarmsException;
 import br.ufs.dcomp.farms.core.FarmsMail;
-import br.ufs.dcomp.farms.model.dao.InstitutionDao;
 import br.ufs.dcomp.farms.model.dao.ProjectDao;
 import br.ufs.dcomp.farms.model.dao.ProjectMemberDao;
 import br.ufs.dcomp.farms.model.dao.ResearcherDao;
-import br.ufs.dcomp.farms.model.dto.ProjectCreatedDto;
-import br.ufs.dcomp.farms.model.dto.ProjectMemberAddInstitutionDto;
 import br.ufs.dcomp.farms.model.dto.ProjectMemberDto;
 import br.ufs.dcomp.farms.model.dto.ProjectMemberInviteDto;
-import br.ufs.dcomp.farms.model.entity.Institution;
 import br.ufs.dcomp.farms.model.entity.Project;
 import br.ufs.dcomp.farms.model.entity.ProjectMember;
 import br.ufs.dcomp.farms.model.entity.Researcher;
-import br.ufs.dcomp.farms.model.enums.ReviewEnum;
 import br.ufs.dcomp.farms.model.enums.RoleEnum;
 
+/**
+ * @author farms
+ *
+ */
 @Component
 public class ProjectMemberService {
 
@@ -33,9 +32,13 @@ public class ProjectMemberService {
 	private ResearcherDao researcherDao;
 	@Autowired
 	private ProjectDao projectDao;
-	@Autowired
-	private InstitutionDao institutionDao;
 
+	/**
+	 * Get all members of project
+	 * 
+	 * @param dsKey
+	 * @return List<ProjectMemberDto>
+	 */
 	public List<ProjectMemberDto> getByDsKeyProject(String dsKey) {
 		List<ProjectMemberDto> projectMemberDto = new ArrayList<ProjectMemberDto>();
 		List<ProjectMember> projectMembers = projectMemberDao.getByDsKeyProject(dsKey);
@@ -47,39 +50,44 @@ public class ProjectMemberService {
 		return projectMemberDto;
 	}
 
-	public Boolean addInstitutionProject(ProjectMemberAddInstitutionDto pm) {
+	/**
+	 * Invite a member to project
+	 * 
+	 * @param projectMemberInviteDto
+	 * @return
+	 * @throws FarmsException
+	 */
+	public Boolean invite(ProjectMemberInviteDto projectMemberInviteDto) throws FarmsException {
 
-		Researcher researcher = researcherDao.getByDsSSO(pm.getDsUserName());
-		Project project = projectDao.getByDsKey(pm.getDsKey());
+		Researcher researcher = researcherDao.getByDsEmail(projectMemberInviteDto.getDsEmail());
+		if (researcher == null) {
+			FarmsMail.sendInviteEmail(projectMemberInviteDto.getDsEmail());
+
+			throw new FarmsException(ErrorMessage.MEMBER_NOT_FOUND);
+		}
+
+		Project project = projectDao.getByDsKey(projectMemberInviteDto.getDsKey());
+
 		ProjectMember projectMember = new ProjectMember();
 		projectMember.setResearcher(researcher);
 		projectMember.setProject(project);
-		//projectMember.setInstitution(institution);
-		projectMember.setTpRole(RoleEnum.COORDINATOR);// VERIFICAR !!!!!!!!!!!!!!!!!
+		// projectMember.setInstitution(institution);
+		projectMember.setTpRole(RoleEnum.MEMBER);
 		projectMemberDao.save(projectMember);
 
 		return true;
 	}
 
-	public Boolean invite(ProjectMemberInviteDto pm) throws FarmsException {
-
-		Researcher researcher = researcherDao.getByDsEmail(pm.getDsEmail());
-		if (researcher == null) {
-			FarmsMail.sendInviteEmail(pm.getDsEmail());
-
-			throw new FarmsException(ErrorMessage.MEMBER_NOT_FOUND);
-		}
-
-		Project project = projectDao.getByDsKey(pm.getDsKey());
-		
-
-		ProjectMember projectMember = new ProjectMember();
-		projectMember.setResearcher(researcher);
-		projectMember.setProject(project);
-		//projectMember.setInstitution(institution);
-		projectMember.setTpRole(RoleEnum.MEMBER);
-		projectMemberDao.save(projectMember);
-
-		return true;
+	/**
+	 * Get role code of researcher in a project
+	 * 
+	 * @param dsKey
+	 * @param dsUserName
+	 * @return int
+	 */
+	public int getRole(String dsKey, String dsUserName) {
+		Researcher researcher = researcherDao.getByDsSSO(dsUserName);
+		Project project = projectDao.getByDsKey(dsKey);
+		return projectMemberDao.getResearcherRole(project.getIdProject(), researcher.getIdResearcher());
 	}
 }

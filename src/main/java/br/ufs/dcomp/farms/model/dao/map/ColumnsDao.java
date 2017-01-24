@@ -19,7 +19,7 @@ public class ColumnsDao extends HibernateDao<ColumnDba> {
 	/**
 	 * Search columns by schema name.
 	 * @param nmSchema
-	 * @return List<Columns>
+	 * @return List<ColumnsDba>
 	 */
 	public List<ColumnDba> getByNmSchema(String nmSchema) {
 		Query query = getSession().createQuery("from ColumnDba where lower(table_schema) = lower(?)");
@@ -30,7 +30,7 @@ public class ColumnsDao extends HibernateDao<ColumnDba> {
 	/**
 	 * Search columns by table name.
 	 * @param nmTable
-	 * @return List<Columns>
+	 * @return List<ColumnsDba>
 	 */
 	public List<ColumnDba> getByNmTable(String nmTable) {
 		Query query = getSession().createQuery("from ColumnDba where lower(table_name) = lower(?)");
