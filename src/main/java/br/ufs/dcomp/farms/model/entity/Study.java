@@ -58,7 +58,7 @@ public class Study implements Serializable {
 	public Study() {}
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "StudySequenceGenerator")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "StudySequenceGenerator")
 	@Column(name = "id_study", nullable = false, unique = true)
 	public Long getIdStudy() {
 		return idStudy;

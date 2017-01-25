@@ -1,9 +1,6 @@
 package br.ufs.dcomp.farms.rest;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
+
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -17,8 +14,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.apache.log4j.Logger;
-import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
-import org.glassfish.jersey.media.multipart.FormDataParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -31,11 +26,9 @@ import br.ufs.dcomp.farms.model.dto.ProjectCreateDto;
 import br.ufs.dcomp.farms.model.dto.ProjectCreatedDto;
 import br.ufs.dcomp.farms.model.dto.ProjectMemberDto;
 import br.ufs.dcomp.farms.model.dto.ProjectMemberInviteDto;
-import br.ufs.dcomp.farms.model.dto.StudyCreatedDto;
 import br.ufs.dcomp.farms.model.service.InstitutionService;
 import br.ufs.dcomp.farms.model.service.ProjectMemberService;
 import br.ufs.dcomp.farms.model.service.ProjectService;
-import br.ufs.dcomp.farms.model.service.StudyService;
 
 /**
  * @author farms
@@ -51,8 +44,6 @@ public class ProjectResource {
 
 	@Autowired
 	private ProjectService projectService;
-	@Autowired
-	private StudyService studyService;
 	@Autowired
 	private ProjectMemberService projectMemberService;
 	@Autowired
@@ -197,7 +188,13 @@ public class ProjectResource {
 		}
 	}
 
-	//verificar
+	
+	/**
+	 * Get role of researcher in a project
+	 * @param dsKey
+	 * @param dsUserName
+	 * @return response
+	 */
 	@GET
 	@Path("/{dsKey}/role/{dsUserName}")
 	public Response getRoleResearcher(@PathParam("dsKey") String dsKey, @PathParam ("dsUserName") String dsUserName) {
@@ -206,51 +203,6 @@ public class ProjectResource {
 			return FarmsResponse.ok(roleCode);
 		} catch (Exception ex) {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
-		}
-	}
-
-	
-	
-	// ***** DAQUI PRA BAIXO NECESSITA VERIFICAR *****
-	// verificar
-	// projects/{dsKey}/studies
-	@GET
-	@Path("/{dsKey}/studies")
-	public Response getStudiesByDsKeyProject(@PathParam("dsKey") String dsKey) {
-		try {
-			List<StudyCreatedDto> studyCreatedDtos = studyService.getByDsKeyProject(dsKey);
-			return FarmsResponse.ok(studyCreatedDtos);
-		} catch (Exception ex) {
-			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
-			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
-		}
-	}
-
-	@POST
-	@Path("/{dsKey}/upload-study")
-	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	public Response uploadFile(@FormDataParam("file") InputStream file,
-			@FormDataParam("file") FormDataContentDisposition fileDisposition) {
-
-		String fileName = fileDisposition.getFileName();
-
-		saveFile(file, fileName);
-
-		String fileDetails = "File saved at /Volumes/Drive2/temp/file/" + fileName;
-
-		System.out.println(fileDetails);
-
-		return Response.ok(fileDetails).build();
-	}
-
-	private void saveFile(InputStream file, String name) {
-		try {
-			// Change directory path
-			java.nio.file.Path path = FileSystems.getDefault().getPath("/Volumes/Drive2/temp/file/" + name);
-			// Save InputStream as file
-			Files.copy(file, path);
-		} catch (IOException ie) {
-			ie.printStackTrace();
 		}
 	}
 }
