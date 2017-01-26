@@ -46,9 +46,9 @@ public class ErrorMessage extends Message {
 	private static final String KEY_ALREADY_IN_USE_DESCRIPTION = "Project Key already in use.";
 	public static final ErrorMessage KEY_ALREADY_IN_USE = new ErrorMessage(KEY_ALREADY_IN_USE_CODE, KEY_ALREADY_IN_USE_DESCRIPTION);
 	
-	private static final Integer INSTITUTION_NOT_FOUND_CODE = 2006;
-	private static final String INSTITUTION_NOT_FOUND_DESCRIPTION = "Institution not found.";
-	public static final ErrorMessage INSTITUTION_NOT_FOUND = new ErrorMessage(INSTITUTION_NOT_FOUND_CODE, INSTITUTION_NOT_FOUND_DESCRIPTION);
+	private static final Integer INSTITUTION_NOT_DELETED_CODE = 2006;
+	private static final String INSTITUTION_NOT_DELETED_DESCRIPTION = "Institution not deleted, the project must have at least one associated institution.";
+	public static final ErrorMessage INSTITUTION_NOT_DELETED = new ErrorMessage(INSTITUTION_NOT_DELETED_CODE, INSTITUTION_NOT_DELETED_DESCRIPTION);
 	
 	private static final Integer ACCOUNT_ALREADY_CONFIRMED_CODE = 2007;
 	private static final String ACCOUNT_ALREADY_CONFIRMED_DESCRIPTION = "This email account has already been confirmed.";
@@ -62,4 +62,8 @@ public class ErrorMessage extends Message {
 	private static final Integer MEMBER_NOT_FOUND_CODE = 2009;
 	private static final String MEMBER_NOT_FOUND_DESCRIPTION = "Researcher not found, a email has been sent.";
 	public static final ErrorMessage MEMBER_NOT_FOUND = new ErrorMessage(MEMBER_NOT_FOUND_CODE, MEMBER_NOT_FOUND_DESCRIPTION);
+	
+	private static final Integer ALREADY_MEMBER_CODE = 2010;
+	private static final String ALREADY_MEMBER_DESCRIPTION = "Already a member.";
+	public static final ErrorMessage ALREADY_MEMBER = new ErrorMessage(ALREADY_MEMBER_CODE, ALREADY_MEMBER_DESCRIPTION);
 }

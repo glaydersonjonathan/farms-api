@@ -62,16 +62,19 @@ public class ProjectMemberService {
 		Researcher researcher = researcherDao.getByDsEmail(projectMemberInviteDto.getDsEmail());
 		if (researcher == null) {
 			FarmsMail.sendInviteEmail(projectMemberInviteDto.getDsEmail());
-
 			throw new FarmsException(ErrorMessage.MEMBER_NOT_FOUND);
 		}
-
+		
 		Project project = projectDao.getByDsKey(projectMemberInviteDto.getDsKey());
+		
+		if (projectMemberDao.verifyAlreadyMember(project.getIdProject(), researcher.getIdResearcher())){
+			throw new FarmsException(ErrorMessage.ALREADY_MEMBER);		
+		}
+			
 
 		ProjectMember projectMember = new ProjectMember();
 		projectMember.setResearcher(researcher);
 		projectMember.setProject(project);
-		// projectMember.setInstitution(institution);
 		projectMember.setTpRole(RoleEnum.MEMBER);
 		projectMemberDao.save(projectMember);
 

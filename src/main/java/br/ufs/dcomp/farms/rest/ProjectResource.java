@@ -182,7 +182,7 @@ public class ProjectResource {
 			Boolean bool = projectMemberService.invite(pm);
 			return FarmsResponse.ok(SuccessMessage.MEMBER_ADDED, bool);
 		} catch (FarmsException fe) {
-			return FarmsResponse.error(ErrorMessage.MEMBER_NOT_FOUND);
+			return FarmsResponse.error(fe.getErrorMessage());
 		} catch (Exception ex) {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}

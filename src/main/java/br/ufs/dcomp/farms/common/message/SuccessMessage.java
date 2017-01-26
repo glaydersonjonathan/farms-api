@@ -114,4 +114,8 @@ public final class SuccessMessage extends Message {
 	private static final Integer CRITERIA_DELETED_CODE = 1024;
 	private static final String CRITERIA_DELETED_DESCRIPTION = "Criteria deleted successfully.";
 	public static final SuccessMessage CRITERIA_DELETED = new SuccessMessage(CRITERIA_DELETED_CODE, CRITERIA_DELETED_DESCRIPTION);
+	
+	private static final Integer INSTITUTION_DELETED_CODE = 1025;
+	private static final String INSTITUTION_DELETED_DESCRIPTION = "Institution deleted successfully.";
+	public static final SuccessMessage INSTITUTION_DELETED = new SuccessMessage(INSTITUTION_DELETED_CODE, INSTITUTION_DELETED_DESCRIPTION);
 }

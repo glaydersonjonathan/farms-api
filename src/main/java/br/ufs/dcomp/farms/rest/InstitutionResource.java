@@ -1,6 +1,8 @@
 package br.ufs.dcomp.farms.rest;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+
 import java.util.List;
 
 import javax.ws.rs.GET;
@@ -74,7 +76,6 @@ public class InstitutionResource {
 		}
 	}
 
-	
 	/**
 	 * Receive a request from client to update a institution.
 	 * 
@@ -86,15 +87,15 @@ public class InstitutionResource {
 		try {
 			Boolean bool = institutionService.update(institutionCreatedDto);
 			return FarmsResponse.ok(SuccessMessage.INSTITUTION_UPDATED, bool);
-		}catch (FarmsException fe){
+		} catch (FarmsException fe) {
 			return FarmsResponse.error(fe.getErrorMessage());
 		}
-		
+
 		catch (Exception ex) {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-	
+
 	/**
 	 * Receive a request from client to get a institution.
 	 * 
@@ -104,7 +105,8 @@ public class InstitutionResource {
 	 */
 	@GET
 	@Path("/{nmInstitution}/{dsKey}")
-	public Response getInstitutionByName(@PathParam("nmInstitution") String nmInstitution, @PathParam("dsKey") String dsKey) {
+	public Response getInstitutionByName(@PathParam("nmInstitution") String nmInstitution,
+			@PathParam("dsKey") String dsKey) {
 		try {
 			InstitutionCreatedDto institutionCreatedDto = institutionService.getInstitutionByName(nmInstitution, dsKey);
 			return FarmsResponse.ok(institutionCreatedDto);
@@ -113,5 +115,28 @@ public class InstitutionResource {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-	
+
+	/**
+	 * Delete institution from project
+	 * 
+	 * @param institutionCreatedDto
+	 * @return
+	 */
+	@DELETE
+	@Path("/delete/{dsKey}/{idInstitution}")
+	public Response deleteInstitution(@PathParam("dsKey") String dsKey,
+			@PathParam("idInstitution") Long idInstitution) {
+		try {
+			Boolean bool = institutionService.deleteInstitution(dsKey, idInstitution);
+			return FarmsResponse.ok(SuccessMessage.INSTITUTION_DELETED, bool);
+		} catch (FarmsException fe) {
+			return FarmsResponse.error(fe.getErrorMessage());
+		}
+
+		catch (Exception ex) {
+			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+
 }

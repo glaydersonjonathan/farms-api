@@ -50,6 +50,13 @@ public class ProjectMemberDao extends HibernateDao<ProjectMember> {
 		return projectMembers;
 	}
 
+	/**
+	 * Get role of researcher in project
+	 * 
+	 * @param idProject
+	 * @param idResearcher
+	 * @return
+	 */
 	public int getResearcherRole(Long idProject, Long idResearcher) {
 		StringBuilder sbHql = new StringBuilder();
 		sbHql.append("from ProjectMember pm");
@@ -60,8 +67,33 @@ public class ProjectMemberDao extends HibernateDao<ProjectMember> {
 		query.setParameter("idProject", idProject);
 		query.setParameter("idResearcher", idResearcher);
 		List<ProjectMember> projectMembers = query.list();
-		
+
 		return projectMembers.get(0).getTpRole().getCode();
 
+	}
+
+	/**
+	 * Verify Already a member of project
+	 * 
+	 * @param idProject
+	 * @param idResearcher
+	 * @return
+	 */
+	public boolean verifyAlreadyMember(Long idProject, Long idResearcher) {
+		StringBuilder sbHql = new StringBuilder();
+		sbHql.append("from ProjectMember pm");
+		sbHql.append(" where pm.project.idProject = :idProject");
+		sbHql.append(" and pm.researcher.idResearcher = :idResearcher");
+
+		Query query = getSession().createQuery(sbHql.toString());
+		query.setParameter("idProject", idProject);
+		query.setParameter("idResearcher", idResearcher);
+		List<ProjectMember> projectMembers = query.list();
+
+		if (projectMembers.size() > 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

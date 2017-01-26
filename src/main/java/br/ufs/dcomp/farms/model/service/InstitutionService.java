@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import br.ufs.dcomp.farms.common.message.ErrorMessage;
 import br.ufs.dcomp.farms.core.FarmsException;
 import br.ufs.dcomp.farms.model.dao.InstitutionDao;
 import br.ufs.dcomp.farms.model.dao.ProjectDao;
@@ -15,7 +16,6 @@ import br.ufs.dcomp.farms.model.dto.InstitutionCreatedDto;
 import br.ufs.dcomp.farms.model.entity.Country;
 import br.ufs.dcomp.farms.model.entity.Institution;
 import br.ufs.dcomp.farms.model.entity.Project;
-
 
 /**
  * @author farms
@@ -28,10 +28,10 @@ public class InstitutionService {
 	private InstitutionDao institutionDao;
 	@Autowired
 	private ProjectDao projectDao;
-	
 
 	/**
 	 * Get all institutions by dskey project
+	 * 
 	 * @param dsKey
 	 * @return List<InstitutionCreatedDto>
 	 */
@@ -39,33 +39,32 @@ public class InstitutionService {
 		List<InstitutionCreatedDto> institutionCreatedDto = new ArrayList<InstitutionCreatedDto>();
 		List<Institution> institutions = institutionDao.getByDsKeyProject(dsKey);
 		if (institutions != null) {
-			for(Institution institution : institutions) {
+			for (Institution institution : institutions) {
 				institutionCreatedDto.add(new InstitutionCreatedDto(institution));
 			}
 		}
 		return institutionCreatedDto;
 	}
-	
-	
 
 	/**
 	 * Get all countries registered
+	 * 
 	 * @return List<CountryCreatedDto>
 	 */
 	public List<CountryCreatedDto> getAllCountries() {
 		List<CountryCreatedDto> countryCreatedDto = new ArrayList<CountryCreatedDto>();
 		List<Country> countries = institutionDao.getAllCountries();
 		if (countries != null) {
-			for(Country country : countries) {
+			for (Country country : countries) {
 				countryCreatedDto.add(new CountryCreatedDto(country));
 			}
 		}
 		return countryCreatedDto;
 	}
 
-
 	/**
 	 * Save institution
+	 * 
 	 * @param institutionCreateDto
 	 * @return boolean
 	 */
@@ -74,20 +73,19 @@ public class InstitutionService {
 		institution.setDsAbbreviation(institutionCreateDto.getDsAbbreviation());
 		institution.setNmInstitution(institutionCreateDto.getNmInstitution());
 		institution.setCountry(institutionCreateDto.getCountry());
-		
+
 		Project project = projectDao.getByDsKey(institutionCreateDto.getDsKey());
-		
+
 		institution.setProject(project);
-		
+
 		institutionDao.save(institution);
-		
+
 		return true;
 	}
 
-
-
 	/**
 	 * Update a institution
+	 * 
 	 * @param institutionCreatedDto
 	 * @return boolean
 	 * @throws FarmsException
@@ -103,10 +101,9 @@ public class InstitutionService {
 		return true;
 	}
 
-
-
 	/**
 	 * Get a institution by name x project
+	 * 
 	 * @param nmInstitution
 	 * @param dsKey
 	 * @return
@@ -116,6 +113,21 @@ public class InstitutionService {
 		InstitutionCreatedDto institutionCreatedDto = new InstitutionCreatedDto(institution);
 		return institutionCreatedDto;
 	}
-	
-	
+
+	/**
+	 * Delete institution from project
+	 * @param institutionCreatedDto
+	 * @return
+	 */
+	public Boolean deleteInstitution(String dsKey, Long idInstitution) throws FarmsException {
+		
+		Long idProject = projectDao.getByDsKey(dsKey).getIdProject();
+		if (institutionDao.countInstitutions(idProject) == 1){
+			throw  new FarmsException(ErrorMessage.INSTITUTION_NOT_DELETED);
+		}else{
+			institutionDao.deleteInstitution(idProject,idInstitution);
+		}		
+		return true;
+	}
+
 }

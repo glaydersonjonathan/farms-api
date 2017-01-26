@@ -3,6 +3,7 @@ package br.ufs.dcomp.farms.model.dao;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.hibernate.Transaction;
 import org.springframework.stereotype.Component;
 
 import br.ufs.dcomp.farms.model.entity.Country;
@@ -116,5 +117,39 @@ public class InstitutionDao extends HibernateDao<Institution> {
 		query.setString(1, nmInstitution);
 		List<Institution> results = query.list();
 		return (results != null && !results.isEmpty()) ? (Institution) results.get(0) : null;
+	}
+
+	/**
+	 * Delete institution from project
+	 * @param idProject
+	 * @param institutionCreatedDto
+	 */
+	public void deleteInstitution(Long idProject, Long idInstitution) {
+		Transaction transaction = getSession().beginTransaction();
+		try {
+			
+			String hql = "delete from Institution where project.idProject= :idProject and idInstitution =:idInstitution";
+			Query query = getSession().createQuery(hql);
+			query.setLong("idProject", idProject);
+			query.setLong("idInstitution", idInstitution);
+			System.out.println(query.executeUpdate());
+
+			transaction.commit();
+		} catch (Throwable t) {
+			transaction.rollback();
+			throw t;
+		}
+	}
+	
+	
+	/**
+	 * Count institutions of a project
+	 * @param idProject
+	 * @return
+	 */
+	public Long countInstitutions (Long idProject){
+		Query query = getSession().createQuery("select count(*) from Institution where project.idProject= :idProject");
+		query.setLong("idProject", idProject);
+		return (Long) query.uniqueResult();
 	}
 }
