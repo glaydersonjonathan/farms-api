@@ -7,6 +7,8 @@ public class SelectionCriteriaCreatedDto {
 	private String dsSelectionCriteria;
 	private Integer tpCriteria;
 	private String dsProjectKey;
+	private Long idSelectionCriteria;
+	
 	
 	
 	
@@ -19,6 +21,7 @@ public class SelectionCriteriaCreatedDto {
 		this.dsSelectionCriteria = selectionCriteria.getDsSelectionCriteria();
 		this.tpCriteria = selectionCriteria.getTpCriteria().getCode();
 		this.dsProjectKey = selectionCriteria.getProject().getDsKey();
+		this.idSelectionCriteria = selectionCriteria.getIdSelectionCriteria();
 	}
 	
 	public String getDsSelectionCriteria() {
@@ -44,4 +47,14 @@ public class SelectionCriteriaCreatedDto {
 	public void setDsProjectKey(String dsProjectKey) {
 		this.dsProjectKey = dsProjectKey;
 	}
+
+	public Long getIdSelectionCriteria() {
+		return idSelectionCriteria;
+	}
+
+	public void setIdSelectionCriteria(Long idSelectionCriteria) {
+		this.idSelectionCriteria = idSelectionCriteria;
+	}
+	
+	
 }

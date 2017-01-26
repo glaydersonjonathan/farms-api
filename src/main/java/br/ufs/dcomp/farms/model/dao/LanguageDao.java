@@ -3,6 +3,7 @@ package br.ufs.dcomp.farms.model.dao;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.hibernate.Transaction;
 import org.springframework.stereotype.Component;
 
 import br.ufs.dcomp.farms.model.entity.Language;
@@ -75,6 +76,29 @@ public class LanguageDao extends HibernateDao<Language> {
 		query.setParameter("valor2", studyLanguage.getLanguage().getIdLanguage());
 		query.executeUpdate();
 
+	}
+
+	/**
+	 * Delete language of protocol project
+	 * @param idProject
+	 * @param idLanguage
+	 */
+	public void deleteLanguage(Long idProject, Long idLanguage) {
+		Transaction transaction = getSession().beginTransaction();
+		try {
+			
+			String hql = "delete from StudyLanguage where project.idProject= :idProject and language.idLanguage =:idLanguage";
+			Query query = getSession().createQuery(hql);
+			query.setLong("idProject", idProject);
+			query.setLong("idLanguage", idLanguage);
+			System.out.println(query.executeUpdate());
+
+			transaction.commit();
+		} catch (Throwable t) {
+			transaction.rollback();
+			throw t;
+		}
+		
 	}
 
 }

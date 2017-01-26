@@ -30,6 +30,13 @@ public class SearchKeyword {
 	
 	
 
+	public SearchKeyword(Long idSearchKeyword, String dsSearchKeyword, Project project) {
+		super();
+		this.idSearchKeyword = idSearchKeyword;
+		this.dsSearchKeyword = dsSearchKeyword;
+		this.project = project;
+	}
+
 	public SearchKeyword(String dsSearchKeyword, Project project) {
 		super();
 		this.dsSearchKeyword = dsSearchKeyword;

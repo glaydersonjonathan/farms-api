@@ -26,7 +26,8 @@ public class SearchEngine implements Serializable {
 	private Long idSearchEngine;
 	private String nmSearchEngine;
 	
-	private Set<AdaptedQuery> adaptedQuerys = new HashSet<AdaptedQuery>(0);
+	//verificar
+	//private Set<AdaptedQuery> adaptedQuerys = new HashSet<AdaptedQuery>(0);
 	
 	public SearchEngine() {}
 	
@@ -67,12 +68,12 @@ public class SearchEngine implements Serializable {
 		this.nmSearchEngine = nmSearchEngine;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "searchEngine")
+/*	@OneToMany(fetch = FetchType.LAZY, mappedBy = "searchEngine")
 	public Set<AdaptedQuery> getAdaptedQuerys() {
 		return this.adaptedQuerys;
 	}
 
 	public void setAdaptedQuerys(Set<AdaptedQuery> adaptedQuerys) {
 		this.adaptedQuerys = adaptedQuerys;
-	}
+	}*/
 }

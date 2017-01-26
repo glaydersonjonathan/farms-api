@@ -18,6 +18,13 @@ public class SearchKeywordCreatedDto {
 	}
 
 	
+	public SearchKeywordCreatedDto(Long idSearchKeyword, String dsSearchKeyword, String dsProjectKey) {
+		super();
+		this.idSearchKeyword = idSearchKeyword;
+		this.dsSearchKeyword = dsSearchKeyword;
+		this.dsProjectKey = dsProjectKey;
+	}
+
 	public SearchKeywordCreatedDto(String dsSearchKeyword, String dsProjectKey) {
 		super();
 		this.dsSearchKeyword = dsSearchKeyword;

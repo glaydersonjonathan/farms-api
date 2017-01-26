@@ -22,7 +22,7 @@ public class StudyService {
 		if (studies != null) {
 			for(Study study : studies) {
 				studyCreatedDto.add(new StudyCreatedDto(study));
-				System.out.println(study.getCdCiteKey());
+				/*System.out.println(study.getCdCiteKey());
 				System.out.println(study.getCdDoi());
 				System.out.println(study.getCdIssnIsbn());
 				System.out.println(study.getDsAbstract());
@@ -41,7 +41,7 @@ public class StudyService {
 				System.out.println(study.getSearch());
 				System.out.println(study.getTpReadingRate());
 				System.out.println(study.getTpStatus());
-				System.out.println(study.getTpVenue());
+				System.out.println(study.getTpVenue());*/
 			}
 		}
 		return studyCreatedDto;

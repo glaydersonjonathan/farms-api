@@ -98,4 +98,20 @@ public final class SuccessMessage extends Message {
 	private static final Integer INSTITUTION_UPDATED_CODE = 1020;
 	private static final String INSTITUTION_UPDATED_DESCRIPTION = "Institution updated successfully.";
 	public static final SuccessMessage INSTITUTION_UPDATED = new SuccessMessage(INSTITUTION_UPDATED_CODE, INSTITUTION_UPDATED_DESCRIPTION);
+	
+	private static final Integer KEYWORD_DELETED_CODE = 1021;
+	private static final String KEYWORD_DELETED_DESCRIPTION = "Keyword deleted successfully.";
+	public static final SuccessMessage KEYWORD_DELETED = new SuccessMessage(KEYWORD_DELETED_CODE, KEYWORD_DELETED_DESCRIPTION);
+	
+	private static final Integer LANGUAGE_DELETED_CODE = 1022;
+	private static final String LANGUAGE_DELETED_DESCRIPTION = "Language deleted successfully.";
+	public static final SuccessMessage LANGUAGE_DELETED = new SuccessMessage(LANGUAGE_DELETED_CODE, LANGUAGE_DELETED_DESCRIPTION);
+	
+	private static final Integer ENGINE_DELETED_CODE = 1023;
+	private static final String ENGINE_DELETED_DESCRIPTION = "Search engine deleted successfully.";
+	public static final SuccessMessage ENGINE_DELETED = new SuccessMessage(ENGINE_DELETED_CODE, ENGINE_DELETED_DESCRIPTION);
+	
+	private static final Integer CRITERIA_DELETED_CODE = 1024;
+	private static final String CRITERIA_DELETED_DESCRIPTION = "Criteria deleted successfully.";
+	public static final SuccessMessage CRITERIA_DELETED = new SuccessMessage(CRITERIA_DELETED_CODE, CRITERIA_DELETED_DESCRIPTION);
 }

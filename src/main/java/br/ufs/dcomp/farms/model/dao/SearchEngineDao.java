@@ -3,8 +3,10 @@ package br.ufs.dcomp.farms.model.dao;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.hibernate.Transaction;
 import org.springframework.stereotype.Component;
 
+import br.ufs.dcomp.farms.model.dto.SearchEngineCreatedDto;
 import br.ufs.dcomp.farms.model.entity.BaseUseCriteria;
 import br.ufs.dcomp.farms.model.entity.SearchEngine;
 
@@ -26,11 +28,11 @@ public class SearchEngineDao extends HibernateDao<SearchEngine> {
 
 	/**
 	 * Create a engine
+	 * 
 	 * @param engine
 	 */
 	public void saveSearchEngine(SearchEngine engine) {
-		Query query = getSession()
-				.createSQLQuery("INSERT INTO search_engine (nm_search_engine) VALUES (:valor1)");
+		Query query = getSession().createSQLQuery("INSERT INTO search_engine (nm_search_engine) VALUES (:valor1)");
 		query.setParameter("valor1", engine.getNmSearchEngine());
 		query.executeUpdate();
 	}
@@ -64,13 +66,16 @@ public class SearchEngineDao extends HibernateDao<SearchEngine> {
 
 		StringBuilder sbHql = new StringBuilder();
 		sbHql.append("from SearchEngine");
-
 		Query query = getSession().createQuery(sbHql.toString());
-
 		List<SearchEngine> engines = query.list();
 
+		/*
+		 * for (SearchEngine engine :engines){
+		 * System.out.println(engine.getNmSearchEngine());
+		 * 
+		 * }
+		 */
 		return engines;
-
 	}
 
 	/**
@@ -87,6 +92,45 @@ public class SearchEngineDao extends HibernateDao<SearchEngine> {
 		query.setParameter("valor2", bc.getSearchEngine().getIdSearchEngine());
 		query.setParameter("valor3", bc.getDsBaseUseCriteria());
 		query.executeUpdate();
+	}
+
+	/**
+	 * Delete engine of protocol project
+	 * 
+	 * @param idProject
+	 * @param idEngine
+	 */
+	public void deleteEngine(Long idProject, Long idEngine) {
+		Transaction transaction = getSession().beginTransaction();
+		try {
+
+			String hql = "delete from BaseUseCriteria where project.idProject= :idProject and searchEngine.idSearchEngine =:idEngine";
+			Query query = getSession().createQuery(hql);
+			query.setLong("idProject", idProject);
+			query.setLong("idEngine", idEngine);
+			System.out.println(query.executeUpdate());
+
+			transaction.commit();
+		} catch (Throwable t) {
+			transaction.rollback();
+			throw t;
+		}
+
+	}
+
+	/**
+	 * Edit engine of protocol project
+	 * 
+	 * @param searchEngineCreatedDto
+	 */
+	public void editEngine(Long idProject, SearchEngineCreatedDto searchEngineCreatedDto) {
+		Query query = getSession().createQuery("update BaseUseCriteria set dsBaseUseCriteria = :dsBaseUseCriteria" + " "
+				+ " where project.idProject= :idProject and searchEngine.idSearchEngine =:idEngine");
+		query.setString("dsBaseUseCriteria", searchEngineCreatedDto.getDsBaseUseCriteria());
+		query.setLong("idProject", idProject);
+		query.setLong("idEngine", searchEngineCreatedDto.getIdSearchEngine());
+		query.executeUpdate();
+
 	}
 
 }

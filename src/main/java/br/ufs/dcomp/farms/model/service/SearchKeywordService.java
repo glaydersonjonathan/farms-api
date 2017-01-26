@@ -55,4 +55,28 @@ public class SearchKeywordService {
 		searchKeywordDao.save(keyword);
 		return true;
 	}
+
+
+	/**
+	 * Delete a keyword
+	 * @param dsProjectKey
+	 * @param dsSearchKeyword
+	 * @param idSearchKeyword
+	 * @return
+	 */
+	public Boolean deleteKeyword(String dsProjectKey, String dsSearchKeyword, Long idSearchKeyword) {
+		SearchKeyword searchKeyword = new SearchKeyword(idSearchKeyword,dsSearchKeyword, projectDao.getByDsKey(dsProjectKey));
+		searchKeywordDao.delete(searchKeyword);
+		return true;
+	}
+
+	/**
+	 * Edit keyword
+	 * @param searchKeywordCreatedDto
+	 * @return
+	 */
+	public Boolean editKeyword(SearchKeywordCreatedDto searchKeywordCreatedDto) {
+		searchKeywordDao.update(searchKeywordCreatedDto);
+		return true;
+	}
 }

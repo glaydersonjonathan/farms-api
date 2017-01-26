@@ -69,4 +69,16 @@ public class LanguageService {
 		languageDao.saveStudyLanguage(studyLanguage);
 		return true;
 	}
+
+	/**
+	 * Delete language of protocol project
+	 * @param dsProjectKey
+	 * @param idLanguage
+	 * @return
+	 */
+	public Boolean deleteLanguage(String dsProjectKey, Long idLanguage) {
+		
+		languageDao.deleteLanguage(projectDao.getByDsKey(dsProjectKey).getIdProject(), idLanguage);
+		return true;
+	}
 }

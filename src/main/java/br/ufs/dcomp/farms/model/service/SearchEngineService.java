@@ -75,4 +75,26 @@ public class SearchEngineService {
 		searchEngineDao.saveSearchEngine(searchEngine);
 		return true;
 	}
+
+	/**
+	 * Delete engine of protocol project
+	 * @param dsProjectKey
+	 * @param idEngine
+	 * @return
+	 */
+	public Boolean deleteEngine(String dsProjectKey, Long idEngine) {
+
+		searchEngineDao.deleteEngine(projectDao.getByDsKey(dsProjectKey).getIdProject(), idEngine);
+		return true;
+	}
+
+	/**
+	 * Edit engine of protocol project
+	 * @param searchEngineCreatedDto
+	 * @return
+	 */
+	public Boolean editEngine(SearchEngineCreatedDto searchEngineCreatedDto) {		
+		searchEngineDao.editEngine(projectDao.getByDsKey(searchEngineCreatedDto.getDsProjectKey()).getIdProject(),searchEngineCreatedDto);
+		return true;
+	}
 }
