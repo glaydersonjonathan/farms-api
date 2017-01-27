@@ -49,7 +49,7 @@ public class ProjectService {
 	 * @throws FarmsException
 	 */
 	@Transactional(rollbackFor = FarmsException.class)
-	public ProjectCreatedDto save(ProjectCreateDto projectCreateDto) throws FarmsException {
+	public Boolean save(ProjectCreateDto projectCreateDto) throws FarmsException {
 
 		Project project_verify = projectDao.getByDsKey(projectCreateDto.getDsKey());
 
@@ -83,9 +83,9 @@ public class ProjectService {
 		projectMember.setTpRole(RoleEnum.COORDINATOR);
 		projectMemberDao.save(projectMember);
 
-		ProjectCreatedDto projectCreatedDto = new ProjectCreatedDto(project, projectMember);
+		//ProjectCreatedDto projectCreatedDto = new ProjectCreatedDto(project, projectMember);
 
-		return projectCreatedDto;
+		return true;
 	}
 
 	/**

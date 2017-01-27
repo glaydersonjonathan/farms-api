@@ -57,10 +57,11 @@ public class ProjectResource {
 	 */
 	@POST
 	public Response createProject(ProjectCreateDto projectCreateDto) {
-		projectCreateDto.setTpReview((Integer) projectCreateDto.getTpReview());
+		//projectCreateDto.setTpReview((Integer) projectCreateDto.getTpReview());
 		try {
-			ProjectCreatedDto projectCreatedDto = projectService.save(projectCreateDto);
-			return FarmsResponse.ok(SuccessMessage.PROJECT_REGISTERED, projectCreatedDto);
+			//ProjectCreatedDto projectCreatedDto = projectService.save(projectCreateDto);
+			Boolean bool = projectService.save(projectCreateDto);
+			return FarmsResponse.ok(SuccessMessage.PROJECT_REGISTERED, bool);
 		} catch (FarmsException fe){
 			return FarmsResponse.error(fe.getErrorMessage());
 		}
