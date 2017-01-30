@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.hibernate.Query;
 import org.springframework.stereotype.Component;
-
 import br.ufs.dcomp.farms.model.entity.Study;
 
 /**
@@ -38,5 +37,12 @@ public class StudyDao extends HibernateDao<Study> {
 		query.setParameter("dsKey", dsKey);
 		List<Study> studies = query.list();
 		return studies;
+	}
+
+	public Study getByCdCiteKey(String cdCiteKey) {
+		Query query = getSession().createQuery("from Study s where lower(s.cdCiteKey) = lower(?)");
+		query.setString(0, cdCiteKey);
+		List<Study> results = query.list();
+		return (results != null && !results.isEmpty()) ? (Study) results.get(0) : null;
 	}
 }

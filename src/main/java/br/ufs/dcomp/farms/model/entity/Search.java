@@ -47,7 +47,7 @@ public class Search implements Serializable {
 	public Search() {}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "SearchSequenceGenerator")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SearchSequenceGenerator")
 	@Column(name = "id_search", nullable = false, unique = true)
 	public Long getIdSearch() {
 		return idSearch;

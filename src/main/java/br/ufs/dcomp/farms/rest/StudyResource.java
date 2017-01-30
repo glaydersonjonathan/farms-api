@@ -22,7 +22,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.ufs.dcomp.farms.common.message.ErrorMessage;
+import br.ufs.dcomp.farms.common.message.SuccessMessage;
+import br.ufs.dcomp.farms.core.FarmsException;
 import br.ufs.dcomp.farms.core.FarmsResponse;
+import br.ufs.dcomp.farms.model.dto.ProjectCreateDto;
+import br.ufs.dcomp.farms.model.dto.StudyCreateDto;
 import br.ufs.dcomp.farms.model.dto.StudyCreatedDto;
 import br.ufs.dcomp.farms.model.service.StudyService;
 
@@ -39,9 +43,12 @@ public class StudyResource {
 	private StudyService studyService;
 	final static Logger logger = Logger.getLogger(ProjectResource.class);
 
-	// ***** DAQUI PRA BAIXO NECESSITA VERIFICAR *****
-	// verificar
-	// projects/{dsKey}/studies
+	/**
+	 * Get studies of project.
+	 * 
+	 * @param dsKey
+	 * @return
+	 */
 	@GET
 	@Path("/{dsKey}")
 	public Response getStudiesByDsKeyProject(@PathParam("dsKey") String dsKey) {
@@ -53,6 +60,36 @@ public class StudyResource {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
+
+	@POST
+	public Response createStudy(StudyCreateDto studycreateDto) {
+		try {
+			Boolean bool = studyService.save(studycreateDto);
+			return FarmsResponse.ok(SuccessMessage.STUDY_CREATED, bool);
+		} //catch (FarmsException fe){
+			//return FarmsResponse.error(fe.getErrorMessage());
+		//}
+		catch (Exception ex) {
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+	
+	
+	
+	@GET
+	@Path("/read/{cdCiteKey}")
+	public Response readStudy(@PathParam("cdCiteKey") String cdCiteKey) {
+		try {
+			StudyCreatedDto study = studyService.getStudyByCdciteKey(cdCiteKey);
+			return FarmsResponse.ok(study);
+		} catch (Exception ex) {
+			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+	
+	
+	
 
 	@POST
 	@Path("/upload-study")

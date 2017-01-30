@@ -118,4 +118,8 @@ public final class SuccessMessage extends Message {
 	private static final Integer INSTITUTION_DELETED_CODE = 1025;
 	private static final String INSTITUTION_DELETED_DESCRIPTION = "Institution deleted successfully.";
 	public static final SuccessMessage INSTITUTION_DELETED = new SuccessMessage(INSTITUTION_DELETED_CODE, INSTITUTION_DELETED_DESCRIPTION);
+
+	private static final Integer STUDY_CREATED_CODE = 1026;
+	private static final String STUDY_CREATED_DESCRIPTION = "Study saved successfully.";
+	public static final SuccessMessage STUDY_CREATED= new SuccessMessage(STUDY_CREATED_CODE, STUDY_CREATED_DESCRIPTION);
 }
