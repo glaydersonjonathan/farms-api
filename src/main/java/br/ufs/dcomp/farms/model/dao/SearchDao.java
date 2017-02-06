@@ -6,7 +6,6 @@ import br.ufs.dcomp.farms.model.entity.Search;
 
 
 @Component
-@SuppressWarnings("unchecked")
 public class SearchDao  extends HibernateDao<Search>{
 
 	public SearchDao() {

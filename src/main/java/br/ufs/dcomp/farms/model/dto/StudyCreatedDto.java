@@ -29,6 +29,8 @@ public class StudyCreatedDto {
 	private String dsKeyProject;
 	private Long nrSearch;
 	
+	private Long idStudy;
+	
 	public StudyCreatedDto() {}
 	
 	public StudyCreatedDto(Study study) {
@@ -52,12 +54,14 @@ public class StudyCreatedDto {
 		this.tpStatus = study.getTpStatus();
 		this.dsKeyProject = study.getProject().getDsKey();
 		this.nrSearch = study.getSearch().getNrSearch();
+		
+		this.idStudy = study.getIdStudy();
 	}
 	
 	public StudyCreatedDto(String cdCiteKey, String dsTitle, String nmAuthor, String dsAbstract, String dsKeyword, Integer nrYear,
 			String dsVolume, String dsUrl, String cdIssnIsbn, String cdDoi, String dsType, String dsPage,
 			String dsComment, String dsJournal, VenueEnum tpVenue, ReadingRateEnum tpReadingRate,
-			StudyStatusEnum tpStatus, Search search) {
+			StudyStatusEnum tpStatus, Search search, Long idStudy) {
 		super();
 		this.cdCiteKey = cdCiteKey;
 		this.dsTitle = dsTitle;
@@ -77,6 +81,7 @@ public class StudyCreatedDto {
 		this.tpReadingRate = tpReadingRate;
 		this.tpStatus = tpStatus;
 //		this.search = search;
+		this.idStudy = idStudy;
 	}
 
 	public String getCdCiteKey() {
@@ -230,4 +235,14 @@ public class StudyCreatedDto {
 	public void setNrSearch(Long nrSearch) {
 		this.nrSearch = nrSearch;
 	}
+
+	public Long getIdStudy() {
+		return idStudy;
+	}
+
+	public void setIdStudy(Long idStudy) {
+		this.idStudy = idStudy;
+	}
+	
+	
 }

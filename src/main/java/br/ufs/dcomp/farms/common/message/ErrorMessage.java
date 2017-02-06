@@ -66,4 +66,8 @@ public class ErrorMessage extends Message {
 	private static final Integer ALREADY_MEMBER_CODE = 2010;
 	private static final String ALREADY_MEMBER_DESCRIPTION = "Already a member.";
 	public static final ErrorMessage ALREADY_MEMBER = new ErrorMessage(ALREADY_MEMBER_CODE, ALREADY_MEMBER_DESCRIPTION);
+	
+	private static final Integer CITEKEY_IN_USE_CODE = 2010;
+	private static final String CITEKEY_IN_USE_DESCRIPTION = "Cite key already in use. Hint: add key project at the end of cite key of studies";
+	public static final ErrorMessage CITEKEY_IN_USE = new ErrorMessage(CITEKEY_IN_USE_CODE, CITEKEY_IN_USE_DESCRIPTION);
 }

@@ -3,6 +3,7 @@ package br.ufs.dcomp.farms.model.dao;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.hibernate.Transaction;
 import org.springframework.stereotype.Component;
 import br.ufs.dcomp.farms.model.entity.Study;
 
@@ -37,6 +38,27 @@ public class StudyDao extends HibernateDao<Study> {
 		query.setParameter("dsKey", dsKey);
 		List<Study> studies = query.list();
 		return studies;
+	}
+	
+	//public void updateStudy (){
+		
+	//}
+	
+
+	public void deleteStudy(Long idStudy) {
+		Transaction transaction = getSession().beginTransaction();
+		try {
+			
+			String hql = "delete from Study where idStudy = :idStudy";
+			Query query = getSession().createQuery(hql);
+			query.setLong("idStudy", idStudy);
+			System.out.println(query.executeUpdate());
+
+			transaction.commit();
+		} catch (Throwable t) {
+			transaction.rollback();
+			throw t;
+		}
 	}
 
 	public Study getByCdCiteKey(String cdCiteKey) {
