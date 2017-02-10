@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.ufs.dcomp.farms.common.message.ErrorMessage;
 import br.ufs.dcomp.farms.core.FarmsException;
@@ -52,7 +53,7 @@ public class StudyService {
 	 * study = studyDao.getByCdCiteKey(cdCiteKey); StudyCreatedDto
 	 * studyCreatedDto = new StudyCreatedDto(study); return studyCreatedDto; }
 	 */
-
+	@Transactional(rollbackFor = Exception.class)
 	public Boolean save(StudyCreateDto studycreateDto) throws FarmsException {
 
 		Study study = new Study();
@@ -97,7 +98,7 @@ public class StudyService {
 
 		return true;
 	}
-
+	@Transactional(rollbackFor = Exception.class)
 	public Boolean editStudy(StudyCreatedDto studycreatedDto) {
 		Study study = new Study();
 		study.setCdCiteKey(studycreatedDto.getCdCiteKey());

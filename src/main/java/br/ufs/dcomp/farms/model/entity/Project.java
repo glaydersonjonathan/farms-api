@@ -9,7 +9,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+//import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -50,7 +50,8 @@ public class Project {
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "ProjectSequenceGenerator")
+	//@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "ProjectSequenceGenerator")
+	@GeneratedValue(generator = "ProjectSequenceGenerator")
 	@Column(name = "id_project", nullable = false, unique = true)
 	public Long getIdProject() {
 		return idProject;

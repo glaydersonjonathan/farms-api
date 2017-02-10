@@ -69,16 +69,36 @@ public class ResearcherService {
 	@Transactional(rollbackFor = Exception.class)
 	public boolean update(ResearcherRegisterDto researcherRegisterDto) throws FarmsException {
 
-		/*
-		 * Researcher researcher_verify =
-		 * researcherDAO.getByDsEmail(researcherRegisterDto.getDsEmail());
-		 * 
-		 * if (researcher_verify != null &&
-		 * researcherRegisterDto.getIdResearcher() !=
-		 * researcher_verify.getIdResearcher()) { throw new
-		 * FarmsException(ErrorMessage.EMAIL_ALREADY_IN_USE); }
-		 */
+		Researcher researcher = new Researcher();
 
+		researcher.setIdResearcher(researcherRegisterDto.getIdResearcher());
+		researcher.setNmResearcher(researcherRegisterDto.getNmResearcher());
+		researcher.setDsSSO(researcherRegisterDto.getDsSSO());
+		researcher.setDsEmail(researcherRegisterDto.getDsEmail());
+		researcher.setDsPassword(researcherRegisterDto.getDsPassword());
+		researcher.setCdUuid(researcherRegisterDto.getCdUuid());
+		researcher.setTpConfirmed(researcherRegisterDto.getTpConfirmed());
+		researcher.setTpState(researcherRegisterDto.getTpState());
+
+		researcherDAO.update(researcher);
+		return true;
+	}
+
+	/**
+	 * Update a researcher email
+	 * 
+	 * @param researcherRegisterDto
+	 * @return boolean
+	 * @throws FarmsException
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	public boolean updateEmail(ResearcherRegisterDto researcherRegisterDto) throws FarmsException {
+		
+		Researcher researcherFoundByEmail = this.getByEmail(researcherRegisterDto.getDsEmail());
+		if (researcherFoundByEmail != null) {
+			throw new FarmsException(ErrorMessage.EMAIL_ALREADY_IN_USE);
+		}
+		
 		Researcher researcher = new Researcher();
 
 		researcher.setIdResearcher(researcherRegisterDto.getIdResearcher());

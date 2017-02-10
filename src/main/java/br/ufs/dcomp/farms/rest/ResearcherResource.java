@@ -110,6 +110,26 @@ public class ResearcherResource {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
+	
+	
+	/**
+	 * Update a email of researcher.
+	 * 
+	 * @param ResearcherRegisterDto
+	 * @return Response
+	 */
+	@PUT
+	@Path("/email")
+	public Response updateEmail(ResearcherRegisterDto researcherRegisterDto) {
+		try {
+			Boolean researcherRegisteredDto = researcherService.updateEmail(researcherRegisterDto);
+			return FarmsResponse.ok(SuccessMessage.RESEARCHER_UPDATED, researcherRegisteredDto);
+		} catch (Exception ex) {
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+	
+	
 
 	// verificar
 	/**
