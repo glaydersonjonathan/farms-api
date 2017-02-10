@@ -120,8 +120,10 @@ public class ResearcherService {
 	 * @param researcherRegisterDto
 	 * @return boolean
 	 */
-	public boolean delete(Long idResearcher) {
-		return researcherDAO.delete(idResearcher);
+	
+	
+	public boolean inative(Long idResearcher) {
+		return researcherDAO.inative(idResearcher);
 
 	}
 

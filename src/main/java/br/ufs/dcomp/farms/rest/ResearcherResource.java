@@ -86,8 +86,6 @@ public class ResearcherResource {
 		try {
 			Boolean researcherRegisteredDto = researcherService.update(researcherRegisterDto);
 			return FarmsResponse.ok(SuccessMessage.RESEARCHER_UPDATED, researcherRegisteredDto);
-		} catch (FarmsException fe) {
-			return FarmsResponse.error(ErrorMessage.EMAIL_ALREADY_IN_USE);
 		} catch (Exception ex) {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
@@ -124,6 +122,8 @@ public class ResearcherResource {
 		try {
 			Boolean researcherRegisteredDto = researcherService.updateEmail(researcherRegisterDto);
 			return FarmsResponse.ok(SuccessMessage.RESEARCHER_UPDATED, researcherRegisteredDto);
+		} catch (FarmsException fe) {
+			return FarmsResponse.error(ErrorMessage.EMAIL_ALREADY_IN_USE);
 		} catch (Exception ex) {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
@@ -142,7 +142,7 @@ public class ResearcherResource {
 	@Path("/{idResearcher}")
 	public Response deleteResearcher(@PathParam("idResearcher") Long idResearcher) {
 		try {
-			Boolean researcherExcludedDto = researcherService.delete(idResearcher);
+			Boolean researcherExcludedDto = researcherService.inative(idResearcher);
 			return FarmsResponse.ok(SuccessMessage.RESEARCHER_EXCLUDED, researcherExcludedDto);
 		} catch (Exception ex) {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);

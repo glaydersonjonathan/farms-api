@@ -142,4 +142,9 @@ public class ResearcherDao extends HibernateDao<Researcher> {
 		List<Researcher> results = query.list();
 		return (results != null && !results.isEmpty()) ? (Researcher) results.get(0) : null;
 	}
+
+	public boolean inative(Long idResearcher) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
