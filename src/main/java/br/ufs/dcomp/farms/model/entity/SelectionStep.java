@@ -8,7 +8,6 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -39,7 +38,8 @@ public class SelectionStep {
 	public SelectionStep() {}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "SelectionStepSequenceGenerator")
+	//@GeneratedValue(strategy = GenerationType.AUTO, generator = "SelectionStepSequenceGenerator")
+	@GeneratedValue(generator = "SelectionStepSequenceGenerator")
 	@Column(name = "id_selection_step", nullable = false, unique = true)
 	public Long getIdSelectionStep() {
 		return idSelectionStep;

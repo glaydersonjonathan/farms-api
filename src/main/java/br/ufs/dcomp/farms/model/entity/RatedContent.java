@@ -9,6 +9,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import br.ufs.dcomp.farms.model.enums.RatedContentEnum;
+
 @Entity
 @Table(name = "rated_content")
 @XmlRootElement
@@ -22,6 +24,11 @@ public class RatedContent {
 	
 	public RatedContent(String dsRatedContent) {
 		this.dsRatedContent = dsRatedContent;
+	}
+
+	
+	public RatedContent(RatedContentEnum ratedContentEnum) {
+		this.dsRatedContent = ratedContentEnum.getDescription();
 	}
 
 	@Id

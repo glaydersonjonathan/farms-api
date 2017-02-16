@@ -126,4 +126,9 @@ public final class SuccessMessage extends Message {
 	private static final Integer STUDY_DELETED_CODE = 1027;
 	private static final String STUDY_DELETED_DESCRIPTION = "Study deleted successfully.";
 	public static final SuccessMessage STUDY_DELETED= new SuccessMessage(STUDY_DELETED_CODE, STUDY_DELETED_DESCRIPTION);
+	
+	
+	private static final Integer SELECTION_STEP_REGISTERED_CODE = 1028;
+	private static final String SELECTION_STEP_REGISTERED_DESCRIPTION = "Step configured successfully.";
+	public static final SuccessMessage SELECTION_STEP_REGISTERED= new SuccessMessage(SELECTION_STEP_REGISTERED_CODE, SELECTION_STEP_REGISTERED_DESCRIPTION);
 }
