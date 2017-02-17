@@ -29,7 +29,9 @@ public class SelectionService {
 		selectionStep.setQtReview(selectionCreateDto.getQtReview());
 		selectionStep.setProject(projectDao.getByDsKey(selectionCreateDto.getDsKey()));
 		
-		selectionStep.setRatedContent(new RatedContent(RatedContentEnum.fromCode(selectionCreateDto.getDsratedContent())));
+		RatedContent ratedContent =  new  RatedContent(RatedContentEnum.fromCode(selectionCreateDto.getDsRatedContent()));
+		ratedContent.setIdRatedContent(Long.parseLong(selectionCreateDto.getDsRatedContent())); //pog
+		selectionStep.setRatedContent(ratedContent);
 		
 		selectionStepDao.save(selectionStep);
 		

@@ -2,8 +2,6 @@ package br.ufs.dcomp.farms.model.dto;
 
 import java.util.Date;
 
-
-
 public class SelectionStepCreateDto {
 	
 	
@@ -12,7 +10,7 @@ public class SelectionStepCreateDto {
 	private Date dhEndSelectionStep;
 	private Date dhReviewEnd;
 	private Date dhConflictsSolvingEnd;
-	private String dsratedContent;
+	private String dsRatedContent;
 	private String dsKey;
 	
 	
@@ -24,7 +22,7 @@ public class SelectionStepCreateDto {
 		this.dhEndSelectionStep = dhEndSelectionStep;
 		this.dhReviewEnd = dhReviewEnd;
 		this.dhConflictsSolvingEnd = dhConflictsSolvingEnd;
-		this.dsratedContent = dsratedContent;
+		this.dsRatedContent = dsratedContent;
 		this.dsKey = dsKey;
 	}
 	
@@ -65,11 +63,11 @@ public class SelectionStepCreateDto {
 	public void setDhConflictsSolvingEnd(Date dhConflictsSolvingEnd) {
 		this.dhConflictsSolvingEnd = dhConflictsSolvingEnd;
 	}
-	public String getDsratedContent() {
-		return dsratedContent;
+	public String getDsRatedContent() {
+		return dsRatedContent;
 	}
-	public void setDsratedContent(String dsratedContent) {
-		this.dsratedContent = dsratedContent;
+	public void setDsRatedContent(String dsRatedContent) {
+		this.dsRatedContent = dsRatedContent;
 	}
 	public String getDsKey() {
 		return dsKey;
