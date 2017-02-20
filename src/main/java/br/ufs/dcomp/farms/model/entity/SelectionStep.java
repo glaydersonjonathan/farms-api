@@ -125,7 +125,7 @@ public class SelectionStep {
 	}
 
 	@Column(name = "tp_status", nullable = false)
-	@Enumerated(EnumType.STRING)
+	@Enumerated(EnumType.ORDINAL)
 	public SelectionStepStatusEnum getTpStatus() {
 		return tpStatus;
 	}
