@@ -57,9 +57,9 @@ public class SelectionService {
 	public SelectionStepCreatedDto getConfiguration(String dsKey) {
 		SelectionStep selectionStep = selectionStepDao.getConfiguration(dsKey);
 		SelectionStepCreatedDto selectionStepCreatedDto = new SelectionStepCreatedDto();
-		if (selectionStep != null) {
+		//if (selectionStep != null) {
 			selectionStepCreatedDto = new SelectionStepCreatedDto(selectionStep);
-		}
+		//}
 		return selectionStepCreatedDto;
 	}
 
