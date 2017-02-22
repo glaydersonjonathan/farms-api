@@ -133,7 +133,7 @@ public class ResearcherResource {
 
 	// verificar
 	/**
-	 * Delete a researcher.
+	 * Set state os researcher to inative.
 	 * 
 	 * @param idResearcher
 	 * @return Response

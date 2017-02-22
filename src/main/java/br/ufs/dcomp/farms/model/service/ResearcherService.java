@@ -115,7 +115,7 @@ public class ResearcherService {
 	}
 
 	/**
-	 * Delete a researcher
+	 * Set state os researcher to inative.
 	 * 
 	 * @param researcherRegisterDto
 	 * @return boolean
