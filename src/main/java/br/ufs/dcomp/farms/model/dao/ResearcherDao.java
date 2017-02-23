@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 
 import br.ufs.dcomp.farms.model.entity.Researcher;
 
+
+
 /**
  * @author farms
  *
@@ -143,16 +145,33 @@ public class ResearcherDao extends HibernateDao<Researcher> {
 		return (results != null && !results.isEmpty()) ? (Researcher) results.get(0) : null;
 	}
 
+	
+	
 	/**
-	 * Set state os researcher to inative.
+	 * Set state of researcher to inactive.
 	 * @param idResearcher
 	 * @return
 	 */
-	public boolean inative(Long idResearcher) {
+	public boolean inactive(Long idResearcher) {
 		Query query = getSession()
-				.createQuery("update Researcher set tpState = :tpState" + " where idResearcher = :idResearcher");
+				.createQuery("update Researcher set tp_state = :tpState" + " where idResearcher = :idResearcher");
 		query.setParameter("idResearcher", idResearcher);
 		query.setParameter("tpState", "I");
+		System.out.println(query.executeUpdate());
+		return true;
+	}
+	
+	
+	/**
+	 * Set state of researcher to active.
+	 * @param idResearcher
+	 * @return
+	 */
+	public boolean active(Long idResearcher) {
+		Query query = getSession()
+				.createQuery("update Researcher set tp_state = :tpState" + " where idResearcher = :idResearcher");
+		query.setParameter("idResearcher", idResearcher);
+		query.setParameter("tpState", "A");
 		System.out.println(query.executeUpdate());
 		return true;
 	}

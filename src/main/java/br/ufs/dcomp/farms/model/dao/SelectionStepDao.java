@@ -17,6 +17,11 @@ public class SelectionStepDao extends HibernateDao<SelectionStep> {
 		super(SelectionStep.class);
 	}
 
+	/**
+	 * Get configuration step of project
+	 * @param dsKey
+	 * @return
+	 */
 	public SelectionStep getConfiguration(String dsKey) {
 		StringBuilder sbHql = new StringBuilder();
 		sbHql.append("from SelectionStep ss");
@@ -29,6 +34,10 @@ public class SelectionStepDao extends HibernateDao<SelectionStep> {
 		return selectionStep.get(0); // verificar
 	}
 	
+	/**
+	 * Delete a configuration step of project
+	 * @param idProject
+	 */
 	public void delete(Long idProject) {
 		Transaction transaction = getSession().beginTransaction();
 		try {

@@ -1,21 +1,15 @@
 package br.ufs.dcomp.farms.model.service;
 
-import java.util.ArrayList;
-import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.ufs.dcomp.farms.model.dao.ProjectDao;
 import br.ufs.dcomp.farms.model.dao.SelectionStepDao;
-import br.ufs.dcomp.farms.model.dto.ProjectMemberDto;
-import br.ufs.dcomp.farms.model.dto.SelectionStepCreateDto;
 import br.ufs.dcomp.farms.model.dto.SelectionStepCreatedDto;
-import br.ufs.dcomp.farms.model.entity.ProjectMember;
 import br.ufs.dcomp.farms.model.entity.RatedContent;
 import br.ufs.dcomp.farms.model.entity.SelectionStep;
-import br.ufs.dcomp.farms.model.enums.RatedContentEnum;
-import br.ufs.dcomp.farms.model.enums.SelectionStatusEnum;
 import br.ufs.dcomp.farms.model.enums.SelectionStepStatusEnum;
 
 @Component
@@ -26,6 +20,11 @@ public class SelectionService {
 	@Autowired
 	ProjectDao projectDao;
 
+	/**
+	 *  Save configuration of selection Step of a project
+	 * @param selectionCreateDto
+	 * @return
+	 */
 	public Boolean save(SelectionStepCreatedDto selectionCreateDto) {
 		SelectionStep selectionStep = new SelectionStep();
 
@@ -47,19 +46,22 @@ public class SelectionService {
 		selectionStep.setTpStatus(SelectionStepStatusEnum.ASSIGNED);
 		// verificar fim
 
-       selectionStepDao.delete(selectionCreateDto.getIdProject()); //deleto se já existir
+       selectionStepDao.delete(selectionCreateDto.getIdProject()); //delete if exists 
 		
 		selectionStepDao.save(selectionStep);
 
 		return true;
 	}
 
+	/**
+	 * Get configuration of selection Step of a project
+	 * @param dsKey
+	 * @return
+	 */
 	public SelectionStepCreatedDto getConfiguration(String dsKey) {
 		SelectionStep selectionStep = selectionStepDao.getConfiguration(dsKey);
 		SelectionStepCreatedDto selectionStepCreatedDto = new SelectionStepCreatedDto();
-		//if (selectionStep != null) {
 			selectionStepCreatedDto = new SelectionStepCreatedDto(selectionStep);
-		//}
 		return selectionStepCreatedDto;
 	}
 

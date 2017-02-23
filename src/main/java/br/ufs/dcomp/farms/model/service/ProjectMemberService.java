@@ -18,6 +18,7 @@ import br.ufs.dcomp.farms.model.entity.Project;
 import br.ufs.dcomp.farms.model.entity.ProjectMember;
 import br.ufs.dcomp.farms.model.entity.Researcher;
 import br.ufs.dcomp.farms.model.enums.RoleEnum;
+import br.ufs.dcomp.farms.model.enums.StateEnum;
 
 /**
  * @author farms
@@ -64,6 +65,11 @@ public class ProjectMemberService {
 			FarmsMail.sendInviteEmail(projectMemberInviteDto.getDsEmail());
 			throw new FarmsException(ErrorMessage.MEMBER_NOT_FOUND);
 		}
+		
+		if(researcher.getTpState() == StateEnum.I){
+			throw new FarmsException(ErrorMessage.MEMBER_INACTIVE);
+		} 
+		
 		
 		Project project = projectDao.getByDsKey(projectMemberInviteDto.getDsKey());
 		

@@ -122,8 +122,8 @@ public class ResearcherService {
 	 */
 	
 	
-	public boolean inative(Long idResearcher) {
-		return researcherDAO.inative(idResearcher);
+	public boolean inactive(Long idResearcher) {
+		return researcherDAO.inactive(idResearcher);
 
 	}
 
@@ -207,5 +207,6 @@ public class ResearcherService {
 		}
 		return researcher;
 	}
+
 
 }

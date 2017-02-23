@@ -74,7 +74,7 @@ public class ResearcherResource {
 		}
 	}
 
-	// verificar exisência de email
+	
 	/**
 	 * Update a researcher.
 	 * 
@@ -130,20 +130,18 @@ public class ResearcherResource {
 	}
 	
 	
-
-	// verificar
 	/**
-	 * Set state os researcher to inative.
+	 * Set state of researcher to inactive.
 	 * 
 	 * @param idResearcher
 	 * @return Response
 	 */
 	@DELETE
 	@Path("/{idResearcher}")
-	public Response deleteResearcher(@PathParam("idResearcher") Long idResearcher) {
+	public Response inactiveResearcher(@PathParam("idResearcher") Long idResearcher) {
 		try {
-			Boolean researcherExcludedDto = researcherService.inative(idResearcher);
-			return FarmsResponse.ok(SuccessMessage.RESEARCHER_EXCLUDED, researcherExcludedDto);
+			Boolean bool = researcherService.inactive(idResearcher);
+			return FarmsResponse.ok(SuccessMessage.RESEARCHER_EXCLUDED, bool);
 		} catch (Exception ex) {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}

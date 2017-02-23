@@ -8,11 +8,13 @@ import br.ufs.dcomp.farms.common.message.ErrorMessage;
 import br.ufs.dcomp.farms.core.FarmsCrypt;
 import br.ufs.dcomp.farms.core.FarmsException;
 import br.ufs.dcomp.farms.core.FarmsMail;
+import br.ufs.dcomp.farms.model.dao.ResearcherDao;
 import br.ufs.dcomp.farms.model.dto.ResearcherLoggedDto;
 import br.ufs.dcomp.farms.model.dto.ResearcherLoginDto;
 import br.ufs.dcomp.farms.model.dto.ResearcherRegisterDto;
 import br.ufs.dcomp.farms.model.dto.ResearcherRegisteredDto;
 import br.ufs.dcomp.farms.model.entity.Researcher;
+import br.ufs.dcomp.farms.model.enums.StateEnum;
 import br.ufs.dcomp.farms.model.enums.YesNoEnum;
 
 /**
@@ -24,6 +26,8 @@ public class AccountService {
 
 	@Autowired
 	private ResearcherService researcherService;
+	@Autowired
+	private ResearcherDao researcherDAO;
 
 	/**
 	 * Register a researcher
@@ -68,9 +72,14 @@ public class AccountService {
 	public ResearcherLoggedDto login(ResearcherLoginDto researcherLoginDto) throws FarmsException {
 		ResearcherLoggedDto researcherLoggedDto = null;
 		Researcher researcherLogged = researcherService.getByEmail(researcherLoginDto.getDsEmail());
+		//turns active
+		if(researcherLogged.getTpState() == StateEnum.I){
+			researcherDAO.active(researcherLogged.getIdResearcher());
+		} 
+		
 		if (researcherLogged != null 
 				&& FarmsCrypt.checkPassword(researcherLoginDto.getDsPassword(), researcherLogged.getDsPassword())) {
-			researcherLoggedDto = new ResearcherLoggedDto(researcherLogged);
+			researcherLoggedDto = new ResearcherLoggedDto(researcherLogged);			
 		} else {
 			throw new FarmsException(ErrorMessage.LOGIN_INVALID);			
 		}

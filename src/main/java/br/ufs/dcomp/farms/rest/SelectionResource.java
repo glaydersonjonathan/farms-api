@@ -16,7 +16,6 @@ import org.springframework.stereotype.Component;
 import br.ufs.dcomp.farms.common.message.ErrorMessage;
 import br.ufs.dcomp.farms.common.message.SuccessMessage;
 import br.ufs.dcomp.farms.core.FarmsResponse;
-import br.ufs.dcomp.farms.model.dto.SelectionStepCreateDto;
 import br.ufs.dcomp.farms.model.dto.SelectionStepCreatedDto;
 import br.ufs.dcomp.farms.model.service.SelectionService;
 
@@ -35,6 +34,11 @@ public class SelectionResource {
 	@Autowired
 	private SelectionService selectionService;
 
+	/**
+	 * Get configuration of selection Step of a project
+	 * @param dsKey
+	 * @return
+	 */
 	@GET
 	@Path("/{dsKey}")
 	public Response getSelectionStepConfiguration(@PathParam("dsKey") String dsKey) {
@@ -46,6 +50,11 @@ public class SelectionResource {
 		}
 	}
 
+	/**
+	 * Save configuration of selection Step of a project
+	 * @param selectionCreatedDto
+	 * @return
+	 */
 	@POST
 	public Response saveSelectionStepConfiguration(SelectionStepCreatedDto selectionCreatedDto) {
 		try {

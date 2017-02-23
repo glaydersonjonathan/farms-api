@@ -31,7 +31,7 @@ public final class SuccessMessage extends Message {
 	public static final SuccessMessage RESEARCHER_UPDATED = new SuccessMessage(RESEARCHER_UPDATED_CODE, RESEARCHER_UPDATED_DESCRIPTION);
 	
 	private static final Integer RESEARCHER_EXCLUDED_CODE = 1004;
-	private static final String RESEARCHER_EXCLUDED_DESCRIPTION = "Researcher excluded successfully.";
+	private static final String RESEARCHER_EXCLUDED_DESCRIPTION = "Researcher excluded successfully, login again reactivate account.";
 	public static final SuccessMessage RESEARCHER_EXCLUDED = new SuccessMessage(RESEARCHER_EXCLUDED_CODE, RESEARCHER_EXCLUDED_DESCRIPTION);
 	
 	private static final Integer ACCOUNT_CONFIRMED_CODE = 1005;

@@ -56,10 +56,8 @@ public class ProjectResource {
 	 * @return Response
 	 */
 	@POST
-	public Response createProject(ProjectCreateDto projectCreateDto) {
-		//projectCreateDto.setTpReview((Integer) projectCreateDto.getTpReview());
+	public Response createProject(ProjectCreateDto projectCreateDto) {		
 		try {
-			//ProjectCreatedDto projectCreatedDto = projectService.save(projectCreateDto);
 			Boolean bool = projectService.save(projectCreateDto);
 			return FarmsResponse.ok(SuccessMessage.PROJECT_REGISTERED, bool);
 		} catch (FarmsException fe){
@@ -178,7 +176,7 @@ public class ProjectResource {
 	 */
 	@POST
 	@Path("/members/invite")
-	public Response createProject(ProjectMemberInviteDto pm) {
+	public Response inviteMember(ProjectMemberInviteDto pm) {
 		try {
 			Boolean bool = projectMemberService.invite(pm);
 			return FarmsResponse.ok(SuccessMessage.MEMBER_ADDED, bool);

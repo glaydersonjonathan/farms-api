@@ -63,6 +63,10 @@ public class ErrorMessage extends Message {
 	private static final String MEMBER_NOT_FOUND_DESCRIPTION = "Researcher not found, a email has been sent.";
 	public static final ErrorMessage MEMBER_NOT_FOUND = new ErrorMessage(MEMBER_NOT_FOUND_CODE, MEMBER_NOT_FOUND_DESCRIPTION);
 	
+	private static final Integer MEMBER_INACTIVE_CODE = 2009;
+	private static final String MEMBER_INACTIVE_DESCRIPTION = "This member is inactive.";
+	public static final ErrorMessage MEMBER_INACTIVE = new ErrorMessage(MEMBER_INACTIVE_CODE, MEMBER_INACTIVE_DESCRIPTION);
+	
 	private static final Integer ALREADY_MEMBER_CODE = 2010;
 	private static final String ALREADY_MEMBER_DESCRIPTION = "Already a member.";
 	public static final ErrorMessage ALREADY_MEMBER = new ErrorMessage(ALREADY_MEMBER_CODE, ALREADY_MEMBER_DESCRIPTION);
