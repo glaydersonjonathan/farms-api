@@ -1,5 +1,7 @@
 package br.ufs.dcomp.farms.rest;
 
+import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -16,6 +18,9 @@ import org.springframework.stereotype.Component;
 import br.ufs.dcomp.farms.common.message.ErrorMessage;
 import br.ufs.dcomp.farms.common.message.SuccessMessage;
 import br.ufs.dcomp.farms.core.FarmsResponse;
+import br.ufs.dcomp.farms.model.dto.CountryCreatedDto;
+import br.ufs.dcomp.farms.model.dto.RatedContentCreatedDto;
+import br.ufs.dcomp.farms.model.dto.ReviewCreateDto;
 import br.ufs.dcomp.farms.model.dto.SelectionStepCreatedDto;
 import br.ufs.dcomp.farms.model.service.SelectionService;
 
@@ -64,5 +69,35 @@ public class SelectionResource {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
+	
+	/**
+	 * Receive a request from client to get all rated content registered.
+	 *
+	 * @return Response.
+	 */
+	@GET
+	@Path("/rated")
+	public Response getAllRated() {
+		try {
+			List<RatedContentCreatedDto> ratedContents = selectionService.getAllRated();
+			return FarmsResponse.ok(ratedContents);
+		} catch (Exception ex) {
+			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+	
 
+	
+	@POST
+	@Path("/assignManual")
+	public Response assignManual(ReviewCreateDto reviewCreateDto) {
+		try {
+			Boolean bool = selectionService.assignManual(reviewCreateDto);
+			return FarmsResponse.ok(SuccessMessage.STUDIES_MANUAL_ASSIGNED, bool);
+		} catch (Exception ex) {
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+	
 }

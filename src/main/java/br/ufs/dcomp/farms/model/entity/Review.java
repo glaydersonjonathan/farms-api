@@ -17,6 +17,7 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import br.ufs.dcomp.farms.model.enums.ReviewEnum;
+import br.ufs.dcomp.farms.model.enums.SelectionStatusEnum;
 
 @Entity
 @Table(name = "review")
@@ -27,14 +28,15 @@ public class Review {
 	private Long idReview;
 	private Date dhAssign;
 	private Date dhReview;
-	private ReviewEnum tpStatus;
+	private SelectionStatusEnum tpStatus;
 	private Researcher researcher;
 	private Study study;
 	
 	public Review() {}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "ReviewSequenceGenerator")
+	//@GeneratedValue(strategy = GenerationType.AUTO, generator = "ReviewSequenceGenerator")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "ReviewSequenceGenerator")
 	@Column(name = "id_review", nullable = false, unique = true)
 	public Long getIdReview() {
 		return idReview;
@@ -64,11 +66,11 @@ public class Review {
 
 	@Column(name = "tp_status", nullable = false)
 	@Enumerated(EnumType.ORDINAL)	
-	public ReviewEnum getTpStatus() {
+	public SelectionStatusEnum getTpStatus() {
 		return tpStatus;
 	}
 
-	public void setTpStatus(ReviewEnum tpStatus) {
+	public void setTpStatus(SelectionStatusEnum tpStatus) {
 		this.tpStatus = tpStatus;
 	}
 
