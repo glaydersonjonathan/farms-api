@@ -15,10 +15,13 @@ import br.ufs.dcomp.farms.model.dao.ReviewDao;
 import br.ufs.dcomp.farms.model.dao.SelectionStepDao;
 import br.ufs.dcomp.farms.model.dao.StudyDao;
 import br.ufs.dcomp.farms.model.dto.CountryCreatedDto;
+import br.ufs.dcomp.farms.model.dto.ProjectMemberDto;
 import br.ufs.dcomp.farms.model.dto.RatedContentCreatedDto;
 import br.ufs.dcomp.farms.model.dto.ReviewCreateDto;
+import br.ufs.dcomp.farms.model.dto.ReviewCreatedDto;
 import br.ufs.dcomp.farms.model.dto.SelectionStepCreatedDto;
 import br.ufs.dcomp.farms.model.entity.Country;
+import br.ufs.dcomp.farms.model.entity.ProjectMember;
 import br.ufs.dcomp.farms.model.entity.RatedContent;
 import br.ufs.dcomp.farms.model.entity.Review;
 import br.ufs.dcomp.farms.model.entity.SelectionStep;
@@ -116,6 +119,18 @@ public class SelectionService {
 		
 		
 		return true;
+	}
+
+	public List<ReviewCreatedDto> getReviews(String dsKey, String dsSSO) {
+		List<ReviewCreatedDto> reviewCreatedDto = new ArrayList<ReviewCreatedDto>();
+
+		List<Review> reviews = reviewDao.getStudiesToReview(dsKey, dsSSO);
+		if (reviews != null) {
+			for (Review review : reviews) {
+				reviewCreatedDto.add(new ReviewCreatedDto(review));
+			}
+		}
+		return reviewCreatedDto;
 	}
 
 }

@@ -33,7 +33,8 @@ public class StudyService {
 	private SearchDao searchDao;
 
 	/**
-	 *  Get all studies of project
+	 * Get all studies of project
+	 * 
 	 * @param dsKey
 	 * @return
 	 */
@@ -48,11 +49,12 @@ public class StudyService {
 		return studyCreatedDto;
 	}
 
-	/*
-	 * public StudyCreatedDto getStudyByCdciteKey(String cdCiteKey) { Study
-	 * study = studyDao.getByCdCiteKey(cdCiteKey); StudyCreatedDto
-	 * studyCreatedDto = new StudyCreatedDto(study); return studyCreatedDto; }
-	 */
+	public StudyCreatedDto getStudyByCdciteKey(String cdCiteKey) {
+		Study study = studyDao.getByCdCiteKey(cdCiteKey);
+		StudyCreatedDto studyCreatedDto = new StudyCreatedDto(study);
+		return studyCreatedDto;
+	}
+
 	@Transactional(rollbackFor = Exception.class)
 	public Boolean save(StudyCreateDto studycreateDto) throws FarmsException {
 
@@ -98,6 +100,7 @@ public class StudyService {
 
 		return true;
 	}
+
 	@Transactional(rollbackFor = Exception.class)
 	public Boolean editStudy(StudyCreatedDto studycreatedDto) {
 		Study study = new Study();

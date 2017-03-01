@@ -105,7 +105,7 @@ public class StudyResource {
 		
 	}
 	
-	/*@GET
+	@GET
 	@Path("/read/{cdCiteKey}")
 	public Response readStudy(@PathParam("cdCiteKey") String cdCiteKey) {
 		try {
@@ -115,7 +115,7 @@ public class StudyResource {
 			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
-	}*/
+	}
 	
 	
 	

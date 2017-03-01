@@ -21,6 +21,7 @@ import br.ufs.dcomp.farms.core.FarmsResponse;
 import br.ufs.dcomp.farms.model.dto.CountryCreatedDto;
 import br.ufs.dcomp.farms.model.dto.RatedContentCreatedDto;
 import br.ufs.dcomp.farms.model.dto.ReviewCreateDto;
+import br.ufs.dcomp.farms.model.dto.ReviewCreatedDto;
 import br.ufs.dcomp.farms.model.dto.SelectionStepCreatedDto;
 import br.ufs.dcomp.farms.model.service.SelectionService;
 
@@ -97,6 +98,18 @@ public class SelectionResource {
 			return FarmsResponse.ok(SuccessMessage.STUDIES_MANUAL_ASSIGNED, bool);
 		} catch (Exception ex) {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+	
+
+	@GET
+	@Path("/review/{dsKey}/{dsSSO}")
+	public Response getReviews(@PathParam("dsKey") String dsKey,@PathParam("dsSSO") String dsSSO ) {
+		try {
+			List<ReviewCreatedDto> reviewCreatedDto = selectionService.getReviews(dsKey, dsSSO);
+			return FarmsResponse.ok(reviewCreatedDto);
+		} catch (Exception ex) {
+			return FarmsResponse.error(null);
 		}
 	}
 	

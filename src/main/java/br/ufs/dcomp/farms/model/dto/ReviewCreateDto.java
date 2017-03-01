@@ -3,8 +3,6 @@ package br.ufs.dcomp.farms.model.dto;
 import java.util.Date;
 import java.util.List;
 
-import br.ufs.dcomp.farms.model.entity.Researcher;
-import br.ufs.dcomp.farms.model.entity.Study;
 
 public class ReviewCreateDto {
 	private List<Long> studies;

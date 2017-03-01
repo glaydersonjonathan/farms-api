@@ -15,8 +15,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import br.ufs.dcomp.farms.model.enums.ReviewEnum;
 import br.ufs.dcomp.farms.model.enums.SelectionStatusEnum;
 
 @Entity
