@@ -72,13 +72,13 @@ public class AccountService {
 	public ResearcherLoggedDto login(ResearcherLoginDto researcherLoginDto) throws FarmsException {
 		ResearcherLoggedDto researcherLoggedDto = null;
 		Researcher researcherLogged = researcherService.getByEmail(researcherLoginDto.getDsEmail());
-		//turns active
-		if(researcherLogged.getTpState() == StateEnum.I){
-			researcherDAO.active(researcherLogged.getIdResearcher());
-		} 
 		
 		if (researcherLogged != null 
 				&& FarmsCrypt.checkPassword(researcherLoginDto.getDsPassword(), researcherLogged.getDsPassword())) {
+			//turns active
+			if(researcherLogged.getTpState() == StateEnum.I){
+				researcherDAO.active(researcherLogged.getIdResearcher());
+			} 
 			researcherLoggedDto = new ResearcherLoggedDto(researcherLogged);			
 		} else {
 			throw new FarmsException(ErrorMessage.LOGIN_INVALID);			

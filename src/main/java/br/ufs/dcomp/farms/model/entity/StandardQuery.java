@@ -1,6 +1,5 @@
 package br.ufs.dcomp.farms.model.entity;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,15 +19,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "standard_query")
 @XmlRootElement
-@SequenceGenerator(name = "StandardQuerySequenceGenerator", sequenceName = "sq_search_keyword")
-public class StandardQuery implements Serializable {
+@SequenceGenerator(name = "StandardQuerySequenceGenerator", sequenceName = "sq_standard_query")
+public class StandardQuery {
 
-	private static final long serialVersionUID = 1L;
 	private Long idStandardQuery;
 	private String dsStandardQuery;
 	private Project project;
 	
-	//private Set<AdaptedQuery> adaptedQuerys = new HashSet<AdaptedQuery>(0);
+	private Set<AdaptedQuery> adaptedQuerys = new HashSet<AdaptedQuery>(0);
 	
 	public StandardQuery() {}
 	
@@ -74,12 +72,12 @@ public class StandardQuery implements Serializable {
 		this.project = project;
 	}
 	
-/*	@OneToMany(fetch = FetchType.LAZY, mappedBy = "standardQuery")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "standardQuery")
 	public Set<AdaptedQuery> getAdaptedQuerys() {
 		return this.adaptedQuerys;
 	}
 
 	public void setAdaptedQuerys(Set<AdaptedQuery> adaptedQuerys) {
 		this.adaptedQuerys = adaptedQuerys;
-	}*/
+	}
 }
