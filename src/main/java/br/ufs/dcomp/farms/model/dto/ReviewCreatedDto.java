@@ -2,10 +2,7 @@ package br.ufs.dcomp.farms.model.dto;
 
 import java.util.Date;
 
-import br.ufs.dcomp.farms.model.entity.Researcher;
 import br.ufs.dcomp.farms.model.entity.Review;
-import br.ufs.dcomp.farms.model.entity.Study;
-import br.ufs.dcomp.farms.model.enums.SelectionStatusEnum;
 
 public class ReviewCreatedDto {
 

@@ -1,5 +1,6 @@
 package br.ufs.dcomp.farms.model.entity;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,6 +10,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 //import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -22,8 +24,9 @@ import br.ufs.dcomp.farms.model.enums.ReviewEnum;
 @Table(name = "project")
 @XmlRootElement
 @SequenceGenerator(name = "ProjectSequenceGenerator", sequenceName = "sq_project")
-public class Project {
+public class Project implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	private Long idProject;
 	private String dsTitle;
 	private String dsKey;
@@ -51,7 +54,7 @@ public class Project {
 
 	@Id
 	//@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "ProjectSequenceGenerator")
-	@GeneratedValue(generator = "ProjectSequenceGenerator")
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "ProjectSequenceGenerator")
 	@Column(name = "id_project", nullable = false, unique = true)
 	public Long getIdProject() {
 		return idProject;

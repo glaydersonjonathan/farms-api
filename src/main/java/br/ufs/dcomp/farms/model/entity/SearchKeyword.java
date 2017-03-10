@@ -44,7 +44,7 @@ public class SearchKeyword {
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SearchKeywordSequenceGenerator")
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "SearchKeywordSequenceGenerator")
 	@Column(name = "id_search_keyword", nullable = false, unique = true)
 	public Long getIdSearchKeyword() {
 		return idSearchKeyword;

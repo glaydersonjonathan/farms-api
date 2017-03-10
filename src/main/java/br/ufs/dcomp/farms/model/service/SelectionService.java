@@ -14,18 +14,13 @@ import br.ufs.dcomp.farms.model.dao.ResearcherDao;
 import br.ufs.dcomp.farms.model.dao.ReviewDao;
 import br.ufs.dcomp.farms.model.dao.SelectionStepDao;
 import br.ufs.dcomp.farms.model.dao.StudyDao;
-import br.ufs.dcomp.farms.model.dto.CountryCreatedDto;
-import br.ufs.dcomp.farms.model.dto.ProjectMemberDto;
 import br.ufs.dcomp.farms.model.dto.RatedContentCreatedDto;
 import br.ufs.dcomp.farms.model.dto.ReviewCreateDto;
 import br.ufs.dcomp.farms.model.dto.ReviewCreatedDto;
 import br.ufs.dcomp.farms.model.dto.SelectionStepCreatedDto;
-import br.ufs.dcomp.farms.model.entity.Country;
-import br.ufs.dcomp.farms.model.entity.ProjectMember;
 import br.ufs.dcomp.farms.model.entity.RatedContent;
 import br.ufs.dcomp.farms.model.entity.Review;
 import br.ufs.dcomp.farms.model.entity.SelectionStep;
-import br.ufs.dcomp.farms.model.entity.Study;
 import br.ufs.dcomp.farms.model.enums.SelectionStatusEnum;
 import br.ufs.dcomp.farms.model.enums.SelectionStepStatusEnum;
 

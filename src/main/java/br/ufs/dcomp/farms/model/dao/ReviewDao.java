@@ -6,7 +6,6 @@ import org.hibernate.Query;
 import org.springframework.stereotype.Component;
 
 import br.ufs.dcomp.farms.model.entity.Review;
-import br.ufs.dcomp.farms.model.entity.StudyLanguage;
 
 /**
  * @author farms

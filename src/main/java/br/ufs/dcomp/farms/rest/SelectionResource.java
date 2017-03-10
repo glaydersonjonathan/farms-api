@@ -18,7 +18,6 @@ import org.springframework.stereotype.Component;
 import br.ufs.dcomp.farms.common.message.ErrorMessage;
 import br.ufs.dcomp.farms.common.message.SuccessMessage;
 import br.ufs.dcomp.farms.core.FarmsResponse;
-import br.ufs.dcomp.farms.model.dto.CountryCreatedDto;
 import br.ufs.dcomp.farms.model.dto.RatedContentCreatedDto;
 import br.ufs.dcomp.farms.model.dto.ReviewCreateDto;
 import br.ufs.dcomp.farms.model.dto.ReviewCreatedDto;

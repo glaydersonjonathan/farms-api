@@ -9,13 +9,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.ufs.dcomp.farms.common.message.ErrorMessage;
 import br.ufs.dcomp.farms.core.FarmsException;
+import br.ufs.dcomp.farms.model.dao.AdaptedQueryDao;
 import br.ufs.dcomp.farms.model.dao.ProjectDao;
 import br.ufs.dcomp.farms.model.dao.SearchDao;
+import br.ufs.dcomp.farms.model.dao.SearchEngineDao;
+import br.ufs.dcomp.farms.model.dao.StandardQueryDao;
 import br.ufs.dcomp.farms.model.dao.StudyDao;
 import br.ufs.dcomp.farms.model.dto.StudyCreateDto;
 import br.ufs.dcomp.farms.model.dto.StudyCreatedDto;
+import br.ufs.dcomp.farms.model.entity.AdaptedQuery;
 import br.ufs.dcomp.farms.model.entity.Project;
 import br.ufs.dcomp.farms.model.entity.Search;
+import br.ufs.dcomp.farms.model.entity.SearchEngine;
+import br.ufs.dcomp.farms.model.entity.StandardQuery;
 import br.ufs.dcomp.farms.model.entity.Study;
 import br.ufs.dcomp.farms.model.enums.ReadingRateEnum;
 import br.ufs.dcomp.farms.model.enums.SearchEnum;
@@ -31,6 +37,11 @@ public class StudyService {
 	private ProjectDao projectDao;
 	@Autowired
 	private SearchDao searchDao;
+	@Autowired
+	private StandardQueryDao standardDao;
+	//@Autowired
+	private AdaptedQueryDao adaptedDao;
+
 
 	/**
 	 * Get all studies of project
@@ -74,21 +85,37 @@ public class StudyService {
 		study.setNmAuthor(studycreateDto.getNmAuthor());
 		study.setNrYear(studycreateDto.getNrYear());
 		study.setTpReadingRate(ReadingRateEnum.fromCode(studycreateDto.getTpReadingRate()));
-
-		Project project = projectDao.getByDsKey(studycreateDto.getDsKey());
-
-		study.setProject(project);
 		study.setTpStatus(StudyStatusEnum.SETTING);
 		study.setTpVenue(VenueEnum.fromCode(studycreateDto.getTpVenue()));
 
+		Project project = projectDao.getByDsKey(studycreateDto.getDsKey());
+		study.setProject(project);	
+		
+		StandardQuery standard = new StandardQuery();
+		standard.setDsStandardQuery("MANUAL INSERT");
+		standard.setProject(project);
+		standardDao.save(standard);
+		
+
+		AdaptedQuery adaptedQuery = new AdaptedQuery ();
+		adaptedQuery.setDsObservation("MANUAL INSERT");
+		adaptedQuery.setStandardQuery(standard);
+		adaptedQuery.setDsStandardQuery("MANUAL INSERT");
+		SearchEngine searchEngine = new SearchEngine();
+		searchEngine.setNmSearchEngine("MANUAL INSERT");
+		searchEngine.setIdSearchEngine(1L);
+		adaptedQuery.setSearchEngine(searchEngine);
+		adaptedDao.insert(adaptedQuery);
+		
 		Search search = new Search();
-		search.setNmSearch("manual insert");
-		search.setDsSearch("manual insert");
+		search.setNmSearch("MANUAL INSERT");
+		search.setDsSearch("MANUAL INSERT");
 		search.setTpSearch(SearchEnum.MANUAL);
 		search.setProject(project);
-		Long i = (long) 1;
-		search.setIdSearch(i);
-		// searchDao.save(search);
+		//Long i = (long) 1;
+		//search.setIdSearch(i);
+		search.setAdaptedQuery(adaptedQuery);
+		searchDao.save(search);
 
 		study.setSearch(search);
 
