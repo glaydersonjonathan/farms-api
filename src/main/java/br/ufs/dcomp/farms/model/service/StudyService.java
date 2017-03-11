@@ -3,6 +3,7 @@ package br.ufs.dcomp.farms.model.service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -40,9 +41,8 @@ public class StudyService {
 	private SearchDao searchDao;
 	@Autowired
 	private StandardQueryDao standardDao;
-	//@Autowired
-	//private AdaptedQueryDao adaptedDao;
-
+	@Autowired
+	private AdaptedQueryDao adaptedDao;
 
 	/**
 	 * Get all studies of project
@@ -67,7 +67,7 @@ public class StudyService {
 		return studyCreatedDto;
 	}
 
-	//@Transactional(rollbackFor = Exception.class)
+	@Transactional(rollbackFor = Exception.class)
 	public Boolean save(StudyCreateDto studycreateDto) throws FarmsException {
 
 		Study study = new Study();
@@ -90,16 +90,12 @@ public class StudyService {
 		study.setTpVenue(VenueEnum.fromCode(studycreateDto.getTpVenue()));
 
 		Project project = projectDao.getByDsKey(studycreateDto.getDsKey());
-		study.setProject(project);	
-	
-	StandardQuery standard = new StandardQuery("MANUAL INSERT", project);
-	standardDao.save(standard);
-		
+		study.setProject(project);
 
-		//List<StandardQuery> standard = standardDao.getByDsKeyProject(project.getDsKey());
-		
+		StandardQuery standard = new StandardQuery("MANUAL INSERT", project);
+		standardDao.save(standard);
 
-		AdaptedQuery adaptedQuery = new AdaptedQuery ();
+		AdaptedQuery adaptedQuery = new AdaptedQuery();
 		adaptedQuery.setDsObservation("MANUAL INSERT");
 		adaptedQuery.setStandardQuery(standard);
 		adaptedQuery.setDsAdaptedQuery("MANUAL INSERT");
@@ -107,17 +103,20 @@ public class StudyService {
 		searchEngine.setNmSearchEngine("MANUAL INSERT");
 		searchEngine.setIdSearchEngine(1L);
 		adaptedQuery.setSearchEngine(searchEngine);
-		//adaptedDao.insert(adaptedQuery);
-		
+		adaptedDao.save(adaptedQuery);
+
 		Search search = new Search();
 		search.setNmSearch("MANUAL INSERT");
 		search.setDsSearch("MANUAL INSERT");
 		search.setTpSearch(SearchEnum.MANUAL);
 		search.setProject(project);
-		search.setDhSearch( new Date(System.currentTimeMillis()));
-		search.setNrSearch(1L);
+		search.setDhSearch(new Date(System.currentTimeMillis()));
+		//verificar
+		Random rand = new Random();
+		search.setNrSearch(rand.nextLong());
+		
 		search.setTpSearch(SearchEnum.fromCode(1));
-		//search.setAdaptedQuery(adaptedQuery);
+		search.setAdaptedQuery(adaptedQuery);
 		searchDao.save(search);
 
 		study.setSearch(search);
@@ -156,8 +155,7 @@ public class StudyService {
 		study.setTpStatus(studycreatedDto.getTpStatus());
 		study.setTpVenue(studycreatedDto.getTpVenue());
 
-		Search search = new Search();
-		search.setNrSearch(studycreatedDto.getNrSearch());
+		Search search = searchDao.getByNrSearch(studycreatedDto.getNrSearch());
 		study.setIdStudy(studycreatedDto.getIdStudy());
 		study.setSearch(search);
 

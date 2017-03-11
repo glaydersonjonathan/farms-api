@@ -6,7 +6,7 @@ import org.hibernate.Query;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Component;
 
-import br.ufs.dcomp.farms.model.entity.AdaptedQuery;
+
 import br.ufs.dcomp.farms.model.entity.StandardQuery;
 
 /**
@@ -23,19 +23,6 @@ public class StandardQueryDao extends HibernateDao<StandardQuery> {
 	 */
 	public StandardQueryDao() {
 		super(StandardQuery.class);
-	}
-	
-	
-	/**
-	 * Inserts with normal SQL, used in a manual insert study.
-	 * @param adaptedQuery
-	 */
-	public void insert (StandardQuery standardQuery){
-		Query query = getSession()
-				.createSQLQuery("INSERT INTO standard_query (ds_standard_query, id_project) VALUES (:valor1, :valor2)");
-		query.setParameter("valor1", standardQuery.getDsStandardQuery());
-		query.setParameter("valor2", standardQuery.getProject().getIdProject());
-		System.out.println(query.executeUpdate());
 	}
 
 	/**

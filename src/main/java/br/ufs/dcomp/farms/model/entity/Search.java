@@ -56,7 +56,7 @@ public class Search implements Serializable {
 	public void setIdSearch(Long idSearch) {
 		this.idSearch = idSearch;
 	}
-
+    
 	@Column(name = "nr_search", nullable = false, unique = true)
 	public Long getNrSearch() {
 		return nrSearch;

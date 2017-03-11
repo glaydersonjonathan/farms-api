@@ -25,7 +25,7 @@ public class AdaptedQuery implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private Long idStandardQuery;
+	private Long idAdaptedQuery;
 	private String dsAdaptedQuery;
 	private String dsObservation;
 	private SearchEngine searchEngine;
@@ -40,12 +40,12 @@ public class AdaptedQuery implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "AdaptedQuerySequenceGenerator")
 	@Column(name = "id_adapted_query", nullable = false, unique = true)
-	public Long getIdStandardQuery() {
-		return idStandardQuery;
+	public Long getIdAdaptedQuery() {
+		return idAdaptedQuery;
 	}
 
-	public void setIdStandardQuery(Long idStandardQuery) {
-		this.idStandardQuery = idStandardQuery;
+	public void setIdAdaptedQuery(Long idAdaptedQuery) {
+		this.idAdaptedQuery = idAdaptedQuery;
 	}
 
 	@Column(name = "ds_adapted_query", nullable = false)
