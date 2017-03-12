@@ -36,7 +36,7 @@ public class StandardQueryDao extends HibernateDao<StandardQuery> {
 		StringBuilder sbHql = new StringBuilder();
 		sbHql.append("from StandardQuery sq");
 		sbHql.append(" join fetch sq.project p");
-		sbHql.append(" where p.dsKey = :dsKey");
+		sbHql.append(" where p.dsKey = :dsKey and sq.dsStandardQuery != 'MANUAL INSERT'");
 
 		Query query = getSession().createQuery(sbHql.toString());
 		query.setParameter("dsKey", dsKey);
