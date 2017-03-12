@@ -100,9 +100,7 @@ public class SelectionService {
 		return ratedContentCreated;
 	}
 
-	public Boolean assignManual(ReviewCreateDto reviewCreateDto) {
-		
-		
+	public Boolean assignManual(ReviewCreateDto reviewCreateDto) {		
 		for (Long idStudy: reviewCreateDto.getStudies()){
 			Review review =  new Review();
 			review.setResearcher(researcherDao.getByDsSSO(reviewCreateDto.getDsSSO()));

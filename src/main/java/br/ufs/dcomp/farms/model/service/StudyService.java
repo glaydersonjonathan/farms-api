@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +15,6 @@ import br.ufs.dcomp.farms.core.FarmsException;
 import br.ufs.dcomp.farms.model.dao.AdaptedQueryDao;
 import br.ufs.dcomp.farms.model.dao.ProjectDao;
 import br.ufs.dcomp.farms.model.dao.SearchDao;
-import br.ufs.dcomp.farms.model.dao.SearchEngineDao;
 import br.ufs.dcomp.farms.model.dao.StandardQueryDao;
 import br.ufs.dcomp.farms.model.dao.StudyDao;
 import br.ufs.dcomp.farms.model.dto.StudyCreateDto;
@@ -61,12 +61,25 @@ public class StudyService {
 		return studyCreatedDto;
 	}
 
+	/**
+	 * Get Study by citekey
+	 * 
+	 * @param cdCiteKey
+	 * @return
+	 */
 	public StudyCreatedDto getStudyByCdciteKey(String cdCiteKey) {
 		Study study = studyDao.getByCdCiteKey(cdCiteKey);
 		StudyCreatedDto studyCreatedDto = new StudyCreatedDto(study);
 		return studyCreatedDto;
 	}
 
+	/**
+	 * Save a standard query
+	 * 
+	 * @param studycreateDto
+	 * @return
+	 * @throws FarmsException
+	 */
 	@Transactional(rollbackFor = Exception.class)
 	public Boolean save(StudyCreateDto studycreateDto) throws FarmsException {
 
@@ -92,8 +105,12 @@ public class StudyService {
 		Project project = projectDao.getByDsKey(studycreateDto.getDsKey());
 		study.setProject(project);
 
-		StandardQuery standard = new StandardQuery("MANUAL INSERT", project);
-		standardDao.save(standard);
+		StandardQuery standard = new StandardQuery();
+		if (standardDao.getByDsKeyProject(studycreateDto.getDsKey()).size() == 0) {
+			throw new FarmsException(ErrorMessage.NO_STANDARD_QUERY);
+		} else {
+			standard = standardDao.getByDsKeyProject(studycreateDto.getDsKey()).get(0);
+		}
 
 		AdaptedQuery adaptedQuery = new AdaptedQuery();
 		adaptedQuery.setDsObservation("MANUAL INSERT");
@@ -111,10 +128,10 @@ public class StudyService {
 		search.setTpSearch(SearchEnum.MANUAL);
 		search.setProject(project);
 		search.setDhSearch(new Date(System.currentTimeMillis()));
-		//verificar
+		// verificar
 		Random rand = new Random();
 		search.setNrSearch(rand.nextLong());
-		
+
 		search.setTpSearch(SearchEnum.fromCode(1));
 		search.setAdaptedQuery(adaptedQuery);
 		searchDao.save(search);
@@ -130,6 +147,13 @@ public class StudyService {
 		return true;
 	}
 
+	
+	/**
+	 * Update a study
+	 * 
+	 * @param studycreatedDto
+	 * @return
+	 */
 	@Transactional(rollbackFor = Exception.class)
 	public Boolean editStudy(StudyCreatedDto studycreatedDto) {
 		Study study = new Study();
@@ -155,7 +179,7 @@ public class StudyService {
 		study.setTpStatus(studycreatedDto.getTpStatus());
 		study.setTpVenue(studycreatedDto.getTpVenue());
 
-		Search search = searchDao.getByNrSearch(studycreatedDto.getNrSearch());
+		Search search = searchDao.get(studycreatedDto.getIdSearch());
 		study.setIdStudy(studycreatedDto.getIdStudy());
 		study.setSearch(search);
 
@@ -164,8 +188,20 @@ public class StudyService {
 		return true;
 	}
 
-	public Boolean deleteStudy(Long idStudy) {
-		studyDao.deleteStudy(idStudy);
-		return true;
+	/**
+	 * Delete a Study
+	 * 
+	 * @param idStudy
+	 * @return
+	 * @throws FarmsException
+	 */
+	public Boolean deleteStudy(Long idStudy) throws FarmsException {
+		try {
+			studyDao.deleteStudy(idStudy);
+			return true;
+		} catch (ConstraintViolationException c) {
+			throw new FarmsException(ErrorMessage.STUDY_IN_REVIEW);
+		}
+
 	}
 }

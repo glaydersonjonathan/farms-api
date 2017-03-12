@@ -74,4 +74,12 @@ public class ErrorMessage extends Message {
 	private static final Integer CITEKEY_IN_USE_CODE = 2010;
 	private static final String CITEKEY_IN_USE_DESCRIPTION = "Cite key already in use. Hint: add key project at the end of cite key of studies";
 	public static final ErrorMessage CITEKEY_IN_USE = new ErrorMessage(CITEKEY_IN_USE_CODE, CITEKEY_IN_USE_DESCRIPTION);
+	
+	private static final Integer NO_STANDARD_QUERY_CODE = 2010;
+	private static final String NO_STANDARD_QUERY_DESCRIPTION = "Before save study you need save a standard query in a protocol project.";
+	public static final ErrorMessage NO_STANDARD_QUERY = new ErrorMessage(NO_STANDARD_QUERY_CODE, NO_STANDARD_QUERY_DESCRIPTION);
+	
+	private static final Integer STUDY_IN_REVIEW_CODE = 2011;
+	private static final String STUDY_IN_REVIEW_DESCRIPTION = "This study already in review.";
+	public static final ErrorMessage STUDY_IN_REVIEW = new ErrorMessage(STUDY_IN_REVIEW_CODE, STUDY_IN_REVIEW_DESCRIPTION);
 }

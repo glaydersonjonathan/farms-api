@@ -64,6 +64,7 @@ public class StudyResource {
 
 	/**
 	 * Add study manually.
+	 * 
 	 * @param studycreateDto
 	 * @return
 	 */
@@ -72,39 +73,40 @@ public class StudyResource {
 		try {
 			Boolean bool = studyService.save(studycreateDto);
 			return FarmsResponse.ok(SuccessMessage.STUDY_CREATED, bool);
-		} catch (FarmsException fe){
+		} catch (FarmsException fe) {
 			return FarmsResponse.error(fe.getErrorMessage());
-		}
-		catch (Exception ex) {
+		} catch (Exception ex) {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-	
+
 	@PUT
 	public Response editStudy(StudyCreatedDto studycreatedDto) {
 		try {
 			Boolean bool = studyService.editStudy(studycreatedDto);
 			return FarmsResponse.ok(SuccessMessage.STUDY_CREATED, bool);
-		} //catch (FarmsException fe){
-			//return FarmsResponse.error(fe.getErrorMessage());
-		//}
+		} // catch (FarmsException fe){
+			// return FarmsResponse.error(fe.getErrorMessage());
+			// }
 		catch (Exception ex) {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-	
+
 	@DELETE
 	@Path("/{idStudy}")
-	public Response deleteStudy (@PathParam("idStudy") Long idStudy){
-		try{
+	public Response deleteStudy(@PathParam("idStudy") Long idStudy) {
+		try {
 			Boolean bool = studyService.deleteStudy(idStudy);
 			return FarmsResponse.ok(SuccessMessage.STUDY_DELETED, bool);
-		}catch (Exception ex){
+		} catch (FarmsException fe) {
+			return FarmsResponse.error(fe.getErrorMessage());
+		} catch (Exception ex) {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
-		
+
 	}
-	
+
 	@GET
 	@Path("/read/{cdCiteKey}")
 	public Response readStudy(@PathParam("cdCiteKey") String cdCiteKey) {
@@ -116,9 +118,6 @@ public class StudyResource {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-	
-	
-	
 
 	@POST
 	@Path("/upload-study")

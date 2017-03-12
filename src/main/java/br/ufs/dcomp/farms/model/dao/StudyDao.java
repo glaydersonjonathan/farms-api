@@ -32,6 +32,7 @@ public class StudyDao extends HibernateDao<Study> {
 		StringBuilder sbHql = new StringBuilder();
 		sbHql.append("from Study s");
 		sbHql.append(" join fetch s.project p");
+		sbHql.append(" join fetch s.search se");		
 		sbHql.append(" where p.dsKey = :dsKey");
 		
 		Query query = getSession().createQuery(sbHql.toString());
@@ -40,10 +41,7 @@ public class StudyDao extends HibernateDao<Study> {
 		return studies;
 	}
 	
-	//public void updateStudy (){
-		
-	//}
-	
+
 
 	public void deleteStudy(Long idStudy) {
 		Transaction transaction = getSession().beginTransaction();
@@ -52,8 +50,7 @@ public class StudyDao extends HibernateDao<Study> {
 			String hql = "delete from Study where idStudy = :idStudy";
 			Query query = getSession().createQuery(hql);
 			query.setLong("idStudy", idStudy);
-			System.out.println(query.executeUpdate());
-
+			query.executeUpdate();
 			transaction.commit();
 		} catch (Throwable t) {
 			transaction.rollback();

@@ -52,9 +52,10 @@ public class StandardQueryDao extends HibernateDao<StandardQuery> {
 	public void delete(Long idProject) {
 		Transaction transaction = getSession().beginTransaction();
 		try {
-			String hql = "delete from StandardQuery where project.idProject= :idProject";
+			String hql = "delete from StandardQuery where project.idProject= :idProject and dsStandardQuery != :dsStandardQuery";
 			Query query = getSession().createQuery(hql);
 			query.setLong("idProject", idProject);
+			query.setString("dsStandardQuery", "MANUAL INSERT");
 			System.out.println(query.executeUpdate());
 			transaction.commit();
 		} catch (Throwable t) {

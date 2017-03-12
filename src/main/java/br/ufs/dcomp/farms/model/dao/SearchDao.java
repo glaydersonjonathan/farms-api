@@ -17,6 +17,11 @@ public class SearchDao  extends HibernateDao<Search>{
 		super(Search.class);
 	}
 	
+	/**
+	 * Searh by nrSearch
+	 * @param nrSearch
+	 * @return
+	 */
 	public Search getByNrSearch(Long nrSearch){
 		Query query = getSession().createQuery("from Search p where nrSearch = :nrSearch");
 		query.setLong("nrSearch", nrSearch);

@@ -27,7 +27,7 @@ public class StudyCreatedDto {
 	private StudyStatusEnum tpStatus;
 	
 	private String dsKeyProject;
-	private Long nrSearch;
+	private Long idSearch;
 	
 	private Long idStudy;
 	
@@ -53,7 +53,7 @@ public class StudyCreatedDto {
 		this.tpReadingRate = study.getTpReadingRate();
 		this.tpStatus = study.getTpStatus();
 		this.dsKeyProject = study.getProject().getDsKey();
-		this.nrSearch = study.getSearch().getNrSearch();
+		this.idSearch = study.getSearch().getIdSearch();
 		
 		this.idStudy = study.getIdStudy();
 	}
@@ -228,12 +228,12 @@ public class StudyCreatedDto {
 		this.dsKeyProject = dsKeyProject;
 	}
 
-	public Long getNrSearch() {
-		return nrSearch;
+	public Long getIdSearch() {
+		return idSearch;
 	}
 
-	public void setNrSearch(Long nrSearch) {
-		this.nrSearch = nrSearch;
+	public void setIdSearch(Long idSearch) {
+		this.idSearch = idSearch;
 	}
 
 	public Long getIdStudy() {

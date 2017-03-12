@@ -12,6 +12,10 @@ import br.ufs.dcomp.farms.model.dto.StandardQueryCreatedDto;
 import br.ufs.dcomp.farms.model.entity.Project;
 import br.ufs.dcomp.farms.model.entity.StandardQuery;
 
+/**
+ * @author farms
+ *
+ */
 @Component
 public class StandardQueryService {
 
@@ -20,6 +24,11 @@ public class StandardQueryService {
 	@Autowired
 	private ProjectDao projectDao;
 
+	/**
+	 * Search standard query by project
+	 * @param dsKey
+	 * @return
+	 */
 	public List<StandardQueryCreatedDto> getByDsKeyProject(String dsKey) {
 		List<StandardQueryCreatedDto> languageCreatedDtos = new ArrayList<StandardQueryCreatedDto>();
 		List<StandardQuery> standardQuerys = standardQueryDao.getByDsKeyProject(dsKey);
@@ -31,6 +40,11 @@ public class StandardQueryService {
 		return languageCreatedDtos;
 	}
 
+	/**
+	 * Save or replace a standard query
+	 * @param stqcd
+	 * @return
+	 */
 	public Boolean saveStandardQuery(StandardQueryCreatedDto stqcd) {
 		Project project = projectDao.getByDsKey(stqcd.getDsProjectKey());
 
