@@ -12,6 +12,7 @@ public class ReviewCreatedDto {
 	private Integer tpStatus;
 	private Long idResearcher;
 	private StudyCreatedDto study;
+	private String dsCommentary;
 	
 
 	public ReviewCreatedDto() {
@@ -20,7 +21,7 @@ public class ReviewCreatedDto {
 	}
 
 	public ReviewCreatedDto(Long idReview, Date dhAssign, Date dhReview, Integer tpStatus,
-			Long researcher, StudyCreatedDto study) {
+			Long researcher, StudyCreatedDto study, String dsCommentary) {
 		super();
 		this.idReview = idReview;
 		this.dhAssign = dhAssign;
@@ -28,6 +29,7 @@ public class ReviewCreatedDto {
 		this.tpStatus = tpStatus;
 		this.idResearcher = researcher;
 		this.study = study;
+		this.dsCommentary = dsCommentary;
 	}
 
 	public ReviewCreatedDto(Review review) {
@@ -37,6 +39,7 @@ public class ReviewCreatedDto {
 		this.idResearcher = review.getResearcher().getIdResearcher();
 		this.tpStatus = review.getTpStatus().getCode();
 		this.study = new StudyCreatedDto (review.getStudy());
+		this.dsCommentary = review.getDsCommentary();
 	}
 
 	public Long getIdReview() {
@@ -79,8 +82,6 @@ public class ReviewCreatedDto {
 		this.idResearcher = idResearcher;
 	}
 
-
-
 	public StudyCreatedDto getStudy() {
 		return study;
 	}
@@ -89,4 +90,13 @@ public class ReviewCreatedDto {
 		this.study = study;
 	}
 
+	public String getDsCommentary() {
+		return dsCommentary;
+	}
+
+	public void setDsCommentary(String dsCommentary) {
+		this.dsCommentary = dsCommentary;
+	}
+
+	
 }

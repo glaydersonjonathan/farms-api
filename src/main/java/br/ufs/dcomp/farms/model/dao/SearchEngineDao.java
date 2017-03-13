@@ -65,16 +65,9 @@ public class SearchEngineDao extends HibernateDao<SearchEngine> {
 	public List<SearchEngine> getAllEngines() {
 
 		StringBuilder sbHql = new StringBuilder();
-		sbHql.append("from SearchEngine");
+		sbHql.append("from SearchEngine where nmSearchEngine != 'MANUAL INSERT'");
 		Query query = getSession().createQuery(sbHql.toString());
 		List<SearchEngine> engines = query.list();
-
-		/*
-		 * for (SearchEngine engine :engines){
-		 * System.out.println(engine.getNmSearchEngine());
-		 * 
-		 * }
-		 */
 		return engines;
 	}
 
