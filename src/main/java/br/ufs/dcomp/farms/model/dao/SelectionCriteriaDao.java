@@ -28,7 +28,8 @@ public class SelectionCriteriaDao extends HibernateDao<SelectionCriteria> {
 	/**
 	 * Returns all studies from the specified project.
 	 *
-	 * @param dsKey the identifier of the project.
+	 * @param dsKey
+	 *            the identifier of the project.
 	 * @return a list of all the studies of the specified project.
 	 */
 	public List<SelectionCriteria> getByDsKeyProject(String dsKey) {
@@ -36,21 +37,23 @@ public class SelectionCriteriaDao extends HibernateDao<SelectionCriteria> {
 		sbHql.append("from SelectionCriteria sc");
 		sbHql.append(" join fetch sc.project p");
 		sbHql.append(" where p.dsKey = :dsKey");
-		
+
 		Query query = getSession().createQuery(sbHql.toString());
 		query.setParameter("dsKey", dsKey);
 		List<SelectionCriteria> selectionCriterias = query.list();
 		return selectionCriterias;
 	}
 
-	/**Delete criteria of protocol project
+	/**
+	 * Delete criteria of protocol project
+	 * 
 	 * @param idProject
 	 * @param idSelectionCriteria
 	 */
 	public void deleteCriteria(Long idProject, String dsSelectionCriteria, Long tpCriteria) {
 		Transaction transaction = getSession().beginTransaction();
 		try {
-			
+
 			String hql = "delete from SelectionCriteria where project.idProject= :idProject and dsSelectionCriteria =:dsSelectionCriteria"
 					+ " and tpCriteria = :tpCriteria";
 			Query query = getSession().createQuery(hql);
@@ -68,18 +71,19 @@ public class SelectionCriteriaDao extends HibernateDao<SelectionCriteria> {
 
 	/**
 	 * Edit selection criteria of protocol project
+	 * 
 	 * @param idProject
 	 * @param selectionCriteriaCreatedDto
 	 */
 	public void editCriteria(Long idProject, SelectionCriteriaCreatedDto selectionCriteriaCreatedDto) {
-		Query query = getSession().createQuery("update SelectionCriteria set dsSelectionCriteria = :dsSelectionCriteria" + ", "
-				+ "tpCriteria = :tpCriteria"
-				+ " where project.idProject= :idProject and idSelectionCriteria =:idSelectionCriteria");			
+		Query query = getSession().createQuery("update SelectionCriteria set dsSelectionCriteria = :dsSelectionCriteria"
+				+ ", " + "tpCriteria = :tpCriteria"
+				+ " where project.idProject= :idProject and idSelectionCriteria =:idSelectionCriteria");
 		query.setString("dsSelectionCriteria", selectionCriteriaCreatedDto.getDsSelectionCriteria());
 		query.setLong("idProject", idProject);
 		query.setInteger("tpCriteria", selectionCriteriaCreatedDto.getTpCriteria());
-		query.setLong("idSelectionCriteria",selectionCriteriaCreatedDto.getIdSelectionCriteria());
+		query.setLong("idSelectionCriteria", selectionCriteriaCreatedDto.getIdSelectionCriteria());
 		query.executeUpdate();
-		
+
 	}
 }

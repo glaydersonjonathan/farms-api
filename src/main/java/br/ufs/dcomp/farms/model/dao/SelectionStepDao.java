@@ -6,9 +6,12 @@ import org.hibernate.Query;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Component;
 
-
 import br.ufs.dcomp.farms.model.entity.SelectionStep;
 
+/**
+ * @author farms
+ *
+ */
 @Component
 @SuppressWarnings("unchecked")
 public class SelectionStepDao extends HibernateDao<SelectionStep> {
@@ -19,6 +22,7 @@ public class SelectionStepDao extends HibernateDao<SelectionStep> {
 
 	/**
 	 * Get configuration step of project
+	 * 
 	 * @param dsKey
 	 * @return
 	 */
@@ -33,9 +37,10 @@ public class SelectionStepDao extends HibernateDao<SelectionStep> {
 		List<SelectionStep> selectionStep = query.list();
 		return selectionStep.get(0); // verificar
 	}
-	
+
 	/**
 	 * Delete a configuration step of project
+	 * 
 	 * @param idProject
 	 */
 	public void delete(Long idProject) {
@@ -44,7 +49,7 @@ public class SelectionStepDao extends HibernateDao<SelectionStep> {
 			// your code
 			String hql = "delete from SelectionStep where project.idProject= :idProject";
 			Query query = getSession().createQuery(hql);
-			query.setLong("idProject",idProject);
+			query.setLong("idProject", idProject);
 			System.out.println(query.executeUpdate());
 			// your code end
 

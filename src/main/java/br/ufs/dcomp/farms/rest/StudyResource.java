@@ -80,6 +80,12 @@ public class StudyResource {
 		}
 	}
 
+	/**
+	 * Update a study
+	 * 
+	 * @param studycreatedDto
+	 * @return
+	 */
 	@PUT
 	public Response editStudy(StudyCreatedDto studycreatedDto) {
 		try {
@@ -93,6 +99,12 @@ public class StudyResource {
 		}
 	}
 
+	/**
+	 * Delete study
+	 * 
+	 * @param idStudy
+	 * @return
+	 */
 	@DELETE
 	@Path("/{idStudy}")
 	public Response deleteStudy(@PathParam("idStudy") Long idStudy) {
@@ -107,6 +119,11 @@ public class StudyResource {
 
 	}
 
+	/**
+	 * Get details os study by citeKey
+	 * @param cdCiteKey
+	 * @return
+	 */
 	@GET
 	@Path("/read/{cdCiteKey}")
 	public Response readStudy(@PathParam("cdCiteKey") String cdCiteKey) {

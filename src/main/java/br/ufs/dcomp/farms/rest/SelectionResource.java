@@ -89,6 +89,11 @@ public class SelectionResource {
 	
 
 	
+	/**
+	 * Assign studies to researcher
+	 * @param reviewCreateDto
+	 * @return
+	 */
 	@POST
 	@Path("/assignManual")
 	public Response assignManual(ReviewCreateDto reviewCreateDto) {
@@ -101,6 +106,12 @@ public class SelectionResource {
 	}
 	
 
+	/**
+	 * Get reviews by project and researcher
+	 * @param dsKey
+	 * @param dsSSO
+	 * @return
+	 */
 	@GET
 	@Path("/review/{dsKey}/{dsSSO}")
 	public Response getReviews(@PathParam("dsKey") String dsKey,@PathParam("dsSSO") String dsSSO ) {

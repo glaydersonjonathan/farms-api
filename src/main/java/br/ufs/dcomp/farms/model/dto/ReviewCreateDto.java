@@ -18,7 +18,6 @@ public class ReviewCreateDto {
 		this.dhAssign = dhAssign;
 	}
 
-	
 	public ReviewCreateDto(List<Long> studies, String dsSSO, Date dhAssign, Date dhReview, String dsCommentary,
 			List<Long> criterias) {
 		super();
@@ -29,7 +28,6 @@ public class ReviewCreateDto {
 		this.dsCommentary = dsCommentary;
 		this.criterias = criterias;
 	}
-
 
 	public ReviewCreateDto() {
 		super();
@@ -82,6 +80,5 @@ public class ReviewCreateDto {
 	public void setCriterias(List<Long> criterias) {
 		this.criterias = criterias;
 	}
-	
-	
+
 }

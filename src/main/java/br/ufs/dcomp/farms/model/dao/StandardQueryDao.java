@@ -6,7 +6,6 @@ import org.hibernate.Query;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Component;
 
-
 import br.ufs.dcomp.farms.model.entity.StandardQuery;
 
 /**

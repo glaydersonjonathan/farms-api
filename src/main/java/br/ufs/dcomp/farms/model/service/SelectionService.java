@@ -1,7 +1,5 @@
 package br.ufs.dcomp.farms.model.service;
 
-
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +22,10 @@ import br.ufs.dcomp.farms.model.entity.SelectionStep;
 import br.ufs.dcomp.farms.model.enums.SelectionStatusEnum;
 import br.ufs.dcomp.farms.model.enums.SelectionStepStatusEnum;
 
+/**
+ * @author farms
+ *
+ */
 @Component
 public class SelectionService {
 
@@ -41,7 +43,8 @@ public class SelectionService {
 	StudyDao studyDao;
 
 	/**
-	 *  Save configuration of selection Step of a project
+	 * Save configuration of selection Step of a project
+	 * 
 	 * @param selectionCreateDto
 	 * @return
 	 */
@@ -53,12 +56,12 @@ public class SelectionService {
 		selectionStep.setDhReviewEnd(selectionCreateDto.getDhReviewEnd());
 		selectionStep.setDhStartSelectionStep(selectionCreateDto.getDhStartSelectionStep());
 		selectionStep.setQtReview(selectionCreateDto.getQtReview());
-		//selectionStep.setProject(projectDao.getByDsKey(selectionCreateDto.getDsKey()));
+		// selectionStep.setProject(projectDao.getByDsKey(selectionCreateDto.getDsKey()));
 		selectionStep.setProject(projectDao.get(selectionCreateDto.getIdProject()));
 
 		// verificar inicio
 		RatedContent ratedContent = new RatedContent();
-		//ratedContent.setIdRatedContent(Long.parseLong(selectionCreateDto.getDsRatedContent()));
+		// ratedContent.setIdRatedContent(Long.parseLong(selectionCreateDto.getDsRatedContent()));
 		ratedContent.setIdRatedContent(selectionCreateDto.getIdRatedContent());
 		selectionStep.setRatedContent(ratedContent);
 		selectionStep.setNrSerial(0);
@@ -66,8 +69,9 @@ public class SelectionService {
 		selectionStep.setTpStatus(SelectionStepStatusEnum.ASSIGNED);
 		// verificar fim
 
-       selectionStepDao.delete(selectionCreateDto.getIdProject()); //delete if exists 
-		
+		selectionStepDao.delete(selectionCreateDto.getIdProject()); // delete if
+																	// exists
+
 		selectionStepDao.save(selectionStep);
 
 		return true;
@@ -75,18 +79,20 @@ public class SelectionService {
 
 	/**
 	 * Get configuration of selection Step of a project
+	 * 
 	 * @param dsKey
 	 * @return
 	 */
 	public SelectionStepCreatedDto getConfiguration(String dsKey) {
 		SelectionStep selectionStep = selectionStepDao.getConfiguration(dsKey);
 		SelectionStepCreatedDto selectionStepCreatedDto = new SelectionStepCreatedDto();
-			selectionStepCreatedDto = new SelectionStepCreatedDto(selectionStep);
+		selectionStepCreatedDto = new SelectionStepCreatedDto(selectionStep);
 		return selectionStepCreatedDto;
 	}
 
 	/**
 	 * Get all rated content
+	 * 
 	 * @return
 	 */
 	public List<RatedContentCreatedDto> getAllRated() {
@@ -100,23 +106,33 @@ public class SelectionService {
 		return ratedContentCreated;
 	}
 
-	public Boolean assignManual(ReviewCreateDto reviewCreateDto) {		
-		for (Long idStudy: reviewCreateDto.getStudies()){
-			Review review =  new Review();
+	/**
+	 * Assign studies to researcher
+	 * 
+	 * @param reviewCreateDto
+	 * @return
+	 */
+	public Boolean assignManual(ReviewCreateDto reviewCreateDto) {
+		for (Long idStudy : reviewCreateDto.getStudies()) {
+			Review review = new Review();
 			review.setResearcher(researcherDao.getByDsSSO(reviewCreateDto.getDsSSO()));
 			review.setDhAssign(reviewCreateDto.getDhAssign());
-			review.setTpStatus(SelectionStatusEnum.fromCode(0)); //assigned
+			review.setTpStatus(SelectionStatusEnum.fromCode(0)); // assigned
 			review.setStudy(studyDao.get(idStudy));
-		    reviewDao.save(review);
+			reviewDao.save(review);
 		}
-		
-		
 		return true;
 	}
 
+	/**
+	 * Get reviews by project and researcher
+	 * 
+	 * @param dsKey
+	 * @param dsSSO
+	 * @return
+	 */
 	public List<ReviewCreatedDto> getReviews(String dsKey, String dsSSO) {
 		List<ReviewCreatedDto> reviewCreatedDto = new ArrayList<ReviewCreatedDto>();
-
 		List<Review> reviews = reviewDao.getStudiesToReview(dsKey, dsSSO);
 		if (reviews != null) {
 			for (Review review : reviews) {

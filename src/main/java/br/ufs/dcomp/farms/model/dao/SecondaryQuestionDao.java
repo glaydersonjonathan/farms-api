@@ -27,7 +27,8 @@ public class SecondaryQuestionDao extends HibernateDao<SecondaryQuestion> {
 	/**
 	 * Returns secondary question from the specified project.
 	 *
-	 * @param dsKey the identifier of the project.
+	 * @param dsKey
+	 *            the identifier of the project.
 	 * @return a list with a secondary question of the specified project.
 	 */
 	public List<SecondaryQuestion> getByDsKeyProject(String dsKey) {
@@ -35,7 +36,7 @@ public class SecondaryQuestionDao extends HibernateDao<SecondaryQuestion> {
 		sbHql.append("from SecondaryQuestion sq");
 		sbHql.append(" join fetch sq.project p");
 		sbHql.append(" where p.dsKey = :dsKey");
-		
+
 		Query query = getSession().createQuery(sbHql.toString());
 		query.setParameter("dsKey", dsKey);
 		List<SecondaryQuestion> secondaryQuestions = query.list();
@@ -44,6 +45,7 @@ public class SecondaryQuestionDao extends HibernateDao<SecondaryQuestion> {
 
 	/**
 	 * Delete a secondary question
+	 * 
 	 * @param idProject
 	 */
 	public void delete(Long idProject) {
@@ -58,6 +60,6 @@ public class SecondaryQuestionDao extends HibernateDao<SecondaryQuestion> {
 		} catch (Throwable t) {
 			transaction.rollback();
 			throw t;
-		}		
+		}
 	}
 }

@@ -30,6 +30,10 @@ import br.ufs.dcomp.farms.model.enums.SearchEnum;
 import br.ufs.dcomp.farms.model.enums.StudyStatusEnum;
 import br.ufs.dcomp.farms.model.enums.VenueEnum;
 
+/**
+ * @author farms
+ *
+ */
 @Component
 public class StudyService {
 
@@ -147,7 +151,6 @@ public class StudyService {
 		return true;
 	}
 
-	
 	/**
 	 * Update a study
 	 * 
@@ -189,7 +192,7 @@ public class StudyService {
 	}
 
 	/**
-	 * Delete a Study
+	 * Delete a Study if is not in review
 	 * 
 	 * @param idStudy
 	 * @return
