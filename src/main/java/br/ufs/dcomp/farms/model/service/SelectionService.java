@@ -1,6 +1,7 @@
 package br.ufs.dcomp.farms.model.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -140,6 +141,24 @@ public class SelectionService {
 			}
 		}
 		return reviewCreatedDto;
+	}
+
+	public Boolean realizeReview(ReviewCreateDto reviewCreateDto) {
+		Review review = new Review();
+		review.setIdReview(reviewCreateDto.getIdReview());
+		review.setDhAssign(reviewCreateDto.getDhAssign());
+		review.setDhReview(new Date (System.currentTimeMillis()));
+		review.setDsCommentary(reviewCreateDto.getDsCommentary());
+		review.setTpStatus(SelectionStatusEnum.fromCode(reviewCreateDto.getTpStatus()));
+		review.setResearcher(researcherDao.get(reviewCreateDto.getIdResearcher()));
+		review.setStudy(studyDao.getByCdCiteKey(reviewCreateDto.getStudy().getCdCiteKey()));
+		
+		reviewDao.update(review);
+		
+		//verificar, falta os critérios
+		
+		
+		return true;
 	}
 
 }

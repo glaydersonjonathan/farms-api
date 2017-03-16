@@ -123,4 +123,16 @@ public class SelectionResource {
 		}
 	}
 	
+
+	@POST
+	@Path("/realizeReview")
+	public Response realizeReview(ReviewCreateDto reviewCreateDto) {
+		try {
+			Boolean bool = selectionService.realizeReview(reviewCreateDto);
+			return FarmsResponse.ok(SuccessMessage.REVIEW_FINALIZED, bool);
+		} catch (Exception ex) {
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+	
 }

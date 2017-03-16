@@ -134,5 +134,9 @@ public final class SuccessMessage extends Message {
 	private static final Integer STUDIES_MANUAL_ASSIGNED_CODE = 1029;
 	private static final String STUDIES_MANUAL_ASSIGNED_DESCRIPTION = "Studies assigned successfully.";
 	public static final SuccessMessage STUDIES_MANUAL_ASSIGNED = new SuccessMessage(STUDIES_MANUAL_ASSIGNED_CODE, STUDIES_MANUAL_ASSIGNED_DESCRIPTION);
+	
+	private static final Integer REVIEW_FINALIZED_CODE = 1030;
+	private static final String REVIEW_FINALIZED_DESCRIPTION = "Review saved.";
+	public static final SuccessMessage REVIEW_FINALIZED = new SuccessMessage(REVIEW_FINALIZED_CODE, REVIEW_FINALIZED_DESCRIPTION);
 
 }
