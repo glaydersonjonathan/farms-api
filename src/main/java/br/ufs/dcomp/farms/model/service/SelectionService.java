@@ -6,7 +6,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
+import br.ufs.dcomp.farms.model.dao.CriteriaReviewJustificationDao;
 import br.ufs.dcomp.farms.model.dao.ProjectDao;
 import br.ufs.dcomp.farms.model.dao.RatedContentDao;
 import br.ufs.dcomp.farms.model.dao.ResearcherDao;
@@ -16,10 +18,15 @@ import br.ufs.dcomp.farms.model.dao.StudyDao;
 import br.ufs.dcomp.farms.model.dto.RatedContentCreatedDto;
 import br.ufs.dcomp.farms.model.dto.ReviewCreateDto;
 import br.ufs.dcomp.farms.model.dto.ReviewCreatedDto;
+import br.ufs.dcomp.farms.model.dto.SelectionCriteriaCreatedDto;
 import br.ufs.dcomp.farms.model.dto.SelectionStepCreatedDto;
+import br.ufs.dcomp.farms.model.entity.CriteriaReviewJustification;
+import br.ufs.dcomp.farms.model.entity.CriteriaReviewJustificationPk;
 import br.ufs.dcomp.farms.model.entity.RatedContent;
 import br.ufs.dcomp.farms.model.entity.Review;
+import br.ufs.dcomp.farms.model.entity.SelectionCriteria;
 import br.ufs.dcomp.farms.model.entity.SelectionStep;
+import br.ufs.dcomp.farms.model.enums.CriteriaEnum;
 import br.ufs.dcomp.farms.model.enums.SelectionStatusEnum;
 import br.ufs.dcomp.farms.model.enums.SelectionStepStatusEnum;
 
@@ -42,6 +49,8 @@ public class SelectionService {
 	ResearcherDao researcherDao;
 	@Autowired
 	StudyDao studyDao;
+	@Autowired
+	CriteriaReviewJustificationDao criteriaReviewJustificationDao;
 
 	/**
 	 * Save configuration of selection Step of a project
@@ -49,6 +58,7 @@ public class SelectionService {
 	 * @param selectionCreateDto
 	 * @return
 	 */
+	@Transactional(rollbackFor = Exception.class)
 	public Boolean save(SelectionStepCreatedDto selectionCreateDto) {
 		SelectionStep selectionStep = new SelectionStep();
 
@@ -143,21 +153,43 @@ public class SelectionService {
 		return reviewCreatedDto;
 	}
 
+	/**
+	 * Save a realized review
+	 * @param reviewCreateDto
+	 * @return
+	 */
+	@Transactional(rollbackFor = Exception.class)
 	public Boolean realizeReview(ReviewCreateDto reviewCreateDto) {
 		Review review = new Review();
 		review.setIdReview(reviewCreateDto.getIdReview());
 		review.setDhAssign(reviewCreateDto.getDhAssign());
-		review.setDhReview(new Date (System.currentTimeMillis()));
-		review.setDsCommentary(reviewCreateDto.getDsCommentary());
+		review.setDhReview(new Date(System.currentTimeMillis()));
 		review.setTpStatus(SelectionStatusEnum.fromCode(reviewCreateDto.getTpStatus()));
 		review.setResearcher(researcherDao.get(reviewCreateDto.getIdResearcher()));
 		review.setStudy(studyDao.getByCdCiteKey(reviewCreateDto.getStudy().getCdCiteKey()));
-		
+
 		reviewDao.update(review);
-		
-		//verificar, falta os critérios
-		
-		
+
+		for (SelectionCriteriaCreatedDto sc : reviewCreateDto.getCriterias()) {
+			CriteriaReviewJustification criteriaReviewJustification = new CriteriaReviewJustification();
+			criteriaReviewJustification.setDsJustification(reviewCreateDto.getDsCommentary());
+
+			CriteriaReviewJustificationPk pk = new CriteriaReviewJustificationPk();
+			pk.setReview(review);
+
+			SelectionCriteria criteria = new SelectionCriteria();
+			criteria.setDsSelectionCriteria(sc.getDsSelectionCriteria());
+			criteria.setIdSelectionCriteria(sc.getIdSelectionCriteria());
+			criteria.setProject(projectDao.getByDsKey(sc.getDsProjectKey()));
+			criteria.setTpCriteria(CriteriaEnum.fromCode(sc.getTpCriteria()));
+			pk.setSelectionCriteria(criteria);
+
+			criteriaReviewJustification.setCriteriaReviewJustificationPk(pk);
+			
+			criteriaReviewJustificationDao.deleteCriteriaJustificationReview(reviewCreateDto.getIdReview(), criteria.getIdSelectionCriteria());
+
+			criteriaReviewJustificationDao.save(criteriaReviewJustification);
+		}
 		return true;
 	}
 

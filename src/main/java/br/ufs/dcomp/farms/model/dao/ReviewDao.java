@@ -42,5 +42,21 @@ public class ReviewDao extends HibernateDao<Review> {
 
 		return reviews;
 	}
+	
+	
+	/**
+	 * Update Date review and status
+	 * 
+	 * @param Review
+	 * @return
+	 */
+	public void update (Review review){
+		Query query = getSession()
+				.createQuery("update Review set dh_review = :dhReview, tp_status = :tpStatus" + " where idReview = :idReview");
+		query.setParameter("idReview", review.getIdReview());
+		query.setParameter("dhReview", review.getDhReview());
+		query.setParameter("tpStatus", review.getTpStatus().getCode());
+		System.out.println(query.executeUpdate());		
+	}
 
 }

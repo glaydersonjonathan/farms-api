@@ -39,7 +39,6 @@ public class ReviewCreatedDto {
 		this.idResearcher = review.getResearcher().getIdResearcher();
 		this.tpStatus = review.getTpStatus().getCode();
 		this.study = new StudyCreatedDto (review.getStudy());
-		this.dsCommentary = review.getDsCommentary();
 	}
 
 	public Long getIdReview() {

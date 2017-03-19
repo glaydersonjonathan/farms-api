@@ -29,7 +29,7 @@ public class Review {
 	private SelectionStatusEnum tpStatus;
 	private Researcher researcher;
 	private Study study;
-	private String dsCommentary;
+	
 	
 	public Review() {}
 
@@ -91,15 +91,6 @@ public class Review {
 
 	public void setStudy(Study study) {
 		this.study = study;
-	}
-	
-	@Column(name = "ds_commentary", nullable = true)
-	public String getDsCommentary() {
-		return dsCommentary;
-	}
-
-	public void setDsCommentary(String dsCommentary) {
-		this.dsCommentary = dsCommentary;
 	}
 
 }
