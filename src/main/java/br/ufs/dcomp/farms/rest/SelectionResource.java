@@ -22,6 +22,7 @@ import br.ufs.dcomp.farms.model.dto.RatedContentCreatedDto;
 import br.ufs.dcomp.farms.model.dto.ReviewCreateDto;
 import br.ufs.dcomp.farms.model.dto.ReviewCreatedDto;
 import br.ufs.dcomp.farms.model.dto.SelectionStepCreatedDto;
+import br.ufs.dcomp.farms.model.dto.StudyCreatedDto;
 import br.ufs.dcomp.farms.model.service.SelectionService;
 
 /**
@@ -132,6 +133,23 @@ public class SelectionResource {
 			return FarmsResponse.ok(SuccessMessage.REVIEW_FINALIZED, bool);
 		} catch (Exception ex) {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+	
+	
+	/**
+	 * Get studies in conflict
+	 * @param dsKey
+	 * @return
+	 */
+	@GET
+	@Path("/conflicts/{dsKey}")
+	public Response getStudiesInConflicts(@PathParam("dsKey") String dsKey) {
+		try {
+			List <StudyCreatedDto> studyCreatedDto = selectionService.getStudiesInConflict(dsKey);
+			return FarmsResponse.ok(studyCreatedDto);
+		} catch (Exception ex) {
+			return FarmsResponse.error(null);
 		}
 	}
 	

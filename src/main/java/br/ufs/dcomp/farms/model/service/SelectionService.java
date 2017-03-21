@@ -20,12 +20,14 @@ import br.ufs.dcomp.farms.model.dto.ReviewCreateDto;
 import br.ufs.dcomp.farms.model.dto.ReviewCreatedDto;
 import br.ufs.dcomp.farms.model.dto.SelectionCriteriaCreatedDto;
 import br.ufs.dcomp.farms.model.dto.SelectionStepCreatedDto;
+import br.ufs.dcomp.farms.model.dto.StudyCreatedDto;
 import br.ufs.dcomp.farms.model.entity.CriteriaReviewJustification;
 import br.ufs.dcomp.farms.model.entity.CriteriaReviewJustificationPk;
 import br.ufs.dcomp.farms.model.entity.RatedContent;
 import br.ufs.dcomp.farms.model.entity.Review;
 import br.ufs.dcomp.farms.model.entity.SelectionCriteria;
 import br.ufs.dcomp.farms.model.entity.SelectionStep;
+import br.ufs.dcomp.farms.model.entity.Study;
 import br.ufs.dcomp.farms.model.enums.CriteriaEnum;
 import br.ufs.dcomp.farms.model.enums.SelectionStatusEnum;
 import br.ufs.dcomp.farms.model.enums.SelectionStepStatusEnum;
@@ -191,6 +193,15 @@ public class SelectionService {
 			criteriaReviewJustificationDao.save(criteriaReviewJustification);
 		}
 		return true;
+	}
+
+	public List <StudyCreatedDto> getStudiesInConflict(String dsKey) {	
+		List <StudyCreatedDto> result =  new ArrayList<StudyCreatedDto>();
+		for (Long id: reviewDao.reviewsConflicts(dsKey)){
+			Study study = studyDao.get(id);
+			result.add(new StudyCreatedDto(study));			
+		}
+		return result;
 	}
 
 }
