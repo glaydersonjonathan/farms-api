@@ -17,6 +17,7 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import br.ufs.dcomp.farms.model.enums.RoleEnum;
+import br.ufs.dcomp.farms.model.enums.StateEnum;
 
 @Entity
 @Table(name = "project_member")
@@ -28,8 +29,9 @@ public class ProjectMember implements Serializable {
 	private Long idProjectMember;
 	private Researcher researcher;
 	private Project project;
-	//private Institution institution; após reunião, deu se outro entendimento regra de negocio
 	private RoleEnum tpRole;
+	
+	private StateEnum tpState;
 	
 	public ProjectMember() {}
 
@@ -69,16 +71,7 @@ public class ProjectMember implements Serializable {
 	public void setProject(Project project) {
 		this.project = project;
 	}
-	
-/*	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_institution", nullable = false)
-	public Institution getInstitution() {
-		return institution;
-	}
-	
-	public void setInstitution(Institution institution) {
-		this.institution = institution;
-	}*/
+
 	
 	@Column(name = "tp_role", nullable = false)
 	@Enumerated(EnumType.ORDINAL)
@@ -88,5 +81,15 @@ public class ProjectMember implements Serializable {
 
 	public void setTpRole(RoleEnum tpRole) {
 		this.tpRole = tpRole;
+	}
+	
+	@Column(name = "tp_state", nullable = false)
+	@Enumerated(EnumType.STRING)
+	public StateEnum getTpState() {
+		return tpState;
+	}
+
+	public void setTpState(StateEnum tpState) {
+		this.tpState = tpState;
 	}
 }

@@ -138,5 +138,13 @@ public final class SuccessMessage extends Message {
 	private static final Integer REVIEW_FINALIZED_CODE = 1030;
 	private static final String REVIEW_FINALIZED_DESCRIPTION = "Review saved.";
 	public static final SuccessMessage REVIEW_FINALIZED = new SuccessMessage(REVIEW_FINALIZED_CODE, REVIEW_FINALIZED_DESCRIPTION);
+	
+	private static final Integer MEMBER_INACTIVED_CODE = 1031;
+	private static final String MEMBER_INACTIVED_DESCRIPTION = "Member sucessfully inactived.";
+	public static final SuccessMessage MEMBER_INACTIVED = new SuccessMessage(MEMBER_INACTIVED_CODE, MEMBER_INACTIVED_DESCRIPTION);
+	
+	private static final Integer MEMBER_ACTIVED_CODE = 1032;
+	private static final String MEMBER_ACTIVED_DESCRIPTION = "Member sucessfully actived.";
+	public static final SuccessMessage MEMBER_ACTIVED = new SuccessMessage(MEMBER_ACTIVED_CODE, MEMBER_ACTIVED_DESCRIPTION);
 
 }

@@ -7,6 +7,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -200,6 +201,33 @@ public class ProjectResource {
 		try {
 			int roleCode = projectMemberService.getRole(dsKey, dsUserName);
 			return FarmsResponse.ok(roleCode);
+		} catch (Exception ex) {
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+	
+	/**
+	 * Turn member inactive
+	 * @param idProjectMember
+	 * @return
+	 */
+	@DELETE
+	@Path("/members/{idProjectMember}")
+	public Response inactiveResearcher(@PathParam("idProjectMember") Long idProjectMember) {
+		try {
+			Boolean bool = projectMemberService.inactive(idProjectMember);
+			return FarmsResponse.ok(SuccessMessage.MEMBER_INACTIVED, bool);
+		} catch (Exception ex) {
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+	
+	@PUT
+	@Path("/members/active/{idProjectMember}")
+	public Response activeResearcher(@PathParam("idProjectMember") Long idProjectMember) {
+		try {
+			Boolean bool = projectMemberService.active(idProjectMember);
+			return FarmsResponse.ok(SuccessMessage.MEMBER_ACTIVED, bool);
 		} catch (Exception ex) {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}

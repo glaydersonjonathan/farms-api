@@ -10,7 +10,7 @@ public class ProjectMemberDto {
 	private String dsEmail;
 	private Integer tpConfirmed;
 	private String tpRole;
-	//private String nmInstitution;
+	private String tpState;
 	
 	public ProjectMemberDto() {}
 	
@@ -22,7 +22,7 @@ public class ProjectMemberDto {
 		this.dsEmail = projectMember.getResearcher().getDsEmail();
 		this.tpConfirmed = projectMember.getResearcher().getTpConfirmed().getCode();
 		this.tpRole = projectMember.getTpRole().getDescription();
-		//this.nmInstitution = projectMember.getInstitution().getNmInstitution();
+		this.tpState = projectMember.getTpState().getDescription();
 	}
 
 	public Long getIdProjectMember() {
@@ -73,11 +73,12 @@ public class ProjectMemberDto {
 		this.tpRole = tpRole;
 	}
 
-/*	public String getNmInstitution() {
-		return nmInstitution;
+	public String getTpState() {
+		return tpState;
 	}
 
-	public void setNmInstitution(String nmInstitution) {
-		this.nmInstitution = nmInstitution;
-	}*/
+	public void setTpState(String tpState) {
+		this.tpState = tpState;
+	}
+
 }

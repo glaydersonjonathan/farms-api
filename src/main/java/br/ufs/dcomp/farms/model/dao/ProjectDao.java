@@ -53,7 +53,7 @@ public class ProjectDao extends HibernateDao<Project> {
 		StringBuilder sbHql = new StringBuilder();
 		sbHql.append("from Project p");
 		sbHql.append(" join fetch p.projectMembers pm");
-		sbHql.append(" where pm.researcher.dsSSO = :dsSSO");
+		sbHql.append(" where pm.researcher.dsSSO = :dsSSO and pm.tpState != 'I'");
 		
 		Query query = getSession().createQuery(sbHql.toString());
 		query.setParameter("dsSSO", dsSSO);

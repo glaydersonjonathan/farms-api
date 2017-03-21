@@ -82,6 +82,7 @@ public class ProjectMemberService {
 		projectMember.setResearcher(researcher);
 		projectMember.setProject(project);
 		projectMember.setTpRole(RoleEnum.MEMBER);
+		projectMember.setTpState(StateEnum.A);
 		projectMemberDao.save(projectMember);
 
 		return true;
@@ -98,5 +99,23 @@ public class ProjectMemberService {
 		Researcher researcher = researcherDao.getByDsSSO(dsUserName);
 		Project project = projectDao.getByDsKey(dsKey);
 		return projectMemberDao.getResearcherRole(project.getIdProject(), researcher.getIdResearcher());
+	}
+
+	/**
+	 * Turns member inactive
+	 * @param idProjectMember
+	 * @return
+	 */
+	public Boolean inactive(Long idProjectMember) {
+		return projectMemberDao.inactive(idProjectMember);
+	}
+
+	/**
+	 * Turns member active
+	 * @param idProjectMember
+	 * @return
+	 */
+	public Boolean active(Long idProjectMember) {
+		return projectMemberDao.active(idProjectMember);
 	}
 }

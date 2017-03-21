@@ -21,6 +21,7 @@ import br.ufs.dcomp.farms.model.entity.ProjectMember;
 import br.ufs.dcomp.farms.model.entity.Researcher;
 import br.ufs.dcomp.farms.model.enums.ReviewEnum;
 import br.ufs.dcomp.farms.model.enums.RoleEnum;
+import br.ufs.dcomp.farms.model.enums.StateEnum;
 
 /**
  * @author farms
@@ -79,11 +80,9 @@ public class ProjectService {
 		ProjectMember projectMember = new ProjectMember();
 		projectMember.setResearcher(researcher);
 		projectMember.setProject(project);
-		// projectMember.setInstitution(institution);
+		projectMember.setTpState(StateEnum.A);
 		projectMember.setTpRole(RoleEnum.COORDINATOR);
 		projectMemberDao.save(projectMember);
-
-		//ProjectCreatedDto projectCreatedDto = new ProjectCreatedDto(project, projectMember);
 
 		return true;
 	}
@@ -97,15 +96,6 @@ public class ProjectService {
 	 */
 	@Transactional(rollbackFor = FarmsException.class)
 	public boolean update(ProjectCreatedDto projectCreatedDto) throws FarmsException {
-
-		/*
-		 * Project project_verify =
-		 * projectDao.getByDsKey(projectCreatedDto.getDsKey());
-		 * 
-		 * if (project_verify != null) { throw new
-		 * FarmsException(ErrorMessage.KEY_ALREADY_IN_USE); }
-		 */
-
 		Project project = new Project();
 		project.setDsKey(projectCreatedDto.getDsKey());
 		project.setDsTitle(projectCreatedDto.getDsTitle());

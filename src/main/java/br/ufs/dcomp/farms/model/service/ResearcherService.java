@@ -120,11 +120,8 @@ public class ResearcherService {
 	 * @param researcherRegisterDto
 	 * @return boolean
 	 */
-	
-	
 	public boolean inactive(Long idResearcher) {
 		return researcherDAO.inactive(idResearcher);
-
 	}
 
 	/**

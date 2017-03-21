@@ -96,4 +96,32 @@ public class ProjectMemberDao extends HibernateDao<ProjectMember> {
 			return false;
 		}
 	}
+
+	/**
+	 * Turns member inactive
+	 * @param idProjectMember
+	 * @return
+	 */
+	public Boolean inactive(Long idProjectMember) {
+		Query query = getSession()
+				.createQuery("update ProjectMember set tp_state = :tpState" + " where idProjectMember = :idProjectMember");
+		query.setParameter("idProjectMember", idProjectMember);
+		query.setParameter("tpState", "I");
+		System.out.println(query.executeUpdate());
+		return true;
+	}
+
+	/**
+	 * Turns member active
+	 * @param idProjectMember
+	 * @return
+	 */
+	public Boolean active(Long idProjectMember) {
+		Query query = getSession()
+				.createQuery("update ProjectMember set tp_state = :tpState" + " where idProjectMember = :idProjectMember");
+		query.setParameter("idProjectMember", idProjectMember);
+		query.setParameter("tpState", "A");
+		System.out.println(query.executeUpdate());
+		return true;
+	}
 }
