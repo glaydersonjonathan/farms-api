@@ -217,11 +217,16 @@ public class SelectionService {
 		return true;
 	}
 
+	/**
+	 * Get studies in conflict by dsKey project
+	 * @param dsKey
+	 * @return
+	 */
 	public List<StudyCreatedDto> getStudiesInConflict(String dsKey) {
 		List<StudyCreatedDto> result = new ArrayList<StudyCreatedDto>();
 		for (BigInteger id : reviewDao.reviewsConflicts(dsKey)) {
 			Study study = studyDao.get(id.longValue());
-			result.add(new StudyCreatedDto(study));
+			result.add(new StudyCreatedDto(study, reviewDao.scoreAccepted(study.getIdStudy()).longValue(), reviewDao.scoreRejected(study.getIdStudy()).longValue()));
 		}
 		return result;
 	}

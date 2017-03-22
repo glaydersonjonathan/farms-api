@@ -59,21 +59,6 @@ public class ReviewDao extends HibernateDao<Review> {
 		query.setParameter("tpStatus", review.getTpStatus().getCode());
 		System.out.println(query.executeUpdate());
 	}
-
-	/**
-	 * Get id's of study in conflicts.
-	 * @param dsKey
-	 * @return
-	 */
-	public List<BigInteger> reviewsConflicts (String dsKey){
-		Query query = getSession().createSQLQuery("select id_study from studies_in_conflicts where ds_key =:dsKey");
-		query.setParameter("dsKey", dsKey);
-	
-		List<BigInteger> ids = query.list();
-
-		return ids;
-	}
-	
 	
 	/**
 	 * getReviewByStudyAndResearcher
@@ -93,6 +78,49 @@ public class ReviewDao extends HibernateDao<Review> {
 		List<Review> reviews = query.list();
 
 		return reviews;
+	}
+	
+	/**
+	 * Get id's of study in conflicts.
+	 * @param dsKey
+	 * @return
+	 */
+	public List<BigInteger> reviewsConflicts (String dsKey){
+		Query query = getSession().createSQLQuery("select id_study from studies_in_conflicts where ds_key =:dsKey");
+		query.setParameter("dsKey", dsKey);
+	
+		List<BigInteger> ids = query.list();
+
+		return ids;
+	}
+	
+
+	/**
+	 * Score of accepts per study
+	 * @param idStudy
+	 * @return
+	 */
+	public BigInteger scoreAccepted (Long idStudy){
+		Query query = getSession().createSQLQuery("select accepted from score_conflicts where id_study =:idStudy");
+		query.setParameter("idStudy", idStudy);
+	
+		List<BigInteger> qtd = query.list();
+
+		return qtd.get(0);
+	}
+	
+	/**
+	 * Score of rejects per study
+	 * @param idStudy
+	 * @return
+	 */
+	public BigInteger scoreRejected (Long idStudy){
+		Query query = getSession().createSQLQuery("select rejected from score_conflicts where id_study =:idStudy");
+		query.setParameter("idStudy", idStudy);
+	
+		List<BigInteger> qtd = query.list();
+
+		return qtd.get(0);
 	}
 
 }
