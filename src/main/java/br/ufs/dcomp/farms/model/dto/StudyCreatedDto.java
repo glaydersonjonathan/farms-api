@@ -31,6 +31,9 @@ public class StudyCreatedDto {
 	
 	private Long idStudy;
 	
+	private Long accepted;
+	private Long rejected;
+	
 	public StudyCreatedDto() {}
 	
 	public StudyCreatedDto(Study study) {
@@ -53,10 +56,38 @@ public class StudyCreatedDto {
 		this.tpReadingRate = study.getTpReadingRate();
 		this.tpStatus = study.getTpStatus();
 		this.dsKeyProject = study.getProject().getDsKey();
-		this.idSearch = study.getSearch().getIdSearch();
-		
+		this.idSearch = study.getSearch().getIdSearch();	
 		this.idStudy = study.getIdStudy();
 	}
+	
+	
+	public StudyCreatedDto(Study study, Long accepted, Long rejected) {
+		super();
+		this.cdCiteKey = study.getCdCiteKey();
+		this.dsTitle = study.getDsTitle();
+		this.nmAuthor = study.getNmAuthor();
+		this.dsAbstract = study.getDsAbstract();
+		this.dsKeyword = study.getDsKeyword();
+		this.nrYear = study.getNrYear();
+		this.dsVolume = study.getDsVolume();
+		this.dsUrl = study.getDsUrl();
+		this.cdIssnIsbn = study.getCdIssnIsbn();
+		this.cdDoi = study.getCdDoi();
+		this.dsType = study.getDsType();
+		this.dsPage = study.getDsPage();
+		this.dsComment = study.getDsComment();
+		this.dsJournal = study.getDsJournal();
+		this.tpVenue = study.getTpVenue();
+		this.tpReadingRate = study.getTpReadingRate();
+		this.tpStatus = study.getTpStatus();
+		this.dsKeyProject = study.getProject().getDsKey();
+		this.idSearch = study.getSearch().getIdSearch();	
+		this.idStudy = study.getIdStudy();
+		this.accepted = accepted;
+		this.rejected  = rejected;
+	}
+	
+	
 	
 	public StudyCreatedDto(String cdCiteKey, String dsTitle, String nmAuthor, String dsAbstract, String dsKeyword, Integer nrYear,
 			String dsVolume, String dsUrl, String cdIssnIsbn, String cdDoi, String dsType, String dsPage,
@@ -80,7 +111,6 @@ public class StudyCreatedDto {
 		this.tpVenue = tpVenue;
 		this.tpReadingRate = tpReadingRate;
 		this.tpStatus = tpStatus;
-//		this.search = search;
 		this.idStudy = idStudy;
 	}
 
@@ -242,6 +272,22 @@ public class StudyCreatedDto {
 
 	public void setIdStudy(Long idStudy) {
 		this.idStudy = idStudy;
+	}
+
+	public Long getAccepted() {
+		return accepted;
+	}
+
+	public void setAccepted(Long accepted) {
+		this.accepted = accepted;
+	}
+
+	public Long getRejected() {
+		return rejected;
+	}
+
+	public void setRejected(Long rejected) {
+		this.rejected = rejected;
 	}
 	
 	

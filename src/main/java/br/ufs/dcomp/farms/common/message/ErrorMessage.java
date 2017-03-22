@@ -82,4 +82,8 @@ public class ErrorMessage extends Message {
 	private static final Integer STUDY_IN_REVIEW_CODE = 2011;
 	private static final String STUDY_IN_REVIEW_DESCRIPTION = "This study already in review.";
 	public static final ErrorMessage STUDY_IN_REVIEW = new ErrorMessage(STUDY_IN_REVIEW_CODE, STUDY_IN_REVIEW_DESCRIPTION);
+	
+	private static final Integer STUDY_ALREADY_ASSIGNED_CODE = 2012;
+	private static final String  STUDY_ALREADY_ASSIGNED_DESCRIPTION = "At least one of the studies was already assigned to the researcher. If remains studies, assigned successfully.";
+	public static final ErrorMessage  STUDY_ALREADY_ASSIGNED = new ErrorMessage( STUDY_ALREADY_ASSIGNED_CODE,  STUDY_ALREADY_ASSIGNED_DESCRIPTION);
 }

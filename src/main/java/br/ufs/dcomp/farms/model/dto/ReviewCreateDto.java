@@ -3,6 +3,8 @@ package br.ufs.dcomp.farms.model.dto;
 import java.util.Date;
 import java.util.List;
 
+import br.ufs.dcomp.farms.model.entity.Review;
+
 
 
 
@@ -15,7 +17,7 @@ public class ReviewCreateDto {
 	private List<SelectionCriteriaCreatedDto> criterias;
 	private Long idReview;
 	
-	private Integer tpStatus;
+	private String tpStatus;
 	private Long idResearcher;
 	private StudyCreatedDto study;
 
@@ -25,9 +27,21 @@ public class ReviewCreateDto {
 		this.dsSSO = dsSSO;
 		this.dhAssign = dhAssign;
 	}
+	
+	
+	public ReviewCreateDto(Review review, String dsCommentary, List<SelectionCriteriaCreatedDto> criterias) {
+		this.idReview = review.getIdReview();
+		this.dhAssign = review.getDhAssign();
+		this.dhReview = review.getDhReview();
+		this.idResearcher = review.getResearcher().getIdResearcher();
+		this.tpStatus = review.getTpStatus().getCode().toString();
+		this.study = new StudyCreatedDto (review.getStudy());
+		this.dsCommentary = dsCommentary;
+		this.criterias = criterias;
+	}
 
 	public ReviewCreateDto(List<Long> studies, String dsSSO, Date dhAssign, Date dhReview, String dsCommentary,
-			List<SelectionCriteriaCreatedDto> criterias, Long idReview, Integer tpStatus, Long idResearcher, StudyCreatedDto study) {
+			List<SelectionCriteriaCreatedDto> criterias, Long idReview, String tpStatus, Long idResearcher, StudyCreatedDto study) {
 		super();
 		this.studies = studies;
 		this.dsSSO = dsSSO;
@@ -101,11 +115,11 @@ public class ReviewCreateDto {
 		this.idReview = idReview;
 	}
 
-	public Integer getTpStatus() {
+	public String getTpStatus() {
 		return tpStatus;
 	}
 
-	public void setTpStatus(Integer tpStatus) {
+	public void setTpStatus(String tpStatus) {
 		this.tpStatus = tpStatus;
 	}
 

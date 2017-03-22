@@ -23,7 +23,7 @@ public class CriteriaReviewJustification {
 		CriteriaReviewJustificationPk = criteriaReviewJustificationPk;
 	}
 	
-	@Column(name = "ds_justification", nullable = false)
+	@Column(name = "ds_justification", nullable = true)
 	public String getDsJustification() {
 		return dsJustification;
 	}

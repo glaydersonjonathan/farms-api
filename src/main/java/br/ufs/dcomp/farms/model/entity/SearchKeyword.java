@@ -1,5 +1,7 @@
 package br.ufs.dcomp.farms.model.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,8 +18,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "search_keyword")
 @XmlRootElement
 @SequenceGenerator(name = "SearchKeywordSequenceGenerator", sequenceName = "sq_search_keyword")
-public class SearchKeyword {
+public class SearchKeyword  implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private Long idSearchKeyword;
 	private String dsSearchKeyword;
 	private Project project;
@@ -44,7 +47,7 @@ public class SearchKeyword {
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "SearchKeywordSequenceGenerator")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SearchKeywordSequenceGenerator")
 	@Column(name = "id_search_keyword", nullable = false, unique = true)
 	public Long getIdSearchKeyword() {
 		return idSearchKeyword;

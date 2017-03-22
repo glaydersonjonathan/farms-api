@@ -17,10 +17,11 @@ import org.springframework.stereotype.Component;
 
 import br.ufs.dcomp.farms.common.message.ErrorMessage;
 import br.ufs.dcomp.farms.common.message.SuccessMessage;
+import br.ufs.dcomp.farms.core.FarmsException;
 import br.ufs.dcomp.farms.core.FarmsResponse;
 import br.ufs.dcomp.farms.model.dto.RatedContentCreatedDto;
 import br.ufs.dcomp.farms.model.dto.ReviewCreateDto;
-import br.ufs.dcomp.farms.model.dto.ReviewCreatedDto;
+//import br.ufs.dcomp.farms.model.dto.ReviewCreatedDto;
 import br.ufs.dcomp.farms.model.dto.SelectionStepCreatedDto;
 import br.ufs.dcomp.farms.model.dto.StudyCreatedDto;
 import br.ufs.dcomp.farms.model.service.SelectionService;
@@ -101,7 +102,10 @@ public class SelectionResource {
 		try {
 			Boolean bool = selectionService.assignManual(reviewCreateDto);
 			return FarmsResponse.ok(SuccessMessage.STUDIES_MANUAL_ASSIGNED, bool);
-		} catch (Exception ex) {
+		} catch (FarmsException fe){
+			return FarmsResponse.error(fe.getErrorMessage());
+		}
+		catch (Exception ex) {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -117,7 +121,7 @@ public class SelectionResource {
 	@Path("/review/{dsKey}/{dsSSO}")
 	public Response getReviews(@PathParam("dsKey") String dsKey,@PathParam("dsSSO") String dsSSO ) {
 		try {
-			List<ReviewCreatedDto> reviewCreatedDto = selectionService.getReviews(dsKey, dsSSO);
+			List<ReviewCreateDto> reviewCreatedDto = selectionService.getReviews(dsKey, dsSSO);
 			return FarmsResponse.ok(reviewCreatedDto);
 		} catch (Exception ex) {
 			return FarmsResponse.error(null);
@@ -125,6 +129,11 @@ public class SelectionResource {
 	}
 	
 
+	/**
+	 * Update state of review.
+	 * @param reviewCreateDto
+	 * @return
+	 */
 	@POST
 	@Path("/realizeReview")
 	public Response realizeReview(ReviewCreateDto reviewCreateDto) {

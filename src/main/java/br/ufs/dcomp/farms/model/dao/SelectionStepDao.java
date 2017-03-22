@@ -44,21 +44,10 @@ public class SelectionStepDao extends HibernateDao<SelectionStep> {
 	 * @param idProject
 	 */
 	public void delete(Long idProject) {
-		Transaction transaction = getSession().beginTransaction();
-		try {
-			// your code
 			String hql = "delete from SelectionStep where project.idProject= :idProject";
 			Query query = getSession().createQuery(hql);
 			query.setLong("idProject", idProject);
 			System.out.println(query.executeUpdate());
-			// your code end
-
-			transaction.commit();
-		} catch (Throwable t) {
-			transaction.rollback();
-			throw t;
-		}
-
 	}
 
 }
