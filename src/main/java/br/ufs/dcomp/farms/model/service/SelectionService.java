@@ -162,14 +162,22 @@ public class SelectionService {
 	public List<ReviewCreateDto> getReviews(String dsKey, String dsSSO) {
 		List<ReviewCreateDto> reviewCreatedDto = new ArrayList<ReviewCreateDto>();
 		List<Review> reviews = reviewDao.getStudiesToReview(dsKey, dsSSO);
-		
+
 		if (reviews != null) {
 			for (Review review : reviews) {
-				List<CriteriaReviewJustification> criterias = criteriaReviewJustificationDao.getByIdReview(review.getIdReview());
+				List<CriteriaReviewJustification> criterias = criteriaReviewJustificationDao
+						.getByIdReview(review.getIdReview());
 				List<SelectionCriteriaCreatedDto> ids = new ArrayList<SelectionCriteriaCreatedDto>();
-				for (CriteriaReviewJustification criteria: criterias)
-				ids.add(new SelectionCriteriaCreatedDto(criteria.getCriteriaReviewJustificationPk().getSelectionCriteria()));
-				reviewCreatedDto.add(new ReviewCreateDto(review, criterias.get(0).getDsJustification(), ids));
+				for (CriteriaReviewJustification criteria : criterias) {
+					ids.add(new SelectionCriteriaCreatedDto(
+							criteria.getCriteriaReviewJustificationPk().getSelectionCriteria()));
+				}
+
+				if (criterias.size() > 0) {
+					reviewCreatedDto.add(new ReviewCreateDto(review, criterias.get(0).getDsJustification(), ids));
+				} else {
+					reviewCreatedDto.add(new ReviewCreateDto(review, null, ids));
+				}
 			}
 		}
 		return reviewCreatedDto;
@@ -219,6 +227,7 @@ public class SelectionService {
 
 	/**
 	 * Get studies in conflict by dsKey project
+	 * 
 	 * @param dsKey
 	 * @return
 	 */
@@ -226,7 +235,8 @@ public class SelectionService {
 		List<StudyCreatedDto> result = new ArrayList<StudyCreatedDto>();
 		for (BigInteger id : reviewDao.reviewsConflicts(dsKey)) {
 			Study study = studyDao.get(id.longValue());
-			result.add(new StudyCreatedDto(study, reviewDao.scoreAccepted(study.getIdStudy()).longValue(), reviewDao.scoreRejected(study.getIdStudy()).longValue()));
+			result.add(new StudyCreatedDto(study, reviewDao.scoreAccepted(study.getIdStudy()).longValue(),
+					reviewDao.scoreRejected(study.getIdStudy()).longValue()));
 		}
 		return result;
 	}
