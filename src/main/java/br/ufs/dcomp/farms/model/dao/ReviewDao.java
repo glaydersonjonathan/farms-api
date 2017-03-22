@@ -122,5 +122,19 @@ public class ReviewDao extends HibernateDao<Review> {
 
 		return qtd.get(0);
 	}
+	
+	/**
+	 * Score of unclassified per study
+	 * @param idStudy
+	 * @return
+	 */
+	public BigInteger scoreUnclassified (Long idStudy){
+		Query query = getSession().createSQLQuery("select unclassified from score_conflicts where id_study =:idStudy");
+		query.setParameter("idStudy", idStudy);
+	
+		List<BigInteger> qtd = query.list();
+
+		return qtd.get(0);
+	}
 
 }

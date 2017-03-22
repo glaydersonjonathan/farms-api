@@ -236,7 +236,7 @@ public class SelectionService {
 		for (BigInteger id : reviewDao.reviewsConflicts(dsKey)) {
 			Study study = studyDao.get(id.longValue());
 			result.add(new StudyCreatedDto(study, reviewDao.scoreAccepted(study.getIdStudy()).longValue(),
-					reviewDao.scoreRejected(study.getIdStudy()).longValue()));
+					reviewDao.scoreRejected(study.getIdStudy()).longValue(), reviewDao.scoreUnclassified(study.getIdStudy()).longValue()));
 		}
 		return result;
 	}

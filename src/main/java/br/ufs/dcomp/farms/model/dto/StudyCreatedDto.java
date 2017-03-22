@@ -33,6 +33,7 @@ public class StudyCreatedDto {
 	
 	private Long accepted;
 	private Long rejected;
+	private Long unclassified;
 	
 	public StudyCreatedDto() {}
 	
@@ -61,7 +62,7 @@ public class StudyCreatedDto {
 	}
 	
 	
-	public StudyCreatedDto(Study study, Long accepted, Long rejected) {
+	public StudyCreatedDto(Study study, Long accepted, Long rejected, Long unclassified) {
 		super();
 		this.cdCiteKey = study.getCdCiteKey();
 		this.dsTitle = study.getDsTitle();
@@ -85,6 +86,7 @@ public class StudyCreatedDto {
 		this.idStudy = study.getIdStudy();
 		this.accepted = accepted;
 		this.rejected  = rejected;
+		this.unclassified = unclassified;
 	}
 	
 	
@@ -288,6 +290,14 @@ public class StudyCreatedDto {
 
 	public void setRejected(Long rejected) {
 		this.rejected = rejected;
+	}
+
+	public Long getUnclassified() {
+		return unclassified;
+	}
+
+	public void setUnclassified(Long unclassified) {
+		this.unclassified = unclassified;
 	}
 	
 	

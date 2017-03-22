@@ -136,7 +136,7 @@ public class ProjectResource {
 	@Path("/{dsKey}/institutions")
 	public Response getInstitutionsByDsKeyProject(@PathParam("dsKey") String dsKey) {
 		if (dsKey.equals("null")) {
-			return FarmsResponse.error(ErrorMessage.NO_PROJECT_OPEN);
+			return null;
 		}
 
 		try {
@@ -157,7 +157,7 @@ public class ProjectResource {
 	@Path("/{dsKey}/members")
 	public Response getMembersByDsKeyProject(@PathParam("dsKey") String dsKey) {
 		if (dsKey.equals("null")) {
-			return FarmsResponse.error(ErrorMessage.NO_PROJECT_OPEN);
+			return null;
 		}
 
 		try {
