@@ -1,5 +1,5 @@
 package br.ufs.dcomp.farms.model.service;
-
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -197,8 +197,8 @@ public class SelectionService {
 
 	public List <StudyCreatedDto> getStudiesInConflict(String dsKey) {	
 		List <StudyCreatedDto> result =  new ArrayList<StudyCreatedDto>();
-		for (Long id: reviewDao.reviewsConflicts(dsKey)){
-			Study study = studyDao.get(id);
+		for (BigInteger id: reviewDao.reviewsConflicts(dsKey)){
+			Study study = studyDao.get(id.longValue());
 			result.add(new StudyCreatedDto(study));			
 		}
 		return result;

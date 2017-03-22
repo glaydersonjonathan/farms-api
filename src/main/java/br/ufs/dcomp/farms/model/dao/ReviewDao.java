@@ -1,12 +1,13 @@
 package br.ufs.dcomp.farms.model.dao;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.hibernate.Query;
 import org.springframework.stereotype.Component;
 
 import br.ufs.dcomp.farms.model.entity.Review;
-import br.ufs.dcomp.farms.model.entity.Study;
+
 
 /**
  * @author farms
@@ -59,14 +60,12 @@ public class ReviewDao extends HibernateDao<Review> {
 		System.out.println(query.executeUpdate());
 	}
 
-	public List<Long> reviewsConflicts (String dsKey){
-		StringBuilder sbHql = new StringBuilder();
-		sbHql.append("select id_study from (select count (id_study) as ce, id_study from ( select foo.id_study, foo.tp_status from (select id_study, r.tp_status from review r left join study using (id_study) left join project using (id_project) where r.tp_status !=0  and ds_key = 'tcc' group by id_study, r.tp_status) as foo) as foo2 group by id_study) as foo3 where ce > 1");
-
-		Query query = getSession().createQuery(sbHql.toString());
-		query.setParameter("dsKey", dsKey);
+	public List<BigInteger> reviewsConflicts (String dsKey){
+		Query query2 = getSession().createSQLQuery("select id_study from studies_in_conflicts where ds_key =:dsKey");
+		//Query query = getSession().createQuery("select id_study from studies_in_conflicts where ds_key =:dsKey");
+		query2.setParameter("dsKey", dsKey);
 	
-		List<Long> ids = query.list();
+		List<BigInteger> ids = query2.list();
 
 		return ids;
 	}
