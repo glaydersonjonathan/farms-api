@@ -60,14 +60,39 @@ public class ReviewDao extends HibernateDao<Review> {
 		System.out.println(query.executeUpdate());
 	}
 
+	/**
+	 * Get id's of study in conflicts.
+	 * @param dsKey
+	 * @return
+	 */
 	public List<BigInteger> reviewsConflicts (String dsKey){
-		Query query2 = getSession().createSQLQuery("select id_study from studies_in_conflicts where ds_key =:dsKey");
-		//Query query = getSession().createQuery("select id_study from studies_in_conflicts where ds_key =:dsKey");
-		query2.setParameter("dsKey", dsKey);
+		Query query = getSession().createSQLQuery("select id_study from studies_in_conflicts where ds_key =:dsKey");
+		query.setParameter("dsKey", dsKey);
 	
-		List<BigInteger> ids = query2.list();
+		List<BigInteger> ids = query.list();
 
 		return ids;
+	}
+	
+	
+	/**
+	 * getReviewByStudyAndResearcher
+	 * @param idStudy
+	 * @param idResearcher
+	 * @return
+	 */
+	public List<Review> getReviewByStudyAndResearcher (Long idStudy, Long idResearcher){
+		StringBuilder sbHql = new StringBuilder();
+		sbHql.append("from Review r");
+		sbHql.append(" where r.study.idStudy = :idStudy and r.researcher.idResearcher = :idResearcher");
+
+		Query query = getSession().createQuery(sbHql.toString());
+		query.setParameter("idStudy",idStudy);
+		query.setParameter("idResearcher", idResearcher);
+
+		List<Review> reviews = query.list();
+
+		return reviews;
 	}
 
 }

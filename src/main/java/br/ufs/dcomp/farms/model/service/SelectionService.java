@@ -1,4 +1,5 @@
 package br.ufs.dcomp.farms.model.service;
+
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.ufs.dcomp.farms.common.message.ErrorMessage;
+import br.ufs.dcomp.farms.core.FarmsException;
 import br.ufs.dcomp.farms.model.dao.CriteriaReviewJustificationDao;
 import br.ufs.dcomp.farms.model.dao.ProjectDao;
 import br.ufs.dcomp.farms.model.dao.RatedContentDao;
@@ -17,7 +20,6 @@ import br.ufs.dcomp.farms.model.dao.SelectionStepDao;
 import br.ufs.dcomp.farms.model.dao.StudyDao;
 import br.ufs.dcomp.farms.model.dto.RatedContentCreatedDto;
 import br.ufs.dcomp.farms.model.dto.ReviewCreateDto;
-import br.ufs.dcomp.farms.model.dto.ReviewCreatedDto;
 import br.ufs.dcomp.farms.model.dto.SelectionCriteriaCreatedDto;
 import br.ufs.dcomp.farms.model.dto.SelectionStepCreatedDto;
 import br.ufs.dcomp.farms.model.dto.StudyCreatedDto;
@@ -124,15 +126,28 @@ public class SelectionService {
 	 * 
 	 * @param reviewCreateDto
 	 * @return
+	 * @throws FarmsException
 	 */
-	public Boolean assignManual(ReviewCreateDto reviewCreateDto) {
+	public Boolean assignManual(ReviewCreateDto reviewCreateDto) throws FarmsException {
+		boolean verify_already_assigned = false;
 		for (Long idStudy : reviewCreateDto.getStudies()) {
 			Review review = new Review();
 			review.setResearcher(researcherDao.getByDsSSO(reviewCreateDto.getDsSSO()));
-			review.setDhAssign(reviewCreateDto.getDhAssign());
+			review.setDhAssign(new Date(System.currentTimeMillis()));
 			review.setTpStatus(SelectionStatusEnum.fromCode(0)); // assigned
 			review.setStudy(studyDao.get(idStudy));
-			reviewDao.save(review);
+
+			List<Review> list = reviewDao.getReviewByStudyAndResearcher(idStudy,
+					review.getResearcher().getIdResearcher());
+			if (list.size() > 0) {
+				verify_already_assigned = true;
+			} else {
+				reviewDao.save(review);
+			}
+		}
+
+		if (verify_already_assigned) {
+			throw new FarmsException(ErrorMessage.STUDY_ALREADY_ASSIGNED);
 		}
 		return true;
 	}
@@ -144,12 +159,17 @@ public class SelectionService {
 	 * @param dsSSO
 	 * @return
 	 */
-	public List<ReviewCreatedDto> getReviews(String dsKey, String dsSSO) {
-		List<ReviewCreatedDto> reviewCreatedDto = new ArrayList<ReviewCreatedDto>();
+	public List<ReviewCreateDto> getReviews(String dsKey, String dsSSO) {
+		List<ReviewCreateDto> reviewCreatedDto = new ArrayList<ReviewCreateDto>();
 		List<Review> reviews = reviewDao.getStudiesToReview(dsKey, dsSSO);
+		
 		if (reviews != null) {
 			for (Review review : reviews) {
-				reviewCreatedDto.add(new ReviewCreatedDto(review));
+				List<CriteriaReviewJustification> criterias = criteriaReviewJustificationDao.getByIdReview(review.getIdReview());
+				List<SelectionCriteriaCreatedDto> ids = new ArrayList<SelectionCriteriaCreatedDto>();
+				for (CriteriaReviewJustification criteria: criterias)
+				ids.add(new SelectionCriteriaCreatedDto(criteria.getCriteriaReviewJustificationPk().getSelectionCriteria()));
+				reviewCreatedDto.add(new ReviewCreateDto(review, criterias.get(0).getDsJustification(), ids));
 			}
 		}
 		return reviewCreatedDto;
@@ -157,6 +177,7 @@ public class SelectionService {
 
 	/**
 	 * Save a realized review
+	 * 
 	 * @param reviewCreateDto
 	 * @return
 	 */
@@ -166,7 +187,7 @@ public class SelectionService {
 		review.setIdReview(reviewCreateDto.getIdReview());
 		review.setDhAssign(reviewCreateDto.getDhAssign());
 		review.setDhReview(new Date(System.currentTimeMillis()));
-		review.setTpStatus(SelectionStatusEnum.fromCode(reviewCreateDto.getTpStatus()));
+		review.setTpStatus(SelectionStatusEnum.fromCode(Integer.parseInt(reviewCreateDto.getTpStatus())));
 		review.setResearcher(researcherDao.get(reviewCreateDto.getIdResearcher()));
 		review.setStudy(studyDao.getByCdCiteKey(reviewCreateDto.getStudy().getCdCiteKey()));
 
@@ -187,19 +208,20 @@ public class SelectionService {
 			pk.setSelectionCriteria(criteria);
 
 			criteriaReviewJustification.setCriteriaReviewJustificationPk(pk);
-			
-			criteriaReviewJustificationDao.deleteCriteriaJustificationReview(reviewCreateDto.getIdReview(), criteria.getIdSelectionCriteria());
+
+			criteriaReviewJustificationDao.deleteCriteriaJustificationReview(reviewCreateDto.getIdReview(),
+					criteria.getIdSelectionCriteria());
 
 			criteriaReviewJustificationDao.save(criteriaReviewJustification);
 		}
 		return true;
 	}
 
-	public List <StudyCreatedDto> getStudiesInConflict(String dsKey) {	
-		List <StudyCreatedDto> result =  new ArrayList<StudyCreatedDto>();
-		for (BigInteger id: reviewDao.reviewsConflicts(dsKey)){
+	public List<StudyCreatedDto> getStudiesInConflict(String dsKey) {
+		List<StudyCreatedDto> result = new ArrayList<StudyCreatedDto>();
+		for (BigInteger id : reviewDao.reviewsConflicts(dsKey)) {
 			Study study = studyDao.get(id.longValue());
-			result.add(new StudyCreatedDto(study));			
+			result.add(new StudyCreatedDto(study));
 		}
 		return result;
 	}
