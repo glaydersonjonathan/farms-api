@@ -13,11 +13,13 @@ import br.ufs.dcomp.farms.common.message.ErrorMessage;
 import br.ufs.dcomp.farms.core.FarmsException;
 import br.ufs.dcomp.farms.model.dao.CriteriaReviewJustificationDao;
 import br.ufs.dcomp.farms.model.dao.ProjectDao;
+import br.ufs.dcomp.farms.model.dao.ProjectMemberDao;
 import br.ufs.dcomp.farms.model.dao.RatedContentDao;
 import br.ufs.dcomp.farms.model.dao.ResearcherDao;
 import br.ufs.dcomp.farms.model.dao.ReviewDao;
 import br.ufs.dcomp.farms.model.dao.SelectionStepDao;
 import br.ufs.dcomp.farms.model.dao.StudyDao;
+import br.ufs.dcomp.farms.model.dto.ProjectMemberDto;
 import br.ufs.dcomp.farms.model.dto.RatedContentCreatedDto;
 import br.ufs.dcomp.farms.model.dto.ReviewCreateDto;
 import br.ufs.dcomp.farms.model.dto.SelectionCriteriaCreatedDto;
@@ -25,6 +27,7 @@ import br.ufs.dcomp.farms.model.dto.SelectionStepCreatedDto;
 import br.ufs.dcomp.farms.model.dto.StudyCreatedDto;
 import br.ufs.dcomp.farms.model.entity.CriteriaReviewJustification;
 import br.ufs.dcomp.farms.model.entity.CriteriaReviewJustificationPk;
+import br.ufs.dcomp.farms.model.entity.ProjectMember;
 import br.ufs.dcomp.farms.model.entity.RatedContent;
 import br.ufs.dcomp.farms.model.entity.Review;
 import br.ufs.dcomp.farms.model.entity.SelectionCriteria;
@@ -55,6 +58,8 @@ public class SelectionService {
 	StudyDao studyDao;
 	@Autowired
 	CriteriaReviewJustificationDao criteriaReviewJustificationDao;
+	@Autowired
+	ProjectMemberDao pmd;
 
 	/**
 	 * Save configuration of selection Step of a project
@@ -236,9 +241,44 @@ public class SelectionService {
 		for (BigInteger id : reviewDao.reviewsConflicts(dsKey)) {
 			Study study = studyDao.get(id.longValue());
 			result.add(new StudyCreatedDto(study, reviewDao.scoreAccepted(study.getIdStudy()).longValue(),
-					reviewDao.scoreRejected(study.getIdStudy()).longValue(), reviewDao.scoreUnclassified(study.getIdStudy()).longValue()));
+					reviewDao.scoreRejected(study.getIdStudy()).longValue(),
+					reviewDao.scoreUnclassified(study.getIdStudy()).longValue()));
 		}
 		return result;
+	}
+
+	public Boolean assignAuto(String dsKey) throws FarmsException {
+		List<ProjectMember> members = pmd.getByDsKeyProject(dsKey);
+		List<Study> studies = studyDao.getByDsKeyProject(dsKey);
+
+		boolean verify_already_assigned = false;
+		for (Study s : studies) {
+
+			for (int x = 0; x < members.size(); x++) {
+				Review review = new Review();
+
+				review.setResearcher(members.get(x).getResearcher());
+				review.setDhAssign(new Date(System.currentTimeMillis()));
+				review.setTpStatus(SelectionStatusEnum.fromCode(0)); // assigned
+				review.setStudy(s);
+
+				List<Review> list = reviewDao.getReviewByStudyAndResearcher(review.getStudy().getIdStudy(),
+						review.getResearcher().getIdResearcher());
+				if (list.size() > 0) {
+					verify_already_assigned = true;
+				} else {
+					reviewDao.save(review);
+				}
+			}
+
+		}
+
+		if (verify_already_assigned)
+		{
+			throw new FarmsException(ErrorMessage.STUDY_ALREADY_ASSIGNED);
+		}
+		return true;
+
 	}
 
 }

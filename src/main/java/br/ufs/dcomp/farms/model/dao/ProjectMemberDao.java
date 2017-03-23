@@ -41,6 +41,7 @@ public class ProjectMemberDao extends HibernateDao<ProjectMember> {
 	public List<ProjectMember> getByDsKeyProject(String dsKey) {
 		StringBuilder sbHql = new StringBuilder();
 		sbHql.append("from ProjectMember pm");
+		sbHql.append(" join fetch pm.researcher r");
 		sbHql.append(" join fetch pm.project p");
 		sbHql.append(" where p.dsKey = :dsKey");
 

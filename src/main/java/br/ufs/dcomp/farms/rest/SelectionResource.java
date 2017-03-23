@@ -19,6 +19,7 @@ import br.ufs.dcomp.farms.common.message.ErrorMessage;
 import br.ufs.dcomp.farms.common.message.SuccessMessage;
 import br.ufs.dcomp.farms.core.FarmsException;
 import br.ufs.dcomp.farms.core.FarmsResponse;
+import br.ufs.dcomp.farms.model.dto.ProjectMemberDto;
 import br.ufs.dcomp.farms.model.dto.RatedContentCreatedDto;
 import br.ufs.dcomp.farms.model.dto.ReviewCreateDto;
 //import br.ufs.dcomp.farms.model.dto.ReviewCreatedDto;
@@ -159,6 +160,21 @@ public class SelectionResource {
 			return FarmsResponse.ok(studyCreatedDto);
 		} catch (Exception ex) {
 			return FarmsResponse.error(null);
+		}
+	}
+	
+
+	@POST
+	@Path("/assignAuto/{dsKey}")
+	public Response assignAuto(@PathParam("dsKey")String dsKey) {
+		try {
+			Boolean bool = selectionService.assignAuto(dsKey);
+			return FarmsResponse.ok(SuccessMessage.STUDIES_MANUAL_ASSIGNED, bool);
+		} catch (FarmsException fe){
+			return FarmsResponse.error(fe.getErrorMessage());
+		}
+		catch (Exception ex) {
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
 	
