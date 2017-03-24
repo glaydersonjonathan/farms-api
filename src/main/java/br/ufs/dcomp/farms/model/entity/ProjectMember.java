@@ -30,12 +30,13 @@ public class ProjectMember implements Serializable {
 	private Researcher researcher;
 	private Project project;
 	private RoleEnum tpRole;
-	
-	private StateEnum tpState;
-	
-	public ProjectMember() {}
 
-	public ProjectMember(Researcher researcher, Project project,RoleEnum tpRole) {
+	private StateEnum tpState;
+
+	public ProjectMember() {
+	}
+
+	public ProjectMember(Researcher researcher, Project project, RoleEnum tpRole) {
 		this.researcher = researcher;
 		this.project = project;
 		this.tpRole = tpRole;
@@ -47,32 +48,31 @@ public class ProjectMember implements Serializable {
 	public Long getIdProjectMember() {
 		return idProjectMember;
 	}
-	
+
 	public void setIdProjectMember(Long idProjectMember) {
 		this.idProjectMember = idProjectMember;
 	}
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_researcher", nullable = false)
 	public Researcher getResearcher() {
 		return researcher;
 	}
-	
+
 	public void setResearcher(Researcher researcher) {
 		this.researcher = researcher;
 	}
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_project", nullable = false)
 	public Project getProject() {
 		return project;
 	}
-	
+
 	public void setProject(Project project) {
 		this.project = project;
 	}
 
-	
 	@Column(name = "tp_role", nullable = false)
 	@Enumerated(EnumType.ORDINAL)
 	public RoleEnum getTpRole() {
@@ -82,7 +82,7 @@ public class ProjectMember implements Serializable {
 	public void setTpRole(RoleEnum tpRole) {
 		this.tpRole = tpRole;
 	}
-	
+
 	@Column(name = "tp_state", nullable = false)
 	@Enumerated(EnumType.STRING)
 	public StateEnum getTpState() {

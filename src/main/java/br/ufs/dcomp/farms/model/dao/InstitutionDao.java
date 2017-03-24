@@ -121,13 +121,14 @@ public class InstitutionDao extends HibernateDao<Institution> {
 
 	/**
 	 * Delete institution from project
+	 * 
 	 * @param idProject
 	 * @param institutionCreatedDto
 	 */
 	public void deleteInstitution(Long idProject, Long idInstitution) {
 		Transaction transaction = getSession().beginTransaction();
 		try {
-			
+
 			String hql = "delete from Institution where project.idProject= :idProject and idInstitution =:idInstitution";
 			Query query = getSession().createQuery(hql);
 			query.setLong("idProject", idProject);
@@ -140,14 +141,14 @@ public class InstitutionDao extends HibernateDao<Institution> {
 			throw t;
 		}
 	}
-	
-	
+
 	/**
 	 * Count institutions of a project
+	 * 
 	 * @param idProject
 	 * @return
 	 */
-	public Long countInstitutions (Long idProject){
+	public Long countInstitutions(Long idProject) {
 		Query query = getSession().createQuery("select count(*) from Institution where project.idProject= :idProject");
 		query.setLong("idProject", idProject);
 		return (Long) query.uniqueResult();

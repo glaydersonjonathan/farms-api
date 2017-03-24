@@ -17,20 +17,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class SearchEngine implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private Long idSearchEngine;
 	private String nmSearchEngine;
-	
-	//verificar
-	//private Set<AdaptedQuery> adaptedQuerys = new HashSet<AdaptedQuery>(0);
-	
-	public SearchEngine() {}
-	
+
+	// verificar
+	// private Set<AdaptedQuery> adaptedQuerys = new HashSet<AdaptedQuery>(0);
+
+	public SearchEngine() {
+	}
+
 	public SearchEngine(String nmSearchEngine) {
 		this.nmSearchEngine = nmSearchEngine;
 	}
-
-
 
 	public SearchEngine(Long idSearchEngine, String nmSearchEngine) {
 		super();
@@ -62,13 +61,12 @@ public class SearchEngine implements Serializable {
 	public void setNmSearchEngine(String nmSearchEngine) {
 		this.nmSearchEngine = nmSearchEngine;
 	}
-	
-/*	@OneToMany(fetch = FetchType.LAZY, mappedBy = "searchEngine")
-	public Set<AdaptedQuery> getAdaptedQuerys() {
-		return this.adaptedQuerys;
-	}
 
-	public void setAdaptedQuerys(Set<AdaptedQuery> adaptedQuerys) {
-		this.adaptedQuerys = adaptedQuerys;
-	}*/
+	/*
+	 * @OneToMany(fetch = FetchType.LAZY, mappedBy = "searchEngine") public
+	 * Set<AdaptedQuery> getAdaptedQuerys() { return this.adaptedQuerys; }
+	 * 
+	 * public void setAdaptedQuerys(Set<AdaptedQuery> adaptedQuerys) {
+	 * this.adaptedQuerys = adaptedQuerys; }
+	 */
 }

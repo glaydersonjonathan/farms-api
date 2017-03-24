@@ -1,6 +1,5 @@
 package br.ufs.dcomp.farms.model.dto;
 
-
 import br.ufs.dcomp.farms.model.entity.StudyLanguage;
 
 public class LanguageCreatedDto {

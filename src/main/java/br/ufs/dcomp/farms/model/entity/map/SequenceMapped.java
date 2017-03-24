@@ -4,7 +4,7 @@ public class SequenceMapped {
 
 	private String nmSequence;
 	private boolean sequenceExists = false;
-	
+
 	public SequenceMapped() {
 		super();
 	}
@@ -13,7 +13,7 @@ public class SequenceMapped {
 		super();
 		this.nmSequence = nmSequence;
 	}
-	
+
 	public String getNmSequence() {
 		return nmSequence;
 	}

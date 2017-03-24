@@ -19,14 +19,14 @@ public class RatedContent {
 
 	private Long idRatedContent;
 	private String dsRatedContent;
-	
-	public RatedContent() {}
-	
+
+	public RatedContent() {
+	}
+
 	public RatedContent(String dsRatedContent) {
 		this.dsRatedContent = dsRatedContent;
 	}
 
-	
 	public RatedContent(RatedContentEnum ratedContentEnum) {
 		this.dsRatedContent = ratedContentEnum.getDescription();
 	}

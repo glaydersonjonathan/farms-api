@@ -35,18 +35,19 @@ public class Researcher implements Serializable {
 	private String dsPassword;
 	private StateEnum tpState;
 	private YesNoEnum tpConfirmed;
-	
+
 	private Set<ProjectMember> projectMembers = new HashSet<ProjectMember>(0);
-	
-	public Researcher() {}
-	
+
+	public Researcher() {
+	}
+
 	public Researcher(String nmResearcher, String dsEmail, StateEnum tpState) {
 		super();
 		this.nmResearcher = nmResearcher;
 		this.dsEmail = dsEmail;
 		this.tpState = tpState;
 	}
-	
+
 	public Researcher(String nmResearcher, String dsSSO, String dsEmail, String dsPassword, StateEnum tpState) {
 		super();
 		this.nmResearcher = nmResearcher;
@@ -71,11 +72,11 @@ public class Researcher implements Serializable {
 	public String getCdUuid() {
 		return cdUuid;
 	}
-	
+
 	public String setCdUuid(String cdUuid) {
 		return this.cdUuid = cdUuid;
 	}
-	
+
 	@Column(name = "nm_researcher", nullable = false)
 	public String getNmResearcher() {
 		return nmResearcher;
@@ -93,7 +94,7 @@ public class Researcher implements Serializable {
 	public void setDsSSO(String dsSSO) {
 		this.dsSSO = dsSSO;
 	}
-	
+
 	@Column(name = "ds_email", nullable = false)
 	public String getDsEmail() {
 		return dsEmail;
@@ -111,7 +112,7 @@ public class Researcher implements Serializable {
 	public void setDsPassword(String dsPassword) {
 		this.dsPassword = dsPassword;
 	}
-	
+
 	@Column(name = "tp_state", nullable = false)
 	@Enumerated(EnumType.STRING)
 	public StateEnum getTpState() {
@@ -121,17 +122,17 @@ public class Researcher implements Serializable {
 	public void setTpState(StateEnum tpState) {
 		this.tpState = tpState;
 	}
-	
+
 	@Column(name = "tp_confirmed", nullable = false)
 	@Enumerated(EnumType.ORDINAL)
 	public YesNoEnum getTpConfirmed() {
 		return tpConfirmed;
 	}
-	
+
 	public void setTpConfirmed(YesNoEnum tpConfirmed) {
 		this.tpConfirmed = tpConfirmed;
 	}
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "researcher")
 	public Set<ProjectMember> getProjectMembers() {
 		return projectMembers;

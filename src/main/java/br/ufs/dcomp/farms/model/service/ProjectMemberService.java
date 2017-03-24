@@ -65,18 +65,16 @@ public class ProjectMemberService {
 			FarmsMail.sendInviteEmail(projectMemberInviteDto.getDsEmail());
 			throw new FarmsException(ErrorMessage.MEMBER_NOT_FOUND);
 		}
-		
-		if(researcher.getTpState() == StateEnum.I){
+
+		if (researcher.getTpState() == StateEnum.I) {
 			throw new FarmsException(ErrorMessage.MEMBER_INACTIVE);
-		} 
-		
-		
-		Project project = projectDao.getByDsKey(projectMemberInviteDto.getDsKey());
-		
-		if (projectMemberDao.verifyAlreadyMember(project.getIdProject(), researcher.getIdResearcher())){
-			throw new FarmsException(ErrorMessage.ALREADY_MEMBER);		
 		}
-			
+
+		Project project = projectDao.getByDsKey(projectMemberInviteDto.getDsKey());
+
+		if (projectMemberDao.verifyAlreadyMember(project.getIdProject(), researcher.getIdResearcher())) {
+			throw new FarmsException(ErrorMessage.ALREADY_MEMBER);
+		}
 
 		ProjectMember projectMember = new ProjectMember();
 		projectMember.setResearcher(researcher);
@@ -103,6 +101,7 @@ public class ProjectMemberService {
 
 	/**
 	 * Turns member inactive
+	 * 
 	 * @param idProjectMember
 	 * @return
 	 */
@@ -112,6 +111,7 @@ public class ProjectMemberService {
 
 	/**
 	 * Turns member active
+	 * 
 	 * @param idProjectMember
 	 * @return
 	 */

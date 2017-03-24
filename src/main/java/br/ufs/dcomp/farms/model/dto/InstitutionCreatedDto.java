@@ -11,9 +11,10 @@ public class InstitutionCreatedDto {
 	private Long idInstitution;
 	private Country country;
 	private String dsKey;
-		
-	public InstitutionCreatedDto() {}
-	
+
+	public InstitutionCreatedDto() {
+	}
+
 	public InstitutionCreatedDto(Institution institution) {
 		super();
 		this.dsAbbreviation = institution.getDsAbbreviation();
@@ -22,8 +23,6 @@ public class InstitutionCreatedDto {
 		this.idInstitution = institution.getIdInstitution();
 	}
 
-	
-	
 	public Long getIdInstitution() {
 		return idInstitution;
 	}
@@ -71,6 +70,5 @@ public class InstitutionCreatedDto {
 	public void setDsKey(String dsKey) {
 		this.dsKey = dsKey;
 	}
-	
-	
+
 }

@@ -80,13 +80,14 @@ public class LanguageDao extends HibernateDao<Language> {
 
 	/**
 	 * Delete language of protocol project
+	 * 
 	 * @param idProject
 	 * @param idLanguage
 	 */
 	public void deleteLanguage(Long idProject, Long idLanguage) {
 		Transaction transaction = getSession().beginTransaction();
 		try {
-			
+
 			String hql = "delete from StudyLanguage where project.idProject= :idProject and language.idLanguage =:idLanguage";
 			Query query = getSession().createQuery(hql);
 			query.setLong("idProject", idProject);
@@ -98,7 +99,7 @@ public class LanguageDao extends HibernateDao<Language> {
 			transaction.rollback();
 			throw t;
 		}
-		
+
 	}
 
 }

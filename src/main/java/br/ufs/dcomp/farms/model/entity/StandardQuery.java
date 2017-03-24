@@ -25,16 +25,15 @@ public class StandardQuery {
 	private Long idStandardQuery;
 	private String dsStandardQuery;
 	private Project project;
-	
+
 	private Set<AdaptedQuery> adaptedQuerys = new HashSet<AdaptedQuery>(0);
-	
-	public StandardQuery() {}
-	
+
+	public StandardQuery() {
+	}
+
 	public StandardQuery(String dsStandardQuery) {
 		this.dsStandardQuery = dsStandardQuery;
 	}
-	
-	
 
 	public StandardQuery(String dsStandardQuery, Project project) {
 		super();
@@ -61,7 +60,7 @@ public class StandardQuery {
 	public void setDsStandardQuery(String dsStandardQuery) {
 		this.dsStandardQuery = dsStandardQuery;
 	}
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_project", nullable = false)
 	public Project getProject() {
@@ -71,7 +70,7 @@ public class StandardQuery {
 	public void setProject(Project project) {
 		this.project = project;
 	}
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "standardQuery")
 	public Set<AdaptedQuery> getAdaptedQuerys() {
 		return this.adaptedQuerys;

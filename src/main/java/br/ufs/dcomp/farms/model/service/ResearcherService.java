@@ -93,12 +93,12 @@ public class ResearcherService {
 	 */
 	@Transactional(rollbackFor = Exception.class)
 	public boolean updateEmail(ResearcherRegisterDto researcherRegisterDto) throws FarmsException {
-		
+
 		Researcher researcherFoundByEmail = this.getByEmail(researcherRegisterDto.getDsEmail());
 		if (researcherFoundByEmail != null) {
 			throw new FarmsException(ErrorMessage.EMAIL_ALREADY_IN_USE);
 		}
-		
+
 		Researcher researcher = new Researcher();
 
 		researcher.setIdResearcher(researcherRegisterDto.getIdResearcher());
@@ -204,6 +204,5 @@ public class ResearcherService {
 		}
 		return researcher;
 	}
-
 
 }

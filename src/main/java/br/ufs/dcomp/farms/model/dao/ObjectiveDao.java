@@ -42,9 +42,9 @@ public class ObjectiveDao extends HibernateDao<Objective> {
 		return objectives;
 	}
 
-	
 	/**
 	 * Delete a objective.
+	 * 
 	 * @param idProject
 	 */
 	public void delete(Long idProject) {

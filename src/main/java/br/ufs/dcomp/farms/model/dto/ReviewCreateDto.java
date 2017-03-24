@@ -5,9 +5,6 @@ import java.util.List;
 
 import br.ufs.dcomp.farms.model.entity.Review;
 
-
-
-
 public class ReviewCreateDto {
 	private List<Long> studies;
 	private String dsSSO;
@@ -16,7 +13,7 @@ public class ReviewCreateDto {
 	private String dsCommentary;
 	private List<SelectionCriteriaCreatedDto> criterias;
 	private Long idReview;
-	
+
 	private String tpStatus;
 	private Long idResearcher;
 	private StudyCreatedDto study;
@@ -27,21 +24,21 @@ public class ReviewCreateDto {
 		this.dsSSO = dsSSO;
 		this.dhAssign = dhAssign;
 	}
-	
-	
+
 	public ReviewCreateDto(Review review, String dsCommentary, List<SelectionCriteriaCreatedDto> criterias) {
 		this.idReview = review.getIdReview();
 		this.dhAssign = review.getDhAssign();
 		this.dhReview = review.getDhReview();
 		this.idResearcher = review.getResearcher().getIdResearcher();
 		this.tpStatus = review.getTpStatus().getCode().toString();
-		this.study = new StudyCreatedDto (review.getStudy());
+		this.study = new StudyCreatedDto(review.getStudy());
 		this.dsCommentary = dsCommentary;
 		this.criterias = criterias;
 	}
 
 	public ReviewCreateDto(List<Long> studies, String dsSSO, Date dhAssign, Date dhReview, String dsCommentary,
-			List<SelectionCriteriaCreatedDto> criterias, Long idReview, String tpStatus, Long idResearcher, StudyCreatedDto study) {
+			List<SelectionCriteriaCreatedDto> criterias, Long idReview, String tpStatus, Long idResearcher,
+			StudyCreatedDto study) {
 		super();
 		this.studies = studies;
 		this.dsSSO = dsSSO;
@@ -50,9 +47,9 @@ public class ReviewCreateDto {
 		this.dsCommentary = dsCommentary;
 		this.criterias = criterias;
 		this.idReview = idReview;
-	    this.tpStatus = tpStatus;
-	    this.idResearcher = idResearcher;
-	    this.study = study;
+		this.tpStatus = tpStatus;
+		this.idResearcher = idResearcher;
+		this.study = study;
 	}
 
 	public ReviewCreateDto() {
@@ -138,8 +135,5 @@ public class ReviewCreateDto {
 	public void setStudy(StudyCreatedDto study) {
 		this.study = study;
 	}
-	
-	
-	
 
 }

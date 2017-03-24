@@ -15,9 +15,10 @@ public class ColumnsDao extends HibernateDao<ColumnDba> {
 	public ColumnsDao() {
 		super(ColumnDba.class);
 	}
-	
+
 	/**
 	 * Search columns by schema name.
+	 * 
 	 * @param nmSchema
 	 * @return List<ColumnsDba>
 	 */
@@ -26,9 +27,10 @@ public class ColumnsDao extends HibernateDao<ColumnDba> {
 		query.setString(0, nmSchema);
 		return query.list();
 	}
-	
+
 	/**
 	 * Search columns by table name.
+	 * 
 	 * @param nmTable
 	 * @return List<ColumnsDba>
 	 */
@@ -37,15 +39,16 @@ public class ColumnsDao extends HibernateDao<ColumnDba> {
 		query.setString(0, nmTable);
 		return query.list();
 	}
-	
+
 	/**
 	 * Search column by name.
+	 * 
 	 * @param nmColumn
 	 * @return Column column
 	 */
 	public ColumnDba getByNmColumn(String nmColumn) {
 		Query query = getSession().createQuery("from ColumnDba where lower(column_name) = lower(?)");
 		query.setString(0, nmColumn);
-		return (query.list() != null && !query.list().isEmpty()) ? (ColumnDba)query.list().get(0) : null;
+		return (query.list() != null && !query.list().isEmpty()) ? (ColumnDba) query.list().get(0) : null;
 	}
 }

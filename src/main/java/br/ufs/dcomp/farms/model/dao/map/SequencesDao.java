@@ -10,14 +10,15 @@ import br.ufs.dcomp.farms.model.entity.dba.SequenceDba;
 
 @Component
 @SuppressWarnings("unchecked")
-public class SequencesDao  extends HibernateDao<SequencesDao> {
+public class SequencesDao extends HibernateDao<SequencesDao> {
 
 	public SequencesDao() {
 		super(SequencesDao.class);
 	}
-	
+
 	/**
 	 * Search sequences by schema name.
+	 * 
 	 * @param nmSchema
 	 * @return List<SequencesDba>
 	 */
@@ -26,15 +27,16 @@ public class SequencesDao  extends HibernateDao<SequencesDao> {
 		query.setString(0, nmSchema);
 		return query.list();
 	}
-	
+
 	/**
 	 * Search sequence by name.
+	 * 
 	 * @param nmSequence
 	 * @return Sequence sequence
 	 */
 	public SequenceDba getByNmSequence(String nmSequence) {
 		Query query = getSession().createQuery("from SequenceDba where lower(sequence_name) = lower(?)");
 		query.setString(0, nmSequence);
-		return (query.list() != null && !query.list().isEmpty()) ? (SequenceDba)query.list().get(0) : null;
+		return (query.list() != null && !query.list().isEmpty()) ? (SequenceDba) query.list().get(0) : null;
 	}
 }

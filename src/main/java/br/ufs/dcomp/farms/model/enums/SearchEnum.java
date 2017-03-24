@@ -2,25 +2,24 @@ package br.ufs.dcomp.farms.model.enums;
 
 public enum SearchEnum {
 
-	AUTOMATIC(0, "Automatic"),
-	MANUAL(1, "Manual");
-	
+	AUTOMATIC(0, "Automatic"), MANUAL(1, "Manual");
+
 	private Integer code;
 	private String description;
-	
+
 	private SearchEnum(Integer code, String description) {
 		this.code = code;
 		this.description = description;
 	}
-	
+
 	public Integer getCode() {
 		return code;
 	}
-	
+
 	public String getDescription() {
 		return description;
 	}
-	
+
 	public static SearchEnum fromCode(Integer code) {
 		for (SearchEnum e : SearchEnum.values()) {
 			if (e.getCode().equals(code)) {
@@ -29,7 +28,7 @@ public enum SearchEnum {
 		}
 		return null;
 	}
-	
+
 	public static SearchEnum fromDescription(String description) {
 		if (description == null) {
 			return null;

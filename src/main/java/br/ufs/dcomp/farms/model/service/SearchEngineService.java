@@ -14,7 +14,6 @@ import br.ufs.dcomp.farms.model.entity.BaseUseCriteria;
 import br.ufs.dcomp.farms.model.entity.Project;
 import br.ufs.dcomp.farms.model.entity.SearchEngine;
 
-
 /**
  * @author farms
  *
@@ -29,6 +28,7 @@ public class SearchEngineService {
 
 	/**
 	 * Get search engines of protocol project
+	 * 
 	 * @param dsKey
 	 * @return List<SearchEngineCreatedDto>
 	 */
@@ -45,6 +45,7 @@ public class SearchEngineService {
 
 	/**
 	 * Get all registered engines
+	 * 
 	 * @return List<SearchEngine>
 	 */
 	public List<SearchEngine> getAllEngines() {
@@ -67,6 +68,7 @@ public class SearchEngineService {
 
 	/**
 	 * Create a new engine
+	 * 
 	 * @param engine
 	 * @return boolean
 	 */
@@ -78,6 +80,7 @@ public class SearchEngineService {
 
 	/**
 	 * Delete engine of protocol project
+	 * 
 	 * @param dsProjectKey
 	 * @param idEngine
 	 * @return
@@ -90,11 +93,13 @@ public class SearchEngineService {
 
 	/**
 	 * Edit engine of protocol project
+	 * 
 	 * @param searchEngineCreatedDto
 	 * @return
 	 */
-	public Boolean editEngine(SearchEngineCreatedDto searchEngineCreatedDto) {		
-		searchEngineDao.editEngine(projectDao.getByDsKey(searchEngineCreatedDto.getDsProjectKey()).getIdProject(),searchEngineCreatedDto);
+	public Boolean editEngine(SearchEngineCreatedDto searchEngineCreatedDto) {
+		searchEngineDao.editEngine(projectDao.getByDsKey(searchEngineCreatedDto.getDsProjectKey()).getIdProject(),
+				searchEngineCreatedDto);
 		return true;
 	}
 }

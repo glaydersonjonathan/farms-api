@@ -25,18 +25,19 @@ public class StudyCreatedDto {
 	private VenueEnum tpVenue;
 	private ReadingRateEnum tpReadingRate;
 	private StudyStatusEnum tpStatus;
-	
+
 	private String dsKeyProject;
 	private Long idSearch;
-	
+
 	private Long idStudy;
-	
+
 	private Long accepted;
 	private Long rejected;
 	private Long unclassified;
-	
-	public StudyCreatedDto() {}
-	
+
+	public StudyCreatedDto() {
+	}
+
 	public StudyCreatedDto(Study study) {
 		super();
 		this.cdCiteKey = study.getCdCiteKey();
@@ -57,11 +58,10 @@ public class StudyCreatedDto {
 		this.tpReadingRate = study.getTpReadingRate();
 		this.tpStatus = study.getTpStatus();
 		this.dsKeyProject = study.getProject().getDsKey();
-		this.idSearch = study.getSearch().getIdSearch();	
+		this.idSearch = study.getSearch().getIdSearch();
 		this.idStudy = study.getIdStudy();
 	}
-	
-	
+
 	public StudyCreatedDto(Study study, Long accepted, Long rejected, Long unclassified) {
 		super();
 		this.cdCiteKey = study.getCdCiteKey();
@@ -82,18 +82,16 @@ public class StudyCreatedDto {
 		this.tpReadingRate = study.getTpReadingRate();
 		this.tpStatus = study.getTpStatus();
 		this.dsKeyProject = study.getProject().getDsKey();
-		this.idSearch = study.getSearch().getIdSearch();	
+		this.idSearch = study.getSearch().getIdSearch();
 		this.idStudy = study.getIdStudy();
 		this.accepted = accepted;
-		this.rejected  = rejected;
+		this.rejected = rejected;
 		this.unclassified = unclassified;
 	}
-	
-	
-	
-	public StudyCreatedDto(String cdCiteKey, String dsTitle, String nmAuthor, String dsAbstract, String dsKeyword, Integer nrYear,
-			String dsVolume, String dsUrl, String cdIssnIsbn, String cdDoi, String dsType, String dsPage,
-			String dsComment, String dsJournal, VenueEnum tpVenue, ReadingRateEnum tpReadingRate,
+
+	public StudyCreatedDto(String cdCiteKey, String dsTitle, String nmAuthor, String dsAbstract, String dsKeyword,
+			Integer nrYear, String dsVolume, String dsUrl, String cdIssnIsbn, String cdDoi, String dsType,
+			String dsPage, String dsComment, String dsJournal, VenueEnum tpVenue, ReadingRateEnum tpReadingRate,
 			StudyStatusEnum tpStatus, Search search, Long idStudy) {
 		super();
 		this.cdCiteKey = cdCiteKey;
@@ -299,6 +297,5 @@ public class StudyCreatedDto {
 	public void setUnclassified(Long unclassified) {
 		this.unclassified = unclassified;
 	}
-	
-	
+
 }

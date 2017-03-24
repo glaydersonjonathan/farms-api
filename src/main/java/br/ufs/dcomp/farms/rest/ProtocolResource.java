@@ -235,8 +235,6 @@ public class ProtocolResource {
 		}
 	}
 
-	
-	
 	/**
 	 * Get all search engines registered.
 	 * 
@@ -391,11 +389,12 @@ public class ProtocolResource {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-	
+
 	/**
 	 * Create engines
 	 * 
-	 * @param engine name
+	 * @param engine
+	 *            name
 	 * @return Response
 	 */
 	@POST
@@ -409,10 +408,9 @@ public class ProtocolResource {
 		}
 	}
 
-	
-	
 	/**
 	 * Delete keyword of protocol project
+	 * 
 	 * @param dsProjectKey
 	 * @param dsSearchKeyword
 	 * @param idSearchKeyword
@@ -420,58 +418,56 @@ public class ProtocolResource {
 	 */
 	@DELETE
 	@Path("/deleteKeyword/{dsProjectKey}/{dsSearchKeyword}/{idSearchKeyword}")
-	public Response deleteKeyword (@PathParam("dsProjectKey") String dsProjectKey, @PathParam("dsSearchKeyword") String dsSearchKeyword,
-			@PathParam("idSearchKeyword") Long idSearchKeyword){
+	public Response deleteKeyword(@PathParam("dsProjectKey") String dsProjectKey,
+			@PathParam("dsSearchKeyword") String dsSearchKeyword, @PathParam("idSearchKeyword") Long idSearchKeyword) {
 		try {
-			Boolean bool = searchKeywordService.deleteKeyword(dsProjectKey,dsSearchKeyword ,idSearchKeyword);
+			Boolean bool = searchKeywordService.deleteKeyword(dsProjectKey, dsSearchKeyword, idSearchKeyword);
 			return FarmsResponse.ok(SuccessMessage.KEYWORD_DELETED, bool);
 		} catch (Exception ex) {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-		
 
 	/**
 	 * Delete language of protocol project
+	 * 
 	 * @param dsProjectKey
 	 * @param idLanguage
 	 * @return
 	 */
 	@DELETE
 	@Path("/deleteLanguage/{dsProjectKey}/{idLanguage}")
-	public Response deleteLanguage (@PathParam("dsProjectKey") String dsProjectKey, 
-			@PathParam("idLanguage") Long idLanguage){
+	public Response deleteLanguage(@PathParam("dsProjectKey") String dsProjectKey,
+			@PathParam("idLanguage") Long idLanguage) {
 		try {
-			Boolean bool = languageService.deleteLanguage(dsProjectKey,idLanguage);
+			Boolean bool = languageService.deleteLanguage(dsProjectKey, idLanguage);
 			return FarmsResponse.ok(SuccessMessage.LANGUAGE_DELETED, bool);
 		} catch (Exception ex) {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-	
-	
+
 	/**
 	 * Delete engine of protocol project
+	 * 
 	 * @param dsProjectKey
 	 * @param idEngine
 	 * @return
 	 */
 	@DELETE
 	@Path("/deleteEngine/{dsProjectKey}/{idEngine}")
-	public Response deleteEngine (@PathParam("dsProjectKey") String dsProjectKey, 
-			@PathParam("idEngine") Long idEngine){
+	public Response deleteEngine(@PathParam("dsProjectKey") String dsProjectKey, @PathParam("idEngine") Long idEngine) {
 		try {
-			Boolean bool = searchEngineService.deleteEngine(dsProjectKey,idEngine);
+			Boolean bool = searchEngineService.deleteEngine(dsProjectKey, idEngine);
 			return FarmsResponse.ok(SuccessMessage.ENGINE_DELETED, bool);
 		} catch (Exception ex) {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-	
-	
 
 	/**
 	 * Delete selection criteria of protocol project
+	 * 
 	 * @param dsProjectKey
 	 * @param dsSelectionCriteria
 	 * @param tpCriteria
@@ -479,18 +475,19 @@ public class ProtocolResource {
 	 */
 	@DELETE
 	@Path("/deleteSelectionCriteria/{dsProjectKey}/{dsSelectionCriteria}/{tpCriteria}")
-	public Response deleteSelectionCriteria (@PathParam("dsProjectKey") String dsProjectKey, 
-			@PathParam("dsSelectionCriteria") String dsSelectionCriteria, @PathParam("tpCriteria") Long tpCriteria){
+	public Response deleteSelectionCriteria(@PathParam("dsProjectKey") String dsProjectKey,
+			@PathParam("dsSelectionCriteria") String dsSelectionCriteria, @PathParam("tpCriteria") Long tpCriteria) {
 		try {
-			Boolean bool = selectionCriteriaService.deleteCriteria(dsProjectKey,dsSelectionCriteria, tpCriteria);
+			Boolean bool = selectionCriteriaService.deleteCriteria(dsProjectKey, dsSelectionCriteria, tpCriteria);
 			return FarmsResponse.ok(SuccessMessage.CRITERIA_DELETED, bool);
 		} catch (Exception ex) {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-	
+
 	/**
 	 * Edit keyword
+	 * 
 	 * @param searchKeywordCreatedDto
 	 * @return
 	 */
@@ -504,9 +501,10 @@ public class ProtocolResource {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-	
+
 	/**
-	 *  Edit engine of protocol project
+	 * Edit engine of protocol project
+	 * 
 	 * @param searchEngineCreatedDto
 	 * @return
 	 */
@@ -520,9 +518,10 @@ public class ProtocolResource {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-	
+
 	/**
 	 * Edit selection criteria of protocol project
+	 * 
 	 * @param selectionCriteriaCreatedDto
 	 * @return
 	 */
@@ -536,6 +535,5 @@ public class ProtocolResource {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-
 
 }

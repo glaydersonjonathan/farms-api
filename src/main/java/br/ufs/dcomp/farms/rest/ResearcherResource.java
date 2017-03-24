@@ -74,7 +74,6 @@ public class ResearcherResource {
 		}
 	}
 
-	
 	/**
 	 * Update a researcher.
 	 * 
@@ -108,8 +107,7 @@ public class ResearcherResource {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-	
-	
+
 	/**
 	 * Update a email of researcher.
 	 * 
@@ -128,8 +126,7 @@ public class ResearcherResource {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-	
-	
+
 	/**
 	 * Set state of researcher to inactive.
 	 * 

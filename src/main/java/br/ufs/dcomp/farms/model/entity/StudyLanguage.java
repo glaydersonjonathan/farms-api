@@ -29,8 +29,6 @@ public class StudyLanguage implements Serializable {
 	public void setProject(Project project) {
 		this.project = project;
 	}
-	
-	
 
 	public StudyLanguage() {
 		super();
@@ -38,7 +36,7 @@ public class StudyLanguage implements Serializable {
 
 	public StudyLanguage(Project project, Language language) {
 		super();
-	    this.project = project;
+		this.project = project;
 		this.language = language;
 	}
 

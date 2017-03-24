@@ -11,14 +11,9 @@ public class SearchEngineCreatedDto {
 	private String dsProjectKey;
 	private String dsBaseUseCriteria;
 
-	
-	
-	
 	public SearchEngineCreatedDto() {
 		super();
 	}
-	
-	
 
 	public SearchEngineCreatedDto(Long idSearchEngine, String nmSearchEngine, String dsProjectKey,
 			String dsBaseUseCriteria) {
@@ -29,8 +24,6 @@ public class SearchEngineCreatedDto {
 		this.dsBaseUseCriteria = dsBaseUseCriteria;
 	}
 
-
-
 	public SearchEngineCreatedDto(SearchEngine searchEngine) {
 		this.idSearchEngine = searchEngine.getIdSearchEngine();
 		this.nmSearchEngine = searchEngine.getNmSearchEngine();
@@ -39,7 +32,7 @@ public class SearchEngineCreatedDto {
 	public SearchEngineCreatedDto(BaseUseCriteria searchEngine) {
 		this.idSearchEngine = searchEngine.getSearchEngine().getIdSearchEngine();
 		this.nmSearchEngine = searchEngine.getSearchEngine().getNmSearchEngine();
-		this.dsProjectKey  = searchEngine.getProject().getDsKey();
+		this.dsProjectKey = searchEngine.getProject().getDsKey();
 		this.dsBaseUseCriteria = searchEngine.getDsBaseUseCriteria();
 	}
 

@@ -3,7 +3,7 @@ package br.ufs.dcomp.farms.model.dto;
 public class ProjectMemberInviteDto {
 	private String dsEmail;
 	private String dsKey;
-	
+
 	public ProjectMemberInviteDto() {
 		super();
 	}
@@ -23,7 +23,5 @@ public class ProjectMemberInviteDto {
 	public void setDsKey(String dsKey) {
 		this.dsKey = dsKey;
 	}
-	
-	
-	
+
 }

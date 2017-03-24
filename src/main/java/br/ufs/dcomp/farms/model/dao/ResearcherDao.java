@@ -7,8 +7,6 @@ import org.springframework.stereotype.Component;
 
 import br.ufs.dcomp.farms.model.entity.Researcher;
 
-
-
 /**
  * @author farms
  *
@@ -145,10 +143,9 @@ public class ResearcherDao extends HibernateDao<Researcher> {
 		return (results != null && !results.isEmpty()) ? (Researcher) results.get(0) : null;
 	}
 
-	
-	
 	/**
 	 * Set state of researcher to inactive.
+	 * 
 	 * @param idResearcher
 	 * @return
 	 */
@@ -160,10 +157,10 @@ public class ResearcherDao extends HibernateDao<Researcher> {
 		System.out.println(query.executeUpdate());
 		return true;
 	}
-	
-	
+
 	/**
 	 * Set state of researcher to active.
+	 * 
 	 * @param idResearcher
 	 * @return
 	 */

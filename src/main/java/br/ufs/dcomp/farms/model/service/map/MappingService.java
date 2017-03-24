@@ -31,20 +31,19 @@ import br.ufs.dcomp.farms.model.entity.map.TableMapped;
 public class MappingService {
 
 	private List<Class> clazzList = null;
-	
+
 	private String SCHEMA_NAME = "public";
 	private String PACKAGE_NAME = "br.ufs.dcomp.farms.model.entity";
-	
+
 	@Autowired
 	private TablesDao tablesDao;
-	
+
 	@Autowired
 	private SequencesDao sequencesDao;
-	
+
 	@Autowired
 	private ColumnsDao columnsDao;
-	
-	
+
 	public MappingService() {
 		super();
 		try {
@@ -62,20 +61,20 @@ public class MappingService {
 	 * @return GlobalMapped
 	 */
 	public GlobalMapping getMappingAllClasses() {
-		
+
 		GlobalMapping globalMapping = new GlobalMapping();
 		List<TableMapped> mappedTableList = new ArrayList<TableMapped>();
-		
+
 		for (Class<?> clazz : clazzList) {
 			TableMapped mappedTable = new TableMapped();
 			SequenceMapped mappedSequence = new SequenceMapped();
-			
+
 			// Tabelas mapeadas nas classes.
 			Table tableAnnotation = clazz.getAnnotation(Table.class);
 			if (tableAnnotation != null) {
-				//System.out.println("TABLE NAME: " + tableAnnotation.name());
+				// System.out.println("TABLE NAME: " + tableAnnotation.name());
 				globalMapping.getNmMappedTableList().add(tableAnnotation.name());
-				
+
 				mappedTable.setNmTable(tableAnnotation.name());
 				TableDba tableDb = tablesDao.getByNmTable(tableAnnotation.name());
 				boolean tableExists = (tableDb != null) ? true : false;
@@ -85,16 +84,17 @@ public class MappingService {
 			// Sequences mapeadas nas classes.
 			SequenceGenerator sequenceGeneratorAnnotation = clazz.getAnnotation(SequenceGenerator.class);
 			if (sequenceGeneratorAnnotation != null) {
-				//System.out.println("  -> SEQUENCE NAME: " + sequenceGenerator.sequenceName());
+				// System.out.println(" -> SEQUENCE NAME: " +
+				// sequenceGenerator.sequenceName());
 				globalMapping.getNmMappedSequenceList().add(sequenceGeneratorAnnotation.sequenceName());
-				
+
 				mappedSequence.setNmSequence(sequenceGeneratorAnnotation.sequenceName());
 				SequenceDba sequenceDb = sequencesDao.getByNmSequence(sequenceGeneratorAnnotation.sequenceName());
 				boolean sequenceExists = (sequenceDb != null) ? true : false;
 				mappedSequence.setSequenceExists(sequenceExists);
 				mappedTable.setMappedSequence(mappedSequence);
 			}
-			
+
 			// Methods mapeados nas classes.
 			Method[] methodAnnotation = clazz.getMethods();
 			List<ColumnMapped> mappedColumnList = new ArrayList<ColumnMapped>();
@@ -102,16 +102,18 @@ public class MappingService {
 				Column columnAnnotation = method.getAnnotation(Column.class);
 				if (columnAnnotation != null) {
 					ColumnMapped mappedColumn = new ColumnMapped();
-					//System.out.println("    -> Column name: " + column.name());
+					// System.out.println(" -> Column name: " + column.name());
 					mappedTable.getNmMappedColumnList().add(columnAnnotation.name());
-					
-					mappedColumn.setNmColumn(columnAnnotation.name());;
+
+					mappedColumn.setNmColumn(columnAnnotation.name());
+					;
 					ColumnDba columnDb = columnsDao.getByNmColumn(columnAnnotation.name());
 					boolean columnsExists = (columnDb != null) ? true : false;
-					mappedColumn.setColumnsExists(columnsExists);;
+					mappedColumn.setColumnsExists(columnsExists);
+					;
 					mappedColumnList.add(mappedColumn);
 				}
-				
+
 				JoinColumn joinColumnAnnotation = method.getAnnotation(JoinColumn.class);
 				if (joinColumnAnnotation != null) {
 					mappedTable.getNmMappedColumnList().add(joinColumnAnnotation.name());
@@ -122,13 +124,14 @@ public class MappingService {
 				mappedTableList.add(mappedTable);
 			}
 		}
-		
+
 		globalMapping.setMappedTableList(mappedTableList);
 		return globalMapping;
 	}
-	
+
 	/**
 	 * Exibe colunas que não estão mapeadas.
+	 * 
 	 * @param mappedGlobal
 	 */
 	public void getAllTableColumnsNotMapped() {
@@ -158,28 +161,31 @@ public class MappingService {
 	}
 
 	/**
-	 * // Exibe o que não existe no banco de dados, mas está mapeado nas classes.
+	 * // Exibe o que não existe no banco de dados, mas está mapeado nas
+	 * classes.
+	 * 
 	 * @param mappedGlobal
 	 */
 	public void getAllObjectsMappedWithoutMatchingDatabaseObject() {
 		GlobalMapping globalMapping = getMappingAllClasses();
 		for (TableMapped tableMapped : globalMapping.getMappedTableList()) {
-			
+
 			// SEQUENCES
 			if (tableMapped.getMappedSequence() != null && tableMapped.getMappedSequence().getNmSequence() != null) {
 				SequenceMapped sequenceMapped = tableMapped.getMappedSequence();
 				if (!sequenceMapped.isSequenceExists()) {
-					System.out.println("SEQUENCE: " + sequenceMapped.getNmSequence() + " -> " + sequenceMapped.isSequenceExists());
+					System.out.println(
+							"SEQUENCE: " + sequenceMapped.getNmSequence() + " -> " + sequenceMapped.isSequenceExists());
 				}
 			}
-			
+
 			// TABLES
 			if (tableMapped.getNmTable() != null) {
 				if (!tableMapped.isTableExists()) {
 					System.out.println("TABLE: " + tableMapped.getNmTable() + " -> " + tableMapped.isTableExists());
 				}
 			}
-			
+
 			// COLUMNS
 			for (ColumnMapped columnTable : tableMapped.getMappedColumnList()) {
 				if (!columnTable.isColumnsExists()) {
@@ -192,6 +198,7 @@ public class MappingService {
 
 	/**
 	 * Exibe tabelas que não estão mapeadas.
+	 * 
 	 * @param mappedGlobal
 	 */
 	public void getAllTablesNotMapped() {
@@ -239,11 +246,11 @@ public class MappingService {
 		}
 		return nmMappedColumnList;
 	}
-	
+
 	public void getAllClassField(Class<?> clazz) {
 		for (Field field : clazz.getDeclaredFields()) {
-			 System.out.println(field.getName());
-			 //Method method = clazz.getMethod("get"+field.getName());
+			System.out.println(field.getName());
+			// Method method = clazz.getMethod("get"+field.getName());
 		}
 	}
 

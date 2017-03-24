@@ -8,10 +8,7 @@ public class SelectionCriteriaCreatedDto {
 	private Integer tpCriteria;
 	private String dsProjectKey;
 	private Long idSelectionCriteria;
-	
-	
-	
-	
+
 	public SelectionCriteriaCreatedDto() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -23,27 +20,27 @@ public class SelectionCriteriaCreatedDto {
 		this.dsProjectKey = selectionCriteria.getProject().getDsKey();
 		this.idSelectionCriteria = selectionCriteria.getIdSelectionCriteria();
 	}
-	
+
 	public String getDsSelectionCriteria() {
 		return dsSelectionCriteria;
 	}
-	
+
 	public void setDsSelectionCriteria(String dsSelectionCriteria) {
 		this.dsSelectionCriteria = dsSelectionCriteria;
 	}
-	
+
 	public Integer getTpCriteria() {
 		return tpCriteria;
 	}
-	
+
 	public void setTpCriteria(Integer tpCriteria) {
 		this.tpCriteria = tpCriteria;
 	}
-	
+
 	public String getDsProjectKey() {
 		return dsProjectKey;
 	}
-	
+
 	public void setDsProjectKey(String dsProjectKey) {
 		this.dsProjectKey = dsProjectKey;
 	}
@@ -55,6 +52,5 @@ public class SelectionCriteriaCreatedDto {
 	public void setIdSelectionCriteria(Long idSelectionCriteria) {
 		this.idSelectionCriteria = idSelectionCriteria;
 	}
-	
-	
+
 }

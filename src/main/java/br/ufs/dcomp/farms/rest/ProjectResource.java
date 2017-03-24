@@ -1,6 +1,5 @@
 package br.ufs.dcomp.farms.rest;
 
-
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -57,14 +56,13 @@ public class ProjectResource {
 	 * @return Response
 	 */
 	@POST
-	public Response createProject(ProjectCreateDto projectCreateDto) {		
+	public Response createProject(ProjectCreateDto projectCreateDto) {
 		try {
 			Boolean bool = projectService.save(projectCreateDto);
 			return FarmsResponse.ok(SuccessMessage.PROJECT_REGISTERED, bool);
-		} catch (FarmsException fe){
+		} catch (FarmsException fe) {
 			return FarmsResponse.error(fe.getErrorMessage());
-		}
-		catch (Exception ex) {
+		} catch (Exception ex) {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -80,10 +78,10 @@ public class ProjectResource {
 		try {
 			Boolean bool = projectService.update(projectCreatedDto);
 			return FarmsResponse.ok(SuccessMessage.PROJECT_UPDATED, bool);
-		}catch (FarmsException fe){
+		} catch (FarmsException fe) {
 			return FarmsResponse.error(fe.getErrorMessage());
 		}
-		
+
 		catch (Exception ex) {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
@@ -188,16 +186,16 @@ public class ProjectResource {
 		}
 	}
 
-	
 	/**
 	 * Get role of researcher in a project
+	 * 
 	 * @param dsKey
 	 * @param dsUserName
 	 * @return response
 	 */
 	@GET
 	@Path("/{dsKey}/role/{dsUserName}")
-	public Response getRoleResearcher(@PathParam("dsKey") String dsKey, @PathParam ("dsUserName") String dsUserName) {
+	public Response getRoleResearcher(@PathParam("dsKey") String dsKey, @PathParam("dsUserName") String dsUserName) {
 		try {
 			int roleCode = projectMemberService.getRole(dsKey, dsUserName);
 			return FarmsResponse.ok(roleCode);
@@ -205,9 +203,10 @@ public class ProjectResource {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-	
+
 	/**
 	 * Turn member inactive
+	 * 
 	 * @param idProjectMember
 	 * @return
 	 */
@@ -221,7 +220,7 @@ public class ProjectResource {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-	
+
 	@PUT
 	@Path("/members/active/{idProjectMember}")
 	public Response activeResearcher(@PathParam("idProjectMember") Long idProjectMember) {

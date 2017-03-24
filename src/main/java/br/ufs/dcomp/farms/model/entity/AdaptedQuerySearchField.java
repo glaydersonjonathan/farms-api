@@ -16,7 +16,7 @@ public class AdaptedQuerySearchField {
 
 	private Long idAdaptedQuery;
 	private SearchField searchField;
-	
+
 	@Id
 	@Column(name = "id_adapted_query", nullable = false, unique = true)
 	public Long getIdAdaptedQuery() {

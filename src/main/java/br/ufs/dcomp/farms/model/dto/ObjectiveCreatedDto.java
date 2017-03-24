@@ -6,7 +6,7 @@ public class ObjectiveCreatedDto {
 
 	private String dsObjective;
 	private String dsProjectKey;
-	
+
 	public ObjectiveCreatedDto(Objective objective) {
 		this.dsObjective = objective.getDsObjective();
 		this.dsProjectKey = objective.getProject().getDsKey();

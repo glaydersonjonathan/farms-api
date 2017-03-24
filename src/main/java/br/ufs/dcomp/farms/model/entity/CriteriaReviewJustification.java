@@ -13,21 +13,21 @@ public class CriteriaReviewJustification {
 
 	private CriteriaReviewJustificationPk CriteriaReviewJustificationPk;
 	private String dsJustification;
-	
+
 	@Id
 	public CriteriaReviewJustificationPk getCriteriaReviewJustificationPk() {
 		return CriteriaReviewJustificationPk;
 	}
-	
+
 	public void setCriteriaReviewJustificationPk(CriteriaReviewJustificationPk criteriaReviewJustificationPk) {
 		CriteriaReviewJustificationPk = criteriaReviewJustificationPk;
 	}
-	
+
 	@Column(name = "ds_justification", nullable = true)
 	public String getDsJustification() {
 		return dsJustification;
 	}
-	
+
 	public void setDsJustification(String dsJustification) {
 		this.dsJustification = dsJustification;
 	}

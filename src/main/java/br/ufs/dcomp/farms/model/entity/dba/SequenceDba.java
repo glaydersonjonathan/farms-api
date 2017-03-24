@@ -7,7 +7,7 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
-@Table(name = "sequences", schema="information_schema")
+@Table(name = "sequences", schema = "information_schema")
 @XmlRootElement
 public class SequenceDba {
 
@@ -15,7 +15,7 @@ public class SequenceDba {
 	private String tpData;
 	private String nmCatalog;
 	private String nmSchema;
-	
+
 	public SequenceDba() {
 		super();
 	}
@@ -33,34 +33,34 @@ public class SequenceDba {
 	public String getNmSequence() {
 		return nmSequence;
 	}
-	
+
 	public void setNmSequence(String nmSequence) {
 		this.nmSequence = nmSequence;
 	}
-	
+
 	@Column(name = "data_type")
 	public String getTpData() {
 		return tpData;
 	}
-	
+
 	public void setTpData(String tpData) {
 		this.tpData = tpData;
 	}
-	
+
 	@Column(name = "sequence_catalog")
 	public String getNmCatalog() {
 		return nmCatalog;
 	}
-	
+
 	public void setNmCatalog(String nmCatalog) {
 		this.nmCatalog = nmCatalog;
 	}
-	
+
 	@Column(name = "sequence_schema")
 	public String getNmSchema() {
 		return nmSchema;
 	}
-	
+
 	public void setNmSchema(String nmSchema) {
 		this.nmSchema = nmSchema;
 	}

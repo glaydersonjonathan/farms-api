@@ -1,6 +1,5 @@
 package br.ufs.dcomp.farms.model.dto;
 
-
 public class ProjectMemberAddInstitutionDto {
 
 	private String dsUserName;
@@ -34,7 +33,5 @@ public class ProjectMemberAddInstitutionDto {
 	public void setDsKey(String dsKey) {
 		this.dsKey = dsKey;
 	}
-
-
 
 }

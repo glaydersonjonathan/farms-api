@@ -9,10 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @SuppressWarnings("unchecked")
 public class HibernateDao<T> {
-	
+
 	protected Class<T> clazz;
 	protected Session session;
-	
+
 	@Autowired
 	private SessionFactory sessionFactory;
 

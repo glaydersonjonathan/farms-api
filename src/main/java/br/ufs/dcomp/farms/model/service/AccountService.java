@@ -31,6 +31,7 @@ public class AccountService {
 
 	/**
 	 * Register a researcher
+	 * 
 	 * @param researcherRegisterDto
 	 * @return researcher
 	 * @throws FarmsException
@@ -46,25 +47,26 @@ public class AccountService {
 
 	/**
 	 * Register a researcher and send email confirmation
+	 * 
 	 * @param researcherRegisterDto
 	 * @return researcher
 	 * @throws FarmsException
 	 */
-	public ResearcherRegisteredDto registerAndSendAccountConfirmationEmail(ResearcherRegisterDto researcherRegisterDto) throws FarmsException {
+	public ResearcherRegisteredDto registerAndSendAccountConfirmationEmail(ResearcherRegisterDto researcherRegisterDto)
+			throws FarmsException {
 		ResearcherRegisteredDto researcherRegisteredDto = null;
 		Researcher researcher = register(researcherRegisterDto);
 		if (researcher != null) {
-			FarmsMail.sendAccountConfirmationEmail(
-					researcher.getNmResearcher(),
-					researcher.getDsEmail(), 
+			FarmsMail.sendAccountConfirmationEmail(researcher.getNmResearcher(), researcher.getDsEmail(),
 					researcher.getCdUuid().toString());
 			researcherRegisteredDto = new ResearcherRegisteredDto(researcher);
 		}
 		return researcherRegisteredDto;
 	}
-	
+
 	/**
 	 * Do login
+	 * 
 	 * @param researcherLoginDto
 	 * @return ResearcherLoggedDto
 	 * @throws FarmsException
@@ -72,37 +74,42 @@ public class AccountService {
 	public ResearcherLoggedDto login(ResearcherLoginDto researcherLoginDto) throws FarmsException {
 		ResearcherLoggedDto researcherLoggedDto = null;
 		Researcher researcherLogged = researcherService.getByEmail(researcherLoginDto.getDsEmail());
-		
-		if (researcherLogged != null 
+
+		if (researcherLogged != null
 				&& FarmsCrypt.checkPassword(researcherLoginDto.getDsPassword(), researcherLogged.getDsPassword())) {
-			//turns active
-			if(researcherLogged.getTpState() == StateEnum.I){
+			// turns active
+			if (researcherLogged.getTpState() == StateEnum.I) {
 				researcherDAO.active(researcherLogged.getIdResearcher());
-			} 
-			researcherLoggedDto = new ResearcherLoggedDto(researcherLogged);			
+			}
+			researcherLoggedDto = new ResearcherLoggedDto(researcherLogged);
 		} else {
-			throw new FarmsException(ErrorMessage.LOGIN_INVALID);			
+			throw new FarmsException(ErrorMessage.LOGIN_INVALID);
 		}
 		return researcherLoggedDto;
 	}
-	
+
 	public void updatePassword(ResearcherRegisterDto researcherRegisterDto) throws FarmsException {
-//		Researcher researcherFound = researcherService.getByEmail(researcherRegisterDto.getDsEmail());
-//		if (researcherFound == null) {
-//			researcherRegisterDto.setDsPassword(FarmsCrypt.hashPassword(researcherRegisterDto.getDsPassword()));
-//			researcherService.update(researcherRegisterDto); 
-//		} else {
-//			throw new FarmsException(ErrorMessage.RESEARCHER_NOT_FOUND);
-//		}
-//		
-//		Researcher researcherResult = researcherService.getByEmail(researcherRegisterDto.getDsEmail());
-//		if (researcherResult == null || !FarmsCrypt.checkPassword(researcherRegisterDto.getDsPassword(), researcherResult.getDsPassword())) {
-//			throw new FarmsException(ErrorMessage.LOGIN_INVALID);
-//		}
+		// Researcher researcherFound =
+		// researcherService.getByEmail(researcherRegisterDto.getDsEmail());
+		// if (researcherFound == null) {
+		// researcherRegisterDto.setDsPassword(FarmsCrypt.hashPassword(researcherRegisterDto.getDsPassword()));
+		// researcherService.update(researcherRegisterDto);
+		// } else {
+		// throw new FarmsException(ErrorMessage.RESEARCHER_NOT_FOUND);
+		// }
+		//
+		// Researcher researcherResult =
+		// researcherService.getByEmail(researcherRegisterDto.getDsEmail());
+		// if (researcherResult == null ||
+		// !FarmsCrypt.checkPassword(researcherRegisterDto.getDsPassword(),
+		// researcherResult.getDsPassword())) {
+		// throw new FarmsException(ErrorMessage.LOGIN_INVALID);
+		// }
 	}
-	
+
 	/**
 	 * Confirm account
+	 * 
 	 * @param cdUuid
 	 * @return ResearcherRegisteredDto
 	 * @throws FarmsException

@@ -4,11 +4,9 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
 import br.ufs.dcomp.farms.common.message.ErrorMessage;
 import br.ufs.dcomp.farms.core.FarmsException;
 import br.ufs.dcomp.farms.model.dao.CriteriaReviewJustificationDao;
@@ -75,12 +73,10 @@ public class SelectionService {
 		selectionStep.setDhReviewEnd(selectionCreateDto.getDhReviewEnd());
 		selectionStep.setDhStartSelectionStep(selectionCreateDto.getDhStartSelectionStep());
 		selectionStep.setQtReview(selectionCreateDto.getQtReview());
-		// selectionStep.setProject(projectDao.getByDsKey(selectionCreateDto.getDsKey()));
 		selectionStep.setProject(projectDao.get(selectionCreateDto.getIdProject()));
 
 		// verificar inicio
 		RatedContent ratedContent = new RatedContent();
-		// ratedContent.setIdRatedContent(Long.parseLong(selectionCreateDto.getDsRatedContent()));
 		ratedContent.setIdRatedContent(selectionCreateDto.getIdRatedContent());
 		selectionStep.setRatedContent(ratedContent);
 		selectionStep.setNrSerial(0);
@@ -248,6 +244,7 @@ public class SelectionService {
 
 	/**
 	 * Assign Studies automatically
+	 * 
 	 * @param dsKey
 	 * @return
 	 * @throws FarmsException
@@ -278,9 +275,8 @@ public class SelectionService {
 
 		}
 
-		if (verify_already_assigned)
-		{
-			throw new FarmsException(ErrorMessage.STUDY_ALREADY_ASSIGNED);
+		if (verify_already_assigned) {
+			throw new FarmsException(ErrorMessage.STUDY_AUTO_ALREADY_ASSIGNED);
 		}
 		return true;
 

@@ -14,10 +14,10 @@ public class CriteriaResultJustificationPk implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private SelectionResult selectionResult;
 	private SelectionCriteria selectionCriteria;
-	
+
 	public CriteriaResultJustificationPk() {
 		super();
 	}
@@ -31,13 +31,13 @@ public class CriteriaResultJustificationPk implements Serializable {
 	public void setSelectionResult(SelectionResult selectionResult) {
 		this.selectionResult = selectionResult;
 	}
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_selection_criteria", nullable = false)
 	public SelectionCriteria getSelectionCriteria() {
 		return selectionCriteria;
 	}
-	
+
 	public void setSelectionCriteria(SelectionCriteria selectionCriteria) {
 		this.selectionCriteria = selectionCriteria;
 	}

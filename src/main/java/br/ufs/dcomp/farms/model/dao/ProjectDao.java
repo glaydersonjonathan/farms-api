@@ -21,32 +21,30 @@ public class ProjectDao extends HibernateDao<Project> {
 	public ProjectDao() {
 		super(Project.class);
 	}
-	
-	
+
 	/**
 	 * Inserts a project.
+	 * 
 	 * @param project
 	 */
 	public void save(Project project) {
 		super.save(project);
 	}
-	
-	
-	
+
 	/**
 	 * Update a project.
+	 * 
 	 * @param project
 	 */
 	public void update(Project project) {
 		super.update(project);
 	}
-	
-	
 
 	/**
 	 * Returns all projects from the specified researcher.
 	 *
-	 * @param dsSSO the identifier of the researcher.
+	 * @param dsSSO
+	 *            the identifier of the researcher.
 	 * @return a list of all the projects of the specified researcher.
 	 */
 	public List<Project> getByDsSsoResearcher(String dsSSO) {
@@ -54,15 +52,16 @@ public class ProjectDao extends HibernateDao<Project> {
 		sbHql.append("from Project p");
 		sbHql.append(" join fetch p.projectMembers pm");
 		sbHql.append(" where pm.researcher.dsSSO = :dsSSO and pm.tpState != 'I'");
-		
+
 		Query query = getSession().createQuery(sbHql.toString());
 		query.setParameter("dsSSO", dsSSO);
 		List<Project> projects = query.list();
 		return projects;
 	}
-	
+
 	/**
 	 * Search a project by dsKey.
+	 * 
 	 * @param dsKey
 	 * @return
 	 */

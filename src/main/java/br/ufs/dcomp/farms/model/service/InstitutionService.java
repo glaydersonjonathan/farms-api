@@ -116,17 +116,18 @@ public class InstitutionService {
 
 	/**
 	 * Delete institution from project
+	 * 
 	 * @param institutionCreatedDto
 	 * @return
 	 */
 	public Boolean deleteInstitution(String dsKey, Long idInstitution) throws FarmsException {
-		
+
 		Long idProject = projectDao.getByDsKey(dsKey).getIdProject();
-		if (institutionDao.countInstitutions(idProject) == 1){
-			throw  new FarmsException(ErrorMessage.INSTITUTION_NOT_DELETED);
-		}else{
-			institutionDao.deleteInstitution(idProject,idInstitution);
-		}		
+		if (institutionDao.countInstitutions(idProject) == 1) {
+			throw new FarmsException(ErrorMessage.INSTITUTION_NOT_DELETED);
+		} else {
+			institutionDao.deleteInstitution(idProject, idInstitution);
+		}
 		return true;
 	}
 

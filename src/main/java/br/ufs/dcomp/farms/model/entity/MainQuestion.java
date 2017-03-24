@@ -27,15 +27,13 @@ public class MainQuestion {
 	private String dsApplicationContext;
 	private String dsExperimentalDesign;
 	private Project project;
-	
-	public MainQuestion() {}
-	
+
+	public MainQuestion() {
+	}
+
 	public MainQuestion(String dsMainQuestion) {
 		this.dsMainQuestion = dsMainQuestion;
 	}
-	
-	
-	
 
 	public MainQuestion(String dsMainQuestion, String dsPopulation, String dsIntervation, String dsControl,
 			String dsResult, String dsApplicationContext, String dsExperimentalDesign, Project project) {
@@ -69,7 +67,7 @@ public class MainQuestion {
 	public void setDsMainQuestion(String dsMainQuestion) {
 		this.dsMainQuestion = dsMainQuestion;
 	}
-	
+
 	@Column(name = "ds_population")
 	public String getDsPopulation() {
 		return dsPopulation;

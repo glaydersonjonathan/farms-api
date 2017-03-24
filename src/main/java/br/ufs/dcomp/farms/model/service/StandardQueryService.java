@@ -26,6 +26,7 @@ public class StandardQueryService {
 
 	/**
 	 * Search standard query by project
+	 * 
 	 * @param dsKey
 	 * @return
 	 */
@@ -33,7 +34,7 @@ public class StandardQueryService {
 		List<StandardQueryCreatedDto> languageCreatedDtos = new ArrayList<StandardQueryCreatedDto>();
 		List<StandardQuery> standardQuerys = standardQueryDao.getByDsKeyProject(dsKey);
 		if (standardQuerys != null) {
-			for(StandardQuery standardQuery : standardQuerys) {
+			for (StandardQuery standardQuery : standardQuerys) {
 				languageCreatedDtos.add(new StandardQueryCreatedDto(standardQuery));
 			}
 		}
@@ -42,6 +43,7 @@ public class StandardQueryService {
 
 	/**
 	 * Save or replace a standard query
+	 * 
 	 * @param stqcd
 	 * @return
 	 */
@@ -50,7 +52,7 @@ public class StandardQueryService {
 
 		StandardQuery standardQuery = new StandardQuery(stqcd.getDsStandardQuery(), project);
 
-		standardQueryDao.delete(project.getIdProject()); 
+		standardQueryDao.delete(project.getIdProject());
 
 		standardQueryDao.save(standardQuery);
 		return true;

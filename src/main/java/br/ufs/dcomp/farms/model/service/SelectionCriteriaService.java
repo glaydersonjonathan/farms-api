@@ -60,22 +60,27 @@ public class SelectionCriteriaService {
 
 	/**
 	 * Delete criteria of protocol project
+	 * 
 	 * @param dsProjectKey
 	 * @param idSelectionCriteria
 	 * @return
 	 */
 	public Boolean deleteCriteria(String dsProjectKey, String dsSelectionCriteria, Long tpCriteria) {
-		selectionCriteriaDao.deleteCriteria(projectDao.getByDsKey(dsProjectKey).getIdProject(), dsSelectionCriteria, tpCriteria);
+		selectionCriteriaDao.deleteCriteria(projectDao.getByDsKey(dsProjectKey).getIdProject(), dsSelectionCriteria,
+				tpCriteria);
 		return true;
 	}
 
 	/**
 	 * Edit selection criteria of protocol project
+	 * 
 	 * @param selectionCriteriaCreatedDto
 	 * @return
 	 */
 	public Boolean editCriteria(SelectionCriteriaCreatedDto selectionCriteriaCreatedDto) {
-		selectionCriteriaDao.editCriteria(projectDao.getByDsKey(selectionCriteriaCreatedDto.getDsProjectKey()).getIdProject(),selectionCriteriaCreatedDto);
+		selectionCriteriaDao.editCriteria(
+				projectDao.getByDsKey(selectionCriteriaCreatedDto.getDsProjectKey()).getIdProject(),
+				selectionCriteriaCreatedDto);
 		return true;
 	}
 }

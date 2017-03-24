@@ -56,22 +56,24 @@ public class SearchKeywordService {
 		return true;
 	}
 
-
 	/**
 	 * Delete a keyword
+	 * 
 	 * @param dsProjectKey
 	 * @param dsSearchKeyword
 	 * @param idSearchKeyword
 	 * @return
 	 */
 	public Boolean deleteKeyword(String dsProjectKey, String dsSearchKeyword, Long idSearchKeyword) {
-		SearchKeyword searchKeyword = new SearchKeyword(idSearchKeyword,dsSearchKeyword, projectDao.getByDsKey(dsProjectKey));
+		SearchKeyword searchKeyword = new SearchKeyword(idSearchKeyword, dsSearchKeyword,
+				projectDao.getByDsKey(dsProjectKey));
 		searchKeywordDao.delete(searchKeyword);
 		return true;
 	}
 
 	/**
 	 * Edit keyword
+	 * 
 	 * @param searchKeywordCreatedDto
 	 * @return
 	 */

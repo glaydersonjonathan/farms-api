@@ -16,8 +16,9 @@ public class DuplicateStudy {
 
 	private Long idStudy;
 	private Study study;
-	
-	public DuplicateStudy() {}
+
+	public DuplicateStudy() {
+	}
 
 	@Id
 	@Column(name = "id_study", nullable = false, unique = true)

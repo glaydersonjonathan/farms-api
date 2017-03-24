@@ -18,20 +18,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "search_keyword")
 @XmlRootElement
 @SequenceGenerator(name = "SearchKeywordSequenceGenerator", sequenceName = "sq_search_keyword")
-public class SearchKeyword  implements Serializable {
+public class SearchKeyword implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private Long idSearchKeyword;
 	private String dsSearchKeyword;
 	private Project project;
-	
-	public SearchKeyword() {}
-	
+
+	public SearchKeyword() {
+	}
+
 	public SearchKeyword(String dsSearchKeyword) {
 		this.dsSearchKeyword = dsSearchKeyword;
 	}
-	
-	
 
 	public SearchKeyword(Long idSearchKeyword, String dsSearchKeyword, Project project) {
 		super();
@@ -65,7 +64,7 @@ public class SearchKeyword  implements Serializable {
 	public void setDsSearchKeyword(String dsSearchKeyword) {
 		this.dsSearchKeyword = dsSearchKeyword;
 	}
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_project", nullable = false)
 	public Project getProject() {

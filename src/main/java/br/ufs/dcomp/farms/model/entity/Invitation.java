@@ -25,8 +25,9 @@ public class Invitation {
 	private Date dhConfirmation;
 	private Project project;
 	private Researcher researcher;
-	
-	public Invitation() {}
+
+	public Invitation() {
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "InvitationSequenceGenerator")

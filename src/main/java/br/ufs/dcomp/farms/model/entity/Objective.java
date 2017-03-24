@@ -21,14 +21,13 @@ public class Objective {
 	private Long idObjective;
 	private String dsObjective;
 	private Project project;
-	
-	public Objective() {}
-	
+
+	public Objective() {
+	}
+
 	public Objective(String dsObjective) {
 		this.dsObjective = dsObjective;
 	}
-	
-	
 
 	public Objective(String dsObjective, Project project) {
 		super();
@@ -55,7 +54,7 @@ public class Objective {
 	public void setDsObjective(String dsObjective) {
 		this.dsObjective = dsObjective;
 	}
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_project", nullable = false)
 	public Project getProject() {

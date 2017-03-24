@@ -54,6 +54,7 @@ public class LanguageService {
 
 	/**
 	 * Add language a project
+	 * 
 	 * @param languages
 	 * @return boolean
 	 */
@@ -72,12 +73,13 @@ public class LanguageService {
 
 	/**
 	 * Delete language of protocol project
+	 * 
 	 * @param dsProjectKey
 	 * @param idLanguage
 	 * @return
 	 */
 	public Boolean deleteLanguage(String dsProjectKey, Long idLanguage) {
-		
+
 		languageDao.deleteLanguage(projectDao.getByDsKey(dsProjectKey).getIdProject(), idLanguage);
 		return true;
 	}

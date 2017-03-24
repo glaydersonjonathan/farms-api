@@ -10,10 +10,9 @@ public class InstitutionCreateDto {
 	private String dsKey;
 
 	public InstitutionCreateDto() {
-		}
+	}
 
-	
-	public InstitutionCreateDto(String dsAbbreviation, String nmInstitution, Country country, String dsKey) {	
+	public InstitutionCreateDto(String dsAbbreviation, String nmInstitution, Country country, String dsKey) {
 		super();
 		this.dsAbbreviation = dsAbbreviation;
 		this.nmInstitution = nmInstitution;
@@ -45,20 +44,16 @@ public class InstitutionCreateDto {
 		this.country = country;
 	}
 
-
 	public String getDsKey() {
 		return dsKey;
 	}
-
 
 	public void setDsKey(String dsKey) {
 		this.dsKey = dsKey;
 	}
 
-
 	public void setCountry(Country country) {
 		this.country = country;
 	}
-	
-	
+
 }

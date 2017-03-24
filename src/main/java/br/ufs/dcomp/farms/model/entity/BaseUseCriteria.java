@@ -20,7 +20,7 @@ public class BaseUseCriteria implements Serializable {
 	private SearchEngine searchEngine;
 	private String dsBaseUseCriteria;
 	private Project project;
-	
+
 	@Id
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_project", nullable = false)

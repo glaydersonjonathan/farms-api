@@ -43,10 +43,10 @@ public class SelectionStepDao extends HibernateDao<SelectionStep> {
 	 * @param idProject
 	 */
 	public void delete(Long idProject) {
-			String hql = "delete from SelectionStep where project.idProject= :idProject";
-			Query query = getSession().createQuery(hql);
-			query.setLong("idProject", idProject);
-			System.out.println(query.executeUpdate());
+		String hql = "delete from SelectionStep where project.idProject= :idProject";
+		Query query = getSession().createQuery(hql);
+		query.setLong("idProject", idProject);
+		System.out.println(query.executeUpdate());
 	}
 
 }

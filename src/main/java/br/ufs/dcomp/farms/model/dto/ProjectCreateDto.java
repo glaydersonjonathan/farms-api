@@ -9,19 +9,15 @@ public class ProjectCreateDto {
 	private String dsProject;
 	private Integer tpReview;
 	private String dsSsoResearcher;
-	
-	
-	//part create Institution
+
+	// part create Institution
 	private Country country;
 	private String nmInstitution;
 	private String dsAbbreviation;
-	
+
 	public ProjectCreateDto() {
 		super();
 	}
-
-
-
 
 	public ProjectCreateDto(String dsKey, String dsTitle, String dsProject, Integer tpReview, String dsSsoResearcher,
 			Country country, String nmInstitution, String dsAbbreviation) {
@@ -35,9 +31,6 @@ public class ProjectCreateDto {
 		this.nmInstitution = nmInstitution;
 		this.dsAbbreviation = dsAbbreviation;
 	}
-
-
-
 
 	public String getDsKey() {
 		return dsKey;
@@ -54,7 +47,7 @@ public class ProjectCreateDto {
 	public void setDsTitle(String dsTitle) {
 		this.dsTitle = dsTitle;
 	}
-	
+
 	public String getDsProject() {
 		return dsProject;
 	}
@@ -79,7 +72,6 @@ public class ProjectCreateDto {
 		this.dsSsoResearcher = dsSsoResearcher;
 	}
 
-
 	public Country getCountry() {
 		return country;
 	}
@@ -87,9 +79,6 @@ public class ProjectCreateDto {
 	public void setCountry(Country country) {
 		this.country = country;
 	}
-
-
-
 
 	public String getNmInstitution() {
 		return nmInstitution;
@@ -106,6 +95,5 @@ public class ProjectCreateDto {
 	public void setDsAbbreviation(String dsAbbreviation) {
 		this.dsAbbreviation = dsAbbreviation;
 	}
-
 
 }

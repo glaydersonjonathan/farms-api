@@ -20,6 +20,7 @@ public class RatedContentDao extends HibernateDao<RatedContent> {
 
 	/**
 	 * Get All RatedContent.
+	 * 
 	 * @return
 	 */
 	public List<RatedContent> getAllRated() {

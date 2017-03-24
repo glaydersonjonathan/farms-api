@@ -29,12 +29,13 @@ public class Review {
 	private SelectionStatusEnum tpStatus;
 	private Researcher researcher;
 	private Study study;
-	
-	
-	public Review() {}
+
+	public Review() {
+	}
 
 	@Id
-	//@GeneratedValue(strategy = GenerationType.AUTO, generator = "ReviewSequenceGenerator")
+	// @GeneratedValue(strategy = GenerationType.AUTO, generator =
+	// "ReviewSequenceGenerator")
 	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "ReviewSequenceGenerator")
 	@Column(name = "id_review", nullable = false, unique = true)
 	public Long getIdReview() {
@@ -64,7 +65,7 @@ public class Review {
 	}
 
 	@Column(name = "tp_status", nullable = false)
-	@Enumerated(EnumType.ORDINAL)	
+	@Enumerated(EnumType.ORDINAL)
 	public SelectionStatusEnum getTpStatus() {
 		return tpStatus;
 	}

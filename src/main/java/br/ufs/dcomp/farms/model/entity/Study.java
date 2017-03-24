@@ -25,7 +25,7 @@ import br.ufs.dcomp.farms.model.enums.VenueEnum;
 @Entity
 @Table(name = "study")
 @XmlRootElement
-@JsonIgnoreProperties({"project", "search"})
+@JsonIgnoreProperties({ "project", "search" })
 @SequenceGenerator(name = "StudySequenceGenerator", sequenceName = "sq_study")
 public class Study implements Serializable {
 
@@ -33,7 +33,7 @@ public class Study implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private Long idStudy;
 	private String cdCiteKey;
 	private String dsTitle;
@@ -54,9 +54,10 @@ public class Study implements Serializable {
 	private StudyStatusEnum tpStatus;
 	private Project project;
 	private Search search;
-	
-	public Study() {}
-	
+
+	public Study() {
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "StudySequenceGenerator")
 	@Column(name = "id_study", nullable = false, unique = true)
@@ -67,7 +68,7 @@ public class Study implements Serializable {
 	public void setIdStudy(Long idStudy) {
 		this.idStudy = idStudy;
 	}
-	
+
 	@Column(name = "cd_cite_key")
 	public String getCdCiteKey() {
 		return cdCiteKey;
@@ -76,7 +77,7 @@ public class Study implements Serializable {
 	public void setCdCiteKey(String cdCiteKey) {
 		this.cdCiteKey = cdCiteKey;
 	}
-	
+
 	@Column(name = "ds_title")
 	public String getDsTitle() {
 		return dsTitle;
@@ -112,7 +113,7 @@ public class Study implements Serializable {
 	public void setDsKeyword(String dsKeyword) {
 		this.dsKeyword = dsKeyword;
 	}
-	
+
 	@Column(name = "nr_year")
 	public Integer getNrYear() {
 		return nrYear;
@@ -193,7 +194,7 @@ public class Study implements Serializable {
 	public void setDsJournal(String dsJournal) {
 		this.dsJournal = dsJournal;
 	}
-	
+
 	@Column(name = "tp_venue")
 	@Enumerated(EnumType.ORDINAL)
 	public VenueEnum getTpVenue() {
@@ -233,7 +234,7 @@ public class Study implements Serializable {
 	public void setProject(Project project) {
 		this.project = project;
 	}
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_search", nullable = false)
 	public Search getSearch() {

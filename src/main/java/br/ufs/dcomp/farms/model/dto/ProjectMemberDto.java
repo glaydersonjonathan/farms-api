@@ -11,9 +11,10 @@ public class ProjectMemberDto {
 	private Integer tpConfirmed;
 	private String tpRole;
 	private String tpState;
-	
-	public ProjectMemberDto() {}
-	
+
+	public ProjectMemberDto() {
+	}
+
 	public ProjectMemberDto(ProjectMember projectMember) {
 		super();
 		this.idProjectMember = projectMember.getIdProjectMember();

@@ -121,6 +121,7 @@ public class StudyResource {
 
 	/**
 	 * Get details os study by citeKey
+	 * 
 	 * @param cdCiteKey
 	 * @return
 	 */

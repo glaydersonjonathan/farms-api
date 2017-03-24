@@ -17,7 +17,6 @@ public class SearchKeywordCreatedDto {
 		super();
 	}
 
-	
 	public SearchKeywordCreatedDto(Long idSearchKeyword, String dsSearchKeyword, String dsProjectKey) {
 		super();
 		this.idSearchKeyword = idSearchKeyword;
@@ -54,6 +53,5 @@ public class SearchKeywordCreatedDto {
 	public void setDsProjectKey(String dsProjectKey) {
 		this.dsProjectKey = dsProjectKey;
 	}
-	
-	
+
 }

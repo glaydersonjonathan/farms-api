@@ -24,15 +24,16 @@ public class AdaptedQuery implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private Long idAdaptedQuery;
 	private String dsAdaptedQuery;
 	private String dsObservation;
 	private SearchEngine searchEngine;
 	private StandardQuery standardQuery;
-	
-	public AdaptedQuery() {}
-	
+
+	public AdaptedQuery() {
+	}
+
 	public AdaptedQuery(String dsAdaptedQuery) {
 		this.dsAdaptedQuery = dsAdaptedQuery;
 	}

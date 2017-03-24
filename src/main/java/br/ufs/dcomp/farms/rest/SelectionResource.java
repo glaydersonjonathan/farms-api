@@ -42,6 +42,7 @@ public class SelectionResource {
 
 	/**
 	 * Get configuration of selection Step of a project
+	 * 
 	 * @param dsKey
 	 * @return
 	 */
@@ -58,6 +59,7 @@ public class SelectionResource {
 
 	/**
 	 * Save configuration of selection Step of a project
+	 * 
 	 * @param selectionCreatedDto
 	 * @return
 	 */
@@ -70,7 +72,7 @@ public class SelectionResource {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-	
+
 	/**
 	 * Receive a request from client to get all rated content registered.
 	 *
@@ -87,11 +89,10 @@ public class SelectionResource {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-	
 
-	
 	/**
 	 * Assign studies to researcher
+	 * 
 	 * @param reviewCreateDto
 	 * @return
 	 */
@@ -101,24 +102,23 @@ public class SelectionResource {
 		try {
 			Boolean bool = selectionService.assignManual(reviewCreateDto);
 			return FarmsResponse.ok(SuccessMessage.STUDIES_MANUAL_ASSIGNED, bool);
-		} catch (FarmsException fe){
+		} catch (FarmsException fe) {
 			return FarmsResponse.error(fe.getErrorMessage());
-		}
-		catch (Exception ex) {
+		} catch (Exception ex) {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-	
 
 	/**
 	 * Get reviews by project and researcher
+	 * 
 	 * @param dsKey
 	 * @param dsSSO
 	 * @return
 	 */
 	@GET
 	@Path("/review/{dsKey}/{dsSSO}")
-	public Response getReviews(@PathParam("dsKey") String dsKey,@PathParam("dsSSO") String dsSSO ) {
+	public Response getReviews(@PathParam("dsKey") String dsKey, @PathParam("dsSSO") String dsSSO) {
 		try {
 			List<ReviewCreateDto> reviewCreatedDto = selectionService.getReviews(dsKey, dsSSO);
 			return FarmsResponse.ok(reviewCreatedDto);
@@ -126,10 +126,10 @@ public class SelectionResource {
 			return FarmsResponse.error(null);
 		}
 	}
-	
 
 	/**
 	 * Update state of review.
+	 * 
 	 * @param reviewCreateDto
 	 * @return
 	 */
@@ -143,10 +143,10 @@ public class SelectionResource {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-	
-	
+
 	/**
 	 * Get studies in conflict
+	 * 
 	 * @param dsKey
 	 * @return
 	 */
@@ -154,31 +154,30 @@ public class SelectionResource {
 	@Path("/conflicts/{dsKey}")
 	public Response getStudiesInConflicts(@PathParam("dsKey") String dsKey) {
 		try {
-			List <StudyCreatedDto> studyCreatedDto = selectionService.getStudiesInConflict(dsKey);
+			List<StudyCreatedDto> studyCreatedDto = selectionService.getStudiesInConflict(dsKey);
 			return FarmsResponse.ok(studyCreatedDto);
 		} catch (Exception ex) {
 			return FarmsResponse.error(null);
 		}
 	}
-	
 
 	/**
 	 * Assign Studies automatically
+	 * 
 	 * @param dsKey
 	 * @return
 	 */
 	@POST
 	@Path("/assignAuto/{dsKey}")
-	public Response assignAuto(@PathParam("dsKey")String dsKey) {
+	public Response assignAuto(@PathParam("dsKey") String dsKey) {
 		try {
 			Boolean bool = selectionService.assignAuto(dsKey);
 			return FarmsResponse.ok(SuccessMessage.STUDIES_AUTO_ASSIGNED, bool);
-		} catch (FarmsException fe){
+		} catch (FarmsException fe) {
 			return FarmsResponse.error(fe.getErrorMessage());
-		}
-		catch (Exception ex) {
+		} catch (Exception ex) {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-	
+
 }

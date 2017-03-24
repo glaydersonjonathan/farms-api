@@ -42,17 +42,17 @@ public class SearchKeywordDao extends HibernateDao<SearchKeyword> {
 		List<SearchKeyword> searchKeyword = query.list();
 		return searchKeyword;
 	}
-	
+
 	/**
 	 * Delete keyword.
 	 *
 	 * @param searchKeyword
 	 * 
 	 */
-	public void delete (SearchKeyword searchKeyword){
+	public void delete(SearchKeyword searchKeyword) {
 		Transaction transaction = getSession().beginTransaction();
 		try {
-			
+
 			String hql = "delete from SearchKeyword where project.idProject= :idProject and idSearchKeyword =:idSearchKeyword";
 			Query query = getSession().createQuery(hql);
 			query.setLong("idProject", searchKeyword.getProject().getIdProject());
@@ -68,6 +68,7 @@ public class SearchKeywordDao extends HibernateDao<SearchKeyword> {
 
 	/**
 	 * Update keyword
+	 * 
 	 * @param searchKeywordCreatedDto
 	 */
 	public void update(SearchKeywordCreatedDto searchKeywordCreatedDto) {
@@ -76,6 +77,6 @@ public class SearchKeywordDao extends HibernateDao<SearchKeyword> {
 		query.setParameter("dsSearchKeyword", searchKeywordCreatedDto.getDsSearchKeyword());
 		query.setParameter("idSearchKeyword", searchKeywordCreatedDto.getIdSearchKeyword());
 		query.executeUpdate();
-		
+
 	}
 }

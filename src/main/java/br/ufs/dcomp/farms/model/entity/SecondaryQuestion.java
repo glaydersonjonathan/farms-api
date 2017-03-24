@@ -21,14 +21,13 @@ public class SecondaryQuestion {
 	private Long idSecondaryQuestion;
 	private String dsSecondaryQuestion;
 	private Project project;
-	
-	public SecondaryQuestion() {}
-	
+
+	public SecondaryQuestion() {
+	}
+
 	public SecondaryQuestion(String dsSecondaryQuestion) {
 		this.dsSecondaryQuestion = dsSecondaryQuestion;
 	}
-
-
 
 	public SecondaryQuestion(String dsSecondaryQuestion, Project project) {
 		super();
@@ -55,7 +54,7 @@ public class SecondaryQuestion {
 	public void setDsSecondaryQuestion(String dsSecondaryQuestion) {
 		this.dsSecondaryQuestion = dsSecondaryQuestion;
 	}
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_project", nullable = false)
 	public Project getProject() {

@@ -26,6 +26,7 @@ public class MainQuestionService {
 
 	/**
 	 * Get main question of protocol project
+	 * 
 	 * @param dsKey
 	 * @return List<MainQuestionCreatedDto>
 	 */
@@ -42,18 +43,22 @@ public class MainQuestionService {
 
 	/**
 	 * Register main question of a project
+	 * 
 	 * @param mainQuestionCreatedDto
 	 * @return boolean
 	 */
 	public Boolean saveMainQuestion(MainQuestionCreatedDto mainQuestionCreatedDto) {
 		Project project = projectDao.getByDsKey(mainQuestionCreatedDto.getDsProjectKey());
 
-		MainQuestion mainQuestion = new MainQuestion(mainQuestionCreatedDto.getDsMainQuestion(), mainQuestionCreatedDto.getDsPopulation(),
-				mainQuestionCreatedDto.getDsIntervation(),mainQuestionCreatedDto.getDsControl(), mainQuestionCreatedDto.getDsResult(),
-				mainQuestionCreatedDto.getDsApplicationContext(),mainQuestionCreatedDto.getDsExperimentalDesign(),
+		MainQuestion mainQuestion = new MainQuestion(mainQuestionCreatedDto.getDsMainQuestion(),
+				mainQuestionCreatedDto.getDsPopulation(), mainQuestionCreatedDto.getDsIntervation(),
+				mainQuestionCreatedDto.getDsControl(), mainQuestionCreatedDto.getDsResult(),
+				mainQuestionCreatedDto.getDsApplicationContext(), mainQuestionCreatedDto.getDsExperimentalDesign(),
 				project);
 
-		mainQuestionDao.delete(project.getIdProject()); // delete main question registered to save new
+		mainQuestionDao.delete(project.getIdProject()); // delete main question
+														// registered to save
+														// new
 
 		mainQuestionDao.save(mainQuestion);
 		return true;

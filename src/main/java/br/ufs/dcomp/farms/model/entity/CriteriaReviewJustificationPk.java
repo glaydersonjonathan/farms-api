@@ -14,10 +14,10 @@ public class CriteriaReviewJustificationPk implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private Review review;
 	private SelectionCriteria selectionCriteria;
-	
+
 	public CriteriaReviewJustificationPk() {
 		super();
 	}
@@ -27,17 +27,17 @@ public class CriteriaReviewJustificationPk implements Serializable {
 	public Review getReview() {
 		return review;
 	}
-	
+
 	public void setReview(Review review) {
 		this.review = review;
 	}
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_selection_criteria", nullable = false)
 	public SelectionCriteria getSelectionCriteria() {
 		return selectionCriteria;
 	}
-	
+
 	public void setSelectionCriteria(SelectionCriteria selectionCriteria) {
 		this.selectionCriteria = selectionCriteria;
 	}
