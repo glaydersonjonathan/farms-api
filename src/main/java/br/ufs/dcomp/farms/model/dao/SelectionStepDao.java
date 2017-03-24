@@ -3,7 +3,6 @@ package br.ufs.dcomp.farms.model.dao;
 import java.util.List;
 
 import org.hibernate.Query;
-import org.hibernate.Transaction;
 import org.springframework.stereotype.Component;
 
 import br.ufs.dcomp.farms.model.entity.SelectionStep;

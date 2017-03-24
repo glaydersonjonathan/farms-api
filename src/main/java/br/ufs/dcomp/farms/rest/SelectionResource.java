@@ -19,10 +19,8 @@ import br.ufs.dcomp.farms.common.message.ErrorMessage;
 import br.ufs.dcomp.farms.common.message.SuccessMessage;
 import br.ufs.dcomp.farms.core.FarmsException;
 import br.ufs.dcomp.farms.core.FarmsResponse;
-import br.ufs.dcomp.farms.model.dto.ProjectMemberDto;
 import br.ufs.dcomp.farms.model.dto.RatedContentCreatedDto;
 import br.ufs.dcomp.farms.model.dto.ReviewCreateDto;
-//import br.ufs.dcomp.farms.model.dto.ReviewCreatedDto;
 import br.ufs.dcomp.farms.model.dto.SelectionStepCreatedDto;
 import br.ufs.dcomp.farms.model.dto.StudyCreatedDto;
 import br.ufs.dcomp.farms.model.service.SelectionService;
@@ -164,12 +162,17 @@ public class SelectionResource {
 	}
 	
 
+	/**
+	 * Assign Studies automatically
+	 * @param dsKey
+	 * @return
+	 */
 	@POST
 	@Path("/assignAuto/{dsKey}")
 	public Response assignAuto(@PathParam("dsKey")String dsKey) {
 		try {
 			Boolean bool = selectionService.assignAuto(dsKey);
-			return FarmsResponse.ok(SuccessMessage.STUDIES_MANUAL_ASSIGNED, bool);
+			return FarmsResponse.ok(SuccessMessage.STUDIES_AUTO_ASSIGNED, bool);
 		} catch (FarmsException fe){
 			return FarmsResponse.error(fe.getErrorMessage());
 		}

@@ -86,4 +86,8 @@ public class ErrorMessage extends Message {
 	private static final Integer STUDY_ALREADY_ASSIGNED_CODE = 2012;
 	private static final String  STUDY_ALREADY_ASSIGNED_DESCRIPTION = "At least one of the studies was already assigned to the researcher. If remains studies, assigned successfully.";
 	public static final ErrorMessage  STUDY_ALREADY_ASSIGNED = new ErrorMessage( STUDY_ALREADY_ASSIGNED_CODE,  STUDY_ALREADY_ASSIGNED_DESCRIPTION);
+	
+	private static final Integer STUDY_AUTO_ALREADY_ASSIGNED_CODE = 2012;
+	private static final String  STUDY_AUTO_ALREADY_ASSIGNED_DESCRIPTION = "All studies undesignated are assigned to researcher now.";
+	public static final ErrorMessage  STUDY_AUTO_ALREADY_ASSIGNED = new ErrorMessage( STUDY_AUTO_ALREADY_ASSIGNED_CODE,  STUDY_AUTO_ALREADY_ASSIGNED_DESCRIPTION);
 }

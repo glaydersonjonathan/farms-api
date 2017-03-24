@@ -4,9 +4,8 @@ import java.util.List;
 
 import org.hibernate.Query;
 import org.springframework.stereotype.Component;
-
 import br.ufs.dcomp.farms.model.entity.CriteriaReviewJustification;
-import br.ufs.dcomp.farms.model.entity.Review;
+
 
 /**
  * @author farms

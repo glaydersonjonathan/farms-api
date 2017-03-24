@@ -19,7 +19,6 @@ import br.ufs.dcomp.farms.model.dao.ResearcherDao;
 import br.ufs.dcomp.farms.model.dao.ReviewDao;
 import br.ufs.dcomp.farms.model.dao.SelectionStepDao;
 import br.ufs.dcomp.farms.model.dao.StudyDao;
-import br.ufs.dcomp.farms.model.dto.ProjectMemberDto;
 import br.ufs.dcomp.farms.model.dto.RatedContentCreatedDto;
 import br.ufs.dcomp.farms.model.dto.ReviewCreateDto;
 import br.ufs.dcomp.farms.model.dto.SelectionCriteriaCreatedDto;
@@ -247,6 +246,12 @@ public class SelectionService {
 		return result;
 	}
 
+	/**
+	 * Assign Studies automatically
+	 * @param dsKey
+	 * @return
+	 * @throws FarmsException
+	 */
 	public Boolean assignAuto(String dsKey) throws FarmsException {
 		List<ProjectMember> members = pmd.getByDsKeyProject(dsKey);
 		List<Study> studies = studyDao.getByDsKeyProject(dsKey);

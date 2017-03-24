@@ -24,7 +24,7 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
 import br.ufs.dcomp.farms.rest.EmailHtmlTemplate;
-
+@SuppressWarnings("unused")
 public class FarmsMail {
 
 	final static String ACCOUNT_CONFIRMATION_EMAIL_TEMPLATE_HTML = "templates/account-confirmation-email-template.html";

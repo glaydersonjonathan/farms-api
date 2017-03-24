@@ -16,21 +16,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class BaseUseCriteria implements Serializable {
 
-	//private Long idProject;
+	private static final long serialVersionUID = 1L;
 	private SearchEngine searchEngine;
 	private String dsBaseUseCriteria;
 	private Project project;
-	
-/*	@Id
-	@Column(name = "id_project", nullable = false, unique = true)
-	public Long getIdProject() {
-		return idProject;
-	}
-
-	public void setIdProject(Long idProject) {
-		this.idProject = idProject;
-	}
-*/
 	
 	@Id
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -43,14 +32,12 @@ public class BaseUseCriteria implements Serializable {
 		this.project = project;
 	}
 
-	
 	@Id
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_search_engine", nullable = false)
 	public SearchEngine getSearchEngine() {
 		return searchEngine;
 	}
-
 
 	public void setSearchEngine(SearchEngine searchEngine) {
 		this.searchEngine = searchEngine;
