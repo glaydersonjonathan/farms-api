@@ -56,9 +56,9 @@
 	<dependencies>
 		<!-- Mimepull -->
 		<dependency>
-			<groupId>org.jvnet</groupId>
+			<groupId>org.jvnet.mimepull</groupId>
 			<artifactId>mimepull</artifactId>
-			<version>1.6</version>
+			<version>1.9.7</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.jbibtex/jbibtex -->
 		<dependency>

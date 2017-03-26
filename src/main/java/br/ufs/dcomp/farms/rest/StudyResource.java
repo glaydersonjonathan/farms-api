@@ -140,24 +140,24 @@ public class StudyResource {
 	@POST
 	@Path("/upload-study")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	public Response uploadFile(@FormDataParam("file") InputStream file,
-			@FormDataParam("file") FormDataContentDisposition fileDisposition) {
+	public Response uploadFile(@FormDataParam("file") InputStream uploadedInputStream,
+			@FormDataParam("file") FormDataContentDisposition fileDetail) {
 
-		String fileName = fileDisposition.getFileName();
+		String fileName = fileDetail.getFileName();
 
-		saveFile(file, fileName);
+		saveFile(uploadedInputStream, fileName);
 
-		String fileDetails = "File saved at /Volumes/Drive2/temp/file/" + fileName;
+		String fileDetails = "File saved at D:/" + fileName;
 
 		System.out.println(fileDetails);
-
+		
 		return Response.ok(fileDetails).build();
 	}
 
 	private void saveFile(InputStream file, String name) {
 		try {
 			// Change directory path
-			java.nio.file.Path path = FileSystems.getDefault().getPath("/Volumes/Drive2/temp/file/" + name);
+			java.nio.file.Path path = FileSystems.getDefault().getPath("D:/" + name);
 			// Save InputStream as file
 			Files.copy(file, path);
 		} catch (IOException ie) {

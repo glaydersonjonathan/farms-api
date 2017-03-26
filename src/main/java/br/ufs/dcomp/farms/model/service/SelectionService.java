@@ -255,7 +255,6 @@ public class SelectionService {
 
 		boolean verify_already_assigned = false;
 		for (Study s : studies) {
-
 			for (int x = 0; x < members.size(); x++) {
 				Review review = new Review();
 
@@ -272,7 +271,6 @@ public class SelectionService {
 					reviewDao.save(review);
 				}
 			}
-
 		}
 
 		if (verify_already_assigned) {
