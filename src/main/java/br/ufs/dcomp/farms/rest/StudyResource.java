@@ -5,7 +5,6 @@ import java.io.InputStream;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.util.List;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -16,13 +15,11 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
 import org.apache.log4j.Logger;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import br.ufs.dcomp.farms.common.message.ErrorMessage;
 import br.ufs.dcomp.farms.common.message.SuccessMessage;
 import br.ufs.dcomp.farms.core.FarmsException;
@@ -137,6 +134,20 @@ public class StudyResource {
 		}
 	}
 
+	@GET
+	@Path("/teste")
+	public Response teste() {
+         try {
+			Integer total = studyService.teste();
+			return FarmsResponse.ok(SuccessMessage.STUDY_IMPORTED, total);
+		} catch (Exception e) {
+			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, e);
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		} 
+		
+	}
+	
+	
 	@POST
 	@Path("/upload-study")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)

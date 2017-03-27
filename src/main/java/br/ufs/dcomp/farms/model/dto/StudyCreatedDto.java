@@ -28,6 +28,7 @@ public class StudyCreatedDto {
 
 	private String dsKeyProject;
 	private Long idSearch;
+	private Integer tpSearch; //from search
 
 	private Long idStudy;
 
@@ -60,6 +61,7 @@ public class StudyCreatedDto {
 		this.dsKeyProject = study.getProject().getDsKey();
 		this.idSearch = study.getSearch().getIdSearch();
 		this.idStudy = study.getIdStudy();
+		this.tpSearch =study.getSearch().getTpSearch().getCode();
 	}
 
 	public StudyCreatedDto(Study study, Long accepted, Long rejected, Long unclassified) {
@@ -297,5 +299,15 @@ public class StudyCreatedDto {
 	public void setUnclassified(Long unclassified) {
 		this.unclassified = unclassified;
 	}
+
+	public Integer getTpSearch() {
+		return tpSearch;
+	}
+
+	public void setTpSearch(Integer tpSearch) {
+		this.tpSearch = tpSearch;
+	}
+	
+	
 
 }

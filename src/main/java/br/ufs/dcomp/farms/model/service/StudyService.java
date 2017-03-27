@@ -1,15 +1,25 @@
 package br.ufs.dcomp.farms.model.service;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
-
 import org.hibernate.exception.ConstraintViolationException;
+import org.jbibtex.BibTeXDatabase;
+import org.jbibtex.BibTeXEntry;
+import org.jbibtex.BibTeXParser;
+import org.jbibtex.BibTeXString;
+import org.jbibtex.Key;
+import org.jbibtex.ParseException;
+import org.jbibtex.Value;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
 import br.ufs.dcomp.farms.common.message.ErrorMessage;
 import br.ufs.dcomp.farms.core.FarmsException;
 import br.ufs.dcomp.farms.model.dao.AdaptedQueryDao;
@@ -135,8 +145,6 @@ public class StudyService {
 		// verificar
 		Random rand = new Random();
 		search.setNrSearch(rand.nextLong());
-
-		search.setTpSearch(SearchEnum.fromCode(1));
 		search.setAdaptedQuery(adaptedQuery);
 		searchDao.save(search);
 
@@ -206,5 +214,172 @@ public class StudyService {
 			throw new FarmsException(ErrorMessage.STUDY_IN_REVIEW);
 		}
 
+	}
+
+	public int teste() throws IOException, ParseException, FarmsException, NullPointerException {
+		File input = new File("D:/iee.bib");
+		int result = 0;
+		BibTeXDatabase database = parseBibTeX(input);
+		List<Study> studies = new ArrayList<Study>();
+		Collection<BibTeXEntry> entries = (database.getEntries()).values();
+		for (BibTeXEntry entry : entries) {
+
+			Study study = new Study();
+
+			Key title_key = new Key("title");
+			Value title = entry.getField(title_key);
+			if (title != null)
+				study.setDsTitle(title.toUserString());
+
+			Key author_key = new Key("author");
+			Value author = entry.getField(author_key);
+			if (author != null)
+				study.setNmAuthor(author.toUserString());
+
+			Key abstract_key = new Key("abstract");
+			Value abstrac = entry.getField(abstract_key);
+			if (abstrac != null)
+				study.setDsAbstract(abstrac.toUserString());
+
+			Key doi_key = new Key("doi");
+			Value doi = entry.getField(doi_key);
+			if (doi != null)
+				study.setCdDoi(doi.toUserString());
+
+			Key year_key = new Key("year");
+			Value year = entry.getField(year_key);
+			if (year != null)
+				study.setNrYear(Integer.parseInt(year.toUserString()));
+
+			Key journal_key = new Key("journal");
+			Value journal = entry.getField(journal_key);
+			if (journal != null)
+				study.setDsJournal(journal.toUserString());
+
+			Key pages_key = new Key("pages");
+			Value pages = entry.getField(pages_key);
+			if (pages != null)
+				study.setDsPage(pages.toUserString());
+
+			Key url_key = new Key("url");
+			Value url = entry.getField(url_key);
+			if (url != null)
+				study.setDsUrl(url.toUserString());
+
+			Key keywords_key = new Key("keywords");
+			Value keywords = entry.getField(keywords_key);
+			if (keywords != null)
+				study.setDsKeyword(keywords.toUserString());
+
+			Key volume_key = new Key("volume");
+			Value volume = entry.getField(volume_key);
+			if (volume != null)
+				study.setDsVolume(volume.toUserString());
+
+			Key issn_key = new Key("issn");
+			Value issn = entry.getField(issn_key);
+			if (issn != null)
+				study.setCdIssnIsbn(issn.toUserString());
+
+			Key type_key = new Key("type");
+			Value type = entry.getField(type_key);
+			if (type != null)
+				study.setDsType(type.toUserString());
+
+			Random rand = new Random();
+			String x = "tcc" + rand.nextInt();
+			study.setCdCiteKey(x);
+			study.setTpReadingRate(ReadingRateEnum.HIGH);
+
+			Project project = projectDao.getByDsKey("tcc");
+			study.setProject(project);
+
+			StandardQuery standard = new StandardQuery();
+			if (standardDao.getByDsKeyProject("tcc").size() == 0) {
+				throw new FarmsException(ErrorMessage.NO_STANDARD_QUERY);
+			} else {
+				standard = standardDao.getByDsKeyProject("tcc").get(0);
+			}
+
+			AdaptedQuery adaptedQuery = new AdaptedQuery();
+			adaptedQuery.setDsObservation("MANUAL INSERT");
+			adaptedQuery.setStandardQuery(standard);
+			adaptedQuery.setDsAdaptedQuery("MANUAL INSERT");
+			SearchEngine searchEngine = new SearchEngine();
+			searchEngine.setNmSearchEngine("MANUAL INSERT");
+			searchEngine.setIdSearchEngine(1L);
+			adaptedQuery.setSearchEngine(searchEngine);
+			adaptedDao.save(adaptedQuery);
+
+			Search search = new Search();
+			search.setNmSearch("MANUAL INSERT");
+			search.setDsSearch("MANUAL INSERT");
+			search.setTpSearch(SearchEnum.IMPORTED);
+			search.setProject(project);
+			search.setDhSearch(new Date(System.currentTimeMillis()));
+			// verificar
+
+			search.setNrSearch(rand.nextLong());
+
+			search.setAdaptedQuery(adaptedQuery);
+			searchDao.save(search);
+
+			study.setSearch(search);
+			study.setTpStatus(StudyStatusEnum.SETTING);
+
+			//studyDao.save(study);
+			studies.add(study);
+			result++;
+		}
+		
+		for (Study s: studies){
+			studyDao.save(s);
+		}
+		
+		return result;
+	}
+
+	/*
+	 * static public List<LaTeXObject> parseLaTeX(String string) throws
+	 * IOException, ParseException { Reader reader = new StringReader(string);
+	 * 
+	 * try { LaTeXParser parser = new LaTeXParser();
+	 * 
+	 * return parser.parse(reader); } finally { reader.close(); } }
+	 */
+
+	/*
+	 * static public String printLaTeX(List<LaTeXObject> objects) { LaTeXPrinter
+	 * printer = new LaTeXPrinter();
+	 * 
+	 * return printer.print(objects); }
+	 */
+	static public BibTeXDatabase parseBibTeX(File file) throws IOException, ParseException {
+		Reader reader = new FileReader(file);
+
+		try {
+			BibTeXParser parser = new BibTeXParser() {
+
+				@Override
+				public void checkStringResolution(Key key, BibTeXString string) {
+
+					if (string == null) {
+						System.err.println("Unresolved string: \"" + key.getValue() + "\"");
+					}
+				}
+
+				@Override
+				public void checkCrossReferenceResolution(Key key, BibTeXEntry entry) {
+
+					if (entry == null) {
+						System.err.println("Unresolved cross-reference: \"" + key.getValue() + "\"");
+					}
+				}
+			};
+
+			return parser.parse(reader);
+		} finally {
+			reader.close();
+		}
 	}
 }

@@ -182,4 +182,9 @@ public final class SuccessMessage extends Message {
 	public static final SuccessMessage MEMBER_ACTIVED = new SuccessMessage(MEMBER_ACTIVED_CODE,
 			MEMBER_ACTIVED_DESCRIPTION);
 
+	private static final Integer STUDY_IMPORTED_CODE = 1033;
+	private static final String STUDY_IMPORTED_DESCRIPTION = "Study imported successfully. Total = ";
+	public static final SuccessMessage STUDY_IMPORTED = new SuccessMessage(STUDY_IMPORTED_CODE,
+			STUDY_IMPORTED_DESCRIPTION);
+
 }

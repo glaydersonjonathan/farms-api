@@ -2,7 +2,7 @@ package br.ufs.dcomp.farms.model.enums;
 
 public enum SearchEnum {
 
-	AUTOMATIC(0, "Automatic"), MANUAL(1, "Manual");
+	AUTOMATIC(0, "Automatic"), MANUAL(1, "Manual"), IMPORTED(2,"File import");
 
 	private Integer code;
 	private String description;
