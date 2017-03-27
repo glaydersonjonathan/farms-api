@@ -1,7 +1,6 @@
 package br.ufs.dcomp.farms.rest;
 
 import java.util.List;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -12,16 +11,15 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import br.ufs.dcomp.farms.common.message.ErrorMessage;
 import br.ufs.dcomp.farms.common.message.SuccessMessage;
 import br.ufs.dcomp.farms.core.FarmsException;
 import br.ufs.dcomp.farms.core.FarmsResponse;
 import br.ufs.dcomp.farms.model.dto.InstitutionCreatedDto;
+import br.ufs.dcomp.farms.model.dto.InvitationDto;
 import br.ufs.dcomp.farms.model.dto.ProjectCreateDto;
 import br.ufs.dcomp.farms.model.dto.ProjectCreatedDto;
 import br.ufs.dcomp.farms.model.dto.ProjectMemberDto;
@@ -221,6 +219,11 @@ public class ProjectResource {
 		}
 	}
 
+	/**
+	 * Turns researcher active.
+	 * @param idProjectMember
+	 * @return
+	 */
 	@PUT
 	@Path("/members/active/{idProjectMember}")
 	public Response activeResearcher(@PathParam("idProjectMember") Long idProjectMember) {
@@ -231,4 +234,57 @@ public class ProjectResource {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
+	
+	
+	/**
+	 * get pendents invitations of researcher.
+	 * @param dsSSO
+	 * @return
+	 */
+	@GET
+	@Path("/invitations/{dsSSO}")
+	public Response GetInvitations(@PathParam("dsSSO") String dsSSO) {
+		try {
+			List<InvitationDto> invitations = projectMemberService.GetInvitations(dsSSO);
+			return FarmsResponse.ok(invitations);
+		} catch (Exception ex) {
+			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+	
+	/**
+	 * Decline a invitation
+	 * @param id
+	 * @return
+	 */
+	@DELETE
+	@Path("/decline/{id}")
+	public Response Decline(@PathParam("id") Long id) {
+		try {
+			Boolean bool = projectMemberService.decline(id);
+			return FarmsResponse.ok(SuccessMessage.INVITATION_DECLINE,bool);
+		} catch (Exception ex) {
+			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+	
+	/**
+	 * Accept a invitation.
+	 * @param id
+	 * @return
+	 */
+	@PUT
+	@Path("/accept/{id}")
+	public Response Accept(@PathParam("id") Long id) {
+		try {
+			Boolean bool = projectMemberService.accept(id);
+			return FarmsResponse.ok(SuccessMessage.INVITATION_ACCEPT,bool);
+		} catch (Exception ex) {
+			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+	
 }

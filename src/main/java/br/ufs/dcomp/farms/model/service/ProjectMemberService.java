@@ -1,19 +1,21 @@
 package br.ufs.dcomp.farms.model.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import br.ufs.dcomp.farms.common.message.ErrorMessage;
 import br.ufs.dcomp.farms.core.FarmsException;
 import br.ufs.dcomp.farms.core.FarmsMail;
+import br.ufs.dcomp.farms.model.dao.InvitationDao;
 import br.ufs.dcomp.farms.model.dao.ProjectDao;
 import br.ufs.dcomp.farms.model.dao.ProjectMemberDao;
 import br.ufs.dcomp.farms.model.dao.ResearcherDao;
+import br.ufs.dcomp.farms.model.dto.InvitationDto;
 import br.ufs.dcomp.farms.model.dto.ProjectMemberDto;
 import br.ufs.dcomp.farms.model.dto.ProjectMemberInviteDto;
+import br.ufs.dcomp.farms.model.entity.Invitation;
 import br.ufs.dcomp.farms.model.entity.Project;
 import br.ufs.dcomp.farms.model.entity.ProjectMember;
 import br.ufs.dcomp.farms.model.entity.Researcher;
@@ -33,6 +35,8 @@ public class ProjectMemberService {
 	private ResearcherDao researcherDao;
 	@Autowired
 	private ProjectDao projectDao;
+	@Autowired
+	private InvitationDao invitationDao;
 
 	/**
 	 * Get all members of project
@@ -76,13 +80,13 @@ public class ProjectMemberService {
 			throw new FarmsException(ErrorMessage.ALREADY_MEMBER);
 		}
 
-		ProjectMember projectMember = new ProjectMember();
-		projectMember.setResearcher(researcher);
-		projectMember.setProject(project);
-		projectMember.setTpRole(RoleEnum.MEMBER);
-		projectMember.setTpState(StateEnum.A);
-		projectMemberDao.save(projectMember);
+		Invitation invitation = new Invitation();
+		invitation.setDhInvitation(new Date(System.currentTimeMillis()));
+		invitation.setProject(project);
+		invitation.setResearcher(researcher);
 
+		invitationDao.save(invitation);
+		FarmsMail.sendInviteEmail(projectMemberInviteDto.getDsEmail());
 		return true;
 	}
 
@@ -117,5 +121,50 @@ public class ProjectMemberService {
 	 */
 	public Boolean active(Long idProjectMember) {
 		return projectMemberDao.active(idProjectMember);
+	}
+
+	/**
+	 * get pendents invitations of researcher.
+	 * 
+	 * @param dsSSO
+	 * @return
+	 */
+	public List<InvitationDto> GetInvitations(String dsSSO) {
+		List<InvitationDto> invitations = new ArrayList<InvitationDto>();
+		for (Invitation i : invitationDao.getInvitations(dsSSO)) {
+
+			invitations.add(new InvitationDto(i));
+		}
+		return invitations;
+	}
+
+	/**
+	 * Decline a invitation
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public Boolean decline(Long id) {
+		invitationDao.delete(id);
+		return true;
+	}
+
+	/**
+	 * Accept a invitation.
+	 * @param id
+	 * @return
+	 */
+	public Boolean accept(Long id) {
+		Invitation invitation = invitationDao.get(id);
+		invitationDao.accept(id);
+
+		ProjectMember projectMember = new ProjectMember();
+		projectMember.setResearcher(invitation.getResearcher());
+		projectMember.setProject(invitation.getProject());
+		projectMember.setTpRole(RoleEnum.MEMBER);
+		projectMember.setTpState(StateEnum.A);
+		projectMemberDao.save(projectMember);
+
+		return true;
 	}
 }

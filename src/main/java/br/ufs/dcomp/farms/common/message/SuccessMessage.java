@@ -65,7 +65,7 @@ public final class SuccessMessage extends Message {
 			INSTITUTION_ADDED_DESCRIPTION);
 
 	private static final Integer MEMBER_ADDED_CODE = 1010;
-	private static final String MEMBER_ADDED_DESCRIPTION = "Member added successfully.";
+	private static final String MEMBER_ADDED_DESCRIPTION = "Member invited successfully, wait for accept.";
 	public static final SuccessMessage MEMBER_ADDED = new SuccessMessage(MEMBER_ADDED_CODE, MEMBER_ADDED_DESCRIPTION);
 
 	private static final Integer OBJECTIVE_SAVED_CODE = 1011;
@@ -186,5 +186,15 @@ public final class SuccessMessage extends Message {
 	private static final String STUDY_IMPORTED_DESCRIPTION = "Study imported successfully. Total = ";
 	public static final SuccessMessage STUDY_IMPORTED = new SuccessMessage(STUDY_IMPORTED_CODE,
 			STUDY_IMPORTED_DESCRIPTION);
+	
+	private static final Integer INVITATION_DECLINE_CODE = 1034;
+	private static final String INVITATION_DECLINE_DESCRIPTION = "You decline invitation.";
+	public static final SuccessMessage INVITATION_DECLINE = new SuccessMessage(INVITATION_DECLINE_CODE,
+			INVITATION_DECLINE_DESCRIPTION);
+	
+	private static final Integer INVITATION_ACCEPT_CODE = 1035;
+	private static final String INVITATION_ACCEPT_DESCRIPTION = "Now you are member of this project";
+	public static final SuccessMessage INVITATION_ACCEPT = new SuccessMessage(INVITATION_ACCEPT_CODE,
+			INVITATION_ACCEPT_DESCRIPTION);
 
 }
