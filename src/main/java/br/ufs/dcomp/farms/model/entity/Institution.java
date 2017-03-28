@@ -1,5 +1,7 @@
 package br.ufs.dcomp.farms.model.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,7 +18,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "institution")
 @XmlRootElement
 @SequenceGenerator(name = "InstitutionSequenceGenerator", sequenceName = "sq_institution")
-public class Institution {
+public class Institution implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 
 	private Long idInstitution;
 	private String dsAbbreviation;
@@ -38,7 +42,7 @@ public class Institution {
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "InstitutionSequenceGenerator")
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "InstitutionSequenceGenerator")
 	@Column(name = "id_institution", nullable = false, unique = true)
 	public Long getIdInstitution() {
 		return idInstitution;
