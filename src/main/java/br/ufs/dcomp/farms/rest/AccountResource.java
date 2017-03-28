@@ -82,7 +82,7 @@ public class AccountResource {
 			return FarmsResponse.error(fe.getErrorMessage());
 		} catch (Exception ex) {
 			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
-			FarmsMail.sendMailText("elissandro.messias@gmail.com", "Erro", ex.getMessage());
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
