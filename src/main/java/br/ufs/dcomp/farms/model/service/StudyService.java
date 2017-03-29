@@ -216,6 +216,16 @@ public class StudyService {
 
 	}
 
+	/**
+	 * Import studies from bibtex
+	 * @param dir
+	 * @param dsKey
+	 * @return
+	 * @throws IOException
+	 * @throws ParseException
+	 * @throws FarmsException
+	 * @throws NullPointerException
+	 */
 	public int importStudies(String dir, String dsKey) throws IOException, ParseException, FarmsException, NullPointerException {
 		File input = new File(dir);
 		int result = 0;

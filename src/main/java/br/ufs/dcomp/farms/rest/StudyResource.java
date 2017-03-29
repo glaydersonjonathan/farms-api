@@ -136,6 +136,13 @@ public class StudyResource {
 		}
 	}
 
+	/**
+	 * Receive a file to import.
+	 * @param dsKey
+	 * @param uploadedInputStream
+	 * @param fileDetail
+	 * @return
+	 */
 	@POST
 	@Path("/upload-study/{dsKey}")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
@@ -144,7 +151,7 @@ public class StudyResource {
 		
 		// turn name unique
 		String fileName = System.currentTimeMillis() + fileDetail.getFileName();
-		String dir = "C:/farms/" + dsKey;
+		String dir = "/farms/" + dsKey;
 		
 		saveFile(uploadedInputStream, dir, fileName);
 
@@ -157,6 +164,12 @@ public class StudyResource {
 		}
 	}
 
+	/**
+	 * Save file in system
+	 * @param file
+	 * @param dir
+	 * @param filename
+	 */
 	private void saveFile(InputStream file, String dir, String filename) {
 		try {
 			// make dir
