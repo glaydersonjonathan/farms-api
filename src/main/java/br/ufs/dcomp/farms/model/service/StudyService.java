@@ -216,12 +216,21 @@ public class StudyService {
 
 	}
 
-	public int teste() throws IOException, ParseException, FarmsException, NullPointerException {
-		File input = new File("D:/iee.bib");
+	public int importStudies(String dir, String dsKey) throws IOException, ParseException, FarmsException, NullPointerException {
+		File input = new File(dir);
 		int result = 0;
 		BibTeXDatabase database = parseBibTeX(input);
 		List<Study> studies = new ArrayList<Study>();
 		Collection<BibTeXEntry> entries = (database.getEntries()).values();
+		
+		Project project = projectDao.getByDsKey(dsKey);
+		StandardQuery standard = new StandardQuery();
+		if (standardDao.getByDsKeyProject(dsKey).size() == 0) {
+			throw new FarmsException(ErrorMessage.NO_STANDARD_QUERY);
+		} else {
+			standard = standardDao.getByDsKeyProject(dsKey).get(0);
+		}
+		
 		for (BibTeXEntry entry : entries) {
 
 			Study study = new Study();
@@ -287,19 +296,12 @@ public class StudyService {
 				study.setDsType(type.toUserString());
 
 			Random rand = new Random();
-			String x = "tcc" + rand.nextInt();
+			String x = dsKey + rand.nextInt();
 			study.setCdCiteKey(x);
 			study.setTpReadingRate(ReadingRateEnum.HIGH);
 
-			Project project = projectDao.getByDsKey("tcc");
+			
 			study.setProject(project);
-
-			StandardQuery standard = new StandardQuery();
-			if (standardDao.getByDsKeyProject("tcc").size() == 0) {
-				throw new FarmsException(ErrorMessage.NO_STANDARD_QUERY);
-			} else {
-				standard = standardDao.getByDsKeyProject("tcc").get(0);
-			}
 
 			AdaptedQuery adaptedQuery = new AdaptedQuery();
 			adaptedQuery.setDsObservation("MANUAL INSERT");
@@ -318,7 +320,6 @@ public class StudyService {
 			search.setProject(project);
 			search.setDhSearch(new Date(System.currentTimeMillis()));
 			// verificar
-
 			search.setNrSearch(rand.nextLong());
 
 			search.setAdaptedQuery(adaptedQuery);

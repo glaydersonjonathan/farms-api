@@ -1,5 +1,6 @@
 package br.ufs.dcomp.farms.rest;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.FileSystems;
@@ -23,6 +24,7 @@ import org.springframework.stereotype.Component;
 import br.ufs.dcomp.farms.common.message.ErrorMessage;
 import br.ufs.dcomp.farms.common.message.SuccessMessage;
 import br.ufs.dcomp.farms.core.FarmsException;
+import br.ufs.dcomp.farms.core.FarmsMail;
 import br.ufs.dcomp.farms.core.FarmsResponse;
 import br.ufs.dcomp.farms.model.dto.StudyCreateDto;
 import br.ufs.dcomp.farms.model.dto.StudyCreatedDto;
@@ -134,41 +136,45 @@ public class StudyResource {
 		}
 	}
 
-	@GET
-	@Path("/teste")
-	public Response teste() {
-         try {
-			Integer total = studyService.teste();
+	/*
+	 * @GET
+	 * 
+	 * @Path("/teste") public Response teste() { try { Integer total =
+	 * studyService.teste(); return
+	 * FarmsResponse.ok(SuccessMessage.STUDY_IMPORTED, total); } catch
+	 * (Exception e) { logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, e);
+	 * return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING); }
+	 * 
+	 * }
+	 */
+
+	@POST
+	@Path("/upload-study/{dsKey}")
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
+	public Response uploadFile(@PathParam("dsKey") String dsKey, @FormDataParam("file") InputStream uploadedInputStream,
+			@FormDataParam("file") FormDataContentDisposition fileDetail) {
+		
+		// turn name unique
+		String fileName = System.currentTimeMillis() + fileDetail.getFileName();
+		String dir = "C:/farms/" + dsKey;
+		
+		saveFile(uploadedInputStream, dir, fileName);
+
+		try {
+			Integer total = studyService.importStudies(dir+ "/" + fileName, dsKey);
 			return FarmsResponse.ok(SuccessMessage.STUDY_IMPORTED, total);
 		} catch (Exception e) {
-			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, e);
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", e.getMessage());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
-		} 
-		
-	}
-	
-	
-	@POST
-	@Path("/upload-study")
-	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	public Response uploadFile(@FormDataParam("file") InputStream uploadedInputStream,
-			@FormDataParam("file") FormDataContentDisposition fileDetail) {
-
-		String fileName = fileDetail.getFileName();
-
-		saveFile(uploadedInputStream, fileName);
-
-		String fileDetails = "File saved at D:/" + fileName;
-
-		System.out.println(fileDetails);
-		
-		return Response.ok(fileDetails).build();
+		}
 	}
 
-	private void saveFile(InputStream file, String name) {
+	private void saveFile(InputStream file, String dir, String filename) {
 		try {
+			// make dir
+			new File(dir).mkdirs();
 			// Change directory path
-			java.nio.file.Path path = FileSystems.getDefault().getPath("D:/" + name);
+			java.nio.file.Path path = FileSystems.getDefault().getPath(dir+ "/" + filename);
 			// Save InputStream as file
 			Files.copy(file, path);
 		} catch (IOException ie) {
