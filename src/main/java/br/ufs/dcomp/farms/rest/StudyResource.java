@@ -136,18 +136,6 @@ public class StudyResource {
 		}
 	}
 
-	/*
-	 * @GET
-	 * 
-	 * @Path("/teste") public Response teste() { try { Integer total =
-	 * studyService.teste(); return
-	 * FarmsResponse.ok(SuccessMessage.STUDY_IMPORTED, total); } catch
-	 * (Exception e) { logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, e);
-	 * return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING); }
-	 * 
-	 * }
-	 */
-
 	@POST
 	@Path("/upload-study/{dsKey}")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
