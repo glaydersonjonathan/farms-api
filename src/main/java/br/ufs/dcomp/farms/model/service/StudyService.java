@@ -207,8 +207,15 @@ public class StudyService {
 	 * @throws FarmsException
 	 */
 	public Boolean deleteStudy(Long idStudy) throws FarmsException {
+		Study s = studyDao.get(idStudy);
+		Search searc = s.getSearch();
+		AdaptedQuery a = searc.getAdaptedQuery();
+		searchDao.delete(searc);
+		adaptedDao.delete(a);
 		try {
 			studyDao.deleteStudy(idStudy);
+			searchDao.deleteSearch(searc);
+			adaptedDao.deleteAdapted(a);
 			return true;
 		} catch (ConstraintViolationException c) {
 			throw new FarmsException(ErrorMessage.STUDY_IN_REVIEW);
@@ -218,6 +225,7 @@ public class StudyService {
 
 	/**
 	 * Import studies from bibtex
+	 * 
 	 * @param dir
 	 * @param dsKey
 	 * @return
@@ -226,13 +234,14 @@ public class StudyService {
 	 * @throws FarmsException
 	 * @throws NullPointerException
 	 */
-	public int importStudies(String dir, String dsKey) throws IOException, ParseException, FarmsException, NullPointerException {
+	public int importStudies(String dir, String dsKey)
+			throws IOException, ParseException, FarmsException, NullPointerException {
 		File input = new File(dir);
 		int result = 0;
 		BibTeXDatabase database = parseBibTeX(input);
 		List<Study> studies = new ArrayList<Study>();
 		Collection<BibTeXEntry> entries = (database.getEntries()).values();
-		
+
 		Project project = projectDao.getByDsKey(dsKey);
 		StandardQuery standard = new StandardQuery();
 		if (standardDao.getByDsKeyProject(dsKey).size() == 0) {
@@ -240,7 +249,7 @@ public class StudyService {
 		} else {
 			standard = standardDao.getByDsKeyProject(dsKey).get(0);
 		}
-		
+
 		for (BibTeXEntry entry : entries) {
 
 			Study study = new Study();
@@ -310,7 +319,6 @@ public class StudyService {
 			study.setCdCiteKey(x);
 			study.setTpReadingRate(ReadingRateEnum.HIGH);
 
-			
 			study.setProject(project);
 
 			AdaptedQuery adaptedQuery = new AdaptedQuery();
@@ -338,15 +346,15 @@ public class StudyService {
 			study.setSearch(search);
 			study.setTpStatus(StudyStatusEnum.SETTING);
 
-			//studyDao.save(study);
+			// studyDao.save(study);
 			studies.add(study);
 			result++;
 		}
-		
-		for (Study s: studies){
+
+		for (Study s : studies) {
 			studyDao.save(s);
 		}
-		
+
 		return result;
 	}
 
