@@ -74,6 +74,10 @@ public class AccountService {
 	public ResearcherLoggedDto login(ResearcherLoginDto researcherLoginDto) throws FarmsException {
 		ResearcherLoggedDto researcherLoggedDto = null;
 		Researcher researcherLogged = researcherService.getByEmail(researcherLoginDto.getDsEmail());
+		
+		if(researcherLogged == null){
+			researcherLogged = researcherDAO.getByDsSSO(researcherLoginDto.getDsEmail());
+		}
 
 		if (researcherLogged != null
 				&& FarmsCrypt.checkPassword(researcherLoginDto.getDsPassword(), researcherLogged.getDsPassword())) {

@@ -46,7 +46,9 @@ public class FarmsMail {
 		// Set mail properties.
 		Properties props = System.getProperties();
 		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.host", farmsMailSmtpHost);
+		props.put("mail.smtp.user", farmsMailFrom);
+		props.put("mail.smtp.password", farmsMailPassword);
 		props.put("mail.smtp.port", "465");
 		props.put("mail.smtp.auth", "true");
 
@@ -132,7 +134,7 @@ public class FarmsMail {
 			props.put("mail.smtp.host", farmsMailSmtpHost);
 			props.put("mail.smtp.user", farmsMailFrom);
 			props.put("mail.smtp.password", farmsMailPassword);
-			props.put("mail.smtp.port", "587");
+			props.put("mail.smtp.port", "465");
 			props.put("mail.smtp.auth", "true");
 
 			Session session = Session.getDefaultInstance(props);
