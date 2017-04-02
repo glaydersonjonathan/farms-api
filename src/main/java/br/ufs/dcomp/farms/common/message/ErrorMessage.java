@@ -27,6 +27,11 @@ public class ErrorMessage extends Message {
 	private static final String RESEARCHER_NOT_FOUND_DESCRIPTION = "Researcher not found.";
 	public static final ErrorMessage RESEARCHER_NOT_FOUND = new ErrorMessage(RESEARCHER_NOT_FOUND_CODE,
 			RESEARCHER_NOT_FOUND_DESCRIPTION);
+	
+	private static final Integer RESEARCHER_NOT_FOUND_PASS_CODE = 2000;
+	private static final String RESEARCHER_NOT_FOUND_PASS_DESCRIPTION = "Researcher not found, probably email to new password is invalid now.";
+	public static final ErrorMessage RESEARCHER_NOT_FOUND_PASS = new ErrorMessage(RESEARCHER_NOT_FOUND_PASS_CODE,
+			RESEARCHER_NOT_FOUND_PASS_DESCRIPTION);
 
 	private static final Integer EMAIL_ALREADY_IN_USE_CODE = 2001;
 	private static final String EMAIL_ALREADY_IN_USE_DESCRIPTION = "Email already in use.";

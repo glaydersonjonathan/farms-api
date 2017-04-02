@@ -206,5 +206,10 @@ public final class SuccessMessage extends Message {
 	private static final String RESEND_EMAIL_CONFIRMATION_DESCRIPTION = "Email confirmation send, check spam box too.";
 	public static final SuccessMessage RESEND_EMAIL_CONFIRMATION = new SuccessMessage(RESEND_EMAIL_CONFIRMATION_CODE,
 			RESEND_EMAIL_CONFIRMATION_DESCRIPTION);
+	
+	private static final Integer EMAIL_NEW_PASSWORD_CODE = 1037;
+	private static final String EMAIL_NEW_PASSWORD_DESCRIPTION = "A Email has Seent with instructions to New Password.";
+	public static final SuccessMessage EMAIL_NEW_PASSWORD= new SuccessMessage(EMAIL_NEW_PASSWORD_CODE,
+			EMAIL_NEW_PASSWORD_DESCRIPTION);
 
 }

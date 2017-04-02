@@ -4,6 +4,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -108,9 +109,10 @@ public class AccountResource {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
-	
+
 	/**
 	 * Resend email confirmation
+	 * 
 	 * @param researcherLoginDto
 	 * @return
 	 */
@@ -118,10 +120,49 @@ public class AccountResource {
 	@Path("/resend")
 	public Response resendConfirmation(ResearcherLoginDto researcherLoginDto) {
 		try {
-			Boolean researcherLoggedDto = accountService.resend(researcherLoginDto);
-			return FarmsResponse.ok(SuccessMessage.RESEND_EMAIL_CONFIRMATION, researcherLoggedDto);
+			Boolean bool = accountService.resend(researcherLoginDto);
+			return FarmsResponse.ok(SuccessMessage.RESEND_EMAIL_CONFIRMATION, bool);
 		} catch (Exception ex) {
 			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+
+	/**
+	 * Send email to new password
+	 * 
+	 * @param email
+	 * @return
+	 */
+	@GET
+	@Path("/requestPass/{email}")
+	public Response sendEmailNewPassword(@PathParam("email") String email) {
+		try {
+			Boolean bool = accountService.sendEmailNewPassword(email);
+			return FarmsResponse.ok(SuccessMessage.EMAIL_NEW_PASSWORD, bool);
+		} catch (Exception ex) {
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+
+	/**
+	 * Update Password of researcher
+	 * 
+	 * @param u
+	 * @param researcherRegisterDto
+	 * @return
+	 */
+	@POST
+	@Path("/newPass/{u}")
+	public Response newPass(@PathParam("u") String u, ResearcherRegisterDto researcherRegisterDto) {
+		try {
+			Boolean bool = accountService.newPass(u, researcherRegisterDto);
+			return FarmsResponse.ok(SuccessMessage.PASSWORD_CHANGED, bool);
+		}  catch (FarmsException fe) {
+			return FarmsResponse.error(fe.getErrorMessage());
+		}
+		catch (Exception ex) {
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}

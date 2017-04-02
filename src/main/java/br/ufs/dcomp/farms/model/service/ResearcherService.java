@@ -111,7 +111,7 @@ public class ResearcherService {
 		researcher.setCdUuid(uuid.toString());
 		researcher.setTpConfirmed(YesNoEnum.N);
 		researcher.setTpState(researcherRegisterDto.getTpState());
-		
+
 		FarmsMail.sendAccountConfirmationEmail(researcher.getNmResearcher(), researcher.getDsEmail(),
 				researcher.getCdUuid().toString());
 
@@ -120,7 +120,7 @@ public class ResearcherService {
 	}
 
 	/**
-	 * Set state os researcher to inative.
+	 * Set state of researcher to inactive.
 	 * 
 	 * @param researcherRegisterDto
 	 * @return boolean
@@ -141,7 +141,6 @@ public class ResearcherService {
 		researcherDAO.update(researcher);
 		return true;
 	}
-	
 
 	/**
 	 * Returns all researchers.
@@ -152,16 +151,6 @@ public class ResearcherService {
 		List<Researcher> researchers = researcherDAO.getAll();
 		return researchers;
 	}
-
-	/*	*//**
-			 * Search a researcher by name.
-			 * 
-			 * @param nmResearcher
-			 * @return researcher
-			 *//*
-			 * //public List<Researcher> getByName(String nmResearcher) { //
-			 * return researcherDAO.getByNmResearcher(nmResearcher); //}
-			 */
 
 	/**
 	 * Search a researcher by username.

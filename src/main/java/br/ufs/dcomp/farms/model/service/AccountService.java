@@ -1,5 +1,7 @@
 package br.ufs.dcomp.farms.model.service;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -81,7 +83,7 @@ public class AccountService {
 
 		if (researcherLogged != null
 				&& FarmsCrypt.checkPassword(researcherLoginDto.getDsPassword(), researcherLogged.getDsPassword())) {
-			//verify account confirmed
+			// verify account confirmed
 			if (researcherLogged.getTpConfirmed() == YesNoEnum.N) {
 				throw new FarmsException(ErrorMessage.ACCOUNT_NOT_CONFIRMED);
 			}
@@ -97,24 +99,6 @@ public class AccountService {
 		return researcherLoggedDto;
 	}
 
-	public void updatePassword(ResearcherRegisterDto researcherRegisterDto) throws FarmsException {
-		// Researcher researcherFound =
-		// researcherService.getByEmail(researcherRegisterDto.getDsEmail());
-		// if (researcherFound == null) {
-		// researcherRegisterDto.setDsPassword(FarmsCrypt.hashPassword(researcherRegisterDto.getDsPassword()));
-		// researcherService.update(researcherRegisterDto);
-		// } else {
-		// throw new FarmsException(ErrorMessage.RESEARCHER_NOT_FOUND);
-		// }
-		//
-		// Researcher researcherResult =
-		// researcherService.getByEmail(researcherRegisterDto.getDsEmail());
-		// if (researcherResult == null ||
-		// !FarmsCrypt.checkPassword(researcherRegisterDto.getDsPassword(),
-		// researcherResult.getDsPassword())) {
-		// throw new FarmsException(ErrorMessage.LOGIN_INVALID);
-		// }
-	}
 
 	/**
 	 * Confirm account
@@ -141,6 +125,7 @@ public class AccountService {
 
 	/**
 	 * Resend email confirmation
+	 * 
 	 * @param researcherLoginDto
 	 * @return
 	 */
@@ -148,6 +133,38 @@ public class AccountService {
 		Researcher researcher = researcherDAO.getByDsEmail(researcherLoginDto.getDsEmail());
 		FarmsMail.sendAccountConfirmationEmail(researcher.getNmResearcher(), researcher.getDsEmail(),
 				researcher.getCdUuid().toString());
+		return true;
+	}
+
+	/**
+	 * Send email to new password
+	 * @param email
+	 * @return
+	 */
+	public Boolean sendEmailNewPassword(String email) {
+		Researcher researcher = researcherDAO.getByDsEmail(email);
+		FarmsMail.sendNewPasswordEmail(researcher.getNmResearcher(), researcher.getDsEmail(),
+				researcher.getCdUuid().toString());
+		return true;
+	}
+
+	/**
+	 * Update Password of researcher
+	 * @param u
+	 * @param researcherRegisterDto
+	 * @return
+	 * @throws FarmsException 
+	 */
+	public Boolean newPass(String u, ResearcherRegisterDto researcherRegisterDto) throws FarmsException {
+		Researcher researcher = researcherDAO.getByUuid(u);
+		if (researcher == null){
+			throw new FarmsException(ErrorMessage.RESEARCHER_NOT_FOUND_PASS); 
+		}
+		researcher.setDsPassword(FarmsCrypt.hashPassword(researcherRegisterDto.getDsPassword()));
+		UUID uuid = UUID.randomUUID();
+		researcher.setCdUuid(uuid.toString());
+
+		researcherDAO.updatePass(researcher);
 		return true;
 	}
 }

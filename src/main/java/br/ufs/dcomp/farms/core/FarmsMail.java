@@ -30,6 +30,7 @@ public class FarmsMail {
 
 	final static String ACCOUNT_CONFIRMATION_EMAIL_TEMPLATE_HTML = "templates/account-confirmation-email-template.html";
 	final static String INVITE_MEMBER_EMAIL_TEMPLATE_HTML = "templates/invite-register-email.html";
+	final static String REQUEST_NEW_PASSWORD_EMAIL_TEMPLATE_HTML = "templates/new-password-email.html";
 
 	/**
 	 * Method to send an Email.
@@ -99,7 +100,7 @@ public class FarmsMail {
 		bodyKeyValueMap.put("{{url-site}}", farmsSiteUrl);
 		String urlEmailConfirmation = farmsSiteUrl + "#/confirmation?u=" + cdUuid;
 		bodyKeyValueMap.put("{{url-email-confirmation}}", urlEmailConfirmation);
-		new FarmsMail().sendMail(dsMailTo, dsSubject, bodyKeyValueMap, true);
+		new FarmsMail().sendMail(dsMailTo, dsSubject, bodyKeyValueMap, 1);
 	}
 
 	/**
@@ -113,7 +114,25 @@ public class FarmsMail {
 		// Set key values.
 		Map<String, String> bodyKeyValueMap = new HashMap<String, String>();
 		bodyKeyValueMap.put("{{url-site}}", farmsSiteUrl);
-		new FarmsMail().sendMail(dsMailTo, dsSubject, bodyKeyValueMap, false);
+		new FarmsMail().sendMail(dsMailTo, dsSubject, bodyKeyValueMap, 2);
+	}
+	
+	/**
+	 * Send email to new Password
+	 * @param nmResearcher
+	 * @param dsMailTo
+	 * @param cdUuid
+	 */
+	public static void sendNewPasswordEmail(String nmResearcher, String dsMailTo, String cdUuid) {
+		String farmsSiteUrl = FarmsProperties.load().getProperty("farms.site.url");
+		String dsSubject = "Change Your Password of FARMS";
+		// Set key values.
+		Map<String, String> bodyKeyValueMap = new HashMap<String, String>();
+		bodyKeyValueMap.put("{{researcher-name}}", nmResearcher);
+		bodyKeyValueMap.put("{{url-site}}", farmsSiteUrl);
+		String urlEmailConfirmation = farmsSiteUrl + "#/newPassword?u=" + cdUuid;
+		bodyKeyValueMap.put("{{url-email-confirmation}}", urlEmailConfirmation);
+		new FarmsMail().sendMail(dsMailTo, dsSubject, bodyKeyValueMap, 3);
 	}
 
 	/**
@@ -123,7 +142,7 @@ public class FarmsMail {
 	 * @param dsSubject
 	 */
 	public void sendMail(String dsMailTo, String dsSubject, Map<String, String> bodyKeyValueMap,
-			boolean isConfirmation) {
+			int type) {
 		try {
 			String farmsMailSmtpHost = FarmsProperties.load().getProperty("farms.mail.smtp.host");
 			String farmsMailFromName = FarmsProperties.load().getProperty("farms.mail.contact.name");
@@ -153,10 +172,16 @@ public class FarmsMail {
 				// HTML mail content.
 				ClassLoader classLoader = this.getClass().getClassLoader();
 				File htmlTemplateFile = null;
-				if (isConfirmation) {
+				if (type == 1) {
 					htmlTemplateFile = new File(classLoader.getResource(ACCOUNT_CONFIRMATION_EMAIL_TEMPLATE_HTML).getFile());
-				} else {
+				} 
+				
+				if (type == 2) {
 					htmlTemplateFile = new File(classLoader.getResource(INVITE_MEMBER_EMAIL_TEMPLATE_HTML).getFile());
+				}
+				
+				if (type == 3) {
+					htmlTemplateFile = new File(classLoader.getResource(REQUEST_NEW_PASSWORD_EMAIL_TEMPLATE_HTML).getFile());
 				}
 
 				String htmlText = readEmailFromHtml(htmlTemplateFile.getPath(), bodyKeyValueMap);

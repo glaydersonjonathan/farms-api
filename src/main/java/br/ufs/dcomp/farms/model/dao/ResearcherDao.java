@@ -172,4 +172,16 @@ public class ResearcherDao extends HibernateDao<Researcher> {
 		System.out.println(query.executeUpdate());
 		return true;
 	}
+
+	/**Update password
+	 * @param researcher
+	 */
+	public void updatePass(Researcher researcher) {
+		Query query = getSession()
+				.createQuery("update Researcher set cd_uuid = :cdUUID, ds_password = :password" + " where idResearcher = :idResearcher");
+		query.setParameter("idResearcher", researcher.getIdResearcher());
+		query.setParameter("cdUUID", researcher.getCdUuid());
+		query.setParameter("password", researcher.getDsPassword());
+		System.out.println(query.executeUpdate());
+	}
 }
