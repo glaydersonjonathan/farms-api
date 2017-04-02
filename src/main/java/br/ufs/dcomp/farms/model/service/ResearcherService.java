@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import br.ufs.dcomp.farms.common.message.ErrorMessage;
 import br.ufs.dcomp.farms.core.FarmsCrypt;
 import br.ufs.dcomp.farms.core.FarmsException;
+import br.ufs.dcomp.farms.core.FarmsMail;
 import br.ufs.dcomp.farms.model.dao.ResearcherDao;
 import br.ufs.dcomp.farms.model.dto.ResearcherRegisterDto;
 import br.ufs.dcomp.farms.model.entity.Researcher;
@@ -106,9 +107,13 @@ public class ResearcherService {
 		researcher.setDsSSO(researcherRegisterDto.getDsSSO());
 		researcher.setDsEmail(researcherRegisterDto.getDsEmail());
 		researcher.setDsPassword(researcherRegisterDto.getDsPassword());
-		researcher.setCdUuid(researcherRegisterDto.getCdUuid());
-		researcher.setTpConfirmed(researcherRegisterDto.getTpConfirmed());
+		UUID uuid = UUID.randomUUID();
+		researcher.setCdUuid(uuid.toString());
+		researcher.setTpConfirmed(YesNoEnum.N);
 		researcher.setTpState(researcherRegisterDto.getTpState());
+		
+		FarmsMail.sendAccountConfirmationEmail(researcher.getNmResearcher(), researcher.getDsEmail(),
+				researcher.getCdUuid().toString());
 
 		researcherDAO.update(researcher);
 		return true;
@@ -136,6 +141,7 @@ public class ResearcherService {
 		researcherDAO.update(researcher);
 		return true;
 	}
+	
 
 	/**
 	 * Returns all researchers.

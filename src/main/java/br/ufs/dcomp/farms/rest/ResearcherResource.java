@@ -119,9 +119,9 @@ public class ResearcherResource {
 	public Response updateEmail(ResearcherRegisterDto researcherRegisterDto) {
 		try {
 			Boolean researcherRegisteredDto = researcherService.updateEmail(researcherRegisterDto);
-			return FarmsResponse.ok(SuccessMessage.RESEARCHER_UPDATED, researcherRegisteredDto);
+			return FarmsResponse.ok(SuccessMessage.RESEARCHER_EMAIL_UPDATED, researcherRegisteredDto);
 		} catch (FarmsException fe) {
-			return FarmsResponse.error(ErrorMessage.EMAIL_ALREADY_IN_USE);
+			return FarmsResponse.error(fe.getErrorMessage());
 		} catch (Exception ex) {
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}

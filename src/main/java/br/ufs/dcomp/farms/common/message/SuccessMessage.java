@@ -33,6 +33,11 @@ public final class SuccessMessage extends Message {
 	private static final String RESEARCHER_UPDATED_DESCRIPTION = "Researcher updated successfully.";
 	public static final SuccessMessage RESEARCHER_UPDATED = new SuccessMessage(RESEARCHER_UPDATED_CODE,
 			RESEARCHER_UPDATED_DESCRIPTION);
+	
+	private static final Integer RESEARCHER_EMAIL_UPDATED_CODE = 1003;
+	private static final String RESEARCHER_EMAIL_UPDATED_DESCRIPTION = "Email updated successfully, you need confirm your email again.";
+	public static final SuccessMessage RESEARCHER_EMAIL_UPDATED = new SuccessMessage(RESEARCHER_EMAIL_UPDATED_CODE,
+			RESEARCHER_EMAIL_UPDATED_DESCRIPTION);
 
 	private static final Integer RESEARCHER_EXCLUDED_CODE = 1004;
 	private static final String RESEARCHER_EXCLUDED_DESCRIPTION = "Researcher excluded successfully, login again reactivate account.";
