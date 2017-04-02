@@ -74,13 +74,18 @@ public class AccountService {
 	public ResearcherLoggedDto login(ResearcherLoginDto researcherLoginDto) throws FarmsException {
 		ResearcherLoggedDto researcherLoggedDto = null;
 		Researcher researcherLogged = researcherService.getByEmail(researcherLoginDto.getDsEmail());
-		
-		if(researcherLogged == null){
+		// search by username
+		if (researcherLogged == null) {
 			researcherLogged = researcherDAO.getByDsSSO(researcherLoginDto.getDsEmail());
 		}
 
 		if (researcherLogged != null
 				&& FarmsCrypt.checkPassword(researcherLoginDto.getDsPassword(), researcherLogged.getDsPassword())) {
+			//verify account confirmed
+			if (researcherLogged.getTpConfirmed() == YesNoEnum.N) {
+				throw new FarmsException(ErrorMessage.ACCOUNT_NOT_CONFIRMED);
+			}
+
 			// turns active
 			if (researcherLogged.getTpState() == StateEnum.I) {
 				researcherDAO.active(researcherLogged.getIdResearcher());
@@ -132,5 +137,17 @@ public class AccountService {
 			}
 		}
 		return researcherRegisteredDto;
+	}
+
+	/**
+	 * Resend email confirmation
+	 * @param researcherLoginDto
+	 * @return
+	 */
+	public Boolean resend(ResearcherLoginDto researcherLoginDto) {
+		Researcher researcher = researcherDAO.getByDsEmail(researcherLoginDto.getDsEmail());
+		FarmsMail.sendAccountConfirmationEmail(researcher.getNmResearcher(), researcher.getDsEmail(),
+				researcher.getCdUuid().toString());
+		return true;
 	}
 }

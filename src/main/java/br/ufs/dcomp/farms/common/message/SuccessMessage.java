@@ -193,8 +193,13 @@ public final class SuccessMessage extends Message {
 			INVITATION_DECLINE_DESCRIPTION);
 	
 	private static final Integer INVITATION_ACCEPT_CODE = 1035;
-	private static final String INVITATION_ACCEPT_DESCRIPTION = "Now you are member of this project";
+	private static final String INVITATION_ACCEPT_DESCRIPTION = "Now you are member of this project.";
 	public static final SuccessMessage INVITATION_ACCEPT = new SuccessMessage(INVITATION_ACCEPT_CODE,
 			INVITATION_ACCEPT_DESCRIPTION);
+	
+	private static final Integer RESEND_EMAIL_CONFIRMATION_CODE = 1036;
+	private static final String RESEND_EMAIL_CONFIRMATION_DESCRIPTION = "Email confirmation send, check spam box too.";
+	public static final SuccessMessage RESEND_EMAIL_CONFIRMATION = new SuccessMessage(RESEND_EMAIL_CONFIRMATION_CODE,
+			RESEND_EMAIL_CONFIRMATION_DESCRIPTION);
 
 }

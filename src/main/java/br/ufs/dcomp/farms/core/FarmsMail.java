@@ -49,7 +49,7 @@ public class FarmsMail {
 		props.put("mail.smtp.host", farmsMailSmtpHost);
 		props.put("mail.smtp.user", farmsMailFrom);
 		props.put("mail.smtp.password", farmsMailPassword);
-		props.put("mail.smtp.port", "465");
+		props.put("mail.smtp.port", "587");
 		props.put("mail.smtp.auth", "true");
 
 		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
@@ -96,7 +96,7 @@ public class FarmsMail {
 		Map<String, String> bodyKeyValueMap = new HashMap<String, String>();
 		bodyKeyValueMap.put("{{researcher-name}}", nmResearcher);
 		bodyKeyValueMap.put("{{url-site}}", farmsSiteUrl);
-		String urlEmailConfirmation = farmsSiteUrl + "/account/confirmation?u=" + cdUuid;
+		String urlEmailConfirmation = farmsSiteUrl + "#/confirmation?u=" + cdUuid;
 		bodyKeyValueMap.put("{{url-email-confirmation}}", urlEmailConfirmation);
 		new FarmsMail().sendMail(dsMailTo, dsSubject, bodyKeyValueMap);
 	}
@@ -134,7 +134,7 @@ public class FarmsMail {
 			props.put("mail.smtp.host", farmsMailSmtpHost);
 			props.put("mail.smtp.user", farmsMailFrom);
 			props.put("mail.smtp.password", farmsMailPassword);
-			props.put("mail.smtp.port", "465");
+			props.put("mail.smtp.port", "587");
 			props.put("mail.smtp.auth", "true");
 
 			Session session = Session.getDefaultInstance(props);

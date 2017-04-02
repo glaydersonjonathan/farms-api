@@ -36,6 +36,7 @@ public class ErrorMessage extends Message {
 	private static final Integer LOGIN_INVALID_CODE = 2002;
 	private static final String LOGIN_INVALID_DESCRIPTION = "Login invalid.";
 	public static final ErrorMessage LOGIN_INVALID = new ErrorMessage(LOGIN_INVALID_CODE, LOGIN_INVALID_DESCRIPTION);
+	
 
 	private static final Integer PASSWORD_INVALID_CODE = 2003;
 	private static final String PASSWORD_INVALID_DESCRIPTION = "Password invalid.";
@@ -104,4 +105,9 @@ public class ErrorMessage extends Message {
 	private static final String STUDY_AUTO_ALREADY_ASSIGNED_DESCRIPTION = "All studies undesignated are assigned to researcher now.";
 	public static final ErrorMessage STUDY_AUTO_ALREADY_ASSIGNED = new ErrorMessage(STUDY_AUTO_ALREADY_ASSIGNED_CODE,
 			STUDY_AUTO_ALREADY_ASSIGNED_DESCRIPTION);
+	
+	private static final Integer ACCOUNT_NOT_CONFIRMED_CODE = 2013;
+	private static final String ACCOUNT_NOT_CONFIRMED_DESCRIPTION = "Account not confirmed, check your email.";
+	public static final ErrorMessage ACCOUNT_NOT_CONFIRMED = new ErrorMessage(ACCOUNT_NOT_CONFIRMED_CODE, ACCOUNT_NOT_CONFIRMED_DESCRIPTION);
+
 }

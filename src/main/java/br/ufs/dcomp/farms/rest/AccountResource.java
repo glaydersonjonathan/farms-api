@@ -87,7 +87,6 @@ public class AccountResource {
 		}
 	}
 
-	// verificar
 	/**
 	 * Verify account registration
 	 * 
@@ -104,6 +103,23 @@ public class AccountResource {
 			return FarmsResponse.ok(SuccessMessage.ACCOUNT_CONFIRMED, researcherRegisteredDto);
 		} catch (FarmsException fe) {
 			return FarmsResponse.error(fe.getErrorMessage());
+		} catch (Exception ex) {
+			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
+	}
+	
+	/**
+	 * Resend email confirmation
+	 * @param researcherLoginDto
+	 * @return
+	 */
+	@POST
+	@Path("/resend")
+	public Response resendConfirmation(ResearcherLoginDto researcherLoginDto) {
+		try {
+			Boolean researcherLoggedDto = accountService.resend(researcherLoginDto);
+			return FarmsResponse.ok(SuccessMessage.RESEND_EMAIL_CONFIRMATION, researcherLoggedDto);
 		} catch (Exception ex) {
 			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
