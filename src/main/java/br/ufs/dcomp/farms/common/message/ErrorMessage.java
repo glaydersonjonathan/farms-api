@@ -110,4 +110,7 @@ public class ErrorMessage extends Message {
 	private static final String ACCOUNT_NOT_CONFIRMED_DESCRIPTION = "Account not confirmed, check your email.";
 	public static final ErrorMessage ACCOUNT_NOT_CONFIRMED = new ErrorMessage(ACCOUNT_NOT_CONFIRMED_CODE, ACCOUNT_NOT_CONFIRMED_DESCRIPTION);
 
+	private static final Integer ALREADY_INVITED_CODE = 2014;
+	private static final String ALREADY_INVITED_DESCRIPTION = "This member has a pendent invite to this project.";
+	public static final ErrorMessage ALREADY_INVITED= new ErrorMessage(ALREADY_INVITED_CODE, ALREADY_INVITED_DESCRIPTION);
 }

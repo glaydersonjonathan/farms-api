@@ -29,6 +29,7 @@ import br.ufs.dcomp.farms.rest.EmailHtmlTemplate;
 public class FarmsMail {
 
 	final static String ACCOUNT_CONFIRMATION_EMAIL_TEMPLATE_HTML = "templates/account-confirmation-email-template.html";
+	final static String INVITE_MEMBER_EMAIL_TEMPLATE_HTML = "templates/invite-register-email.html";
 
 	/**
 	 * Method to send an Email.
@@ -70,7 +71,7 @@ public class FarmsMail {
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(dsMailTo));
 
 			// Set Subject: header field
-			message.setSubject("This is the Subject Line!");
+			message.setSubject(dsSubject);
 
 			// Now set the actual message
 			message.setText(dsBodyMessage);
@@ -98,7 +99,7 @@ public class FarmsMail {
 		bodyKeyValueMap.put("{{url-site}}", farmsSiteUrl);
 		String urlEmailConfirmation = farmsSiteUrl + "#/confirmation?u=" + cdUuid;
 		bodyKeyValueMap.put("{{url-email-confirmation}}", urlEmailConfirmation);
-		new FarmsMail().sendMail(dsMailTo, dsSubject, bodyKeyValueMap);
+		new FarmsMail().sendMail(dsMailTo, dsSubject, bodyKeyValueMap, true);
 	}
 
 	/**
@@ -112,7 +113,7 @@ public class FarmsMail {
 		// Set key values.
 		Map<String, String> bodyKeyValueMap = new HashMap<String, String>();
 		bodyKeyValueMap.put("{{url-site}}", farmsSiteUrl);
-		new FarmsMail().sendMail(dsMailTo, dsSubject, bodyKeyValueMap);
+		new FarmsMail().sendMail(dsMailTo, dsSubject, bodyKeyValueMap, false);
 	}
 
 	/**
@@ -121,7 +122,8 @@ public class FarmsMail {
 	 * @param dsMailTo
 	 * @param dsSubject
 	 */
-	public void sendMail(String dsMailTo, String dsSubject, Map<String, String> bodyKeyValueMap) {
+	public void sendMail(String dsMailTo, String dsSubject, Map<String, String> bodyKeyValueMap,
+			boolean isConfirmation) {
 		try {
 			String farmsMailSmtpHost = FarmsProperties.load().getProperty("farms.mail.smtp.host");
 			String farmsMailFromName = FarmsProperties.load().getProperty("farms.mail.contact.name");
@@ -150,8 +152,12 @@ public class FarmsMail {
 
 				// HTML mail content.
 				ClassLoader classLoader = this.getClass().getClassLoader();
-				File htmlTemplateFile = new File(
-						classLoader.getResource(ACCOUNT_CONFIRMATION_EMAIL_TEMPLATE_HTML).getFile());
+				File htmlTemplateFile = null;
+				if (isConfirmation) {
+					htmlTemplateFile = new File(classLoader.getResource(ACCOUNT_CONFIRMATION_EMAIL_TEMPLATE_HTML).getFile());
+				} else {
+					htmlTemplateFile = new File(classLoader.getResource(INVITE_MEMBER_EMAIL_TEMPLATE_HTML).getFile());
+				}
 
 				String htmlText = readEmailFromHtml(htmlTemplateFile.getPath(), bodyKeyValueMap);
 				messageBodyPart.setContent(htmlText, "text/html");

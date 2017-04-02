@@ -33,6 +33,24 @@ public class InvitationDao extends HibernateDao<Invitation> {
 	}
 	
 	/**
+	 * getInvitationsByProjectAndDSSO
+	 * @param dsKey
+	 * @param dsSSO
+	 * @return
+	 */
+	public List<Invitation> getInvitationsByProjectAndDSSO(Long idProject, Long idResearcher) {
+		StringBuilder sbHql = new StringBuilder();
+		sbHql.append("from Invitation i");
+		sbHql.append(" where i.researcher.idResearcher = :idResearcher and i.dhConfirmation = null and i.project.idProject = :idProject");
+
+		Query query = getSession().createQuery(sbHql.toString());
+		query.setParameter("idResearcher", idResearcher);
+		query.setParameter("idProject", idProject);
+		List<Invitation> invitations = query.list();
+		return invitations ;
+	}
+	
+	/**
 	 * Decline a invitation
 	 * @param id
 	 */

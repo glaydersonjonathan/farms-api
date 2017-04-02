@@ -84,9 +84,14 @@ public class ProjectMemberService {
 		invitation.setDhInvitation(new Date(System.currentTimeMillis()));
 		invitation.setProject(project);
 		invitation.setResearcher(researcher);
-
-		invitationDao.save(invitation);
-		FarmsMail.sendInviteEmail(projectMemberInviteDto.getDsEmail());
+		
+		if (invitationDao.getInvitationsByProjectAndDSSO(project.getIdProject(), researcher.getIdResearcher()).size() == 0){
+			invitationDao.save(invitation);
+			FarmsMail.sendMailText(projectMemberInviteDto.getDsEmail(), "You are invited to project!", "Hi, "
+					+ "</br> Open your FARMS account, you are invited to member of project '"+project.getDsTitle()+"'. ");
+		}else{
+			throw new FarmsException(ErrorMessage.ALREADY_INVITED);	
+		}
 		return true;
 	}
 
