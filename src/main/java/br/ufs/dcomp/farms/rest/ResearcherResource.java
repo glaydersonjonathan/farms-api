@@ -9,15 +9,13 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import br.ufs.dcomp.farms.common.message.ErrorMessage;
 import br.ufs.dcomp.farms.common.message.SuccessMessage;
 import br.ufs.dcomp.farms.core.FarmsCrypt;
 import br.ufs.dcomp.farms.core.FarmsException;
+import br.ufs.dcomp.farms.core.FarmsMail;
 import br.ufs.dcomp.farms.core.FarmsResponse;
 import br.ufs.dcomp.farms.model.dto.ResearcherRegisterDto;
 import br.ufs.dcomp.farms.model.entity.Researcher;
@@ -33,7 +31,7 @@ import br.ufs.dcomp.farms.model.service.ResearcherService;
 @Component
 public class ResearcherResource {
 
-	final static Logger logger = Logger.getLogger(ResearcherResource.class);
+	//final static Logger logger = Logger.getLogger(ResearcherResource.class);
 
 	@Autowired
 	private ResearcherService researcherService;
@@ -51,7 +49,8 @@ public class ResearcherResource {
 			Researcher researcher = researcherService.getByEmail(dsEmail);
 			return FarmsResponse.ok(researcher);
 		} catch (Exception ex) {
-			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			//logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -69,7 +68,8 @@ public class ResearcherResource {
 			ResearcherRegisterDto researcherCreatedDto = researcherService.getBySSO(dsSSO);
 			return FarmsResponse.ok(researcherCreatedDto);
 		} catch (Exception ex) {
-			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			//logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -86,6 +86,7 @@ public class ResearcherResource {
 			Boolean researcherRegisteredDto = researcherService.update(researcherRegisterDto);
 			return FarmsResponse.ok(SuccessMessage.RESEARCHER_UPDATED, researcherRegisteredDto);
 		} catch (Exception ex) {
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -104,6 +105,7 @@ public class ResearcherResource {
 			Boolean researcherRegisteredDto = researcherService.update(researcherRegisterDto);
 			return FarmsResponse.ok(SuccessMessage.PASSWORD_CHANGED, researcherRegisteredDto);
 		} catch (Exception ex) {
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -123,6 +125,7 @@ public class ResearcherResource {
 		} catch (FarmsException fe) {
 			return FarmsResponse.error(fe.getErrorMessage());
 		} catch (Exception ex) {
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -140,6 +143,7 @@ public class ResearcherResource {
 			Boolean bool = researcherService.inactive(idResearcher);
 			return FarmsResponse.ok(SuccessMessage.RESEARCHER_EXCLUDED, bool);
 		} catch (Exception ex) {
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}

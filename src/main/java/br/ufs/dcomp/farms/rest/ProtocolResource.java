@@ -12,14 +12,11 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-import org.apache.log4j.Logger;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import br.ufs.dcomp.farms.common.message.ErrorMessage;
 import br.ufs.dcomp.farms.common.message.SuccessMessage;
+import br.ufs.dcomp.farms.core.FarmsMail;
 import br.ufs.dcomp.farms.core.FarmsResponse;
 import br.ufs.dcomp.farms.model.dto.BaseUseCriteriaCreatedDto;
 import br.ufs.dcomp.farms.model.dto.LanguageCreatedDto;
@@ -53,7 +50,7 @@ import br.ufs.dcomp.farms.model.service.StandardQueryService;
 @Component
 public class ProtocolResource {
 
-	final static Logger logger = Logger.getLogger(ProtocolResource.class);
+	//final static Logger logger = Logger.getLogger(ProtocolResource.class);
 
 	@Autowired
 	private ObjectiveService objectiveService;
@@ -85,7 +82,8 @@ public class ProtocolResource {
 			List<ObjectiveCreatedDto> objectiveCreatedDtos = objectiveService.getByDsKeyProject(dsKey);
 			return FarmsResponse.ok(objectiveCreatedDtos);
 		} catch (Exception ex) {
-			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			//logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -103,7 +101,8 @@ public class ProtocolResource {
 			List<MainQuestionCreatedDto> mainQuestionCreatedDtos = mainQuestionService.getByDsKeyProject(dsKey);
 			return FarmsResponse.ok(mainQuestionCreatedDtos);
 		} catch (Exception ex) {
-			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			//logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -122,7 +121,8 @@ public class ProtocolResource {
 					.getByDsKeyProject(dsKey);
 			return FarmsResponse.ok(secondaryQuestionCreatedDtos);
 		} catch (Exception ex) {
-			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			//logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -140,7 +140,8 @@ public class ProtocolResource {
 			List<SearchKeywordCreatedDto> searchKeywordCreatedDtos = searchKeywordService.getByDsKeyProject(dsKey);
 			return FarmsResponse.ok(searchKeywordCreatedDtos);
 		} catch (Exception ex) {
-			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			//logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -158,7 +159,8 @@ public class ProtocolResource {
 			List<StandardQueryCreatedDto> standardQueryCreatedDtos = standardQueryService.getByDsKeyProject(dsKey);
 			return FarmsResponse.ok(standardQueryCreatedDtos);
 		} catch (Exception ex) {
-			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			//logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -177,7 +179,8 @@ public class ProtocolResource {
 					.getByDsKeyProject(dsKey);
 			return FarmsResponse.ok(selectionCriteriaCreatedDtos);
 		} catch (Exception ex) {
-			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			//logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -195,7 +198,8 @@ public class ProtocolResource {
 			List<LanguageCreatedDto> languageCreatedDtos = languageService.getByDsKeyProject(dsKey);
 			return FarmsResponse.ok(languageCreatedDtos);
 		} catch (Exception ex) {
-			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			//logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -213,7 +217,8 @@ public class ProtocolResource {
 			List<SearchEngineCreatedDto> searchEngineCreatedDtos = searchEngineService.getByDsKeyProject(dsKey);
 			return FarmsResponse.ok(searchEngineCreatedDtos);
 		} catch (Exception ex) {
-			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			//logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -230,7 +235,8 @@ public class ProtocolResource {
 			List<Language> languageCreatedDtos = languageService.getAllLanguages();
 			return FarmsResponse.ok(languageCreatedDtos);
 		} catch (Exception ex) {
-			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			//logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -247,7 +253,8 @@ public class ProtocolResource {
 			List<SearchEngine> engines = searchEngineService.getAllEngines();
 			return FarmsResponse.ok(engines);
 		} catch (Exception ex) {
-			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			//logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -267,6 +274,7 @@ public class ProtocolResource {
 			Boolean bool = objectiveService.saveObjective(obcd);
 			return FarmsResponse.ok(SuccessMessage.OBJECTIVE_SAVED, bool);
 		} catch (Exception ex) {
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -284,6 +292,7 @@ public class ProtocolResource {
 			Boolean bool = mainQuestionService.saveMainQuestion(mqcd);
 			return FarmsResponse.ok(SuccessMessage.MAIN_QUESTION_SAVED, bool);
 		} catch (Exception ex) {
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -301,6 +310,7 @@ public class ProtocolResource {
 			Boolean bool = secondaryQuestionService.saveSecondaryQuestion(sqcd);
 			return FarmsResponse.ok(SuccessMessage.SECONDARY_QUESTION_SAVED, bool);
 		} catch (Exception ex) {
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -318,6 +328,7 @@ public class ProtocolResource {
 			Boolean bool = standardQueryService.saveStandardQuery(stqcd);
 			return FarmsResponse.ok(SuccessMessage.STANDARD_QUERY_SAVED, bool);
 		} catch (Exception ex) {
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -335,6 +346,7 @@ public class ProtocolResource {
 			Boolean bool = searchKeywordService.saveKeyword(searchKeywords);
 			return FarmsResponse.ok(SuccessMessage.KEYWORD_SAVED, bool);
 		} catch (Exception ex) {
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -352,6 +364,7 @@ public class ProtocolResource {
 			Boolean bool = selectionCriteriaService.saveCriteria(selectionCriterias);
 			return FarmsResponse.ok(SuccessMessage.CRITERIA_SAVED, bool);
 		} catch (Exception ex) {
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -369,6 +382,7 @@ public class ProtocolResource {
 			Boolean bool = languageService.saveLanguage(languages);
 			return FarmsResponse.ok(SuccessMessage.LANGUAGE_ADDED, bool);
 		} catch (Exception ex) {
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -386,6 +400,7 @@ public class ProtocolResource {
 			Boolean bool = searchEngineService.saveEngine(bc);
 			return FarmsResponse.ok(SuccessMessage.ENGINE_ADDED, bool);
 		} catch (Exception ex) {
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -404,6 +419,7 @@ public class ProtocolResource {
 			Boolean bool = searchEngineService.createEngine(engine);
 			return FarmsResponse.ok(SuccessMessage.ENGINE_CREATED, bool);
 		} catch (Exception ex) {
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -424,6 +440,7 @@ public class ProtocolResource {
 			Boolean bool = searchKeywordService.deleteKeyword(dsProjectKey, dsSearchKeyword, idSearchKeyword);
 			return FarmsResponse.ok(SuccessMessage.KEYWORD_DELETED, bool);
 		} catch (Exception ex) {
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -443,6 +460,7 @@ public class ProtocolResource {
 			Boolean bool = languageService.deleteLanguage(dsProjectKey, idLanguage);
 			return FarmsResponse.ok(SuccessMessage.LANGUAGE_DELETED, bool);
 		} catch (Exception ex) {
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -461,6 +479,7 @@ public class ProtocolResource {
 			Boolean bool = searchEngineService.deleteEngine(dsProjectKey, idEngine);
 			return FarmsResponse.ok(SuccessMessage.ENGINE_DELETED, bool);
 		} catch (Exception ex) {
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -481,6 +500,7 @@ public class ProtocolResource {
 			Boolean bool = selectionCriteriaService.deleteCriteria(dsProjectKey, dsSelectionCriteria, tpCriteria);
 			return FarmsResponse.ok(SuccessMessage.CRITERIA_DELETED, bool);
 		} catch (Exception ex) {
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -498,6 +518,7 @@ public class ProtocolResource {
 			Boolean bool = searchKeywordService.editKeyword(searchKeywordCreatedDto);
 			return FarmsResponse.ok(SuccessMessage.KEYWORD_SAVED, bool);
 		} catch (Exception ex) {
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -515,6 +536,7 @@ public class ProtocolResource {
 			Boolean bool = searchEngineService.editEngine(searchEngineCreatedDto);
 			return FarmsResponse.ok(SuccessMessage.ENGINE_ADDED, bool);
 		} catch (Exception ex) {
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -532,6 +554,7 @@ public class ProtocolResource {
 			Boolean bool = selectionCriteriaService.editCriteria(selectionCriteriaCreatedDto);
 			return FarmsResponse.ok(SuccessMessage.CRITERIA_SAVED, bool);
 		} catch (Exception ex) {
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}

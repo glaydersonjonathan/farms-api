@@ -23,7 +23,6 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
-import br.ufs.dcomp.farms.rest.EmailHtmlTemplate;
 
 @SuppressWarnings("unused")
 public class FarmsMail {
@@ -197,7 +196,7 @@ public class FarmsMail {
 				transport.close();
 				System.out.println("Mail sent successfully...");
 			} catch (MessagingException ex) {
-				Logger.getLogger(EmailHtmlTemplate.class.getName()).log(Level.SEVERE, null, ex);
+				ex.printStackTrace();
 			} catch (Exception ae) {
 				ae.printStackTrace();
 			}

@@ -9,11 +9,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import br.ufs.dcomp.farms.common.message.ErrorMessage;
 import br.ufs.dcomp.farms.common.message.SuccessMessage;
 import br.ufs.dcomp.farms.core.FarmsException;
@@ -35,7 +32,7 @@ import br.ufs.dcomp.farms.model.service.AccountService;
 @Component
 public class AccountResource {
 
-	final static Logger logger = Logger.getLogger(AccountResource.class);
+	//final static Logger logger = Logger.getLogger(AccountResource.class);
 
 	@Autowired
 	private AccountService accountService;
@@ -50,15 +47,15 @@ public class AccountResource {
 	@Path("/login")
 	public Response login(ResearcherLoginDto researcherLoginDto) {
 		try {
-			logger.info("Starting login.");
+			//logger.info("Starting login.");
 			ResearcherLoggedDto researcherLoggedDto = accountService.login(researcherLoginDto);
-			logger.info(SuccessMessage.RESEARCHER_LOGGED);
+			//logger.info(SuccessMessage.RESEARCHER_LOGGED);
 			return FarmsResponse.ok(SuccessMessage.RESEARCHER_LOGGED, researcherLoggedDto);
 		} catch (FarmsException fe) {
-			logger.error(fe.getErrorMessage());
+			//logger.error(fe.getErrorMessage());
 			return FarmsResponse.error(fe.getErrorMessage());
 		} catch (Exception ex) {
-			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -74,15 +71,12 @@ public class AccountResource {
 	@Path("/register")
 	public Response register(ResearcherRegisterDto researcherRegisterDto) {
 		try {
-			logger.info("Starting register.");
 			ResearcherRegisteredDto researcherRegisteredDto = accountService
 					.registerAndSendAccountConfirmationEmail(researcherRegisterDto);
-			logger.info(SuccessMessage.RESEARCHER_REGISTERED);
 			return FarmsResponse.ok(SuccessMessage.RESEARCHER_REGISTERED, researcherRegisteredDto);
 		} catch (FarmsException fe) {
 			return FarmsResponse.error(fe.getErrorMessage());
 		} catch (Exception ex) {
-			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
 			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
@@ -98,14 +92,14 @@ public class AccountResource {
 	@Path("/confirmation")
 	public Response verifyAccount(@QueryParam("u") String cdUuid) {
 		try {
-			logger.info("Starting account confirmation.");
+			//logger.info("Starting account confirmation.");
 			ResearcherRegisteredDto researcherRegisteredDto = accountService.confirmAccount(cdUuid);
-			logger.info(SuccessMessage.ACCOUNT_CONFIRMED);
+			//logger.info(SuccessMessage.ACCOUNT_CONFIRMED);
 			return FarmsResponse.ok(SuccessMessage.ACCOUNT_CONFIRMED, researcherRegisteredDto);
 		} catch (FarmsException fe) {
 			return FarmsResponse.error(fe.getErrorMessage());
 		} catch (Exception ex) {
-			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -123,7 +117,7 @@ public class AccountResource {
 			Boolean bool = accountService.resend(researcherLoginDto);
 			return FarmsResponse.ok(SuccessMessage.RESEND_EMAIL_CONFIRMATION, bool);
 		} catch (Exception ex) {
-			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -141,6 +135,7 @@ public class AccountResource {
 			Boolean bool = accountService.sendEmailNewPassword(email);
 			return FarmsResponse.ok(SuccessMessage.EMAIL_NEW_PASSWORD, bool);
 		} catch (Exception ex) {
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -162,7 +157,7 @@ public class AccountResource {
 			return FarmsResponse.error(fe.getErrorMessage());
 		}
 		catch (Exception ex) {
-			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage());
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}

@@ -16,7 +16,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import org.apache.log4j.Logger;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +40,7 @@ import br.ufs.dcomp.farms.model.service.StudyService;
 public class StudyResource {
 	@Autowired
 	private StudyService studyService;
-	final static Logger logger = Logger.getLogger(ProjectResource.class);
+	//final static Logger logger = Logger.getLogger(ProjectResource.class);
 
 	/**
 	 * Get studies of project.
@@ -56,7 +55,8 @@ public class StudyResource {
 			List<StudyCreatedDto> studyCreatedDtos = studyService.getByDsKeyProject(dsKey);
 			return FarmsResponse.ok(studyCreatedDtos);
 		} catch (Exception ex) {
-			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			//logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -75,6 +75,7 @@ public class StudyResource {
 		} catch (FarmsException fe) {
 			return FarmsResponse.error(fe.getErrorMessage());
 		} catch (Exception ex) {
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -90,10 +91,9 @@ public class StudyResource {
 		try {
 			Boolean bool = studyService.editStudy(studycreatedDto);
 			return FarmsResponse.ok(SuccessMessage.STUDY_CREATED, bool);
-		} // catch (FarmsException fe){
-			// return FarmsResponse.error(fe.getErrorMessage());
-			// }
+		} 
 		catch (Exception ex) {
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -113,6 +113,7 @@ public class StudyResource {
 		} catch (FarmsException fe) {
 			return FarmsResponse.error(fe.getErrorMessage());
 		} catch (Exception ex) {
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 
@@ -131,7 +132,8 @@ public class StudyResource {
 			StudyCreatedDto study = studyService.getStudyByCdciteKey(cdCiteKey);
 			return FarmsResponse.ok(study);
 		} catch (Exception ex) {
-			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			//logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -158,8 +160,8 @@ public class StudyResource {
 		try {
 			Integer total = studyService.importStudies(dir+ "/" + fileName, dsKey);
 			return FarmsResponse.ok(SuccessMessage.STUDY_IMPORTED, total);
-		} catch (Exception e) {
-			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", e.getMessage());
+		} catch (Exception ex) {
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}

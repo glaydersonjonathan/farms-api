@@ -10,14 +10,12 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import br.ufs.dcomp.farms.common.message.ErrorMessage;
 import br.ufs.dcomp.farms.common.message.SuccessMessage;
 import br.ufs.dcomp.farms.core.FarmsException;
+import br.ufs.dcomp.farms.core.FarmsMail;
 import br.ufs.dcomp.farms.core.FarmsResponse;
 import br.ufs.dcomp.farms.model.dto.RatedContentCreatedDto;
 import br.ufs.dcomp.farms.model.dto.ReviewCreateDto;
@@ -35,7 +33,7 @@ import br.ufs.dcomp.farms.model.service.SelectionService;
 @Component
 public class SelectionResource {
 
-	final static Logger logger = Logger.getLogger(SelectionResource.class);
+	//final static Logger logger = Logger.getLogger(SelectionResource.class);
 
 	@Autowired
 	private SelectionService selectionService;
@@ -53,7 +51,8 @@ public class SelectionResource {
 			SelectionStepCreatedDto selectionStepCreatedDto = selectionService.getConfiguration(dsKey);
 			return FarmsResponse.ok(selectionStepCreatedDto);
 		} catch (Exception ex) {
-			return FarmsResponse.error(null);
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
 
@@ -69,6 +68,7 @@ public class SelectionResource {
 			Boolean bool = selectionService.save(selectionCreatedDto);
 			return FarmsResponse.ok(SuccessMessage.SELECTION_STEP_REGISTERED, bool);
 		} catch (Exception ex) {
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -85,7 +85,8 @@ public class SelectionResource {
 			List<RatedContentCreatedDto> ratedContents = selectionService.getAllRated();
 			return FarmsResponse.ok(ratedContents);
 		} catch (Exception ex) {
-			logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			//logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -105,6 +106,7 @@ public class SelectionResource {
 		} catch (FarmsException fe) {
 			return FarmsResponse.error(fe.getErrorMessage());
 		} catch (Exception ex) {
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -123,7 +125,8 @@ public class SelectionResource {
 			List<ReviewCreateDto> reviewCreatedDto = selectionService.getReviews(dsKey, dsSSO);
 			return FarmsResponse.ok(reviewCreatedDto);
 		} catch (Exception ex) {
-			return FarmsResponse.error(null);
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
 
@@ -140,6 +143,7 @@ public class SelectionResource {
 			Boolean bool = selectionService.realizeReview(reviewCreateDto);
 			return FarmsResponse.ok(SuccessMessage.REVIEW_FINALIZED, bool);
 		} catch (Exception ex) {
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -157,7 +161,8 @@ public class SelectionResource {
 			List<StudyCreatedDto> studyCreatedDto = selectionService.getStudiesInConflict(dsKey);
 			return FarmsResponse.ok(studyCreatedDto);
 		} catch (Exception ex) {
-			return FarmsResponse.error(null);
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
 
@@ -176,6 +181,7 @@ public class SelectionResource {
 		} catch (FarmsException fe) {
 			return FarmsResponse.error(fe.getErrorMessage());
 		} catch (Exception ex) {
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
