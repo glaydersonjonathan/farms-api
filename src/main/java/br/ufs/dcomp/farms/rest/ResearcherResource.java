@@ -50,7 +50,7 @@ public class ResearcherResource {
 			return FarmsResponse.ok(researcher);
 		} catch (Exception ex) {
 			//logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
-			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
+			//FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -69,7 +69,7 @@ public class ResearcherResource {
 			return FarmsResponse.ok(researcherCreatedDto);
 		} catch (Exception ex) {
 			//logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
-			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
+			//FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}

@@ -83,7 +83,7 @@ public class ProtocolResource {
 			return FarmsResponse.ok(objectiveCreatedDtos);
 		} catch (Exception ex) {
 			//logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
-			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
+			//FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -102,7 +102,7 @@ public class ProtocolResource {
 			return FarmsResponse.ok(mainQuestionCreatedDtos);
 		} catch (Exception ex) {
 			//logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
-			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
+			//FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -122,7 +122,7 @@ public class ProtocolResource {
 			return FarmsResponse.ok(secondaryQuestionCreatedDtos);
 		} catch (Exception ex) {
 			//logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
-			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
+			//FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -141,7 +141,7 @@ public class ProtocolResource {
 			return FarmsResponse.ok(searchKeywordCreatedDtos);
 		} catch (Exception ex) {
 			//logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
-			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
+			//FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -160,7 +160,7 @@ public class ProtocolResource {
 			return FarmsResponse.ok(standardQueryCreatedDtos);
 		} catch (Exception ex) {
 			//logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
-			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
+			//FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -180,7 +180,7 @@ public class ProtocolResource {
 			return FarmsResponse.ok(selectionCriteriaCreatedDtos);
 		} catch (Exception ex) {
 			//logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
-			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
+			//FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -199,7 +199,7 @@ public class ProtocolResource {
 			return FarmsResponse.ok(languageCreatedDtos);
 		} catch (Exception ex) {
 			//logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
-			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
+			//FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -218,7 +218,7 @@ public class ProtocolResource {
 			return FarmsResponse.ok(searchEngineCreatedDtos);
 		} catch (Exception ex) {
 			//logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
-			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
+			//FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -236,7 +236,7 @@ public class ProtocolResource {
 			return FarmsResponse.ok(languageCreatedDtos);
 		} catch (Exception ex) {
 			//logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
-			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
+			//FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -254,7 +254,7 @@ public class ProtocolResource {
 			return FarmsResponse.ok(engines);
 		} catch (Exception ex) {
 			//logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
-			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
+			//FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}

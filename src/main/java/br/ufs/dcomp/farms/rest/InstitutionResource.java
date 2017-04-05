@@ -109,7 +109,7 @@ public class InstitutionResource {
 			return FarmsResponse.ok(institutionCreatedDto);
 		} catch (Exception ex) {
 			// logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
-			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() + " " + ex.toString());
+			//FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() + " " + ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
