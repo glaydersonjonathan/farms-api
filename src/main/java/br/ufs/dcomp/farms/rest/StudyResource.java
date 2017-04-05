@@ -54,9 +54,11 @@ public class StudyResource {
 		try {
 			List<StudyCreatedDto> studyCreatedDtos = studyService.getByDsKeyProject(dsKey);
 			return FarmsResponse.ok(studyCreatedDtos);
+		}catch (NullPointerException n){
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		} catch (Exception ex) {
 			//logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
-			//FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -74,7 +76,9 @@ public class StudyResource {
 			return FarmsResponse.ok(SuccessMessage.STUDY_CREATED, bool);
 		} catch (FarmsException fe) {
 			return FarmsResponse.error(fe.getErrorMessage());
-		} catch (Exception ex) {
+		} catch (NullPointerException n){
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}catch (Exception ex) {
 			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
@@ -91,7 +95,9 @@ public class StudyResource {
 		try {
 			Boolean bool = studyService.editStudy(studycreatedDto);
 			return FarmsResponse.ok(SuccessMessage.STUDY_CREATED, bool);
-		} 
+		} catch (NullPointerException n){
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}
 		catch (Exception ex) {
 			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
@@ -112,6 +118,8 @@ public class StudyResource {
 			return FarmsResponse.ok(SuccessMessage.STUDY_DELETED, bool);
 		} catch (FarmsException fe) {
 			return FarmsResponse.error(fe.getErrorMessage());
+		}catch (NullPointerException n){
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		} catch (Exception ex) {
 			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
@@ -131,9 +139,11 @@ public class StudyResource {
 		try {
 			StudyCreatedDto study = studyService.getStudyByCdciteKey(cdCiteKey);
 			return FarmsResponse.ok(study);
-		} catch (Exception ex) {
+		} catch (NullPointerException n){
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		}catch (Exception ex) {
 			//logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
-			//FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}

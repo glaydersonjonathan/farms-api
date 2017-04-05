@@ -32,7 +32,7 @@ import br.ufs.dcomp.farms.model.service.AccountService;
 @Component
 public class AccountResource {
 
-	//final static Logger logger = Logger.getLogger(AccountResource.class);
+	// final static Logger logger = Logger.getLogger(AccountResource.class);
 
 	@Autowired
 	private AccountService accountService;
@@ -47,15 +47,17 @@ public class AccountResource {
 	@Path("/login")
 	public Response login(ResearcherLoginDto researcherLoginDto) {
 		try {
-			//logger.info("Starting login.");
+			// logger.info("Starting login.");
 			ResearcherLoggedDto researcherLoggedDto = accountService.login(researcherLoginDto);
-			//logger.info(SuccessMessage.RESEARCHER_LOGGED);
+			// logger.info(SuccessMessage.RESEARCHER_LOGGED);
 			return FarmsResponse.ok(SuccessMessage.RESEARCHER_LOGGED, researcherLoggedDto);
 		} catch (FarmsException fe) {
-			//logger.error(fe.getErrorMessage());
+			// logger.error(fe.getErrorMessage());
 			return FarmsResponse.error(fe.getErrorMessage());
+		} catch (NullPointerException n) {
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		} catch (Exception ex) {
-			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() + " " + ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -76,6 +78,8 @@ public class AccountResource {
 			return FarmsResponse.ok(SuccessMessage.RESEARCHER_REGISTERED, researcherRegisteredDto);
 		} catch (FarmsException fe) {
 			return FarmsResponse.error(fe.getErrorMessage());
+		} catch (NullPointerException n) {
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		} catch (Exception ex) {
 			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
@@ -92,14 +96,16 @@ public class AccountResource {
 	@Path("/confirmation")
 	public Response verifyAccount(@QueryParam("u") String cdUuid) {
 		try {
-			//logger.info("Starting account confirmation.");
+			// logger.info("Starting account confirmation.");
 			ResearcherRegisteredDto researcherRegisteredDto = accountService.confirmAccount(cdUuid);
-			//logger.info(SuccessMessage.ACCOUNT_CONFIRMED);
+			// logger.info(SuccessMessage.ACCOUNT_CONFIRMED);
 			return FarmsResponse.ok(SuccessMessage.ACCOUNT_CONFIRMED, researcherRegisteredDto);
 		} catch (FarmsException fe) {
 			return FarmsResponse.error(fe.getErrorMessage());
+		} catch (NullPointerException n) {
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		} catch (Exception ex) {
-			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() + " " + ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -116,8 +122,10 @@ public class AccountResource {
 		try {
 			Boolean bool = accountService.resend(researcherLoginDto);
 			return FarmsResponse.ok(SuccessMessage.RESEND_EMAIL_CONFIRMATION, bool);
+		} catch (NullPointerException n) {
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		} catch (Exception ex) {
-			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() + " " + ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -134,8 +142,10 @@ public class AccountResource {
 		try {
 			Boolean bool = accountService.sendEmailNewPassword(email);
 			return FarmsResponse.ok(SuccessMessage.EMAIL_NEW_PASSWORD, bool);
+		} catch (NullPointerException n) {
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		} catch (Exception ex) {
-			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() + " " + ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -153,11 +163,12 @@ public class AccountResource {
 		try {
 			Boolean bool = accountService.newPass(u, researcherRegisterDto);
 			return FarmsResponse.ok(SuccessMessage.PASSWORD_CHANGED, bool);
-		}  catch (FarmsException fe) {
+		} catch (FarmsException fe) {
 			return FarmsResponse.error(fe.getErrorMessage());
-		}
-		catch (Exception ex) {
-			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
+		} catch (NullPointerException n) {
+			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
+		} catch (Exception ex) {
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() + " " + ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
