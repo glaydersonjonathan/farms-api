@@ -104,10 +104,8 @@ public class ReviewDao extends HibernateDao<Review> {
 	public BigInteger scoreAccepted(Long idStudy) {
 		Query query = getSession().createSQLQuery("select accepted from score_conflicts where id_study =:idStudy");
 		query.setParameter("idStudy", idStudy);
-
 		List<BigInteger> qtd = query.list();
-
-		return qtd.get(0);
+		return qtd.size() > 0 ? qtd.get(0) : null;
 	}
 
 	/**
@@ -119,10 +117,8 @@ public class ReviewDao extends HibernateDao<Review> {
 	public BigInteger scoreRejected(Long idStudy) {
 		Query query = getSession().createSQLQuery("select rejected from score_conflicts where id_study =:idStudy");
 		query.setParameter("idStudy", idStudy);
-
 		List<BigInteger> qtd = query.list();
-
-		return qtd.get(0);
+		return qtd.size() > 0 ? qtd.get(0) : null;
 	}
 
 	/**
@@ -134,10 +130,8 @@ public class ReviewDao extends HibernateDao<Review> {
 	public BigInteger scoreUnclassified(Long idStudy) {
 		Query query = getSession().createSQLQuery("select unclassified from score_conflicts where id_study =:idStudy");
 		query.setParameter("idStudy", idStudy);
-
 		List<BigInteger> qtd = query.list();
-
-		return qtd.get(0);
+		return qtd.size() > 0 ? qtd.get(0) : null;
 	}
 
 }

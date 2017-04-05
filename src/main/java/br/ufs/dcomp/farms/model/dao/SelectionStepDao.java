@@ -34,7 +34,7 @@ public class SelectionStepDao extends HibernateDao<SelectionStep> {
 		Query query = getSession().createQuery(sbHql.toString());
 		query.setParameter("dsKey", dsKey);
 		List<SelectionStep> selectionStep = query.list();
-		return selectionStep.get(0); // verificar
+		return selectionStep.size() > 0 ? selectionStep.get(0) : null;
 	}
 
 	/**
