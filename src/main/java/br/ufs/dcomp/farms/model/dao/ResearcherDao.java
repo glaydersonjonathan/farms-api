@@ -1,10 +1,8 @@
 package br.ufs.dcomp.farms.model.dao;
 
 import java.util.List;
-
 import org.hibernate.Query;
 import org.springframework.stereotype.Component;
-
 import br.ufs.dcomp.farms.model.entity.Researcher;
 
 /**
@@ -28,6 +26,7 @@ public class ResearcherDao extends HibernateDao<Researcher> {
 	 * 
 	 * @param researcher
 	 */
+        @Override
 	public void save(Researcher researcher) {
 		super.save(researcher);
 	}
@@ -37,6 +36,7 @@ public class ResearcherDao extends HibernateDao<Researcher> {
 	 * 
 	 * @param researcher
 	 */
+        @Override
 	public void update(Researcher researcher) {
 		super.update(researcher);
 	}
@@ -44,7 +44,7 @@ public class ResearcherDao extends HibernateDao<Researcher> {
 	/**
 	 * Deletes a researcher at id.
 	 * 
-	 * @param id
+	 * @param idResearcher
 	 * @return
 	 */
 	public boolean delete(Long idResearcher) {
@@ -56,7 +56,7 @@ public class ResearcherDao extends HibernateDao<Researcher> {
 	/**
 	 * Gets a researcher at id.
 	 * 
-	 * @param id
+	 * @param idResearcher
 	 * @return
 	 */
 	public Researcher get(Long idResearcher) {
@@ -154,7 +154,7 @@ public class ResearcherDao extends HibernateDao<Researcher> {
 				.createQuery("update Researcher set tp_state = :tpState" + " where idResearcher = :idResearcher");
 		query.setParameter("idResearcher", idResearcher);
 		query.setParameter("tpState", "I");
-		System.out.println(query.executeUpdate());
+		query.executeUpdate();
 		return true;
 	}
 
@@ -169,7 +169,7 @@ public class ResearcherDao extends HibernateDao<Researcher> {
 				.createQuery("update Researcher set tp_state = :tpState" + " where idResearcher = :idResearcher");
 		query.setParameter("idResearcher", idResearcher);
 		query.setParameter("tpState", "A");
-		System.out.println(query.executeUpdate());
+		query.executeUpdate();
 		return true;
 	}
 
@@ -182,6 +182,6 @@ public class ResearcherDao extends HibernateDao<Researcher> {
 		query.setParameter("idResearcher", researcher.getIdResearcher());
 		query.setParameter("cdUUID", researcher.getCdUuid());
 		query.setParameter("password", researcher.getDsPassword());
-		System.out.println(query.executeUpdate());
+		query.executeUpdate();
 	}
 }

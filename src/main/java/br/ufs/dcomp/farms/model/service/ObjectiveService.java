@@ -20,41 +20,41 @@ import br.ufs.dcomp.farms.model.entity.Project;
 @Component
 public class ObjectiveService {
 
-	@Autowired
-	private ObjectiveDao objectiveDao;
-	@Autowired
-	private ProjectDao projectDao;
+    @Autowired
+    private ObjectiveDao objectiveDao;
+    @Autowired
+    private ProjectDao projectDao;
 
-	/**
-	 * Get objective of protocol project
-	 * 
-	 * @param dsKey
-	 * @return List<ObjectiveCreatedDto>
-	 */
-	public List<ObjectiveCreatedDto> getByDsKeyProject(String dsKey) {
-		List<ObjectiveCreatedDto> objectiveCreatedDto = new ArrayList<ObjectiveCreatedDto>();
-		List<Objective> objectives = objectiveDao.getByDsKeyProject(dsKey);
-		if (objectives != null) {
-			for (Objective objective : objectives) {
-				objectiveCreatedDto.add(new ObjectiveCreatedDto(objective));
-			}
-		}
-		return objectiveCreatedDto;
-	}
+    /**
+     * Get objective of protocol project
+     *
+     * @param dsKey
+     * @return List
+     */
+    public List<ObjectiveCreatedDto> getByDsKeyProject(String dsKey) {
+        List<ObjectiveCreatedDto> objectiveCreatedDto = new ArrayList<>();
+        List<Objective> objectives = objectiveDao.getByDsKeyProject(dsKey);
+        if (objectives != null) {
+            objectives.forEach((objective) -> {
+                objectiveCreatedDto.add(new ObjectiveCreatedDto(objective));
+            });
+        }
+        return objectiveCreatedDto;
+    }
 
-	/**
-	 * Save objective of protocol project
-	 * 
-	 * @param objectiveCreateDto
-	 * @return boolean
-	 */
-	public Boolean saveObjective(ObjectiveCreateDto objectiveCreateDto) {
-		Project project = projectDao.getByDsKey(objectiveCreateDto.getDsKey());
+    /**
+     * Save objective of protocol project
+     *
+     * @param objectiveCreateDto
+     * @return boolean
+     */
+    public Boolean saveObjective(ObjectiveCreateDto objectiveCreateDto) {
+        Project project = projectDao.getByDsKey(objectiveCreateDto.getDsKey());
 
-		Objective objective = new Objective(objectiveCreateDto.getDsObjective(), project);
+        Objective objective = new Objective(objectiveCreateDto.getDsObjective(), project);
 
-		objectiveDao.delete(project.getIdProject());
-		objectiveDao.save(objective);
-		return true;
-	}
+        objectiveDao.delete(project.getIdProject());
+        objectiveDao.save(objective);
+        return true;
+    }
 }

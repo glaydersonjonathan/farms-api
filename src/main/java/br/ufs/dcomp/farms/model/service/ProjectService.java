@@ -2,11 +2,9 @@ package br.ufs.dcomp.farms.model.service;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
 import br.ufs.dcomp.farms.common.message.ErrorMessage;
 import br.ufs.dcomp.farms.core.FarmsException;
 import br.ufs.dcomp.farms.model.dao.InstitutionDao;
@@ -122,15 +120,15 @@ public class ProjectService {
 	 * Get all projects of researcher
 	 * 
 	 * @param dsSSO
-	 * @return List<ProjectCreatedDto>
+	 * @return List
 	 */
 	public List<ProjectCreatedDto> GetByDsSsoResearcher(String dsSSO) {
-		List<ProjectCreatedDto> projectCreatedDtos = new ArrayList<ProjectCreatedDto>();
+		List<ProjectCreatedDto> projectCreatedDtos = new ArrayList<>();
 		List<Project> projects = projectDao.getByDsSsoResearcher(dsSSO);
 		if (projects != null) {
-			for (Project project : projects) {
-				projectCreatedDtos.add(new ProjectCreatedDto(project));
-			}
+                    projects.forEach((project) -> {
+                        projectCreatedDtos.add(new ProjectCreatedDto(project));
+                    });
 		}
 		return projectCreatedDtos;
 	}

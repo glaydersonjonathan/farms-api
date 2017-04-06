@@ -28,6 +28,7 @@ import br.ufs.dcomp.farms.core.FarmsResponse;
 import br.ufs.dcomp.farms.model.dto.StudyCreateDto;
 import br.ufs.dcomp.farms.model.dto.StudyCreatedDto;
 import br.ufs.dcomp.farms.model.service.StudyService;
+import org.jbibtex.ParseException;
 
 /**
  * @author farms
@@ -38,13 +39,14 @@ import br.ufs.dcomp.farms.model.service.StudyService;
 @Consumes(MediaType.APPLICATION_JSON)
 @Component
 public class StudyResource {
+
 	@Autowired
 	private StudyService studyService;
-	//final static Logger logger = Logger.getLogger(ProjectResource.class);
+	// final static Logger logger = Logger.getLogger(ProjectResource.class);
 
 	/**
 	 * Get studies of project.
-	 * 
+	 *
 	 * @param dsKey
 	 * @return
 	 */
@@ -54,18 +56,16 @@ public class StudyResource {
 		try {
 			List<StudyCreatedDto> studyCreatedDtos = studyService.getByDsKeyProject(dsKey);
 			return FarmsResponse.ok(studyCreatedDtos);
-		}catch (NullPointerException n){
-			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		} catch (Exception ex) {
-			//logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
-			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
+			// logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() + " " + ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
 
 	/**
 	 * Add study manually.
-	 * 
+	 *
 	 * @param studycreateDto
 	 * @return
 	 */
@@ -76,17 +76,15 @@ public class StudyResource {
 			return FarmsResponse.ok(SuccessMessage.STUDY_CREATED, bool);
 		} catch (FarmsException fe) {
 			return FarmsResponse.error(fe.getErrorMessage());
-		} catch (NullPointerException n){
-			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
-		}catch (Exception ex) {
-			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
+		} catch (Exception ex) {
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() + " " + ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
 
 	/**
 	 * Update a study
-	 * 
+	 *
 	 * @param studycreatedDto
 	 * @return
 	 */
@@ -95,18 +93,15 @@ public class StudyResource {
 		try {
 			Boolean bool = studyService.editStudy(studycreatedDto);
 			return FarmsResponse.ok(SuccessMessage.STUDY_CREATED, bool);
-		} catch (NullPointerException n){
-			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
-		}
-		catch (Exception ex) {
-			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
+		} catch (Exception ex) {
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() + " " + ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
 
 	/**
 	 * Delete study
-	 * 
+	 *
 	 * @param idStudy
 	 * @return
 	 */
@@ -118,10 +113,8 @@ public class StudyResource {
 			return FarmsResponse.ok(SuccessMessage.STUDY_DELETED, bool);
 		} catch (FarmsException fe) {
 			return FarmsResponse.error(fe.getErrorMessage());
-		}catch (NullPointerException n){
-			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		} catch (Exception ex) {
-			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() + " " + ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 
@@ -129,7 +122,7 @@ public class StudyResource {
 
 	/**
 	 * Get details os study by citeKey
-	 * 
+	 *
 	 * @param cdCiteKey
 	 * @return
 	 */
@@ -139,17 +132,16 @@ public class StudyResource {
 		try {
 			StudyCreatedDto study = studyService.getStudyByCdciteKey(cdCiteKey);
 			return FarmsResponse.ok(study);
-		} catch (NullPointerException n){
-			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
-		}catch (Exception ex) {
-			//logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
-			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
+		} catch (Exception ex) {
+			// logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() + " " + ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
 
 	/**
 	 * Receive a file to import.
+	 *
 	 * @param dsKey
 	 * @param uploadedInputStream
 	 * @param fileDetail
@@ -160,24 +152,27 @@ public class StudyResource {
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	public Response uploadFile(@PathParam("dsKey") String dsKey, @FormDataParam("file") InputStream uploadedInputStream,
 			@FormDataParam("file") FormDataContentDisposition fileDetail) {
-		
+
 		// turn name unique
 		String fileName = System.currentTimeMillis() + fileDetail.getFileName();
 		String dir = "/farms/" + dsKey;
-		
+
 		saveFile(uploadedInputStream, dir, fileName);
 
 		try {
-			Integer total = studyService.importStudies(dir+ "/" + fileName, dsKey);
+			Integer total = studyService.importStudies(dir + "/" + fileName, dsKey);
 			return FarmsResponse.ok(SuccessMessage.STUDY_IMPORTED, total);
-		} catch (Exception ex) {
-			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() +" "+ ex.toString());
+		} catch (FarmsException fe) {
+			return FarmsResponse.error(fe.getErrorMessage());
+		} catch (IOException | NullPointerException | ParseException ex) {
+			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() + " " + ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
 
 	/**
 	 * Save file in system
+	 *
 	 * @param file
 	 * @param dir
 	 * @param filename
@@ -187,11 +182,10 @@ public class StudyResource {
 			// make dir
 			new File(dir).mkdirs();
 			// Change directory path
-			java.nio.file.Path path = FileSystems.getDefault().getPath(dir+ "/" + filename);
+			java.nio.file.Path path = FileSystems.getDefault().getPath(dir + "/" + filename);
 			// Save InputStream as file
 			Files.copy(file, path);
 		} catch (IOException ie) {
-			ie.printStackTrace();
 		}
 	}
 

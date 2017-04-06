@@ -39,7 +39,6 @@ import br.ufs.dcomp.farms.model.service.ProjectService;
 public class ProjectResource {
 
 	// final static Logger logger = Logger.getLogger(ProjectResource.class);
-
 	@Autowired
 	private ProjectService projectService;
 	@Autowired
@@ -49,7 +48,7 @@ public class ProjectResource {
 
 	/**
 	 * Receive a request from client to create a project.
-	 * 
+	 *
 	 * @param projectCreateDto
 	 * @return Response
 	 */
@@ -60,8 +59,6 @@ public class ProjectResource {
 			return FarmsResponse.ok(SuccessMessage.PROJECT_REGISTERED, bool);
 		} catch (FarmsException fe) {
 			return FarmsResponse.error(fe.getErrorMessage());
-		} catch (NullPointerException n) {
-			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		} catch (Exception ex) {
 			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() + " " + ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
@@ -70,7 +67,7 @@ public class ProjectResource {
 
 	/**
 	 * Receive a request from client to update a project.
-	 * 
+	 *
 	 * @param projectCreatedDto
 	 * @return Response
 	 */
@@ -81,8 +78,6 @@ public class ProjectResource {
 			return FarmsResponse.ok(SuccessMessage.PROJECT_UPDATED, bool);
 		} catch (FarmsException fe) {
 			return FarmsResponse.error(fe.getErrorMessage());
-		} catch (NullPointerException n) {
-			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		} catch (Exception ex) {
 			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() + " " + ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
@@ -91,9 +86,8 @@ public class ProjectResource {
 
 	/**
 	 * Receive a request from client to get a project.
-	 * 
-	 * @param String
-	 *            dsKey
+	 *
+	 * @param dsKey
 	 * @return Response
 	 */
 	@GET
@@ -102,8 +96,6 @@ public class ProjectResource {
 		try {
 			ProjectCreatedDto projectCreatedDto = projectService.getByDsKey(dsKey);
 			return FarmsResponse.ok(projectCreatedDto);
-		} catch (NullPointerException n) {
-			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		} catch (Exception ex) {
 			// logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
 			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() + " " + ex.toString());
@@ -113,7 +105,7 @@ public class ProjectResource {
 
 	/**
 	 * Get all projects of researcher.
-	 * 
+	 *
 	 * @param dsSSO
 	 * @return Response
 	 */
@@ -123,8 +115,6 @@ public class ProjectResource {
 		try {
 			List<ProjectCreatedDto> projectCreatedDtos = projectService.GetByDsSsoResearcher(dsSSO);
 			return FarmsResponse.ok(projectCreatedDtos);
-		} catch (NullPointerException n) {
-			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		} catch (Exception ex) {
 			// logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
 			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() + " " + ex.toString());
@@ -134,7 +124,7 @@ public class ProjectResource {
 
 	/**
 	 * Get all institutions of a project.
-	 * 
+	 *
 	 * @param dsKey
 	 * @return Response
 	 */
@@ -148,8 +138,6 @@ public class ProjectResource {
 		try {
 			List<InstitutionCreatedDto> institutionCreatedDtos = institutuionService.getByDsKeyProject(dsKey);
 			return FarmsResponse.ok(institutionCreatedDtos);
-		} catch (NullPointerException n) {
-			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		} catch (Exception ex) {
 			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() + " " + ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
@@ -158,7 +146,7 @@ public class ProjectResource {
 
 	/**
 	 * Get all members of project.
-	 * 
+	 *
 	 * @param dsKey
 	 * @return Response
 	 */
@@ -172,8 +160,6 @@ public class ProjectResource {
 		try {
 			List<ProjectMemberDto> projectMemberDtos = projectMemberService.getByDsKeyProject(dsKey);
 			return FarmsResponse.ok(projectMemberDtos);
-		} catch (NullPointerException n) {
-			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		} catch (Exception ex) {
 			// logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
 			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() + " " + ex.toString());
@@ -183,8 +169,8 @@ public class ProjectResource {
 
 	/**
 	 * Invite a member to a project.
-	 * 
-	 * @param ProjectMemberInviteDto
+	 *
+	 * @param pm
 	 * @return Response
 	 */
 	@POST
@@ -195,8 +181,6 @@ public class ProjectResource {
 			return FarmsResponse.ok(SuccessMessage.MEMBER_ADDED, bool);
 		} catch (FarmsException fe) {
 			return FarmsResponse.error(fe.getErrorMessage());
-		} catch (NullPointerException n) {
-			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		} catch (Exception ex) {
 			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() + " " + ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
@@ -205,7 +189,7 @@ public class ProjectResource {
 
 	/**
 	 * Get role of researcher in a project
-	 * 
+	 *
 	 * @param dsKey
 	 * @param dsUserName
 	 * @return response
@@ -216,8 +200,6 @@ public class ProjectResource {
 		try {
 			int roleCode = projectMemberService.getRole(dsKey, dsUserName);
 			return FarmsResponse.ok(roleCode);
-		} catch (NullPointerException n) {
-			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		} catch (Exception ex) {
 			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() + " " + ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
@@ -226,7 +208,7 @@ public class ProjectResource {
 
 	/**
 	 * Turn member inactive
-	 * 
+	 *
 	 * @param idProjectMember
 	 * @return
 	 */
@@ -236,8 +218,6 @@ public class ProjectResource {
 		try {
 			Boolean bool = projectMemberService.inactive(idProjectMember);
 			return FarmsResponse.ok(SuccessMessage.MEMBER_INACTIVED, bool);
-		} catch (NullPointerException n) {
-			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		} catch (Exception ex) {
 			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() + " " + ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
@@ -246,7 +226,7 @@ public class ProjectResource {
 
 	/**
 	 * Turns researcher active.
-	 * 
+	 *
 	 * @param idProjectMember
 	 * @return
 	 */
@@ -256,8 +236,6 @@ public class ProjectResource {
 		try {
 			Boolean bool = projectMemberService.active(idProjectMember);
 			return FarmsResponse.ok(SuccessMessage.MEMBER_ACTIVED, bool);
-		} catch (NullPointerException n) {
-			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		} catch (Exception ex) {
 			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() + " " + ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
@@ -266,7 +244,7 @@ public class ProjectResource {
 
 	/**
 	 * get pendents invitations of researcher.
-	 * 
+	 *
 	 * @param dsSSO
 	 * @return
 	 */
@@ -276,8 +254,6 @@ public class ProjectResource {
 		try {
 			List<InvitationDto> invitations = projectMemberService.GetInvitations(dsSSO);
 			return FarmsResponse.ok(invitations);
-		} catch (NullPointerException n) {
-			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		} catch (Exception ex) {
 			// logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
 			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() + " " + ex.toString());
@@ -287,7 +263,7 @@ public class ProjectResource {
 
 	/**
 	 * Decline a invitation
-	 * 
+	 *
 	 * @param id
 	 * @return
 	 */
@@ -297,8 +273,6 @@ public class ProjectResource {
 		try {
 			Boolean bool = projectMemberService.decline(id);
 			return FarmsResponse.ok(SuccessMessage.INVITATION_DECLINE, bool);
-		} catch (NullPointerException n) {
-			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		} catch (Exception ex) {
 			// logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
 			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() + " " + ex.toString());
@@ -308,7 +282,7 @@ public class ProjectResource {
 
 	/**
 	 * Accept a invitation.
-	 * 
+	 *
 	 * @param id
 	 * @return
 	 */
@@ -318,8 +292,6 @@ public class ProjectResource {
 		try {
 			Boolean bool = projectMemberService.accept(id);
 			return FarmsResponse.ok(SuccessMessage.INVITATION_ACCEPT, bool);
-		} catch (NullPointerException n) {
-			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		} catch (Exception ex) {
 			// logger.error(ErrorMessage.OPERATION_NOT_RESPONDING, ex);
 			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() + " " + ex.toString());

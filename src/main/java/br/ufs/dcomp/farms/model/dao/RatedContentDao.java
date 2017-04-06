@@ -1,7 +1,6 @@
 package br.ufs.dcomp.farms.model.dao;
 
 import java.util.List;
-
 import org.hibernate.Query;
 import org.springframework.stereotype.Component;
 import br.ufs.dcomp.farms.model.entity.RatedContent;
@@ -14,23 +13,23 @@ import br.ufs.dcomp.farms.model.entity.RatedContent;
 @SuppressWarnings("unchecked")
 public class RatedContentDao extends HibernateDao<RatedContent> {
 
-	public RatedContentDao() {
-		super(RatedContent.class);
-	}
+    public RatedContentDao() {
+        super(RatedContent.class);
+    }
 
-	/**
-	 * Get All RatedContent.
-	 * 
-	 * @return
-	 */
-	public List<RatedContent> getAllRated() {
-		StringBuilder sbHql = new StringBuilder();
-		sbHql.append("from RatedContent rc");
+    /**
+     * Get All RatedContent.
+     *
+     * @return List
+     */
+    public List<RatedContent> getAllRated() {
+        StringBuilder sbHql = new StringBuilder();
+        sbHql.append("from RatedContent rc");
 
-		Query q = getSession().createQuery(sbHql.toString());
+        Query q = getSession().createQuery(sbHql.toString());
 
-		List<RatedContent> rateds = q.list();
-		return rateds;
-	}
+        List<RatedContent> rateds = q.list();
+        return rateds;
+    }
 
 }

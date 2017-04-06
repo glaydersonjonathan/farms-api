@@ -1,1 +1,15 @@
+br.ufs.dcomp.farms.common
+br.ufs.dcomp.farms.common.message
+br.ufs.dcomp.farms.core
+br.ufs.dcomp.farms.core.mail
+br.ufs.dcomp.farms.core.map
 br.ufs.dcomp.farms.model.dao
+br.ufs.dcomp.farms.model.dao.map
+br.ufs.dcomp.farms.model.dto
+br.ufs.dcomp.farms.model.entity
+br.ufs.dcomp.farms.model.entity.dba
+br.ufs.dcomp.farms.model.entity.map
+br.ufs.dcomp.farms.model.enums
+br.ufs.dcomp.farms.model.service
+br.ufs.dcomp.farms.model.service.map
+br.ufs.dcomp.farms.rest

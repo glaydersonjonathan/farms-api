@@ -55,7 +55,7 @@ public class StandardQueryDao extends HibernateDao<StandardQuery> {
 			Query query = getSession().createQuery(hql);
 			query.setLong("idProject", idProject);
 			query.setString("dsStandardQuery", "MANUAL INSERT");
-			System.out.println(query.executeUpdate());
+			query.executeUpdate();
 			transaction.commit();
 		} catch (Throwable t) {
 			transaction.rollback();

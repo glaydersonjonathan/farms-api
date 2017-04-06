@@ -1,11 +1,9 @@
 package br.ufs.dcomp.farms.model.dao;
 
 import java.util.List;
-
 import org.hibernate.Query;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Component;
-
 import br.ufs.dcomp.farms.model.entity.Country;
 import br.ufs.dcomp.farms.model.entity.Institution;
 
@@ -16,141 +14,143 @@ import br.ufs.dcomp.farms.model.entity.Institution;
 @Component
 @SuppressWarnings("unchecked")
 public class InstitutionDao extends HibernateDao<Institution> {
-	/**
-	 * Constructor from superclass.
-	 *
-	 */
-	public InstitutionDao() {
-		super(Institution.class);
-	}
 
-	/**
-	 * Update a institution.
-	 * 
-	 * @param institution
-	 */
-	public void update(Institution institution) {
-		Query query = getSession().createQuery("update Institution set nmInstitution = :nmInstitution" + " "
-				+ ", dsAbbreviation = :dsAbbreviation, country.idCountry = :idCountry"
-				+ " where idInstitution = :idInstitution");
-		query.setParameter("nmInstitution", institution.getNmInstitution());
-		query.setParameter("dsAbbreviation", institution.getDsAbbreviation());
-		query.setParameter("idCountry", institution.getCountry().getIdCountry());
-		query.setParameter("idInstitution", institution.getIdInstitution());
-		query.executeUpdate();
-	}
+    /**
+     * Constructor from superclass.
+     *
+     */
+    public InstitutionDao() {
+        super(Institution.class);
+    }
 
-	/**
-	 * Get a institution by id.
-	 * 
-	 * @param idInstitution
-	 * @return Institution object.
-	 */
-	public Institution getById(Long idInstitution) {
-		return super.get(idInstitution);
-	}
+    /**
+     * Update a institution.
+     *
+     * @param institution
+     */
+    @Override
+    public void update(Institution institution) {
+        Query query = getSession().createQuery("update Institution set nmInstitution = :nmInstitution" + " "
+                + ", dsAbbreviation = :dsAbbreviation, country.idCountry = :idCountry"
+                + " where idInstitution = :idInstitution");
+        query.setParameter("nmInstitution", institution.getNmInstitution());
+        query.setParameter("dsAbbreviation", institution.getDsAbbreviation());
+        query.setParameter("idCountry", institution.getCountry().getIdCountry());
+        query.setParameter("idInstitution", institution.getIdInstitution());
+        query.executeUpdate();
+    }
 
-	/**
-	 * Inserts a institution.
-	 * 
-	 * @param institution
-	 */
-	public void save(Institution institution) {
-		super.save(institution);
-	}
+    /**
+     * Get a institution by id.
+     *
+     * @param idInstitution
+     * @return Institution object.
+     */
+    public Institution getById(Long idInstitution) {
+        return super.get(idInstitution);
+    }
 
-	/**
-	 * Returns all institutions from the specified project.
-	 *
-	 * @param dsKey
-	 *            the identifier of the project.
-	 * @return a list of all the institutions of the specified project.
-	 */
-	public List<Institution> getByDsKeyProject(String dsKey) {
-		StringBuilder sbHql = new StringBuilder();
-		sbHql.append("from Institution i");
-		sbHql.append(" join fetch i.project p");
-		sbHql.append(" where p.dsKey like :dsKey");
+    /**
+     * Inserts a institution.
+     *
+     * @param institution
+     */
+    @Override
+    public void save(Institution institution) {
+        super.save(institution);
+    }
 
-		Query q = getSession().createQuery(sbHql.toString());
-		q.setParameter("dsKey", dsKey);
+    /**
+     * Returns all institutions from the specified project.
+     *
+     * @param dsKey the identifier of the project.
+     * @return a list of all the institutions of the specified project.
+     */
+    public List<Institution> getByDsKeyProject(String dsKey) {
+        StringBuilder sbHql = new StringBuilder();
+        sbHql.append("from Institution i");
+        sbHql.append(" join fetch i.project p");
+        sbHql.append(" where p.dsKey like :dsKey");
 
-		List<Institution> institutions = q.list();
+        Query q = getSession().createQuery(sbHql.toString());
+        q.setParameter("dsKey", dsKey);
 
-		return institutions;
-	}
+        List<Institution> institutions = q.list();
 
-	/**
-	 * Returns all institutions
-	 * 
-	 * @return a list of all the institutions
-	 */
-	public List<Institution> getAllInstitutions() {
-		StringBuilder sbHql = new StringBuilder();
-		sbHql.append("from Institution i");
+        return institutions;
+    }
 
-		Query q = getSession().createQuery(sbHql.toString());
+    /**
+     * Returns all institutions
+     *
+     * @return a list of all the institutions
+     */
+    public List<Institution> getAllInstitutions() {
+        StringBuilder sbHql = new StringBuilder();
+        sbHql.append("from Institution i");
 
-		List<Institution> institutions = q.list();
-		return institutions;
-	}
+        Query q = getSession().createQuery(sbHql.toString());
 
-	/**
-	 * Get all registered countries.
-	 * 
-	 * @return List of all countries registered.
-	 */
-	public List<Country> getAllCountries() {
-		StringBuilder sbHql = new StringBuilder();
-		sbHql.append("from Country c");
+        List<Institution> institutions = q.list();
+        return institutions;
+    }
 
-		Query q = getSession().createQuery(sbHql.toString());
+    /**
+     * Get all registered countries.
+     *
+     * @return List of all countries registered.
+     */
+    public List<Country> getAllCountries() {
+        StringBuilder sbHql = new StringBuilder();
+        sbHql.append("from Country c");
 
-		List<Country> countries = q.list();
-		return countries;
-	}
+        Query q = getSession().createQuery(sbHql.toString());
 
-	public Institution getByName(String nmInstitution, Long idProject) {
-		Query query = getSession().createQuery(
-				"from Institution i where i.project.idProject = (?) and lower(i.nmInstitution) = lower(?)");
-		query.setLong(0, idProject);
-		query.setString(1, nmInstitution);
-		List<Institution> results = query.list();
-		return (results != null && !results.isEmpty()) ? (Institution) results.get(0) : null;
-	}
+        List<Country> countries = q.list();
+        return countries;
+    }
 
-	/**
-	 * Delete institution from project
-	 * 
-	 * @param idProject
-	 * @param institutionCreatedDto
-	 */
-	public void deleteInstitution(Long idProject, Long idInstitution) {
-		Transaction transaction = getSession().beginTransaction();
-		try {
+    public Institution getByName(String nmInstitution, Long idProject) {
+        Query query = getSession().createQuery(
+                "from Institution i where i.project.idProject = (?) and lower(i.nmInstitution) = lower(?)");
+        query.setLong(0, idProject);
+        query.setString(1, nmInstitution);
+        List<Institution> results = query.list();
+        return (results != null && !results.isEmpty()) ? (Institution) results.get(0) : null;
+    }
 
-			String hql = "delete from Institution where project.idProject= :idProject and idInstitution =:idInstitution";
-			Query query = getSession().createQuery(hql);
-			query.setLong("idProject", idProject);
-			query.setLong("idInstitution", idInstitution);
-			System.out.println(query.executeUpdate());
+    /**
+     * Delete institution from project
+     *
+     * @param idProject
+     * @param idInstitution
+     */
+    public void deleteInstitution(Long idProject, Long idInstitution) {
+        Transaction transaction = getSession().beginTransaction();
+        try {
 
-			transaction.commit();
-		} catch (Throwable t) {
-			transaction.rollback();
-			throw t;
-		}
-	}
+            String hql = "delete from Institution where project.idProject= :idProject and idInstitution =:idInstitution";
+            Query query = getSession().createQuery(hql);
+            query.setLong("idProject", idProject);
+            query.setLong("idInstitution", idInstitution);
+            System.out.println(query.executeUpdate());
 
-	/**
-	 * Count institutions of a project
-	 * 
-	 * @param idProject
-	 * @return
-	 */
-	public Long countInstitutions(Long idProject) {
-		Query query = getSession().createQuery("select count(*) from Institution where project.idProject= :idProject");
-		query.setLong("idProject", idProject);
-		return (Long) query.uniqueResult();
-	}
+            transaction.commit();
+        } catch (Throwable t) {
+            transaction.rollback();
+            throw t;
+        }
+    }
+
+    /**
+     * Count institutions of a project
+     *
+     * @param idProject
+     * @return
+     */
+    public Long countInstitutions(Long idProject) {
+        Query query = getSession().createQuery("select count(*) from Institution where project.idProject= :idProject");
+        query.setLong("idProject", idProject);
+        return (Long) query.uniqueResult();
+    }
 }

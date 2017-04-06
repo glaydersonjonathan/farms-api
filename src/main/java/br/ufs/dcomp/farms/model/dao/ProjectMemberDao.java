@@ -27,6 +27,7 @@ public class ProjectMemberDao extends HibernateDao<ProjectMember> {
 	 * 
 	 * @param projectMember
 	 */
+        @Override
 	public void save(ProjectMember projectMember) {
 		super.save(projectMember);
 	}
@@ -91,11 +92,7 @@ public class ProjectMemberDao extends HibernateDao<ProjectMember> {
 		query.setParameter("idResearcher", idResearcher);
 		List<ProjectMember> projectMembers = query.list();
 
-		if (projectMembers.size() > 0) {
-			return true;
-		} else {
-			return false;
-		}
+            return projectMembers.size() > 0;
 	}
 
 	/**

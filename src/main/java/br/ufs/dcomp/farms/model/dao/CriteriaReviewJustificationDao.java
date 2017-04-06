@@ -49,6 +49,6 @@ public class CriteriaReviewJustificationDao extends HibernateDao<CriteriaReviewJ
 		Query query = getSession().createQuery(hql);
 		query.setLong("idReview", idReview);
 		query.setLong("idSelectionCriteria", idSelectionCriteria);
-		System.out.println(query.executeUpdate());
+		query.executeUpdate();
 	}
 }

@@ -50,10 +50,9 @@ public class SelectionResource {
 		try {
 			SelectionStepCreatedDto selectionStepCreatedDto = selectionService.getConfiguration(dsKey);
 			return FarmsResponse.ok(selectionStepCreatedDto);
-		} catch (NullPointerException n) {
-			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		} catch (Exception ex) {
-			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() + " " + ex.toString());
+			// FarmsMail.sendMailText("contact.farms@gmail.com", "Erro",
+			// ex.getMessage() + " " + ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -127,8 +126,6 @@ public class SelectionResource {
 		try {
 			List<ReviewCreateDto> reviewCreatedDto = selectionService.getReviews(dsKey, dsSSO);
 			return FarmsResponse.ok(reviewCreatedDto);
-		} catch (NullPointerException n) {
-			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		} catch (Exception ex) {
 			// FarmsMail.sendMailText("contact.farms@gmail.com", "Erro",
 			// ex.getMessage() +" "+ ex.toString());
@@ -148,8 +145,6 @@ public class SelectionResource {
 		try {
 			Boolean bool = selectionService.realizeReview(reviewCreateDto);
 			return FarmsResponse.ok(SuccessMessage.REVIEW_FINALIZED, bool);
-		} catch (NullPointerException n) {
-			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		} catch (Exception ex) {
 			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() + " " + ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
@@ -168,10 +163,9 @@ public class SelectionResource {
 		try {
 			List<StudyCreatedDto> studyCreatedDto = selectionService.getStudiesInConflict(dsKey);
 			return FarmsResponse.ok(studyCreatedDto);
-		} catch (NullPointerException n) {
-			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		} catch (Exception ex) {
-			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() + " " + ex.toString());
+			// FarmsMail.sendMailText("contact.farms@gmail.com", "Erro",
+			// ex.getMessage() + " " + ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}
@@ -190,10 +184,9 @@ public class SelectionResource {
 			return FarmsResponse.ok(SuccessMessage.STUDIES_AUTO_ASSIGNED, bool);
 		} catch (FarmsException fe) {
 			return FarmsResponse.error(fe.getErrorMessage());
-		} catch (NullPointerException n) {
-			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		} catch (Exception ex) {
-			FarmsMail.sendMailText("contact.farms@gmail.com", "Erro", ex.getMessage() + " " + ex.toString());
+			// FarmsMail.sendMailText("contact.farms@gmail.com", "Erro",
+			// ex.getMessage() + " " + ex.toString());
 			return FarmsResponse.error(ErrorMessage.OPERATION_NOT_RESPONDING);
 		}
 	}

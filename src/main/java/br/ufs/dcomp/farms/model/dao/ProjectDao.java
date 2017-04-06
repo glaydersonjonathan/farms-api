@@ -27,6 +27,7 @@ public class ProjectDao extends HibernateDao<Project> {
 	 * 
 	 * @param project
 	 */
+        @Override
 	public void save(Project project) {
 		super.save(project);
 	}
@@ -36,6 +37,7 @@ public class ProjectDao extends HibernateDao<Project> {
 	 * 
 	 * @param project
 	 */
+        @Override
 	public void update(Project project) {
 		super.update(project);
 	}
