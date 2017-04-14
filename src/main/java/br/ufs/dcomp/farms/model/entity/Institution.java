@@ -42,7 +42,7 @@ public class Institution implements Serializable {
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "InstitutionSequenceGenerator")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "InstitutionSequenceGenerator")
 	@Column(name = "id_institution", nullable = false, unique = true)
 	public Long getIdInstitution() {
 		return idInstitution;
