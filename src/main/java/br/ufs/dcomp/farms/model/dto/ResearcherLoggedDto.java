@@ -7,7 +7,7 @@ public class ResearcherLoggedDto {
 	private String nmResearcher;
 	private String dsSSO;
 	private String dsEmail;
-	
+
 	public ResearcherLoggedDto() {
 		super();
 	}
@@ -17,12 +17,12 @@ public class ResearcherLoggedDto {
 		this.dsSSO = researcher.getDsSSO();
 		this.dsEmail = researcher.getDsEmail();
 	}
-	
+
 	public ResearcherLoggedDto(String nmResearcher, String dsEmail) {
 		this.nmResearcher = nmResearcher;
 		this.dsEmail = dsEmail;
 	}
-	
+
 	public String getNmResearcher() {
 		return nmResearcher;
 	}
@@ -30,7 +30,7 @@ public class ResearcherLoggedDto {
 	public void setNmResearcher(String nmResearcher) {
 		this.nmResearcher = nmResearcher;
 	}
-	
+
 	public String getDsSSO() {
 		return dsSSO;
 	}

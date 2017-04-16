@@ -1,11 +1,11 @@
 package br.ufs.dcomp.farms.model.entity.map;
 
 public class ColumnMapped {
-	
+
 	private String nmColumn;
 	private boolean columnsExists = false;
 	private String nmTable;
-	
+
 	public ColumnMapped() {
 		super();
 	}

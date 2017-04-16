@@ -16,7 +16,7 @@ public class SelectionStepResearcher {
 
 	private Long idSelectionStep;
 	private Researcher researcher;
-	
+
 	@Id
 	@Column(name = "id_selection_step", nullable = false, unique = true)
 	public Long getIdSelectionStep() {
@@ -26,7 +26,7 @@ public class SelectionStepResearcher {
 	public void setIdSelectionStep(Long idSelectionStep) {
 		this.idSelectionStep = idSelectionStep;
 	}
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_researcher", nullable = false)
 	public Researcher getResearcher() {

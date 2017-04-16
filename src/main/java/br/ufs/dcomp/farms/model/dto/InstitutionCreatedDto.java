@@ -1,5 +1,6 @@
 package br.ufs.dcomp.farms.model.dto;
 
+import br.ufs.dcomp.farms.model.entity.Country;
 import br.ufs.dcomp.farms.model.entity.Institution;
 
 public class InstitutionCreatedDto {
@@ -7,14 +8,27 @@ public class InstitutionCreatedDto {
 	private String dsAbbreviation;
 	private String nmInstitution;
 	private String nmCountry;
-		
-	public InstitutionCreatedDto() {}
-	
+	private Long idInstitution;
+	private Country country;
+	private String dsKey;
+
+	public InstitutionCreatedDto() {
+	}
+
 	public InstitutionCreatedDto(Institution institution) {
 		super();
 		this.dsAbbreviation = institution.getDsAbbreviation();
 		this.nmInstitution = institution.getNmInstitution();
 		this.nmCountry = institution.getCountry().getNmCountry();
+		this.idInstitution = institution.getIdInstitution();
+	}
+
+	public Long getIdInstitution() {
+		return idInstitution;
+	}
+
+	public void setIdInstitution(Long idInstitution) {
+		this.idInstitution = idInstitution;
 	}
 
 	public String getDsAbbreviation() {
@@ -40,4 +54,21 @@ public class InstitutionCreatedDto {
 	public void setNmCountry(String nmCountry) {
 		this.nmCountry = nmCountry;
 	}
+
+	public Country getCountry() {
+		return country;
+	}
+
+	public void setCountry(Country country) {
+		this.country = country;
+	}
+
+	public String getDsKey() {
+		return dsKey;
+	}
+
+	public void setDsKey(String dsKey) {
+		this.dsKey = dsKey;
+	}
+
 }

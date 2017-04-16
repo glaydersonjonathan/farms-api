@@ -23,7 +23,7 @@ import br.ufs.dcomp.farms.model.enums.SelectionStepStatusEnum;
 @XmlRootElement
 @SequenceGenerator(name = "SelectionStepSequenceGenerator", sequenceName = "sq_selection_step")
 public class SelectionStep {
-	
+
 	private Long idSelectionStep;
 	private Integer nrSerial;
 	private Integer qtReview;
@@ -35,11 +35,13 @@ public class SelectionStep {
 	private Project project;
 	private SelectionStepStatusEnum tpStatus;
 	private Integer vlLowerScore;
-	
-	public SelectionStep() {}
+
+	public SelectionStep() {
+	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "SelectionStepSequenceGenerator")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SelectionStepSequenceGenerator")
+	// @GeneratedValue(generator = "SelectionStepSequenceGenerator")
 	@Column(name = "id_selection_step", nullable = false, unique = true)
 	public Long getIdSelectionStep() {
 		return idSelectionStep;
@@ -124,7 +126,7 @@ public class SelectionStep {
 	}
 
 	@Column(name = "tp_status", nullable = false)
-	@Enumerated(EnumType.STRING)
+	@Enumerated(EnumType.ORDINAL)
 	public SelectionStepStatusEnum getTpStatus() {
 		return tpStatus;
 	}
@@ -132,7 +134,7 @@ public class SelectionStep {
 	public void setTpStatus(SelectionStepStatusEnum tpStatus) {
 		this.tpStatus = tpStatus;
 	}
-	
+
 	@Column(name = "vl_lower_score", nullable = false, unique = true)
 	public Integer getVlLowerScore() {
 		return vlLowerScore;

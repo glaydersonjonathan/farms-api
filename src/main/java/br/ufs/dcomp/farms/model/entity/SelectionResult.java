@@ -31,9 +31,10 @@ public class SelectionResult {
 	private Researcher researcher;
 	private SelectionStep selectionStep;
 	private SelectionResultStatusEnum selectionResultStatus;
-	
-	public SelectionResult() {}
-	
+
+	public SelectionResult() {
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "SelectionResultSequenceGenerator")
 	@Column(name = "id_selection_result", nullable = false, unique = true)

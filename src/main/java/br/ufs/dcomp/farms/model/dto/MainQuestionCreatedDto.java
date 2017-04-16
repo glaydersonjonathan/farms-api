@@ -12,7 +12,7 @@ public class MainQuestionCreatedDto {
 	private String dsApplicationContext;
 	private String dsExperimentalDesign;
 	private String dsProjectKey;
-	
+
 	public MainQuestionCreatedDto(MainQuestion mainQuestion) {
 		this.dsMainQuestion = mainQuestion.getDsMainQuestion();
 		this.dsPopulation = mainQuestion.getDsPopulation();
@@ -23,66 +23,71 @@ public class MainQuestionCreatedDto {
 		this.dsExperimentalDesign = mainQuestion.getDsExperimentalDesign();
 		this.dsProjectKey = mainQuestion.getProject().getDsKey();
 	}
-	
+
+	public MainQuestionCreatedDto() {
+		super();
+	}
+
 	public String getDsMainQuestion() {
 		return dsMainQuestion;
 	}
-	
+
 	public void setDsMainQuestion(String dsMainQuestion) {
 		this.dsMainQuestion = dsMainQuestion;
 	}
-	
+
 	public String getDsPopulation() {
 		return dsPopulation;
 	}
-	
+
 	public void setDsPopulation(String dsPopulation) {
 		this.dsPopulation = dsPopulation;
 	}
-	
+
 	public String getDsIntervation() {
 		return dsIntervation;
 	}
-	
+
 	public void setDsIntervation(String dsIntervation) {
 		this.dsIntervation = dsIntervation;
 	}
-	
+
 	public String getDsControl() {
 		return dsControl;
 	}
-	
+
 	public void setDsControl(String dsControl) {
 		this.dsControl = dsControl;
 	}
-	
+
 	public String getDsResult() {
 		return dsResult;
 	}
-	
+
 	public void setDsResult(String dsResult) {
 		this.dsResult = dsResult;
 	}
-	
+
 	public String getDsApplicationContext() {
 		return dsApplicationContext;
 	}
-	
+
 	public void setDsApplicationContext(String dsApplicationContext) {
 		this.dsApplicationContext = dsApplicationContext;
 	}
-	
+
 	public String getDsExperimentalDesign() {
 		return dsExperimentalDesign;
 	}
+
 	public void setDsExperimentalDesign(String dsExperimentalDesign) {
 		this.dsExperimentalDesign = dsExperimentalDesign;
 	}
-	
+
 	public String getDsProjectKey() {
 		return dsProjectKey;
 	}
-	
+
 	public void setDsProjectKey(String dsProjectKey) {
 		this.dsProjectKey = dsProjectKey;
 	}

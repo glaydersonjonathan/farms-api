@@ -7,7 +7,7 @@ public class ResearcherRegisteredDto {
 	private String dsSSO;
 	private String nmResearcher;
 	private String dsEmail;
-	
+
 	public ResearcherRegisteredDto() {
 		super();
 	}
@@ -17,12 +17,12 @@ public class ResearcherRegisteredDto {
 		this.nmResearcher = researcher.getNmResearcher();
 		this.dsEmail = researcher.getDsEmail();
 	}
-	
+
 	public ResearcherRegisteredDto(String nmResearcher, String dsEmail) {
 		this.nmResearcher = nmResearcher;
 		this.dsEmail = dsEmail;
 	}
-	
+
 	public String getDsSSO() {
 		return dsSSO;
 	}

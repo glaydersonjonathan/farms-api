@@ -7,11 +7,11 @@ public class GlobalMapping {
 
 	private List<String> nmMappedTableList = new ArrayList<String>();
 	private List<String> nmMappedSequenceList = new ArrayList<String>();
-	
+
 	private List<TableMapped> mappedTableList = new ArrayList<TableMapped>();
 	private List<SequenceMapped> mappedSequenceList = new ArrayList<SequenceMapped>();
 	private List<ColumnMapped> mappedColumnList = new ArrayList<ColumnMapped>();
-	
+
 	public GlobalMapping() {
 		super();
 	}

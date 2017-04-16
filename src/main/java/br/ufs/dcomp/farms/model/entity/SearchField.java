@@ -17,9 +17,10 @@ public class SearchField {
 
 	private Long idSearchField;
 	private String dsSearchField;
-	
-	public SearchField() {}
-	
+
+	public SearchField() {
+	}
+
 	public SearchField(String dsSearchField) {
 		this.dsSearchField = dsSearchField;
 	}

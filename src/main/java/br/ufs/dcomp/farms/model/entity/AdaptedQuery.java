@@ -24,37 +24,38 @@ public class AdaptedQuery implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	private Long idStandardQuery;
-	private String dsStandardQuery;
+
+	private Long idAdaptedQuery;
+	private String dsAdaptedQuery;
 	private String dsObservation;
 	private SearchEngine searchEngine;
 	private StandardQuery standardQuery;
-	
-	public AdaptedQuery() {}
-	
-	public AdaptedQuery(String dsStandardQuery) {
-		this.dsStandardQuery = dsStandardQuery;
+
+	public AdaptedQuery() {
+	}
+
+	public AdaptedQuery(String dsAdaptedQuery) {
+		this.dsAdaptedQuery = dsAdaptedQuery;
 	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "AdaptedQuerySequenceGenerator")
 	@Column(name = "id_adapted_query", nullable = false, unique = true)
-	public Long getIdStandardQuery() {
-		return idStandardQuery;
+	public Long getIdAdaptedQuery() {
+		return idAdaptedQuery;
 	}
 
-	public void setIdStandardQuery(Long idStandardQuery) {
-		this.idStandardQuery = idStandardQuery;
+	public void setIdAdaptedQuery(Long idAdaptedQuery) {
+		this.idAdaptedQuery = idAdaptedQuery;
 	}
 
 	@Column(name = "ds_adapted_query", nullable = false)
-	public String getDsStandardQuery() {
-		return dsStandardQuery;
+	public String getDsAdaptedQuery() {
+		return dsAdaptedQuery;
 	}
 
-	public void setDsStandardQuery(String dsStandardQuery) {
-		this.dsStandardQuery = dsStandardQuery;
+	public void setDsAdaptedQuery(String dsAdaptedQuery) {
+		this.dsAdaptedQuery = dsAdaptedQuery;
 	}
 
 	@Column(name = "ds_observation")

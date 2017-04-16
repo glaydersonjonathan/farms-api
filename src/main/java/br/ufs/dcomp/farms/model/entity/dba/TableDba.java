@@ -7,7 +7,7 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
-@Table(name = "tables", schema="information_schema")
+@Table(name = "tables", schema = "information_schema")
 @XmlRootElement
 public class TableDba {
 
@@ -15,7 +15,7 @@ public class TableDba {
 	private String tpTable;
 	private String nmCatalog;
 	private String nmSchema;
-	
+
 	public TableDba() {
 		super();
 	}
@@ -55,7 +55,7 @@ public class TableDba {
 	public void setNmCatalog(String nmCatalog) {
 		this.nmCatalog = nmCatalog;
 	}
-	
+
 	@Column(name = "table_schema")
 	public String getNmSchema() {
 		return nmSchema;

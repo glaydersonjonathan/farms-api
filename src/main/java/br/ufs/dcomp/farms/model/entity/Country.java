@@ -22,12 +22,25 @@ public class Country {
 
 	private Long idCountry;
 	private String nmCountry;
-	
+
 	private Set<Institution> institutions = new HashSet<Institution>(0);
-	
-	public Country() {}
-	
+
+	public Country() {
+	}
+
 	public Country(String nmCountry) {
+		super();
+		this.nmCountry = nmCountry;
+	}
+
+	public Country(Long idCountry) {
+		super();
+		this.idCountry = idCountry;
+	}
+
+	public Country(Long idCountry, String nmCountry) {
+		super();
+		this.idCountry = idCountry;
 		this.nmCountry = nmCountry;
 	}
 
@@ -50,7 +63,7 @@ public class Country {
 	public void setNmCountry(String nmCountry) {
 		this.nmCountry = nmCountry;
 	}
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "country")
 	public Set<Institution> getInstitutions() {
 		return this.institutions;

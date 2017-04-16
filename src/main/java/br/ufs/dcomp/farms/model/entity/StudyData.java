@@ -31,8 +31,9 @@ public class StudyData {
 	private Researcher researcher;
 	private RequiredData requiredData;
 	private ExtractionStatusEnum tpStatus;
-	
-	public StudyData() {}
+
+	public StudyData() {
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "StudyDataSequenceGenerator")
@@ -82,7 +83,7 @@ public class StudyData {
 	public void setResearcher(Researcher researcher) {
 		this.researcher = researcher;
 	}
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_required_data", nullable = false)
 	public RequiredData getRequiredData() {
@@ -94,7 +95,7 @@ public class StudyData {
 	}
 
 	@Column(name = "tp_status", nullable = false)
-	@Enumerated(EnumType.ORDINAL)	
+	@Enumerated(EnumType.ORDINAL)
 	public ExtractionStatusEnum getTpStatus() {
 		return tpStatus;
 	}

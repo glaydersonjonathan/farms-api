@@ -21,8 +21,9 @@ public class Option {
 	private Long idOption;
 	private String dsOption;
 	private Category category;
-	
-	public Option() {}
+
+	public Option() {
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "OptionSequenceGenerator")

@@ -15,21 +15,21 @@ public class FarmsResponse {
 	public static Response ok(SuccessMessage message) {
 		return Response.ok(message).build();
 	}
-	
+
 	public static Response ok(Object object) {
 		return Response.ok().entity(object).build();
 	}
-	
+
 	public static Response ok(SuccessMessage message, Object data) {
 		message.setData(data);
 		return Response.ok().entity(message).build();
 	}
-	
+
 	public static Response error(ErrorMessage message) {
 		return Response.ok(message).build();
 	}
-	
+
 	public static Response info(InformationMessage message) {
 		return Response.ok(message).build();
-	}	
+	}
 }

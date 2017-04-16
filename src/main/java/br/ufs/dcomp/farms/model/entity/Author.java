@@ -22,8 +22,9 @@ public class Author {
 	private String nmAuthor;
 	private String snAuthor;
 	private Institution institution;
-	
-	public Author() {}
+
+	public Author() {
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "AuthorSequenceGenerator")

@@ -4,7 +4,7 @@ public class ResearcherLoginDto {
 
 	private String dsEmail;
 	private String dsPassword;
-	
+
 	public ResearcherLoginDto() {
 		super();
 	}

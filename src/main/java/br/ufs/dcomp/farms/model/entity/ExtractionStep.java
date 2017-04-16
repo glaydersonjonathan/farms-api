@@ -33,8 +33,9 @@ public class ExtractionStep {
 	private Project project;
 	private ExtractionStepStatusEnum tpStatus;
 	private Integer vlLowerScore;
-	
-	public ExtractionStep() {}
+
+	public ExtractionStep() {
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "ExtractionStepSequenceGenerator")
@@ -64,7 +65,7 @@ public class ExtractionStep {
 	public void setDhStartExtractionStep(Date dhStartExtractionStep) {
 		this.dhStartExtractionStep = dhStartExtractionStep;
 	}
-	
+
 	@Column(name = "dh_end_extraction_step", nullable = false, unique = true)
 	public Date getDhEndExtractionStep() {
 		return dhEndExtractionStep;

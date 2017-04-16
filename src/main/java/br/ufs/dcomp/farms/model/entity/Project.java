@@ -1,5 +1,6 @@
 package br.ufs.dcomp.farms.model.entity;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,6 +11,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+//import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -22,14 +24,15 @@ import br.ufs.dcomp.farms.model.enums.ReviewEnum;
 @Table(name = "project")
 @XmlRootElement
 @SequenceGenerator(name = "ProjectSequenceGenerator", sequenceName = "sq_project")
-public class Project {
-	
+public class Project implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private Long idProject;
 	private String dsTitle;
 	private String dsKey;
 	private String dsProject;
 	private ReviewEnum tpReview;
-	
+
 	private Set<ProjectMember> projectMembers = new HashSet<ProjectMember>(0);
 	private Set<Objective> objectives = new HashSet<Objective>(0);
 	private Set<MainQuestion> mainQuestions = new HashSet<MainQuestion>(0);
@@ -39,8 +42,9 @@ public class Project {
 	private Set<StandardQuery> standardQuerys = new HashSet<StandardQuery>(0);
 	private Set<Study> search = new HashSet<Study>(0);
 	private Set<Study> studies = new HashSet<Study>(0);
-	
-	public Project() {}
+
+	public Project() {
+	}
 
 	public Project(String dsTitle, String dsKey, String dsProject, ReviewEnum tpReview) {
 		this.dsTitle = dsTitle;
@@ -50,6 +54,8 @@ public class Project {
 	}
 
 	@Id
+	// @GeneratedValue(strategy = GenerationType.IDENTITY, generator =
+	// "ProjectSequenceGenerator")
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "ProjectSequenceGenerator")
 	@Column(name = "id_project", nullable = false, unique = true)
 	public Long getIdProject() {
@@ -68,7 +74,7 @@ public class Project {
 	public void setDsKey(String dsKey) {
 		this.dsKey = dsKey;
 	}
-	
+
 	@Column(name = "ds_title", nullable = false)
 	public String getDsTitle() {
 		return dsTitle;
@@ -105,7 +111,7 @@ public class Project {
 	public void setProjectMembers(Set<ProjectMember> projectMembers) {
 		this.projectMembers = projectMembers;
 	}
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
 	public Set<Objective> getObjectives() {
 		return this.objectives;
@@ -114,7 +120,7 @@ public class Project {
 	public void setObjectives(Set<Objective> objectives) {
 		this.objectives = objectives;
 	}
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
 	public Set<MainQuestion> getMainQuestions() {
 		return this.mainQuestions;
@@ -123,7 +129,7 @@ public class Project {
 	public void setMainQuestions(Set<MainQuestion> mainQuestions) {
 		this.mainQuestions = mainQuestions;
 	}
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
 	public Set<SecondaryQuestion> getSecondaryQuestions() {
 		return this.secondaryQuestions;
@@ -132,7 +138,7 @@ public class Project {
 	public void setSecondaryQuestions(Set<SecondaryQuestion> secondaryQuestions) {
 		this.secondaryQuestions = secondaryQuestions;
 	}
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
 	public Set<SelectionCriteria> getSelectionCriterias() {
 		return this.selectionCriterias;
@@ -141,7 +147,7 @@ public class Project {
 	public void setSelectionCriterias(Set<SelectionCriteria> selectionCriterias) {
 		this.selectionCriterias = selectionCriterias;
 	}
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
 	public Set<SearchKeyword> getSearchKeywords() {
 		return this.searchKeywords;
@@ -150,7 +156,7 @@ public class Project {
 	public void setSearchKeywords(Set<SearchKeyword> searchKeywords) {
 		this.searchKeywords = searchKeywords;
 	}
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
 	public Set<StandardQuery> getStandardQuerys() {
 		return this.standardQuerys;
@@ -159,7 +165,7 @@ public class Project {
 	public void setStandardQuerys(Set<StandardQuery> standardQuerys) {
 		this.standardQuerys = standardQuerys;
 	}
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "search")
 	public Set<Study> getSearch() {
 		return search;

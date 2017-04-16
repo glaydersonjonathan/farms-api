@@ -25,8 +25,9 @@ public class ResearcherSearchEngine {
 	private SearchEngine searchEngine;
 	private Researcher researcher;
 	private Date dhAssign;
-	
-	public ResearcherSearchEngine() {}
+
+	public ResearcherSearchEngine() {
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "ResearcherSearchEngineSequenceGenerator")
@@ -38,7 +39,7 @@ public class ResearcherSearchEngine {
 	public void setIdResearcherSearchEngine(Long idResearcherSearchEngine) {
 		this.idResearcherSearchEngine = idResearcherSearchEngine;
 	}
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_search_engine", nullable = false)
 	public SearchEngine getSearchEngine() {
@@ -58,7 +59,7 @@ public class ResearcherSearchEngine {
 	public void setProject(Project project) {
 		this.project = project;
 	}
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_researcher", nullable = false)
 	public Researcher getResearcher() {
@@ -68,7 +69,7 @@ public class ResearcherSearchEngine {
 	public void setResearcher(Researcher researcher) {
 		this.researcher = researcher;
 	}
-	
+
 	@Column(name = "dh_assign", nullable = false, unique = true)
 	public Date getDhAssign() {
 		return dhAssign;

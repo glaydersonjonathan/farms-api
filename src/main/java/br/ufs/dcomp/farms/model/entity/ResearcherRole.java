@@ -17,8 +17,9 @@ public class ResearcherRole {
 
 	private Long idResearcherRole;
 	private String nmResearcherRole;
-	
-	public ResearcherRole() {}
+
+	public ResearcherRole() {
+	}
 
 	public ResearcherRole(String nmResearcherRole) {
 		this.nmResearcherRole = nmResearcherRole;
@@ -30,16 +31,16 @@ public class ResearcherRole {
 	public Long getIdResearcherRole() {
 		return idResearcherRole;
 	}
-	
+
 	public void setIdResearcherRole(Long idResearcherRole) {
 		this.idResearcherRole = idResearcherRole;
 	}
-	
+
 	@Column(name = "nm_researcher_role", nullable = false)
 	public String getNmResearcherRole() {
 		return nmResearcherRole;
 	}
-	
+
 	public void setNmResearcherRole(String nmResearcherRole) {
 		this.nmResearcherRole = nmResearcherRole;
 	}

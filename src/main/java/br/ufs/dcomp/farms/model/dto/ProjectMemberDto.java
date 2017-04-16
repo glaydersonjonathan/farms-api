@@ -9,11 +9,12 @@ public class ProjectMemberDto {
 	private String dsSSO;
 	private String dsEmail;
 	private Integer tpConfirmed;
-	private Integer tpRole;
-	private String nmInstitution;
-	
-	public ProjectMemberDto() {}
-	
+	private String tpRole;
+	private String tpState;
+
+	public ProjectMemberDto() {
+	}
+
 	public ProjectMemberDto(ProjectMember projectMember) {
 		super();
 		this.idProjectMember = projectMember.getIdProjectMember();
@@ -21,8 +22,8 @@ public class ProjectMemberDto {
 		this.dsSSO = projectMember.getResearcher().getDsSSO();
 		this.dsEmail = projectMember.getResearcher().getDsEmail();
 		this.tpConfirmed = projectMember.getResearcher().getTpConfirmed().getCode();
-		this.tpRole = projectMember.getTpRole().getCode();
-		this.nmInstitution = projectMember.getInstitution().getNmInstitution();
+		this.tpRole = projectMember.getTpRole().getDescription();
+		this.tpState = projectMember.getTpState().getDescription();
 	}
 
 	public Long getIdProjectMember() {
@@ -65,19 +66,20 @@ public class ProjectMemberDto {
 		this.tpConfirmed = tpConfirmed;
 	}
 
-	public Integer getTpRole() {
+	public String getTpRole() {
 		return tpRole;
 	}
 
-	public void setTpRole(Integer tpRole) {
+	public void setTpRole(String tpRole) {
 		this.tpRole = tpRole;
 	}
 
-	public String getNmInstitution() {
-		return nmInstitution;
+	public String getTpState() {
+		return tpState;
 	}
 
-	public void setNmInstitution(String nmInstitution) {
-		this.nmInstitution = nmInstitution;
+	public void setTpState(String tpState) {
+		this.tpState = tpState;
 	}
+
 }

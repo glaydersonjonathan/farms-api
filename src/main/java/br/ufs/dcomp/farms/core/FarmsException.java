@@ -6,20 +6,20 @@ public class FarmsException extends Exception {
 
 	private static final long serialVersionUID = 1L;
 	private ErrorMessage errorMessage = null;
-	
+
 	public FarmsException() {
-        super();
-    }
-	
+		super();
+	}
+
 	public FarmsException(ErrorMessage errorMessage) {
 		super(errorMessage.getDescription());
 		this.errorMessage = errorMessage;
 	}
-	
+
 	public FarmsException(Throwable cause) {
-        super(cause);
-    }
-	
+		super(cause);
+	}
+
 	public FarmsException(String message, Throwable cause) {
 		super(message, cause);
 	}
@@ -27,18 +27,18 @@ public class FarmsException extends Exception {
 	public FarmsException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
 		super(message, cause, enableSuppression, writableStackTrace);
 	}
-	
-    public ErrorMessage getErrorMessage() {
-        return errorMessage;
-    }
-	
+
+	public ErrorMessage getErrorMessage() {
+		return errorMessage;
+	}
+
 	@Override
-    public String getMessage() {
-        return errorMessage.getDescription();
-    }
-	
+	public String getMessage() {
+		return errorMessage.getDescription();
+	}
+
 	@Override
-    public String toString() {
-        return errorMessage.getDescription();
-    }
+	public String toString() {
+		return errorMessage.getDescription();
+	}
 }

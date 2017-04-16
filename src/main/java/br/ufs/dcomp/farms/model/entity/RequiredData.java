@@ -21,9 +21,10 @@ public class RequiredData {
 	private Long idRequiredData;
 	private String dsRequiredData;
 	private Project project;
-	
-	public RequiredData() {}
-	
+
+	public RequiredData() {
+	}
+
 	public RequiredData(String dsRequiredData) {
 		this.dsRequiredData = dsRequiredData;
 	}
@@ -47,7 +48,7 @@ public class RequiredData {
 	public void setDsRequiredData(String dsRequiredData) {
 		this.dsRequiredData = dsRequiredData;
 	}
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_project", nullable = false)
 	public Project getProject() {

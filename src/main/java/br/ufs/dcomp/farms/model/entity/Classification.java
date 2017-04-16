@@ -30,8 +30,9 @@ public class Classification {
 	private Category category;
 	private Option option;
 	private ExtractionStatusEnum tpStatus;
-	
-	public Classification() {}
+
+	public Classification() {
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "ClassificationSequenceGenerator")
@@ -43,7 +44,7 @@ public class Classification {
 	public void setIdClassification(Long idClassification) {
 		this.idClassification = idClassification;
 	}
-	
+
 	@Column(name = "dh_classification", nullable = false, unique = true)
 	public Date getDhClassification() {
 		return dhClassification;

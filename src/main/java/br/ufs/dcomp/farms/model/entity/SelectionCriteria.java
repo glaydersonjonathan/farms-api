@@ -26,16 +26,24 @@ public class SelectionCriteria {
 	private String dsSelectionCriteria;
 	private CriteriaEnum tpCriteria;
 	private Project project;
-	
-	public SelectionCriteria() {}
-	
+
+	public SelectionCriteria() {
+	}
+
 	public SelectionCriteria(String dsSelectionCriteria, CriteriaEnum tpCriteria) {
 		this.dsSelectionCriteria = dsSelectionCriteria;
 		this.tpCriteria = tpCriteria;
 	}
 
+	public SelectionCriteria(String dsSelectionCriteria, CriteriaEnum tpCriteria, Project project) {
+		super();
+		this.dsSelectionCriteria = dsSelectionCriteria;
+		this.tpCriteria = tpCriteria;
+		this.project = project;
+	}
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "SelectionCriteriaSequenceGenerator")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SelectionCriteriaSequenceGenerator")
 	@Column(name = "id_selection_criteria", nullable = false, unique = true)
 	public Long getIdSelectionCriteria() {
 		return idSelectionCriteria;
@@ -53,7 +61,7 @@ public class SelectionCriteria {
 	public void setDsSelectionCriteria(String dsSelectionCriteria) {
 		this.dsSelectionCriteria = dsSelectionCriteria;
 	}
-	
+
 	@Column(name = "tp_criteria", nullable = false)
 	@Enumerated(EnumType.ORDINAL)
 	public CriteriaEnum getTpCriteria() {
@@ -63,7 +71,7 @@ public class SelectionCriteria {
 	public void setTpCriteria(CriteriaEnum tpCriteria) {
 		this.tpCriteria = tpCriteria;
 	}
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_project", nullable = false)
 	public Project getProject() {

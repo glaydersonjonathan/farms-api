@@ -19,23 +19,30 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "standard_query")
 @XmlRootElement
-@SequenceGenerator(name = "StandardQuerySequenceGenerator", sequenceName = "sq_search_keyword")
+@SequenceGenerator(name = "StandardQuerySequenceGenerator", sequenceName = "sq_standard_query")
 public class StandardQuery {
 
 	private Long idStandardQuery;
 	private String dsStandardQuery;
 	private Project project;
-	
+
 	private Set<AdaptedQuery> adaptedQuerys = new HashSet<AdaptedQuery>(0);
-	
-	public StandardQuery() {}
-	
+
+	public StandardQuery() {
+	}
+
 	public StandardQuery(String dsStandardQuery) {
 		this.dsStandardQuery = dsStandardQuery;
 	}
 
+	public StandardQuery(String dsStandardQuery, Project project) {
+		super();
+		this.dsStandardQuery = dsStandardQuery;
+		this.project = project;
+	}
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "StandardQuerySequenceGenerator")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "StandardQuerySequenceGenerator")
 	@Column(name = "id_standard_query", nullable = false, unique = true)
 	public Long getIdStandardQuery() {
 		return idStandardQuery;
@@ -53,7 +60,7 @@ public class StandardQuery {
 	public void setDsStandardQuery(String dsStandardQuery) {
 		this.dsStandardQuery = dsStandardQuery;
 	}
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_project", nullable = false)
 	public Project getProject() {
@@ -63,7 +70,7 @@ public class StandardQuery {
 	public void setProject(Project project) {
 		this.project = project;
 	}
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "standardQuery")
 	public Set<AdaptedQuery> getAdaptedQuerys() {
 		return this.adaptedQuerys;

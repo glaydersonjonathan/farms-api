@@ -28,8 +28,9 @@ public class StudySummary {
 	private String dsConclusion;
 	private Researcher researcher;
 	private Study study;
-	
-	public StudySummary() {}
+
+	public StudySummary() {
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "StudySummarySequenceGenerator")
@@ -41,7 +42,7 @@ public class StudySummary {
 	public void setIdStudySummary(Long idStudySummary) {
 		this.idStudySummary = idStudySummary;
 	}
-	
+
 	@Column(name = "ds_context", nullable = false, unique = true)
 	public String getDsContext() {
 		return dsContext;
@@ -114,7 +115,7 @@ public class StudySummary {
 	public void setResearcher(Researcher researcher) {
 		this.researcher = researcher;
 	}
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_study", nullable = false)
 	public Study getStudy() {

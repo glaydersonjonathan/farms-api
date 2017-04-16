@@ -32,7 +32,7 @@ public class Search implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private Long idSearch;
 	private Long nrSearch;
 	private String nmSearch;
@@ -41,13 +41,14 @@ public class Search implements Serializable {
 	private SearchEnum tpSearch;
 	private Project project;
 	private AdaptedQuery adaptedQuery;
-	
+
 	private Set<Study> studies = new HashSet<Study>(0);
-	
-	public Search() {}
+
+	public Search() {
+	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "SearchSequenceGenerator")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SearchSequenceGenerator")
 	@Column(name = "id_search", nullable = false, unique = true)
 	public Long getIdSearch() {
 		return idSearch;
@@ -94,7 +95,7 @@ public class Search implements Serializable {
 	}
 
 	@Column(name = "tp_search", nullable = false)
-	@Enumerated(EnumType.ORDINAL)	
+	@Enumerated(EnumType.ORDINAL)
 	public SearchEnum getTpSearch() {
 		return tpSearch;
 	}
@@ -122,7 +123,7 @@ public class Search implements Serializable {
 	public void setAdaptedQuery(AdaptedQuery adaptedQuery) {
 		this.adaptedQuery = adaptedQuery;
 	}
-	
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "search")
 	public Set<Study> getStudies() {
 		return this.studies;

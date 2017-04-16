@@ -1,7 +1,6 @@
 package br.ufs.dcomp.farms.model.entity;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -20,25 +18,31 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "institution")
 @XmlRootElement
 @SequenceGenerator(name = "InstitutionSequenceGenerator", sequenceName = "sq_institution")
-public class Institution {
+public class Institution implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 
 	private Long idInstitution;
 	private String dsAbbreviation;
 	private String nmInstitution;
 	private Country country;
 	private Project project;
-	
-	private Set<ProjectMember> projectMembers = new HashSet<ProjectMember>(0);
 
-	public Institution() {}
-	
-	public Institution(String nmInstitution, Country country) {
+	// private Set<ProjectMember> projectMembers = new
+	// HashSet<ProjectMember>(0);
+
+	public Institution() {
+	}
+
+	public Institution(String nmInstitution, String dsAbbreviation, Country country) {
+		super();
 		this.nmInstitution = nmInstitution;
+		this.dsAbbreviation = dsAbbreviation;
 		this.country = country;
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "InstitutionSequenceGenerator")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "InstitutionSequenceGenerator")
 	@Column(name = "id_institution", nullable = false, unique = true)
 	public Long getIdInstitution() {
 		return idInstitution;
@@ -75,7 +79,7 @@ public class Institution {
 	public void setCountry(Country country) {
 		this.country = country;
 	}
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_project", nullable = false)
 	public Project getProject() {
@@ -86,12 +90,12 @@ public class Institution {
 		this.project = project;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
-	public Set<ProjectMember> getProjectMembers() {
-		return projectMembers;
-	}
+	// @OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
+	// public Set<ProjectMember> getProjectMembers() {
+	// return projectMembers;
+	// }
 
-	public void setProjectMembers(Set<ProjectMember> projectMembers) {
-		this.projectMembers = projectMembers;
-	}
+	// public void setProjectMembers(Set<ProjectMember> projectMembers) {
+	// this.projectMembers = projectMembers;
+	// }
 }

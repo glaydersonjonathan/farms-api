@@ -1,5 +1,7 @@
 package br.ufs.dcomp.farms.model.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,22 +14,25 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "base_use_criteria")
 @XmlRootElement
-public class BaseUseCriteria {
+public class BaseUseCriteria implements Serializable {
 
-	private Long idProject;
+	private static final long serialVersionUID = 1L;
 	private SearchEngine searchEngine;
 	private String dsBaseUseCriteria;
-	
+	private Project project;
+
 	@Id
-	@Column(name = "id_project", nullable = false, unique = true)
-	public Long getIdProject() {
-		return idProject;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_project", nullable = false)
+	public Project getProject() {
+		return project;
 	}
 
-	public void setIdProject(Long idProject) {
-		this.idProject = idProject;
+	public void setProject(Project project) {
+		this.project = project;
 	}
 
+	@Id
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_search_engine", nullable = false)
 	public SearchEngine getSearchEngine() {

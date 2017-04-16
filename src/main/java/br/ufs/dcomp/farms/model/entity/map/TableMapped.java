@@ -12,11 +12,11 @@ public class TableMapped {
 	private boolean tableExists = false;
 	private List<String> nmColumnMappedList = new ArrayList<String>();
 	private List<ColumnMapped> columnMappedList = new ArrayList<ColumnMapped>();
-	
+
 	public TableMapped() {
 		super();
 	}
-	
+
 	public TableMapped(Table table, SequenceMapped mappedSequence, List<ColumnMapped> mappedColumnList) {
 		super();
 		this.nmTable = table.name();
@@ -27,15 +27,15 @@ public class TableMapped {
 	public String getNmTable() {
 		return nmTable;
 	}
-	
+
 	public void setNmTable(String nmTable) {
 		this.nmTable = nmTable;
 	}
-	
+
 	public SequenceMapped getMappedSequence() {
 		return mappedSequence;
 	}
-	
+
 	public void setMappedSequence(SequenceMapped mappedSequence) {
 		this.mappedSequence = mappedSequence;
 	}
@@ -55,11 +55,11 @@ public class TableMapped {
 	public void setNmMappedColumnList(List<String> nmMappedColumnList) {
 		this.nmColumnMappedList = nmMappedColumnList;
 	}
-	
+
 	public List<ColumnMapped> getMappedColumnList() {
 		return columnMappedList;
 	}
-	
+
 	public void setMappedColumnList(List<ColumnMapped> mappedColumnList) {
 		this.columnMappedList = mappedColumnList;
 	}

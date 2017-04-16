@@ -17,15 +17,27 @@ public class Language {
 
 	private Long idLanguage;
 	private String nmLanguage;
-	
-	public Language() {}
-	
+
+	public Language() {
+	}
+
 	public Language(String nmLanguage) {
 		this.nmLanguage = nmLanguage;
 	}
 
+	public Language(Language language) {
+		this.idLanguage = language.getIdLanguage();
+		this.nmLanguage = language.getNmLanguage();
+	}
+
+	public Language(Long idLanguage, String nmLanguage) {
+		super();
+		this.idLanguage = idLanguage;
+		this.nmLanguage = nmLanguage;
+	}
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "LanguageSequenceGenerator")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "LanguageSequenceGenerator")
 	@Column(name = "id_language", nullable = false, unique = true)
 	public Long getIdLanguage() {
 		return idLanguage;
@@ -43,4 +55,5 @@ public class Language {
 	public void setNmLanguage(String nmLanguage) {
 		this.nmLanguage = nmLanguage;
 	}
+
 }

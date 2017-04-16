@@ -25,12 +25,20 @@ public class StudyCreatedDto {
 	private VenueEnum tpVenue;
 	private ReadingRateEnum tpReadingRate;
 	private StudyStatusEnum tpStatus;
-	
+
 	private String dsKeyProject;
-	private Long nrSearch;
-	
-	public StudyCreatedDto() {}
-	
+	private Long idSearch;
+	private Integer tpSearch; //from search
+
+	private Long idStudy;
+
+	private Long accepted;
+	private Long rejected;
+	private Long unclassified;
+
+	public StudyCreatedDto() {
+	}
+
 	public StudyCreatedDto(Study study) {
 		super();
 		this.cdCiteKey = study.getCdCiteKey();
@@ -51,13 +59,42 @@ public class StudyCreatedDto {
 		this.tpReadingRate = study.getTpReadingRate();
 		this.tpStatus = study.getTpStatus();
 		this.dsKeyProject = study.getProject().getDsKey();
-		this.nrSearch = study.getSearch().getNrSearch();
+		this.idSearch = study.getSearch().getIdSearch();
+		this.idStudy = study.getIdStudy();
+		this.tpSearch =study.getSearch().getTpSearch().getCode();
 	}
-	
-	public StudyCreatedDto(String cdCiteKey, String dsTitle, String nmAuthor, String dsAbstract, String dsKeyword, Integer nrYear,
-			String dsVolume, String dsUrl, String cdIssnIsbn, String cdDoi, String dsType, String dsPage,
-			String dsComment, String dsJournal, VenueEnum tpVenue, ReadingRateEnum tpReadingRate,
-			StudyStatusEnum tpStatus, Search search) {
+
+	public StudyCreatedDto(Study study, Long accepted, Long rejected, Long unclassified) {
+		super();
+		this.cdCiteKey = study.getCdCiteKey();
+		this.dsTitle = study.getDsTitle();
+		this.nmAuthor = study.getNmAuthor();
+		this.dsAbstract = study.getDsAbstract();
+		this.dsKeyword = study.getDsKeyword();
+		this.nrYear = study.getNrYear();
+		this.dsVolume = study.getDsVolume();
+		this.dsUrl = study.getDsUrl();
+		this.cdIssnIsbn = study.getCdIssnIsbn();
+		this.cdDoi = study.getCdDoi();
+		this.dsType = study.getDsType();
+		this.dsPage = study.getDsPage();
+		this.dsComment = study.getDsComment();
+		this.dsJournal = study.getDsJournal();
+		this.tpVenue = study.getTpVenue();
+		this.tpReadingRate = study.getTpReadingRate();
+		this.tpStatus = study.getTpStatus();
+		this.dsKeyProject = study.getProject().getDsKey();
+		this.idSearch = study.getSearch().getIdSearch();
+		this.idStudy = study.getIdStudy();
+		this.accepted = accepted;
+		this.rejected = rejected;
+		this.unclassified = unclassified;
+	}
+
+	public StudyCreatedDto(String cdCiteKey, String dsTitle, String nmAuthor, String dsAbstract, String dsKeyword,
+			Integer nrYear, String dsVolume, String dsUrl, String cdIssnIsbn, String cdDoi, String dsType,
+			String dsPage, String dsComment, String dsJournal, VenueEnum tpVenue, ReadingRateEnum tpReadingRate,
+			StudyStatusEnum tpStatus, Search search, Long idStudy) {
 		super();
 		this.cdCiteKey = cdCiteKey;
 		this.dsTitle = dsTitle;
@@ -76,7 +113,7 @@ public class StudyCreatedDto {
 		this.tpVenue = tpVenue;
 		this.tpReadingRate = tpReadingRate;
 		this.tpStatus = tpStatus;
-//		this.search = search;
+		this.idStudy = idStudy;
 	}
 
 	public String getCdCiteKey() {
@@ -223,11 +260,54 @@ public class StudyCreatedDto {
 		this.dsKeyProject = dsKeyProject;
 	}
 
-	public Long getNrSearch() {
-		return nrSearch;
+	public Long getIdSearch() {
+		return idSearch;
 	}
 
-	public void setNrSearch(Long nrSearch) {
-		this.nrSearch = nrSearch;
+	public void setIdSearch(Long idSearch) {
+		this.idSearch = idSearch;
 	}
+
+	public Long getIdStudy() {
+		return idStudy;
+	}
+
+	public void setIdStudy(Long idStudy) {
+		this.idStudy = idStudy;
+	}
+
+	public Long getAccepted() {
+		return accepted;
+	}
+
+	public void setAccepted(Long accepted) {
+		this.accepted = accepted;
+	}
+
+	public Long getRejected() {
+		return rejected;
+	}
+
+	public void setRejected(Long rejected) {
+		this.rejected = rejected;
+	}
+
+	public Long getUnclassified() {
+		return unclassified;
+	}
+
+	public void setUnclassified(Long unclassified) {
+		this.unclassified = unclassified;
+	}
+
+	public Integer getTpSearch() {
+		return tpSearch;
+	}
+
+	public void setTpSearch(Integer tpSearch) {
+		this.tpSearch = tpSearch;
+	}
+	
+	
+
 }

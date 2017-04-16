@@ -8,14 +8,14 @@ public abstract class Message {
 	private Integer code;
 	private String description;
 	private Object data;
-	
+
 	public Message(MessageEnum type, Integer code, String description) {
 		super();
 		this.type = type;
 		this.code = code;
 		this.description = description;
 	}
-	
+
 	public MessageEnum getType() {
 		return type;
 	}

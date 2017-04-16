@@ -1,5 +1,6 @@
 package br.ufs.dcomp.farms.model.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -18,18 +19,20 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "invitation")
 @XmlRootElement
 @SequenceGenerator(name = "InvitationSequenceGenerator", sequenceName = "sq_invitation")
-public class Invitation {
-
+public class Invitation implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	private Long idInvitation;
 	private Date dhInvitation;
 	private Date dhConfirmation;
 	private Project project;
 	private Researcher researcher;
-	
-	public Invitation() {}
+
+	public Invitation() {
+	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "InvitationSequenceGenerator")
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "InvitationSequenceGenerator")
 	@Column(name = "id_invitation", nullable = false, unique = true)
 	public Long getIdInvitation() {
 		return idInvitation;
